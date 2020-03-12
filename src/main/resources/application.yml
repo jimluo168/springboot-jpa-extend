@@ -39,7 +39,7 @@ spring:
 redis:
   host: localhost
   post: 36379
-  password: pwd123456
+  password: 123456
   timeout: 2000
   pool:
     max-idle: 8

@@ -46,11 +46,10 @@ public class Menu extends BaseEntity {
     private int type = TYPE_MENU;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private Menu parent;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "children_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
 
 }

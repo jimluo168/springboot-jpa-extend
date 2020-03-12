@@ -39,7 +39,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
-        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         String tz = TimeZone.getDefault().getID();
         String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
         if ("Etc/UTC".equals(tz) || "UTC".equals(tz) || "GMT".equals(tz) || "GMT-00:00".equals(tz) || "GMT+00:00".equals(tz)) {
@@ -58,6 +57,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             return o1;
         });
 
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         converter.setFastJsonConfig(config);
 
         List<MediaType> mediaTypes = new ArrayList<>();
@@ -81,8 +81,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(fastJsonHttpMessageConverter());
-        converters.add(stringHttpMessageConverter());
+        converters.add(0, stringHttpMessageConverter());
+        converters.add(0, fastJsonHttpMessageConverter());
     }
 
     @Override

@@ -33,6 +33,10 @@ public class Result<T> {
         this.msg = msg;
     }
 
+    public static <T> Result<T> ok() {
+        return new Result<T>(null);
+    }
+
     /**
      * 正常响应.
      *

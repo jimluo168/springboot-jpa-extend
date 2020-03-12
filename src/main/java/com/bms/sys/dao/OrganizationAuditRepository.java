@@ -1,7 +1,7 @@
 package com.bms.sys.dao;
 
 import com.bms.entity.Organization;
-import com.bms.entity.User;
+import com.bms.entity.OrganizationAudit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -14,6 +14,5 @@ import org.springframework.stereotype.Repository;
  * @date 2020/3/12
  */
 @Repository
-public interface OrganizationRepository extends PagingAndSortingRepository<Organization, Long> {
-    Page<Organization> findByNameLikeOrLevelOrderByCreateDateDesc(Pageable pageable, String name, int level);
+public interface OrganizationAuditRepository extends PagingAndSortingRepository<OrganizationAudit, Long> {
 }

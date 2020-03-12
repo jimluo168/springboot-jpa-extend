@@ -16,7 +16,7 @@
 
 |模块名称|英文|Java包命名|
 |---|---|---|
-|公公模块|common|com.bms.common|
+|公共模块|common|com.bms.common|
 |系统管理模块|sys|com.bms.sys|
 |公交行业管理系统|industry|com.bms.industry|
 |公交综合运行监测与应急响应系统|monitor|com.bms.monitor|
@@ -139,8 +139,6 @@
 
 @return:
   code:int:操作码
-  data:object:返回机构信息
-    id:long:机构ID
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -175,6 +173,26 @@
     remark:string:备注
     status:int:状态(1:待审核 2:通过审核 3:未通过审核)
     reason:string:理由
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交企业管理-删除
+
+```yaml
+@delete: /sys/organizations/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:机构ID
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:机构ID
   success:bool:是否成功
   msg:string:操作提示
 ```

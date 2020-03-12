@@ -1,6 +1,9 @@
 package com.bms.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,9 +11,8 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * 机构表(organizations)
@@ -26,7 +28,7 @@ import javax.persistence.Table;
 @Table(name = "organizations")
 public class Organization extends BaseEntity {
     /**
-     * 2=待审核.
+     * 1=待审核.
      */
     public static final int STATUS_TO_BE_AUDIT = 1;
     /**
@@ -45,7 +47,7 @@ public class Organization extends BaseEntity {
     /**
      * 级别.
      */
-    private String level;
+    private int level;
     /**
      * 省.
      */
@@ -98,4 +100,9 @@ public class Organization extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
+    @JSONField(name = "audit_list")
+    private List<OrganizationAudit> auditList;
+
 }

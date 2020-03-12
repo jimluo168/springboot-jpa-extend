@@ -1,6 +1,13 @@
 package com.bms.common.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
@@ -13,6 +20,7 @@ import java.util.Date;
  * @date 2020/3/9
  */
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity implements Serializable {
     /**
      * 0=正常.
@@ -36,21 +44,25 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 创建用户(create_user).
      */
+    @CreatedBy
     @Column(name = "create_user")
     private Long createUser;
     /**
      * 创建时间
      */
+    @CreatedDate
     @Column(name = "create_date")
-    private Date createDate = new Date();
+    private Date createDate;
     /**
      * 最后更新用户(last_upd_user).
      */
+    @LastModifiedBy
     @Column(name = "last_upd_user")
     private Long lastUpdUser;
     /**
      * 最后更新时间(last_upd_date).
      */
+    @LastModifiedDate
     @Column(name = "last_upd_date")
     private Date lastUpdDate;
 
