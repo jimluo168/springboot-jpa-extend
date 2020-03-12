@@ -28,7 +28,7 @@ public class OrganizationController {
 
     @PutMapping("/{id}")
     public Result<Organization> edit(@PathVariable Long id, @RequestBody Organization organization) {
-        organizationService.insert(organization);
+        organizationService.updateById(id, organization);
         return Result.ok(organization);
     }
 

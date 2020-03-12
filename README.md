@@ -12,6 +12,25 @@
 - IDEA: https://projectlombok.org/setup/intellij
 - Eclipse: https://projectlombok.org/setup/eclipse
 
+## 系统模块命名
+
+|模块名称|英文|Java包命名|
+|---|---|---|
+|公公模块|common|com.bms.common|
+|系统管理模块|sys	com.bms.sys|
+|公交行业管理系统|industry|com.bms.industry|
+|公交综合运行监测与应急响应系统|monitor|com.bms.monitor|
+|公交统计决策分析系统|statis|com.bms.statis|
+
+## 错误码规范
+
+|模块|错误码范围|
+|---|------|
+|common|1000-9999|
+|sys|10000-19999|
+|industry|20000-29999|
+|monitor|30000-39999|
+|statis|40000-49999|
 
 
 ## API接口

@@ -42,7 +42,7 @@ public class UserController {
         return ok(null);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public Result<Long> create(@RequestBody User body) {
         Long id = userService.insert(body);
         return ok(id);
