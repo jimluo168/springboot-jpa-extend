@@ -17,7 +17,7 @@
 |模块名称|英文|Java包命名|
 |---|---|---|
 |公公模块|common|com.bms.common|
-|系统管理模块|sys	com.bms.sys|
+|系统管理模块|sys|com.bms.sys|
 |公交行业管理系统|industry|com.bms.industry|
 |公交综合运行监测与应急响应系统|monitor|com.bms.monitor|
 |公交统计决策分析系统|statis|com.bms.statis|
