@@ -1,9 +1,12 @@
 package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +18,25 @@ import javax.persistence.Table;
  * @author luojimeng
  * @date 2020/3/12
  */
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "organizations")
 public class Organization extends BaseEntity {
+    /**
+     * 2=待审核.
+     */
+    public static final int STATUS_TO_BE_AUDIT = 1;
+    /**
+     * 2=通过审核.
+     */
+    public static final int STATUS_PASS_AUDIT = 2;
+    /**
+     * 3=未通过审核.
+     */
+    public static final int STATUS_UN_AUDIT = 3;
 
     /**
      * 组织名称.
@@ -29,7 +45,7 @@ public class Organization extends BaseEntity {
     /**
      * 级别.
      */
-    private int level;
+    private String level;
     /**
      * 省.
      */
@@ -59,7 +75,7 @@ public class Organization extends BaseEntity {
     /**
      * 运营路线.
      */
-    @Column(name = "operate_route")
+    @Column(name = "operate_route", length = 1000)
     private String operateRoute;
     /**
      * 负责人.
@@ -73,4 +89,13 @@ public class Organization extends BaseEntity {
      * 备注.
      */
     private String remark;
+    /**
+     * 状态(1:待审核 2:通过审核 3:未通过审核).
+     */
+    private int status = STATUS_TO_BE_AUDIT;
+    /**
+     * 理由.
+     */
+    @Column(length = 500)
+    private String reason;
 }

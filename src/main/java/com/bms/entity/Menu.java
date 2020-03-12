@@ -1,12 +1,13 @@
 package com.bms.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * 菜单.
@@ -43,5 +44,13 @@ public class Menu extends BaseEntity {
     private String path;
 
     private int type = TYPE_MENU;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Menu parent;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "children_id")
+    private List<Menu> children;
 
 }

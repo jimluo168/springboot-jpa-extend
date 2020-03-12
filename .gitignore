@@ -9,6 +9,12 @@ target/
 *.iml
 *.ipr
 
+### Eclipse ###
+.settings/
+.classpath
+.project
+.factorypath
+
 ### VS Code ###
 .vscode/
 

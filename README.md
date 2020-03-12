@@ -16,4 +16,218 @@
 
 ## API接口
 
+### 用户登录
 
+```yaml
+@post: /sys/users/login
+
+@header:
+  X-User-Agent:手机信息(必须)
+
+@payload:
+  account:string:账号
+  passwd:string:密码
+
+@return:
+  code:int:操作码
+    - 10000:密码错误
+    - 10001:账号不存在
+  success:bool:是否成功
+  msg:string:操作提示
+
+```
+
+### 公交企业管理-新增
+
+```yaml
+@post: /sys/organizations
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:名称
+  level:string:级别
+  province:string:省
+  city:string:市
+  county:string:区/县
+  address:string:详细地址
+  business_license:string:营业执照(url)
+  business_scope:string:经营范围
+  operate_route:string:运营路线
+  principal:string:负责人
+  contact:string:联系方式
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:机构ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交企业管理-编辑
+
+```yaml
+@put: /sys/organizations/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:机构ID
+
+@payload:
+  name:string:名称
+  level:string:级别
+  province:string:省
+  city:string:市
+  county:string:区/县
+  address:string:详细地址
+  business_license:string:营业执照(url)
+  business_scope:string:经营范围
+  operate_route:string:运营路线
+  principal:string:负责人
+  contact:string:联系方式
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:机构ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交企业管理-审核
+
+```yaml
+@post: /sys/organizations/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:机构ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:机构ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交企业管理-详情
+
+```yaml
+@get: /sys/organizations/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:机构ID
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:机构ID
+    name:string:名称
+    level:string:级别
+    province:string:省
+    city:string:市
+    county:string:区/县
+    address:string:详细地址
+    business_license:string:营业执照(url)
+    business_scope:string:经营范围
+    operate_route:string:运营路线
+    principal:string:负责人
+    contact:string:联系方式
+    remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+    reason:string:理由
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 菜单管理-新增
+
+```yaml
+@post: /sys/menus
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:菜单名称
+  icon:string:图标
+  path:string:路径
+  parent:object:父菜单信息
+    id:long:菜单ID
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:菜单ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 菜单管理-编辑
+
+```yaml
+@put: /sys/menus/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:菜单ID
+
+@payload:
+  name:string:菜单名称
+  icon:string:图标
+  path:string:路径
+  parent:object:父菜单信息
+    id:long:菜单ID
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:菜单ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 菜单管理-删除
+
+```yaml
+@delete: /sys/menus/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:菜单ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:菜单ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
