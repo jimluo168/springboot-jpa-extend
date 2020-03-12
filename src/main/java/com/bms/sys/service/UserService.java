@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2020/3/9
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = RuntimeException.class)
 @RequiredArgsConstructor
 public class UserService {
 

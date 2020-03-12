@@ -1,0 +1,15 @@
+package com.bms.sys.dao;
+
+import com.bms.entity.Menu;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Menu DAO.
+ *
+ * @author luojimeng
+ * @date 2020/3/12
+ */
+@Repository
+public interface MenuRepository extends PagingAndSortingRepository<Menu, Long> {
+}

@@ -30,18 +30,6 @@ public class UserController {
 
     private final UserService userService;
 
-    private final ISessionManager sessionManager;
-
-    @PostMapping("/login")
-    public Result<Void> login(@RequestBody User user, HttpServletResponse response) {
-        SessionInfo info = userService.loginValidate(user.getAccount(), user.getPasswd());
-        // 成功登录了 保存session会话到缓存
-        ISession session = sessionManager.createSession();
-        session.setAttribute(SessionInfo.CACHE_SESSION_KEY, info);
-        response.addHeader(AuthenticationInterceptor.HTTP_HEAD_AUTH, session.getSessionId());
-        return ok(null);
-    }
-
     @PostMapping("")
     public Result<Long> create(@RequestBody User body) {
         Long id = userService.insert(body);

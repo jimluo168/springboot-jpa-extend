@@ -42,7 +42,9 @@ public class Menu extends BaseEntity {
      * 路径.
      */
     private String path;
-
+    /**
+     * 类型(1=菜单 2=按钮).
+     */
     private int type = TYPE_MENU;
 
     @ManyToOne

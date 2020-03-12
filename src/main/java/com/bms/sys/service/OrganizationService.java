@@ -23,7 +23,7 @@ import java.util.Optional;
  * @date 2020/3/12
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = RuntimeException.class)
 @RequiredArgsConstructor
 public class OrganizationService {
 

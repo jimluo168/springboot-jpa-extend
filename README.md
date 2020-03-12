@@ -38,7 +38,7 @@
 ### 用户登录
 
 ```yaml
-@post: /sys/users/login
+@post: /sys/login
 
 @header:
   X-User-Agent:手机信息(必须)
