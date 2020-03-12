@@ -56,6 +56,54 @@
 
 ```
 
+
+### 公交企业管理-列表
+
+```yaml
+@get: /sys/organizations/list?page=:page&size=:size&name=:name&level=:level
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:机构名称
+  level:int:机构级别
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:机构列表信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+      reason:string:理由
+      audit_list:array<object>:审核记录
+        id:long:审核ID
+        reason:string:原因
+        create_date:date:创建时间
+        create_user:long:创建用户
+        last_upd_date:date:最后修改时间
+        last_upd_user:long:最后修改人
+
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
 ### 公交企业管理-新增
 
 ```yaml

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.bms.common.dao.DaoCmd">
+    <organization_page>
+        <![CDATA[
+            from Organization o
+            where 1=1
+            <#if name?? && name!=''>
+                and o.name like :name
+            </#if>
+            <#if level!=0>
+                and o.level = :level
+            </#if>
+            and o.deleted=:deleted order by o.createDate desc
+        ]]>
+    </organization_page>
+</mapper>

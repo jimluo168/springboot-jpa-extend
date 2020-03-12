@@ -1,5 +1,6 @@
 package com.bms.common.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -44,24 +45,28 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 创建用户(create_user).
      */
+    @JSONField(name = "create_user")
     @CreatedBy
     @Column(name = "create_user")
     private Long createUser;
     /**
      * 创建时间
      */
+    @JSONField(name = "create_date")
     @CreatedDate
     @Column(name = "create_date")
     private Date createDate;
     /**
      * 最后更新用户(last_upd_user).
      */
+    @JSONField(name = "last_upd_user")
     @LastModifiedBy
     @Column(name = "last_upd_user")
     private Long lastUpdUser;
     /**
      * 最后更新时间(last_upd_date).
      */
+    @JSONField(name = "last_upd_date")
     @LastModifiedDate
     @Column(name = "last_upd_date")
     private Date lastUpdDate;

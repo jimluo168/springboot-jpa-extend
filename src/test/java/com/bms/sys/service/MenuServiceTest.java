@@ -1,5 +1,7 @@
 package com.bms.sys.service;
 
+import com.bms.common.config.flake.FlakeId;
+import com.bms.entity.Menu;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,8 +24,14 @@ class MenuServiceTest {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private FlakeId flakeId;
+
     @Test
     void insert() {
-
+        Menu menu = new Menu();
+        menu.setName("公交行业管理系统");
+        menu.setPath("/industry");
+        menuService.insert(menu);
     }
 }

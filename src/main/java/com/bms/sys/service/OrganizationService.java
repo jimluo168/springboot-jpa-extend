@@ -1,20 +1,33 @@
 package com.bms.sys.service;
 
 import com.bms.common.config.flake.FlakeId;
+import com.bms.common.dao.DaoCmd;
+import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
+import com.bms.common.domain.PageRequest;
 import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.Organization;
 import com.bms.entity.OrganizationAudit;
+import com.bms.sys.Constant;
 import com.bms.sys.dao.OrganizationAuditRepository;
 import com.bms.sys.dao.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
+import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
  * 机构组织Service.
@@ -30,6 +43,7 @@ public class OrganizationService {
     private final OrganizationRepository organizationRepository;
     private final FlakeId flakeId;
     private final OrganizationAuditRepository organizationAuditRepository;
+    private final HibernateDao hibernateDao;
 
     public Organization insert(Organization organization) {
         organization.setId(flakeId.next());
@@ -48,9 +62,17 @@ public class OrganizationService {
         }
     }
 
-    public PageList<Organization> page(Pageable pageable, String name, int level) {
-        Page<Organization> page = organizationRepository.findByNameLikeOrLevelOrderByCreateDateDesc(pageable, name, level);
-        return new PageList<>(page.getTotalElements(), page.getContent());
+    public PageList<Organization> page(PageRequest pageRequest, String name, int level) {
+        Map<String, Object> params = new HashMap<>();
+        String likeName = name;
+        if (StringUtils.isNotBlank(likeName)) {
+            likeName = likeName + "%";
+        }
+        params.put("name", likeName);
+        params.put("level", level);
+        params.put("deleted", DELETE_FALSE);
+
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, params));
     }
 
     public Organization findById(Long id) {
@@ -63,7 +85,7 @@ public class OrganizationService {
 
     public Organization deleteById(Long id) {
         Organization organization = this.findById(id);
-        organizationRepository.delete(organization);
+        organization.setDeleted(DELETE_TRUE);
         return organization;
     }
 

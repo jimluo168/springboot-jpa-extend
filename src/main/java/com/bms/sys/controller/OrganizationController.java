@@ -2,6 +2,7 @@ package com.bms.sys.controller;
 
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.domain.PageList;
+import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.entity.Organization;
 import com.bms.entity.User;
@@ -38,10 +39,10 @@ public class OrganizationController {
     }
 
     @GetMapping("/list")
-    public Result<PageList<Organization>> list(Pageable pageable,
-                                               String name,
+    public Result<PageList<Organization>> list(PageRequest pageRequest,
+                                               @RequestParam(defaultValue = "") String name,
                                                @RequestParam(defaultValue = "0") int level) {
-        return ok(organizationService.page(pageable, name, level));
+        return ok(organizationService.page(pageRequest, name, level));
     }
 
     @GetMapping("/{id}")

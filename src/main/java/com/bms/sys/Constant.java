@@ -7,5 +7,9 @@ package com.bms.sys;
  * @date 2020/3/9
  */
 public interface Constant {
+    /**
+     * 组织机构分页查询.
+     */
+    String MAPPER_ORGANIZATION_PAGE = "organization_page";
 
 }

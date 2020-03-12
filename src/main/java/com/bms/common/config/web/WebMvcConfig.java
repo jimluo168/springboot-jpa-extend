@@ -4,7 +4,6 @@ import com.alibaba.fastjson.serializer.ContextValueFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.bms.common.config.redis.RedisClient;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.web.interceptor.AccessFilter;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;

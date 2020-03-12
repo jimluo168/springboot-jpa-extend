@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
+//@Transactional
 class OrganizationControllerTest {
 
     @Autowired
@@ -74,7 +74,16 @@ class OrganizationControllerTest {
     }
 
     @Test
-    void list() {
+    void list() throws Exception {
+        mvc.perform(get("/sys/organizations/list")
+                .param("page", "0")
+                .param("size", "20")
+                .param("name", "贵阳公交集团")
+                .param("level", ""))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.count").exists())
+                .andDo(print())
+                .andReturn();
     }
 
     @Test
@@ -90,12 +99,9 @@ class OrganizationControllerTest {
     @Test
     void deleteById() throws Exception {
         Long id = 433870687619387392L;
-        Organization organization = new Organization();
-        organization.setReason("运营执照合法 通过");
         mvc.perform(delete("/sys/organizations/" + id)
-                .content(JSON.toJSONString(organization))
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                .contentType(MediaType.APPLICATION_JSON))
+
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
@@ -104,10 +110,7 @@ class OrganizationControllerTest {
     @Test
     void deleteById4DataNotExist() throws Exception {
         Long id = 123L;
-        Organization organization = new Organization();
-        organization.setReason("运营执照合法 通过");
         mvc.perform(delete("/sys/organizations/" + id)
-                .content(JSON.toJSONString(organization))
                 .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
@@ -124,8 +127,7 @@ class OrganizationControllerTest {
         organization.setReason("运营执照合法 通过");
         mvc.perform(post("/sys/organizations/" + id + "/status/" + Organization.STATUS_PASS_AUDIT)
                 .content(JSON.toJSONString(organization))
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
