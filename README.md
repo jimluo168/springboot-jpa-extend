@@ -40,6 +40,11 @@
 
 `header的Content-Type必须为multipart/form-data`
 
+```
+/images  图片
+/docs    文档
+```
+
 ```yaml
 @post: /:path
 

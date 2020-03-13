@@ -8,15 +8,13 @@ import com.bms.entity.Role;
 import com.bms.entity.User;
 import com.bms.sys.dao.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 
@@ -75,7 +73,48 @@ public class MenuService {
         if (role == null) {
             return Collections.emptyList();
         }
-        return buildMenu(role.getMenuList());
+        return buildTree(role.getMenuList());
+    }
+
+
+    private List<Menu> buildTree(List<Menu> list) {
+        Map<Long, Menu> root = new LinkedHashMap<>();
+
+        Map<Long, List<Menu>> subFuc = new LinkedHashMap<>();
+
+        List<Menu> rootFunc = new ArrayList<>();
+
+        for (Menu funcDTO : list) {
+            if (funcDTO.getParent()==null) {
+                root.put(funcDTO.getId(), funcDTO);
+            } else {
+                Menu parentDTO = root.get(funcDTO.getParent().getId());
+                if (parentDTO != null) {
+                    parentDTO.getChildren().add(funcDTO);
+                } else {
+                    List<Menu> subFuncList = subFuc.get(funcDTO.getParent().getId());
+                    if (subFuncList == null) {
+                        subFuncList = new ArrayList<>();
+                        subFuc.put(funcDTO.getParent().getId(), subFuncList);
+                    }
+                    subFuncList.add(funcDTO);
+                }
+            }
+        }
+
+        for (Map.Entry<Long, List<Menu>> entry : subFuc.entrySet()) {
+            Long parentId = entry.getKey();
+            Menu parent = root.get(parentId);
+            if (parent != null) {
+                parent.getChildren().addAll(entry.getValue());
+            }
+        }
+
+        for (Map.Entry<Long, Menu> entry : root.entrySet()) {
+            rootFunc.add(entry.getValue());
+        }
+
+        return rootFunc;
     }
 
     public List<Menu> findAll() {

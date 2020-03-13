@@ -57,7 +57,7 @@ public class OSSController {
 
         Path dest = Paths.get(path.toString(), md5 + suffix);
         FileInfo info = new FileInfo();
-        info.setFilename(dest.subpath(ossProperties.getRepo().length(), dest.toString().length()).toString());
+        info.setFilename(dest.toString().replace(ossProperties.getRepo(), ""));
         info.setOriginalname(file.getOriginalFilename());
         info.setMd5(md5);
         info.setSha1(sha1);
