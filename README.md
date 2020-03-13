@@ -411,7 +411,7 @@
 ```
 
 
-### 角色-删除
+### 角色管理-删除
 
 ```yaml
 @delete: /sys/roles/:id
@@ -427,6 +427,210 @@
   code:int:操作码
   data:object:返回信息
     id:long:角色ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 用户管理-列表
+
+```yaml
+@get: /sys/users/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  keyword:string:关键字
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:机构列表信息
+      id:long:用户ID
+      account:string:账户
+      organization:object:机构信息
+      real_name:string:用户名
+      remark:string:备注
+      role:object:角色信息
+      status:int:用户状态
+        - 0:禁用
+        - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-列表
+
+```yaml
+@get: /sys/users/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  keyword:string:关键字
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:机构列表信息
+      id:long:用户ID
+      account:string:账户
+      organization:object:机构信息
+      real_name:string:用户名
+      remark:string:备注
+      role:object:角色信息
+      status:int:用户状态
+        - 0:禁用
+        - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-详情
+
+```yaml
+@get: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-新增
+
+```yaml
+@post: /sys/users
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  account:string:账户
+  passwd:string:密码
+  organization:object:机构信息
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+  status:int:用户状态
+    - 0:禁用
+    - 1:启用
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-修改
+
+```yaml
+@put: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@payload:
+  account:string:账户
+  organization:object:机构信息
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 角色管理-修改状态
+
+```yaml
+@put: /sys/roles/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+  status:int:用户状态
+    - 0:禁用
+    - 1:启用
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 用户管理-删除
+
+```yaml
+@delete: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
   success:bool:是否成功
   msg:string:操作提示
 ```
