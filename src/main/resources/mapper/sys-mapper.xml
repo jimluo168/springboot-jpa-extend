@@ -36,7 +36,7 @@
         ]]>
     </user_page>
 
-    <menu_findPermissionCodeByUserId type="sql">
+    <menu_findPermissionCodeByUserId type="sql" desc="查找用户拥有的权限编码">
         <![CDATA[
             SELECT distinct permission_code FROM menus m
             inner join role_menus rm on rm.menu_id  = m.id
