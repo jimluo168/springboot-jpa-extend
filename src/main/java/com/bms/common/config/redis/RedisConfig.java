@@ -79,7 +79,7 @@ public class RedisConfig {
         config.setMaxTotal(props.getMaxActive());
         config.setMaxIdle(props.getMaxIdle());
         config.setMinIdle(props.getMinIdle());
-        config.setMaxWaitMillis((long) props.getMaxWait());
+        config.setMaxWaitMillis(props.getMaxWait());
         return config;
     }
 

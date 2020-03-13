@@ -23,7 +23,7 @@ public class User extends BaseEntity {
     /**
      * 账号
      */
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String account;
     /**
      * 密码

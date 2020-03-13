@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author luojimeng
  * @date 2020/3/9
@@ -46,7 +48,10 @@ public class UserService {
 
     public long insert(User user) {
         user.setId(flakeId.next());
-        userRepository.save(user);
+        user.setSalt(Long.toString(System.currentTimeMillis()));
+        User presentUser = userRepository.save(user);
+        String encryptPasswd = StringsUtils.sha256Hex(user.getPasswd(), user.getSalt(), Long.toString(presentUser.getCreateDate().getTime()));
+        presentUser.setPasswd(encryptPasswd);
         return user.getId();
     }
 
