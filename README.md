@@ -486,6 +486,7 @@
   success:bool:是否成功
   msg:string:操作提示
 ```
+
 ### 用户管理-列表
 
 ```yaml
@@ -641,10 +642,10 @@
   msg:string:操作提示
 ```
 
-### 角色管理-修改状态
+### 用户管理-修改状态
 
 ```yaml
-@put: /sys/roles/:id/status/:status
+@put: /sys/users/:id/status/:status
 
 @header:
   X-User-Agent:手机信息(必须)
