@@ -19,6 +19,10 @@ public class ExceptionFactory {
      * 1002=Session无效或过期.
      */
     public static final int SESSION_INVALID_ERR = 1002;
+    /**
+     * 文件为空.
+     */
+    public static final int OSS_FILE_EMPTY = 1003;
 
 
 

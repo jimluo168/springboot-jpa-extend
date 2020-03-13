@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
  * Created by zouyongcan on 2020/3/13
@@ -60,7 +61,7 @@ public class RoleService {
 
     public Role deleteById(Long id) {
         Role role = this.findById(id);
-        roleRepository.deleteById(id);
+        role.setDeleted(DELETE_TRUE);
         return role;
     }
 

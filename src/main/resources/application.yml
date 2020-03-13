@@ -35,6 +35,10 @@ spring:
       pageable:
         default-page-size: 20
         max-page-size: 500
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 
 redis:
   database: 0
@@ -63,4 +67,10 @@ flake:
   worker: 1
 
 session:
+  # 有效期 30天
   expiry-time: 2592000
+
+oss:
+  # 存储仓库 目录
+  repo: /Users/jim/Desktop/bms-repo
+

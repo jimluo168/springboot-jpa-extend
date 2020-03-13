@@ -33,7 +33,80 @@
 |statis|40000-49999|
 
 
+
 ## API接口
+
+### OSS文件-上传
+
+`header的Content-Type必须为multipart/form-data`
+
+```yaml
+@post: /:path
+
+@header:
+	Authorization:登录令牌(必须)	
+	Content-Type:multipart/form-data
+
+@params:
+  path:string:上传文件时所使用的文件目录 参考[常用目录规则]
+
+@payload:
+  name:string:文件名
+  file:file:上传的文件
+
+@return:
+  code:int:操作状态
+    - 200:操作成功
+    - 500:未知错误
+    - 1003:文件内容无效
+  data:object:返回存储文件的信息
+    mimetype:string:文件类型
+    filename:string:上传到OSS的文件路径
+    originalname:string:原始文件名
+    size:long:文件大小
+    sha1:string:文件的SHA
+    md5:string:文件的MD5
+  success:bool:是否成功
+  msg:string:操作提示
+
+```
+
+### OSS文件-下载
+
+```yaml
+@get: /:path
+
+@header:
+	Authorization:登录令牌(必须)	
+
+@params:
+  path:string:post提交时的filename
+
+@return:
+    - 200:对应的文件流
+    - 404:文件不存在壮体啊
+```
+
+### OSS文件-删除
+
+```yaml
+@delete: /:path
+
+@header:
+	Authorization:登录令牌(必须)	
+
+@params:
+  path:string:post提交时的filename
+
+@return:
+  code:int:操作状态
+      - 200:操作成功
+      - 500:未知错误
+      - 404:文件不存在
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
 
 ### 用户登录
 
@@ -394,7 +467,7 @@
 ```
 
 
-### 角色-删除
+### 角色管理-删除
 
 ```yaml
 @delete: /sys/roles/:id
@@ -410,6 +483,210 @@
   code:int:操作码
   data:object:返回信息
     id:long:角色ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 用户管理-列表
+
+```yaml
+@get: /sys/users/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  keyword:string:关键字
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:机构列表信息
+      id:long:用户ID
+      account:string:账户
+      organization:object:机构信息
+      real_name:string:用户名
+      remark:string:备注
+      role:object:角色信息
+      status:int:用户状态
+        - 0:禁用
+        - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-列表
+
+```yaml
+@get: /sys/users/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  keyword:string:关键字
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:机构列表信息
+      id:long:用户ID
+      account:string:账户
+      organization:object:机构信息
+      real_name:string:用户名
+      remark:string:备注
+      role:object:角色信息
+      status:int:用户状态
+        - 0:禁用
+        - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-详情
+
+```yaml
+@get: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-新增
+
+```yaml
+@post: /sys/users
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  account:string:账户
+  passwd:string:密码
+  organization:object:机构信息
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+  status:int:用户状态
+    - 0:禁用
+    - 1:启用
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-修改
+
+```yaml
+@put: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@payload:
+  account:string:账户
+  organization:object:机构信息
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 角色管理-修改状态
+
+```yaml
+@put: /sys/roles/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+  status:int:用户状态
+    - 0:禁用
+    - 1:启用
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 用户管理-删除
+
+```yaml
+@delete: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
   success:bool:是否成功
   msg:string:操作提示
 ```

@@ -24,4 +24,15 @@
             order by r.createDate desc
         ]]>
     </role_page>
+
+    <user_page>
+        <![CDATA[
+            from User u
+            where 1=1
+            <#if keyword?? && keyword!=''>
+                and (u.account like :keyword or u.realName like :keyword)
+            </#if>
+            order by u.createDate desc
+        ]]>
+    </user_page>
 </mapper>

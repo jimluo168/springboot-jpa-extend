@@ -2,22 +2,29 @@ package com.bms.sys.service;
 
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.config.session.SessionInfo;
+import com.bms.common.dao.DaoCmd;
+import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
+import com.bms.common.domain.PageRequest;
 import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.exception.ServiceException;
+import com.bms.common.util.JpaUtils;
 import com.bms.common.util.StringsUtils;
 import com.bms.entity.User;
+import com.bms.sys.Constant;
 import com.bms.sys.ErrorCode;
 import com.bms.sys.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+
+import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
+
 
 /**
  * @author luojimeng
@@ -30,6 +37,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final FlakeId flakeId;
+    private final HibernateDao hibernateDao;
 
     public SessionInfo loginValidate(String account, String passwd) {
         User user = userRepository.findByAccount(account);
@@ -54,19 +62,40 @@ public class UserService {
         User presentUser = userRepository.save(user);
         String encryptPasswd = StringsUtils.sha256Hex(user.getPasswd(), user.getSalt(), Long.toString(presentUser.getCreateDate().getTime()));
         presentUser.setPasswd(encryptPasswd);
-        return user.getId();
+        return presentUser.getId();
     }
 
-    public PageList<User> page(Pageable pageable, String keyword) {
-        Page<User> page = userRepository.findByAccountOrRealNameLike(pageable, keyword, keyword);
-        return new PageList<>(page.getTotalElements(), page.getContent());
-    }
-
-    public User findById(Long userId) {
-        Optional<User> optional = userRepository.findById(userId);
-        if (!optional.isPresent()) {
-            throw ExceptionFactory.dataNotExistException();
+    public PageList<User> page(PageRequest pageRequest, String keyword) {
+        Map<String, Object> params = new HashMap<>();
+        String likeName = keyword;
+        if (StringUtils.isNotBlank(likeName)) {
+            likeName = likeName + "%";
         }
-        return optional.get();
+        params.put("keyword", likeName);
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, params));
+    }
+
+    public User updateById(Long id, User updateBody) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            User value = user.get();
+            JpaUtils.copyNotNullProperties(updateBody, value);
+            return value;
+        }
+        throw ExceptionFactory.dataNotExistException();
+    }
+
+    public User deleteById(Long id) {
+        User user = this.findById(id);
+        user.setDeleted(DELETE_TRUE);
+        return user;
+    }
+
+    public User findById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        }
+        throw ExceptionFactory.dataNotExistException();
     }
 }
