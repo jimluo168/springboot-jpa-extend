@@ -2,12 +2,16 @@ package com.bms.sys.service;
 
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.config.session.SessionInfo;
+import com.bms.common.dao.DaoCmd;
+import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
+import com.bms.common.domain.PageRequest;
 import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.exception.ServiceException;
 import com.bms.common.util.JpaUtils;
 import com.bms.common.util.StringsUtils;
 import com.bms.entity.User;
+import com.bms.sys.Constant;
 import com.bms.sys.ErrorCode;
 import com.bms.sys.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +21,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
@@ -31,6 +37,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final FlakeId flakeId;
+    private final HibernateDao hibernateDao;
 
     public User findById(Long id){
         Optional<User> user = userRepository.findById(id);
@@ -66,9 +73,14 @@ public class UserService {
         return user.getId();
     }
 
-    public PageList<User> page(Pageable pageable, String keyword) {
-        Page<User> page = userRepository.findByAccountOrRealNameLike(pageable, keyword, keyword);
-        return new PageList<>(page.getTotalElements(), page.getContent());
+    public PageList<User> page(PageRequest pageRequest, String keyword) {
+        Map<String, Object> params = new HashMap<>();
+        String likeName = keyword;
+        if (StringUtils.isNotBlank(likeName)) {
+            likeName = likeName + "%";
+        }
+        params.put("keyword", likeName);
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, params));
     }
 
     public User updateById(Long id, User updateBody) {

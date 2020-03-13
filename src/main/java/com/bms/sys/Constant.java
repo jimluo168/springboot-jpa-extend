@@ -17,4 +17,10 @@ public interface Constant {
      */
     String MAPPER_ROLE_PAGE = "role_page";
 
+    /**
+     * 用户分页查询
+     */
+    String MAPPER_USER_PAGE = "user_page";
+
+
 }
