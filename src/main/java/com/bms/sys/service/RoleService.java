@@ -55,7 +55,7 @@ public class RoleService {
         if (role.isPresent()) {
             return role.get();
         }
-        throw ExceptionFactory.dataNotExist();
+        throw ExceptionFactory.dataNotExistException();
     }
 
     public Role deleteById(Long id) {
@@ -71,7 +71,7 @@ public class RoleService {
             JpaUtils.copyNotNullProperties(updateBody, value);
             return value;
         } else {
-            throw ExceptionFactory.dataNotExist();
+            throw ExceptionFactory.dataNotExistException();
         }
     }
 

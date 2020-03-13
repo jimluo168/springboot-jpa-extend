@@ -245,77 +245,58 @@
   msg:string:操作提示
 ```
 
-### 菜单管理-新增
+### 菜单管理-我的菜单
 
 ```yaml
-@post: /sys/menus
+@get: /sys/menus/my
 
 @header:
   X-User-Agent:手机信息(必须)
   Authorization:token令牌
 
-@payload:
-  name:string:菜单名称
-  icon:string:图标
-  path:string:路径
-  parent:object:父菜单信息
-    id:long:菜单ID
-  
+
 @return:
   code:int:操作码
-  data:object:返回信息
-    id:long:菜单ID
+  data:array<object>:菜单信息
+    name:string:名称
+    path:string:路径
+    icon:string:图标
+    index:int:顺序
+    children:array<object>:子菜单
+        name:string:名称
+        path:string:路径
+        parent:string:父菜单的path
+        index:int:顺序
   success:bool:是否成功
   msg:string:操作提示
 ```
 
-### 菜单管理-编辑
+### 菜单管理-全部菜单
 
 ```yaml
-@put: /sys/menus/:id
+@get: /sys/menus/all
 
 @header:
   X-User-Agent:手机信息(必须)
   Authorization:token令牌
 
-@params:
-  id:long:菜单ID
-
-@payload:
-  name:string:菜单名称
-  icon:string:图标
-  path:string:路径
-  parent:object:父菜单信息
-    id:long:菜单ID
-  
 @return:
   code:int:操作码
-  data:object:返回信息
-    id:long:菜单ID
+  data:array<object>:菜单信息
+    name:string:名称
+    path:string:路径
+    icon:string:图标
+    index:int:顺序
+    children:array<object>:子菜单
+        name:string:名称
+        path:string:路径
+        parent:string:父菜单的path
+        index:int:顺序
   success:bool:是否成功
   msg:string:操作提示
 ```
 
 
-### 菜单管理-删除
-
-```yaml
-@delete: /sys/menus/:id
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  id:long:菜单ID
-
-@return:
-  code:int:操作码
-  data:object:返回信息
-    id:long:菜单ID
-  success:bool:是否成功
-  msg:string:操作提示
-```
 ### 角色-列表
 
 ```yaml
@@ -338,6 +319,8 @@
       id:long:角色ID
       name:string:角色名称
       remark:string:描述
+      user_list:array<object>:用户信息
+        id:long:用户ID
   success:bool:是否成功
   msg:string:操作提示
 ```

@@ -5,7 +5,9 @@ import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
 import com.bms.common.domain.Result;
+import com.bms.entity.Organization;
 import com.bms.entity.User;
+import com.bms.sys.service.OrganizationService;
 import com.bms.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +31,6 @@ import static com.bms.common.domain.Result.ok;
 public class IndexController {
 
     private final UserService userService;
-
     private final ISessionManager sessionManager;
 
     @PostMapping("/login")
@@ -41,4 +42,5 @@ public class IndexController {
         response.addHeader(AuthenticationInterceptor.HTTP_HEAD_AUTH, session.getSessionId());
         return ok();
     }
+
 }

@@ -1,15 +1,20 @@
 package com.bms.sys.controller;
 
+import com.bms.common.config.session.SessionInfo;
 import com.bms.common.domain.Result;
+import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.entity.Menu;
 import com.bms.sys.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import static com.bms.common.config.session.SessionInfo.SESSION;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * TODO(类的简要说明)
+ * 菜单管理.
  *
  * @author luojimeng
  * @date 2020/3/12
@@ -53,9 +58,24 @@ public class MenuController {
      * @return
      */
     @PutMapping("/{id}")
-    public Result<Long> edit(@PathVariable Long id, @RequestBody Menu body) {
+    public Result<Menu> edit(@PathVariable Long id, @RequestBody Menu body) {
         Menu menu = menuService.updateById(id, body);
-        return Result.ok(menu.getId());
+        return Result.ok(menu);
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/my")
+    public Result<List<Menu>> mymenus() {
+        Long userId = SessionInfo.getCurrentUserId();
+        List<Menu> list = menuService.mymenus(userId);
+        return ok(list);
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/all")
+    public Result<List<Menu>> all() {
+        List<Menu> list = menuService.findAll();
+        return ok(list);
     }
 
 }

@@ -14,15 +14,10 @@ import com.bms.sys.dao.OrganizationAuditRepository;
 import com.bms.sys.dao.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -58,7 +53,7 @@ public class OrganizationService {
             JpaUtils.copyNotNullProperties(organization, value);
             return value;
         } else {
-            throw ExceptionFactory.dataNotExist();
+            throw ExceptionFactory.dataNotExistException();
         }
     }
 
@@ -80,7 +75,7 @@ public class OrganizationService {
         if (organization.isPresent()) {
             return organization.get();
         }
-        throw ExceptionFactory.dataNotExist();
+        throw ExceptionFactory.dataNotExistException();
     }
 
     public Organization deleteById(Long id) {

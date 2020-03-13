@@ -4,6 +4,8 @@ import com.bms.entity.Menu;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Menu DAO.
  *
@@ -12,4 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MenuRepository extends PagingAndSortingRepository<Menu, Long> {
+
+    List<Menu> findByDeletedAndParentIsNullOrderByIndexAsc(int deleted);
 }

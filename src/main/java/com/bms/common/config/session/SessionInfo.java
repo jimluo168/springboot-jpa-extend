@@ -1,6 +1,7 @@
 package com.bms.common.config.session;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.bms.common.exception.ExceptionFactory;
 
 import java.io.Serializable;
 
@@ -66,5 +67,17 @@ public class SessionInfo implements Serializable {
 
     public void setOrgId(Long orgId) {
         this.orgId = orgId;
+    }
+
+    public static Long getCurrentUserId() {
+        SessionInfo info = SESSION.get();
+        if (info == null) {
+            throw ExceptionFactory.sessionInvalidException();
+        }
+        return info.getId();
+    }
+
+    public static SessionInfo getCurrentSession() {
+        return SESSION.get();
     }
 }

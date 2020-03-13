@@ -3,6 +3,7 @@ package com.bms.sys.service;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.config.session.SessionInfo;
 import com.bms.common.domain.PageList;
+import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.exception.ServiceException;
 import com.bms.common.util.StringsUtils;
 import com.bms.entity.User;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * @author luojimeng
@@ -58,5 +60,13 @@ public class UserService {
     public PageList<User> page(Pageable pageable, String keyword) {
         Page<User> page = userRepository.findByAccountOrRealNameLike(pageable, keyword, keyword);
         return new PageList<>(page.getTotalElements(), page.getContent());
+    }
+
+    public User findById(Long userId) {
+        Optional<User> optional = userRepository.findById(userId);
+        if (!optional.isPresent()) {
+            throw ExceptionFactory.dataNotExistException();
+        }
+        return optional.get();
     }
 }

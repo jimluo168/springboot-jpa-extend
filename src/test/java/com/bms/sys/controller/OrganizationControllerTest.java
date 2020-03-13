@@ -1,7 +1,6 @@
 package com.bms.sys.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.bms.common.domain.Result;
 import com.bms.common.exception.ExceptionFactory;
 import com.bms.entity.Organization;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

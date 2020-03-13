@@ -46,6 +46,11 @@ public class Menu extends BaseEntity {
      * 类型(1=菜单 2=按钮).
      */
     private int type = TYPE_MENU;
+    /**
+     * 排序顺序.
+     */
+    @Column(name = "[index]")
+    private int index;
 
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
@@ -53,5 +58,8 @@ public class Menu extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
+
+    @ManyToMany(mappedBy = "menuList")
+    private List<Role> roleList;
 
 }
