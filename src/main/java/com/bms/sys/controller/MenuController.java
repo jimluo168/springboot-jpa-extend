@@ -2,8 +2,6 @@ package com.bms.sys.controller;
 
 import com.bms.common.domain.Result;
 import com.bms.entity.Menu;
-import com.bms.entity.Organization;
-import com.bms.entity.User;
 import com.bms.sys.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,7 @@ import static com.bms.common.domain.Result.ok;
  * @date 2020/3/12
  */
 @RestController
-@RequestMapping("/sys/menu")
+@RequestMapping("/sys/menus")
 @RequiredArgsConstructor
 public class MenuController {
 

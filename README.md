@@ -316,3 +316,117 @@
   success:bool:是否成功
   msg:string:操作提示
 ```
+### 角色-列表
+
+```yaml
+@get: /sys/roles/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:角色名
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:机构列表信息
+      id:long:角色ID
+      name:string:角色名称
+      remark:string:描述
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 角色-详情
+
+```yaml
+@get: /sys/roles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:角色ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:角色ID
+    name:string:角色名称
+    remark:string:描述
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 角色管理-新增
+
+```yaml
+@post: /sys/roles
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:角色名称
+  remark:string:描述
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:角色ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 角色管理-编辑
+
+```yaml
+@put: /sys/roles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:菜单ID
+
+@payload:
+  name:string:角色名称
+  remark:string:描述
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:角色ID
+    name:string:角色名称
+    remark:string:描述
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 角色-删除
+
+```yaml
+@delete: /sys/roles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:角色ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:角色ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
