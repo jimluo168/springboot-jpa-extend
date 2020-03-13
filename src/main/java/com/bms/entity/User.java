@@ -2,7 +2,6 @@ package com.bms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +36,7 @@ public class User extends BaseEntity {
     /**
      * 账号
      */
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String account;
     /**
      * 密码

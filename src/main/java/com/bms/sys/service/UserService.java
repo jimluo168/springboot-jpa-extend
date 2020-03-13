@@ -7,8 +7,6 @@ import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.exception.ServiceException;
 import com.bms.common.util.JpaUtils;
 import com.bms.common.util.StringsUtils;
-import com.bms.entity.Menu;
-import com.bms.entity.Organization;
 import com.bms.entity.User;
 import com.bms.sys.ErrorCode;
 import com.bms.sys.dao.UserRepository;
@@ -61,7 +59,10 @@ public class UserService {
 
     public long insert(User user) {
         user.setId(flakeId.next());
-        userRepository.save(user);
+        user.setSalt(Long.toString(System.currentTimeMillis()));
+        User presentUser = userRepository.save(user);
+        String encryptPasswd = StringsUtils.sha256Hex(user.getPasswd(), user.getSalt(), Long.toString(presentUser.getCreateDate().getTime()));
+        presentUser.setPasswd(encryptPasswd);
         return user.getId();
     }
 

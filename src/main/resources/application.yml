@@ -37,10 +37,11 @@ spring:
         max-page-size: 500
 
 redis:
+  database: 0
   host: localhost
-  post: 36379
+  port: 36379
   password: 123456
-  timeout: 2000
+  timeout: 0
   pool:
     max-idle: 8
     min-idle: 0
