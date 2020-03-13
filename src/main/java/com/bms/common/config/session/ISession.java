@@ -1,6 +1,7 @@
 package com.bms.common.config.session;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * 会话接口.
@@ -58,4 +59,11 @@ public interface ISession {
      */
     void setAttribute(String attrName, Serializable value, int expireSeconds) throws SessionException;
 
+    /**
+     * 获取会话中所有的属性名称.
+     *
+     * @return
+     * @throws SessionException
+     */
+    Set<String> getAllAttributeKeys() throws SessionException;
 }

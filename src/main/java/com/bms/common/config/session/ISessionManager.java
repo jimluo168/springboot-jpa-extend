@@ -13,10 +13,19 @@ public interface ISessionManager {
      *
      * @param sessionId 会话ID
      * @return null表示过期
+     * @throws SessionException
      */
     ISession getSession(String sessionId) throws SessionException;
 
     ISession createSession() throws SessionException;
+
+    /**
+     * 从缓存中移除当前会话.
+     *
+     * @param sessionId 会话ID
+     * @throws SessionException
+     */
+    void removeSession(String sessionId) throws SessionException;
 
     /**
      * 获取会话配置属性.

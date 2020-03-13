@@ -1,16 +1,18 @@
 package com.bms.sys.service;
 
 import com.bms.common.config.flake.FlakeId;
+import com.bms.common.dao.DaoCmd;
+import com.bms.common.dao.HibernateDao;
 import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.Menu;
 import com.bms.entity.Role;
 import com.bms.entity.User;
+import com.bms.sys.Constant;
 import com.bms.sys.dao.MenuRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +34,14 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final FlakeId flakeId;
     private final UserService userService;
+    private final HibernateDao hibernateDao;
 
     public Menu insert(Menu menu) {
         menu.setId(flakeId.next());
         return menuRepository.save(menu);
     }
 
+    @Transactional(readOnly = true)
     public Menu findById(Long id) {
         Optional<Menu> menu = menuRepository.findById(id);
         if (menu.isPresent()) {
@@ -63,63 +67,87 @@ public class MenuService {
         }
     }
 
-    public void delete(Long id) {
-        menuRepository.deleteById(id);
-    }
-
+    @Transactional(readOnly = true)
     public List<Menu> mymenus(Long userId) {
         User user = userService.findById(userId);
         Role role = user.getRole();
         if (role == null) {
             return Collections.emptyList();
         }
-        return buildTree(role.getMenuList());
+        return buildMyMenu(role.getMenuList());
     }
 
+    @Transactional(readOnly = true)
+    public List<Menu> findAll() {
+        List<Menu> list = menuRepository.findByDeletedAndParentIsNullOrderByIndexAsc(DELETE_FALSE);
+        return buildMenu(list);
+    }
 
-    private List<Menu> buildTree(List<Menu> list) {
-        Map<Long, Menu> root = new LinkedHashMap<>();
+    @Transactional(readOnly = true)
+    public Set<String> findPermissionCodeByUserId(Long userId) {
+        DaoCmd cmd = new DaoCmd(Constant.MAPPER_MENU_FIND_PERMISSION_CODE_BY_USERID);
+        cmd.getParams().put("userId", userId);
+        List<String> list = hibernateDao.getList(cmd);
+        return new HashSet<>(list);
+    }
 
-        Map<Long, List<Menu>> subFuc = new LinkedHashMap<>();
+    private List<Menu> buildMyMenu(List<Menu> list) {
+        Map<Long, Menu> parentMap = new LinkedHashMap<>();
 
-        List<Menu> rootFunc = new ArrayList<>();
+        Map<Long, List<Menu>> leafMap = new LinkedHashMap<>();
 
-        for (Menu funcDTO : list) {
-            if (funcDTO.getParent()==null) {
-                root.put(funcDTO.getId(), funcDTO);
+        List<Menu> rootList = new ArrayList<>();
+
+        for (Menu m : list) {
+            // 忽略按钮
+            if (m.getType() == Menu.TYPE_BTN) {
+                continue;
+            }
+            if (m.getParent() == null) {
+                parentMap.put(m.getId(), copyMenu(m));
             } else {
-                Menu parentDTO = root.get(funcDTO.getParent().getId());
-                if (parentDTO != null) {
-                    parentDTO.getChildren().add(funcDTO);
+                Menu parent = parentMap.get(m.getParent().getId());
+                if (parent != null) {
+                    parent.getChildren().add(copyMenu(m));
                 } else {
-                    List<Menu> subFuncList = subFuc.get(funcDTO.getParent().getId());
-                    if (subFuncList == null) {
-                        subFuncList = new ArrayList<>();
-                        subFuc.put(funcDTO.getParent().getId(), subFuncList);
+                    List<Menu> leaf = leafMap.get(m.getParent().getId());
+                    if (leaf == null) {
+                        leaf = new ArrayList<>();
+                        leafMap.put(m.getParent().getId(), leaf);
                     }
-                    subFuncList.add(funcDTO);
+                    leaf.add(copyMenu(m));
                 }
             }
         }
 
-        for (Map.Entry<Long, List<Menu>> entry : subFuc.entrySet()) {
+        // 叶子节点
+        for (Map.Entry<Long, List<Menu>> entry : leafMap.entrySet()) {
             Long parentId = entry.getKey();
-            Menu parent = root.get(parentId);
+            Menu parent = parentMap.get(parentId);
             if (parent != null) {
                 parent.getChildren().addAll(entry.getValue());
+                Collections.sort(parent.getChildren(), (m1, m2) -> {
+                    return m1.getIndex() - m2.getIndex();
+                });
             }
         }
-
-        for (Map.Entry<Long, Menu> entry : root.entrySet()) {
-            rootFunc.add(entry.getValue());
+        // 父节点
+        for (Map.Entry<Long, Menu> entry : parentMap.entrySet()) {
+            rootList.add(entry.getValue());
         }
 
-        return rootFunc;
+        Collections.sort(rootList, (m1, m2) -> {
+            return m1.getIndex() - m2.getIndex();
+        });
+
+        return rootList;
     }
 
-    public List<Menu> findAll() {
-        List<Menu> list = menuRepository.findByDeletedAndParentIsNullOrderByIndexAsc(DELETE_FALSE);
-        return buildMenu(list);
+    private Menu copyMenu(Menu source) {
+        Menu target = new Menu();
+        BeanUtils.copyProperties(source, target, "parent", "children", "roleList");
+        target.setChildren(new ArrayList<>());
+        return target;
     }
 
     private List<Menu> buildMenu(List<Menu> menus) {

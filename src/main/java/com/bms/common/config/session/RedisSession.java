@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Redis的回话管理.
@@ -67,6 +68,12 @@ public class RedisSession implements ISession {
     @Override
     public void setAttribute(String attrName, Serializable value, int expireSeconds) throws SessionException {
         redisSessionClient.set(buildAttrKey(attrName), value, expireSeconds);
+    }
+
+    @Override
+    public Set<String> getAllAttributeKeys() throws SessionException {
+        String pattern = buildAttrKey("*");
+        return redisSessionClient.keys(pattern);
     }
 
     protected static String buildSessionIdKey(String sessionId) {

@@ -5,8 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.validation.ConstraintViolationException;
 
 /**
  * 统一异常处理.
@@ -27,6 +31,14 @@ public class ErrorHandler {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(Result.failure(bex.getCode(), bex.getMessage()));
+        }
+
+        if (ex instanceof HttpRequestMethodNotSupportedException
+                || ex instanceof ConstraintViolationException
+                || ex instanceof MethodArgumentNotValidException) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Result.failure(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
         }
 
         return ResponseEntity

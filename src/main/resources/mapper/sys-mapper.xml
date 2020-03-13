@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapper namespace="com.bms.common.dao.DaoCmd">
-    <organization_page>
+    <organization_page type="hql">
         <![CDATA[
             from Organization o
             where 1=1
@@ -14,7 +14,7 @@
         ]]>
     </organization_page>
 
-    <role_page>
+    <role_page type="hql">
         <![CDATA[
             from Role r
             where 1=1
@@ -25,7 +25,7 @@
         ]]>
     </role_page>
 
-    <user_page>
+    <user_page type="hql">
         <![CDATA[
             from User u
             where 1=1
@@ -35,4 +35,14 @@
             order by u.createDate desc
         ]]>
     </user_page>
+
+    <menu_findPermissionCodeByUserId type="sql">
+        <![CDATA[
+            SELECT distinct permission_code FROM menus m
+            inner join role_menus rm on rm.menu_id  = m.id
+            inner join roles r on r.id = rm.role_id
+            inner join users u on r.id = u.role_id
+            where u.id = :userId and m.type =2
+        ]]>
+    </menu_findPermissionCodeByUserId>
 </mapper>

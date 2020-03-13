@@ -1,6 +1,7 @@
 package com.bms.common.dao;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,7 +23,7 @@ public class DaoCmd {
     private String orderString;
 
     public DaoCmd(String queryKey) {
-        this(queryKey, Collections.emptyMap());
+        this(queryKey, new HashMap<>());
     }
 
     public DaoCmd(String queryKey, Map<String, Object> params) {

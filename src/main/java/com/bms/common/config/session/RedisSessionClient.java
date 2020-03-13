@@ -5,6 +5,7 @@ import com.bms.common.config.redis.RedisClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * TODO(类的简要说明)
@@ -86,5 +87,9 @@ public class RedisSessionClient {
 
     public long ttl(String key) {
         return redisClient.ttl(key);
+    }
+
+    public Set<String> keys(String pattern) {
+        return redisClient.keys(pattern);
     }
 }

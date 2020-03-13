@@ -1,5 +1,8 @@
 package com.bms.common.config.session;
 
+import java.util.Optional;
+import java.util.Set;
+
 /**
  * Redis Session会话管理.
  *
@@ -38,6 +41,22 @@ public class RedisSessionManager implements ISessionManager {
         long timestamp = System.currentTimeMillis();
         redisSessionClient.set(key, timestamp, sessionProperties.getExpiryTime());
         return new RedisSession(sessionId, redisSessionClient);
+    }
+
+    @Override
+    public void removeSession(String sessionId) throws SessionException {
+        ISession session = getSession(sessionId);
+        if (session == null) {
+            return;
+        }
+        Set<String> keys = session.getAllAttributeKeys();
+        if (keys != null && !keys.isEmpty()) {
+            keys.forEach(k -> {
+                redisSessionClient.del(k);
+            });
+        }
+        String key = RedisSession.buildSessionIdKey(sessionId);
+        redisSessionClient.del(key);
     }
 
     @Override

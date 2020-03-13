@@ -65,6 +65,10 @@ public class HibernateDao {
         return (Session) entityManager.getDelegate();
     }
 
+    public <T> List<T> getList(DaoCmd cmd) {
+        return this.getList(cmd, null, null);
+    }
+
     public <T> List<T> getList(DaoCmd cmd, Integer startFrom, Integer maxResult) {
         Query query = createQuery(cmd);
 

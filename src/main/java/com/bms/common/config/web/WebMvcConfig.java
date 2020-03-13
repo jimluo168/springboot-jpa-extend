@@ -7,6 +7,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.web.interceptor.AccessFilter;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
+import com.bms.common.config.web.interceptor.PermissionInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -87,6 +88,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor(sessionManager));
+        registry.addInterceptor(new PermissionInterceptor(sessionManager));
     }
 
     @Bean

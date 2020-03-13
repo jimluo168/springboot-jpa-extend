@@ -51,6 +51,16 @@ public class Menu extends BaseEntity {
      */
     @Column(name = "[index]")
     private int index;
+    /**
+     * 权限编码.
+     */
+    @Column(name = "permission_code", length = 100)
+    @JSONField(name = "permission_code")
+    private String permissionCode;
+    /**
+     * 备注.
+     */
+    private String remark;
 
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)

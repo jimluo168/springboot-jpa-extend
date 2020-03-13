@@ -78,6 +78,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 return false;
             }
             SessionInfo info = session.getAttribute(SessionInfo.CACHE_SESSION_KEY, SessionInfo.class);
+            info.setSessionId(token);
             SessionInfo.SESSION.set(info);
         }
 

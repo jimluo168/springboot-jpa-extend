@@ -2,6 +2,7 @@ package com.bms.common.config.session;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.exception.ExceptionFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -18,6 +19,10 @@ public class SessionInfo implements Serializable {
      * 存放到缓存的key.
      */
     public static final String CACHE_SESSION_KEY = "session";
+    /**
+     * 权限的信息.
+     */
+    public static final String CACHE_PERMISSION_KEY = "permission";
 
     /**
      * 用户ID.
@@ -36,6 +41,9 @@ public class SessionInfo implements Serializable {
      */
     @JSONField(name = "org_id")
     private Long orgId;
+
+    @JsonIgnore
+    private String sessionId;
 
     public Long getId() {
         return id;
@@ -67,6 +75,14 @@ public class SessionInfo implements Serializable {
 
     public void setOrgId(Long orgId) {
         this.orgId = orgId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public static Long getCurrentUserId() {

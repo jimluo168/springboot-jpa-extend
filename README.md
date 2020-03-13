@@ -46,7 +46,7 @@
 ```
 
 ```yaml
-@post: /:path
+@post: /oss/:path
 
 @header:
 	Authorization:登录令牌(必须)	
@@ -79,7 +79,7 @@
 ### OSS文件-下载
 
 ```yaml
-@get: /:path
+@get: /oss/:path
 
 @header:
 	Authorization:登录令牌(必须)	
@@ -95,7 +95,7 @@
 ### OSS文件-删除
 
 ```yaml
-@delete: /:path
+@delete: /oss/:path
 
 @header:
 	Authorization:登录令牌(必须)	
