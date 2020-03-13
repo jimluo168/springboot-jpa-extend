@@ -2,6 +2,7 @@ package com.bms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
+
+    /**
+     * 用户状态-启用
+     */
+    public static final int STATUS_ENABLE = 1;
+
+    /**
+     * 用户状态-禁用
+     * 用户状态-禁用
+     * 用户状态-禁用
+     */
+    public static final int STATUS_DISABLE = 0;
+
     /**
      * 账号
      */
@@ -57,5 +71,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "role_id")
     private Role role;
 
-
+    /**
+     * 用户状态
+     */
+    private int status = STATUS_ENABLE;
 }
