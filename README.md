@@ -62,9 +62,8 @@
 ```java
     @RequiresPermissions("user_create")
     @PostMapping("")
-    public Result<Long> create(@RequestBody User user) {
-        Long id = userService.insert(user);
-        return ok(id);
+    public Result<User> create(@RequestBody User user) {
+        return ok(userService.insert(user));
     }
 
     @RequiresPermissions("user_list")

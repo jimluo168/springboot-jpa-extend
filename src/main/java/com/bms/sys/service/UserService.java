@@ -56,13 +56,13 @@ public class UserService {
         return info;
     }
 
-    public long insert(User user) {
+    public User insert(User user) {
         user.setId(flakeId.next());
         user.setSalt(Long.toString(System.currentTimeMillis()));
         User presentUser = userRepository.save(user);
         String encryptPasswd = StringsUtils.sha256Hex(user.getPasswd(), user.getSalt(), Long.toString(presentUser.getCreateDate().getTime()));
         presentUser.setPasswd(encryptPasswd);
-        return presentUser.getId();
+        return presentUser;
     }
 
     public PageList<User> page(PageRequest pageRequest, String keyword) {
