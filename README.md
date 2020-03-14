@@ -426,11 +426,13 @@
     path:string:路径
     icon:string:图标
     index:int:顺序
+    type:int:类型(1=菜单 2=按钮)
     children:array<object>:子菜单
         name:string:名称
         path:string:路径
         parent:string:父菜单的path
         index:int:顺序
+        type:int:类型(1=菜单 2=按钮)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -498,6 +500,8 @@
 @payload:
   name:string:角色名称
   remark:string:描述
+  menu_list:array<object>:菜单信息
+    id:long:选择的菜单ID
   
 @return:
   code:int:操作码
@@ -522,6 +526,8 @@
 @payload:
   name:string:角色名称
   remark:string:描述
+  menu_list:array<object>:菜单信息
+    id:long:选择的菜单ID
   
 @return:
   code:int:操作码

@@ -26,8 +26,6 @@ public class MenuController {
 
     private final MenuService menuService;
 
-
-
     @GetMapping("/my")
     public Result<List<Menu>> mymenus() {
         Long userId = SessionInfo.getCurrentUserId();
@@ -40,5 +38,4 @@ public class MenuController {
         List<Menu> list = menuService.findAll();
         return ok(list);
     }
-
 }

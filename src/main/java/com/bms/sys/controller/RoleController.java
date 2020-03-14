@@ -30,23 +30,23 @@ public class RoleController {
         return ok(role.getId());
     }
 
-    @RequiresPermissions("role_delete")
-    @DeleteMapping("/{id}")
-    public Result<Long> deleteById(@PathVariable Long id) {
-        Role role = roleService.deleteById(id);
-        return ok(role.getId());
-    }
-
     @RequiresPermissions("role_edit")
     @PutMapping("/{id}")
-    public Result<Role> updateById(@PathVariable Long id, @RequestBody Role updateBody) {
+    public Result<Role> edit(@PathVariable Long id, @RequestBody Role updateBody) {
         Role role = roleService.updateById(id, updateBody);
         return ok(role);
     }
 
+    @RequiresPermissions("role_delete")
+    @DeleteMapping("/{id}")
+    public Result<Long> delete(@PathVariable Long id) {
+        Role role = roleService.deleteById(id);
+        return ok(role.getId());
+    }
+
     @RequiresPermissions("role_details")
     @GetMapping("/{id}}")
-    public Result<Role> list(@PathVariable Long id) {
+    public Result<Role> details(@PathVariable Long id) {
         Role role = roleService.findById(id);
         return ok(role);
     }

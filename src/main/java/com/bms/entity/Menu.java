@@ -70,11 +70,11 @@ public class Menu extends BaseEntity {
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private Menu parent;
 
-    @JsonIgnoreProperties({"parent", "children", "role_list"})
+    @JsonIgnoreProperties({"parent", "role_list"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
 
-    @JsonIgnoreProperties({ "menu_list", "user_list"})
+    @JsonIgnoreProperties({"menu_list", "user_list"})
     @ManyToMany(mappedBy = "menuList")
     private List<Role> roleList;
 
