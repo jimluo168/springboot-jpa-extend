@@ -29,8 +29,6 @@ public class User extends BaseEntity {
 
     /**
      * 用户状态-禁用
-     * 用户状态-禁用
-     * 用户状态-禁用
      */
     public static final int STATUS_DISABLE = 0;
 
