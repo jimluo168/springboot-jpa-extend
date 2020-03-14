@@ -38,7 +38,6 @@ public class RoleService {
     public Role insert(Role role) {
         role.setId(flakeId.next());
         return roleRepository.save(role);
-
     }
 
     public PageList<Role> page(PageRequest pageRequest, String name, String remark) {
@@ -56,6 +55,7 @@ public class RoleService {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ROLE_PAGE, params));
     }
 
+    @Transactional(readOnly = true)
     public Role findById(Long id) {
         Optional<Role> role = roleRepository.findById(id);
         if (role.isPresent()) {
@@ -71,15 +71,9 @@ public class RoleService {
     }
 
     public Role updateById(Long id, Role updateBody) {
-        Optional<Role> role = roleRepository.findById(id);
-        if (role.isPresent()) {
-            Role value = role.get();
-            JpaUtils.copyNotNullProperties(updateBody, value);
-            return value;
-        } else {
-            throw ExceptionFactory.dataNotExistException();
-        }
+        Role role = this.findById(id);
+        JpaUtils.copyNotNullProperties(updateBody, role);
+        return role;
     }
-
 
 }

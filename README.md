@@ -12,6 +12,18 @@
 - IDEA: https://projectlombok.org/setup/intellij
 - Eclipse: https://projectlombok.org/setup/eclipse
 
+### 代码注视
+
+File->Preferences->Editor->File and Code Templates->File Header
+
+```java
+/**
+ * TODO(类的简要说明)
+ * @author 这里填写开发者
+ * @date ${DATE}
+ */
+```
+
 ## 系统模块命名
 
 |模块名称|英文|Java包命名|
