@@ -32,6 +32,68 @@
 |monitor|30000-39999|
 |statis|40000-49999|
 
+## 权限编码规范
+
+### 编码规范
+功能名称+下划线(_)+操作名称
+
+|操作名称|命名|
+|---|---|
+|列表=查询|list|
+|新增|create|
+|编辑|edit|
+|删除|delete|
+|详情|details|
+|禁用/启用|status|
+
+例如：用户管理
+
+|操作名称|命名|
+|---|---|
+|用户管理-列表=查询|user_list|
+|用户管理-新增|user_create|
+|用户管理-编辑|user_dit|
+|用户管理-删除|user_delete|
+|用户管理-详情|user_details|
+|用户管理-禁用/启用|user_status|
+|用户管理-重制密码|user_reset_passwd|
+
+### 代码规范
+```java
+    @RequiresPermissions("user_create")
+    @PostMapping("")
+    public Result<Long> create(@RequestBody User user) {
+        Long id = userService.insert(user);
+        return ok(id);
+    }
+
+    @RequiresPermissions("user_list")
+    @GetMapping("/list")
+    public Result<PageList<User>> list(PageRequest pageRequest, String keyword) {
+        return ok(userService.page(pageRequest, keyword));
+    }
+
+    @RequiresPermissions("user_details")
+    @GetMapping("/{id}")
+    public Result<User> details(@PathVariable Long id) {
+        User user = userService.findById(id);
+        return ok(user);
+    }
+
+    @RequiresPermissions("user_edit")
+    @PutMapping("/{id}")
+    public Result<User> edit(@PathVariable Long id, @RequestBody User updateBody) {
+        User user = userService.updateById(id, updateBody);
+        return ok(user);
+    }
+
+    @RequiresPermissions("user_delete")
+    @DeleteMapping("/{id}")
+    public Result<Long> delete(@PathVariable Long id) {
+        User user = userService.deleteById(id);
+        return ok(user.getId());
+    }
+```
 
 
 ## API接口

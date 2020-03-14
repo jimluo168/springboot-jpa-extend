@@ -8,6 +8,7 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.exception.ServiceException;
+import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
 import com.bms.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,40 +32,47 @@ public class UserController {
 
     private final UserService userService;
 
+    @RequiresPermissions("user_create")
     @PostMapping("")
-    public Result<Long> create(@RequestBody User body) {
-        Long id = userService.insert(body);
+    public Result<Long> create(@RequestBody User user) {
+        Long id = userService.insert(user);
         return ok(id);
     }
 
+    @RequiresPermissions("user_list")
     @GetMapping("/list")
     public Result<PageList<User>> list(PageRequest pageRequest, String keyword) {
         return ok(userService.page(pageRequest, keyword));
     }
 
+    @RequiresPermissions("user_details")
     @GetMapping("/{id}")
-    public Result<User> findById(@PathVariable Long id){
+    public Result<User> details(@PathVariable Long id) {
         User user = userService.findById(id);
         return ok(user);
     }
 
+    @RequiresPermissions("user_edit")
     @PutMapping("/{id}")
-    public Result<User> updateById(@PathVariable Long id, @RequestBody User updateBody){
+    public Result<User> edit(@PathVariable Long id, @RequestBody User updateBody) {
         User user = userService.updateById(id, updateBody);
         return ok(user);
     }
 
+    @RequiresPermissions("user_delete")
+    @DeleteMapping("/{id}")
+    public Result<Long> delete(@PathVariable Long id) {
+        User user = userService.deleteById(id);
+        return ok(user.getId());
+    }
+
+    @RequiresPermissions("user_status")
     @PutMapping("/{id}/status/{status}")
-    public Result<User> updateById(@PathVariable Long id, @PathVariable int status){
+    public Result<User> status(@PathVariable Long id, @PathVariable int status) {
         User updateBody = new User();
         updateBody.setStatus(status);
         User user = userService.updateById(id, updateBody);
         return ok(user);
     }
 
-   @DeleteMapping("/{id}")
-    public Result<Long> deleteById(@PathVariable Long id){
-        User user = userService.deleteById(id);
-        return ok(user.getId());
-   }
 }
