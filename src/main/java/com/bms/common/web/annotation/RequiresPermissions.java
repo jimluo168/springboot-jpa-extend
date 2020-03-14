@@ -3,7 +3,7 @@ package com.bms.common.web.annotation;
 import java.lang.annotation.*;
 
 /**
- * 验证用户是否登录.
+ * 验证用户是否拥有权限.
  *
  * @author luojimeng
  * @date 2020/3/11

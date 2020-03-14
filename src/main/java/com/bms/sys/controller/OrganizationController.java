@@ -4,6 +4,7 @@ import com.bms.common.config.flake.FlakeId;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Organization;
 import com.bms.entity.User;
@@ -23,6 +24,7 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/sys/organizations")
 @RequiredArgsConstructor
+@RequiresAuthentication
 public class OrganizationController {
 
     private final OrganizationService organizationService;

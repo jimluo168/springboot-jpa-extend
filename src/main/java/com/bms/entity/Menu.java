@@ -69,6 +69,7 @@ public class Menu extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
 
+    @JSONField(name = "role_list")
     @ManyToMany(mappedBy = "menuList")
     private List<Role> roleList;
 

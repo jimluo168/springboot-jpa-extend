@@ -22,6 +22,7 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/sys/menus")
 @RequiredArgsConstructor
+@RequiresAuthentication
 public class MenuController {
 
     private final MenuService menuService;
@@ -63,7 +64,6 @@ public class MenuController {
         return Result.ok(menu);
     }
 
-    @RequiresAuthentication
     @GetMapping("/my")
     public Result<List<Menu>> mymenus() {
         Long userId = SessionInfo.getCurrentUserId();
@@ -71,7 +71,6 @@ public class MenuController {
         return ok(list);
     }
 
-    @RequiresAuthentication
     @GetMapping("/all")
     public Result<List<Menu>> all() {
         List<Menu> list = menuService.findAll();

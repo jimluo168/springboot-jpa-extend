@@ -8,6 +8,7 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.exception.ServiceException;
+import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
 import com.bms.sys.service.UserService;
@@ -28,6 +29,7 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/sys/users")
 @RequiredArgsConstructor
+@RequiresAuthentication
 public class UserController {
 
     private final UserService userService;
