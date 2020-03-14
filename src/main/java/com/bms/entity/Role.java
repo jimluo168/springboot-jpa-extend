@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +18,7 @@ import java.util.List;
  * @author luojimeng
  * @date 2020/3/11
  */
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "roles")
