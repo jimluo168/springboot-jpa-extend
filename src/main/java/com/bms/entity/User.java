@@ -3,12 +3,15 @@ package com.bms.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 /**
  * 用户.
@@ -33,22 +36,22 @@ public class User extends BaseEntity {
     public static final int STATUS_DISABLE = 0;
 
     /**
-     * 账号
+     * 账号.
      */
     @Column(unique = true, nullable = false)
     private String account;
     /**
-     * 密码
+     * 密码.
      */
-    @JsonIgnore
+    @JsonProperty(access = WRITE_ONLY)
     private String passwd;
     /**
-     * 盐 干扰码
+     * 盐 干扰码.
      */
     @JsonIgnore
     private String salt;
     /**
-     * 昵称
+     * 真实姓名.
      */
     @Column(name = "real_name")
     private String realName;

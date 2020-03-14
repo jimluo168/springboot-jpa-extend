@@ -5,6 +5,7 @@ import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +19,7 @@ import java.util.List;
  * @author luojimeng
  * @date 2020/3/9
  */
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "menus")
@@ -65,19 +65,16 @@ public class Menu extends BaseEntity {
      */
     private String remark;
 
-    @JsonBackReference
-    @JsonIgnoreProperties({"children", "roleList"})
+    @JsonIgnoreProperties({"children", "role_list"})
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private Menu parent;
 
-    @JsonManagedReference
-    @JsonIgnoreProperties({"parent", "children", "roleList"})
+    @JsonIgnoreProperties({"parent", "children", "role_list"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
 
-    @JsonManagedReference
-    @JsonIgnoreProperties({ "menuList", "userList"})
+    @JsonIgnoreProperties({ "menu_list", "user_list"})
     @ManyToMany(mappedBy = "menuList")
     private List<Role> roleList;
 

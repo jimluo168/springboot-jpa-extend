@@ -157,7 +157,7 @@ public class MenuService {
         List<Menu> root = new ArrayList<>();
         menus.forEach(o -> {
             Menu m = new Menu();
-            BeanUtils.copyProperties(o, m, "parent", "children");
+            BeanUtils.copyProperties(o, m, "parent", "children", "roleList");
             root.add(m);
             List<Menu> children = o.getChildren();
             if (children != null && !children.isEmpty()) {
