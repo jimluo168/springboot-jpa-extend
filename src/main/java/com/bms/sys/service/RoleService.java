@@ -41,13 +41,18 @@ public class RoleService {
 
     }
 
-    public PageList<Role> page(PageRequest pageRequest, String name) {
+    public PageList<Role> page(PageRequest pageRequest, String name, String remark) {
         Map<String, Object> params = new HashMap<>();
         String likeName = name;
         if (StringUtils.isNotBlank(likeName)) {
             likeName = likeName + "%";
         }
+        String likeRemark = remark;
+        if (StringUtils.isNotBlank(likeRemark)) {
+            likeRemark = likeRemark + "%";
+        }
         params.put("name", likeName);
+        params.put("remark", likeRemark);
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ROLE_PAGE, params));
     }
 

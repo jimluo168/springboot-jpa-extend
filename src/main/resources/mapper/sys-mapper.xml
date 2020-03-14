@@ -21,6 +21,9 @@
             <#if name?? && name!=''>
                 and r.name like :name
             </#if>
+            <#if remark?? && remark!=''>
+                and r.remark like :remark
+            </#if>
             order by r.createDate desc
         ]]>
     </role_page>
