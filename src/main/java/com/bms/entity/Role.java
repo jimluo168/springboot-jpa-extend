@@ -36,8 +36,8 @@ public class Role extends BaseEntity {
 
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(name = "role_menus",
-            joinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
     @JSONField(name = "menu_list")
     private List<Menu> menuList;
 
