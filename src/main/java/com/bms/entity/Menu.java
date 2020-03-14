@@ -2,6 +2,9 @@ package com.bms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -62,14 +65,19 @@ public class Menu extends BaseEntity {
      */
     private String remark;
 
+    @JsonBackReference
+    @JsonIgnoreProperties({"children", "roleList"})
     @ManyToOne
     @JoinColumn(name = "parent_id", insertable = false, updatable = false)
     private Menu parent;
 
+    @JsonManagedReference
+    @JsonIgnoreProperties({"parent", "children", "roleList"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
 
-    @JSONField(name = "role_list")
+    @JsonManagedReference
+    @JsonIgnoreProperties({ "menuList", "userList"})
     @ManyToMany(mappedBy = "menuList")
     private List<Role> roleList;
 

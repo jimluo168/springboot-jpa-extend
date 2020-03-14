@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -101,6 +102,7 @@ public class Organization extends BaseEntity {
     @Column(length = 500)
     private String reason;
 
+    @JsonIgnoreProperties("organization")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
     @JSONField(name = "audit_list")
     private List<OrganizationAudit> auditList;

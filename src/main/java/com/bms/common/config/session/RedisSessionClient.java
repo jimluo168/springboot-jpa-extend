@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * TODO(类的简要说明)
+ * Session的 Redis存储方法.
  *
  * @author luojimeng
  * @date 2020/3/11

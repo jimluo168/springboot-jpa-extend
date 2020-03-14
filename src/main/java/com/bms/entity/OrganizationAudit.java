@@ -1,6 +1,7 @@
 package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Table(name = "organization_audits")
 public class OrganizationAudit extends BaseEntity {
 
+    @JsonIgnoreProperties("audit_list")
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;

@@ -2,6 +2,8 @@ package com.bms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,15 +32,15 @@ public class Role extends BaseEntity {
      */
     private String remark;
 
+    @JsonIgnoreProperties({"organization", "role"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-    @JSONField(name = "user_list")
     private List<User> userList;
 
+    @JsonIgnoreProperties("role_list")
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinTable(name = "role_menus",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
-    @JSONField(name = "menu_list")
     private List<Menu> menuList;
 
 }

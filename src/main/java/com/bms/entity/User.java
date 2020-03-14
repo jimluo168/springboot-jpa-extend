@@ -2,7 +2,7 @@ package com.bms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -52,7 +52,6 @@ public class User extends BaseEntity {
     /**
      * 昵称
      */
-    @JSONField(name = "real_name")
     @Column(name = "real_name")
     private String realName;
     /**
@@ -63,12 +62,14 @@ public class User extends BaseEntity {
     /**
      * 所属企业.
      */
+    @JsonIgnoreProperties("audit_list")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization organization;
     /**
      * 所属角色.
      */
+    @JsonIgnoreProperties({"user_list", "menu_list"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;

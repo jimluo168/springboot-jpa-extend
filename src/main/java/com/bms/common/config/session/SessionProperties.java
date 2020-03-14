@@ -3,7 +3,7 @@ package com.bms.common.config.session;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * TODO(类的简要说明)
+ * Session配置属性.
  *
  * @author luojimeng
  * @date 2020/3/11
