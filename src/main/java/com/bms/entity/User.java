@@ -1,6 +1,5 @@
 package com.bms.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

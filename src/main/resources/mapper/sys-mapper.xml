@@ -77,7 +77,7 @@
             <#if ip?? && ip!=''>
                 and o.ip like :ip
             </#if>
-            <#if begin?? && begin!='' && end?? && end!=''>
+            <#if begin?? && end??>
                 and o.createDate between :begin and :end
             </#if>
             order by o.createDate desc

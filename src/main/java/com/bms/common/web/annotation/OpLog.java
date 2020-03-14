@@ -27,4 +27,11 @@ public @interface OpLog {
      * @return
      */
     String funcName() default "";
+
+    /**
+     * 是否在方法之后进行记录 默认 在进入方法前就进行记录.
+     *
+     * @return
+     */
+    boolean after() default false;
 }

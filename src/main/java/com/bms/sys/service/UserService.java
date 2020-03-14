@@ -49,10 +49,11 @@ public class UserService {
             throw new ServiceException(ErrorCode.PASSWD_ERR, "密码错误");
         }
         SessionInfo info = new SessionInfo();
-        info.setAccount(user.getAccount());
         info.setId(user.getId());
+        info.setAccount(user.getAccount());
         info.setName(user.getRealName());
         info.setOrgId(user.getOrganization().getId());
+        info.setOrgName(user.getOrganization().getName());
         return info;
     }
 

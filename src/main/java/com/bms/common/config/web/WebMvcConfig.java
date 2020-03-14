@@ -1,20 +1,17 @@
 package com.bms.common.config.web;
 
-import com.alibaba.fastjson.serializer.ContextValueFilter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.web.interceptor.AccessFilter;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
 import com.bms.common.config.web.interceptor.PermissionInterceptor;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -53,13 +50,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(WebMvcConfig.class);
 
-    private static final String DATE_FMT;
+    public static final String DATE_FMT_DEFAULT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    public static final String DATE_FMT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public static final String DATE_FMT;
 
     static {
         String tz = TimeZone.getDefault().getID();
-        String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        String format = DATE_FMT_DEFAULT;
         if ("Etc/UTC".equals(tz) || "UTC".equals(tz) || "GMT".equals(tz) || "GMT-00:00".equals(tz) || "GMT+00:00".equals(tz)) {
-            format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+            format = DATE_FMT_UTC;
         }
         DATE_FMT = format;
     }
@@ -68,29 +67,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     public WebMvcConfig(ISessionManager sessionManager) {
         this.sessionManager = sessionManager;
-    }
-
-    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
-
-        FastJsonConfig config = new FastJsonConfig();
-        config.setCharset(StandardCharsets.UTF_8);
-        config.setDateFormat(DATE_FMT);
-        config.setSerializerFeatures(SerializerFeature.WriteMapNullValue);
-
-        config.setSerializeFilters((ContextValueFilter) (beanContext, o, s, o1) -> {
-            if (o1 instanceof Long) {
-                return String.valueOf(o1);
-            }
-            return o1;
-        });
-
-        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        converter.setFastJsonConfig(config);
-
-        List<MediaType> mediaTypes = new ArrayList<>();
-        mediaTypes.add(new MediaType("application", "json", StandardCharsets.UTF_8));
-        converter.setSupportedMediaTypes(mediaTypes);
-        return converter;
     }
 
     public StringHttpMessageConverter stringHttpMessageConverter() {
@@ -111,15 +87,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @ConditionalOnMissingBean(ObjectMapper.class)
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
         ObjectMapper mapper = builder.createXmlMapper(false).build();
-        String tz = TimeZone.getDefault().getID();
-        String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        if ("Etc/UTC".equals(tz) || "UTC".equals(tz) || "GMT".equals(tz) || "GMT-00:00".equals(tz) || "GMT+00:00".equals(tz)) {
-            format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-        }
-
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        mapper.setDateFormat(new SimpleDateFormat(format));
+        mapper.setDateFormat(new SimpleDateFormat(WebMvcConfig.DATE_FMT));
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         return mapper;
     }
 
@@ -169,7 +141,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     return null;
                 }
                 try {
-                    return new SimpleDateFormat(DATE_FMT).parse(source);
+//                    return new SimpleDateFormat(DATE_FMT).parse(source);
+                    return DateUtils.parseDate(source, DATE_FMT_DEFAULT, DATE_FMT_UTC);
                 } catch (ParseException e) {
                     logger.error("Parse Date error,source:" + source + " date format:" + DATE_FMT, e);
                 }

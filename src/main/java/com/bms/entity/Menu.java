@@ -1,6 +1,5 @@
 package com.bms.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -58,7 +57,6 @@ public class Menu extends BaseEntity {
      * 权限编码.
      */
     @Column(name = "permission_code", length = 100)
-    @JSONField(name = "permission_code")
     private String permissionCode;
     /**
      * 备注.

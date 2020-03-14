@@ -1,7 +1,7 @@
 package com.bms.common.config.session;
 
-import com.alibaba.fastjson.JSON;
 import com.bms.common.config.redis.RedisClient;
+import com.bms.common.util.JSON;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 import java.io.Serializable;

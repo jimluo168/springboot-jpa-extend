@@ -8,6 +8,7 @@ import com.bms.common.domain.PageRequest;
 import com.bms.entity.OperationLog;
 import com.bms.entity.User;
 import com.bms.sys.Constant;
+import com.bms.sys.dao.OpLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Objects;
 
 /**
  * 日志管理-service.
+ *
  * @author luojimeng
  * @date 2020/3/9
  */
@@ -28,9 +30,17 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class OpLogService {
 
+    private final OpLogRepository opLogRepository;
     private final HibernateDao hibernateDao;
+    private final FlakeId flakeId;
 
-    public PageList<User> page(PageRequest pageRequest, Map<String,Object> params) {
+    @Transactional(readOnly = true)
+    public PageList<User> page(PageRequest pageRequest, Map<String, Object> params) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_OPLOG_PAGE, params));
+    }
+
+    public void insert(OperationLog log) {
+        log.setId(flakeId.next());
+        opLogRepository.save(log);
     }
 }

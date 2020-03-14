@@ -1,7 +1,7 @@
 package com.bms.common.config.web.interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.bms.common.config.web.HttpRequestBodyWrapper;
+import com.bms.common.util.JSON;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +35,13 @@ public class AccessFilter implements Filter {
         try {
             if (logger.isDebugEnabled()) {
                 String contentType = request.getContentType();
-                if (contentType != null && contentType.toLowerCase().contains("application/x-www-form-urlencoded")) {
-                    String body = JSON.toJSONString(httpReq.getParameterMap());
-                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} parameters:{}", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);
-                }
-                if (contentType != null && contentType.toLowerCase().contains("application/json")) {
+                if (contentType != null && contentType.toLowerCase().contains("application/json")
+                        && (httpReq.getMethod().equalsIgnoreCase("POST") || httpReq.getMethod().equalsIgnoreCase("PUT"))) {
                     httpReq = new HttpRequestBodyWrapper(httpReq);
                     String body = IOUtils.toString(httpReq.getInputStream(), StandardCharsets.UTF_8);
                     logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);
+                } else {
+                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, "");
                 }
             }
             chain.doFilter(httpReq, response);

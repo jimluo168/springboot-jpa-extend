@@ -1,6 +1,5 @@
 package com.bms.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -104,7 +103,6 @@ public class Organization extends BaseEntity {
 
     @JsonIgnoreProperties("organization")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
-    @JSONField(name = "audit_list")
     private List<OrganizationAudit> auditList;
 
 }
