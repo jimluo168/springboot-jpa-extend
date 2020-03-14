@@ -17,7 +17,7 @@
     <role_page type="hql">
         <![CDATA[
             from Role r
-            where 1=1
+            where deleted = 0
             <#if name?? && name!=''>
                 and r.name like :name
             </#if>
@@ -28,7 +28,7 @@
     <user_page type="hql">
         <![CDATA[
             from User u
-            where 1=1
+            where deleted = 0
             <#if keyword?? && keyword!=''>
                 and (u.account like :keyword or u.realName like :keyword)
             </#if>
