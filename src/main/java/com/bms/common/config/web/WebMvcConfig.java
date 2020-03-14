@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -90,20 +91,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return converter;
     }
 
-//    @Bean
-//    public ObjectMapper objectMapper() {
-//        String tz = TimeZone.getDefault().getID();
-//        String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-//        if ("Etc/UTC".equals(tz) || "UTC".equals(tz) || "GMT".equals(tz) || "GMT-00:00".equals(tz) || "GMT+00:00".equals(tz)) {
-//            format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-//        }
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-//        mapper.setDateFormat(new SimpleDateFormat(format));
-//        return mapper;
-//    }
-
     @Bean
     @Primary
     @ConditionalOnMissingBean(ObjectMapper.class)
@@ -156,5 +143,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         bean.addUrlPatterns("/*");
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+
     }
 }

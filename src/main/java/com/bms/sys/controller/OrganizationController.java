@@ -27,21 +27,21 @@ public class OrganizationController {
 
     private final OrganizationService organizationService;
 
-    @RequiresPermissions("organizations_create")
+    @RequiresPermissions("organization_create")
     @PostMapping("")
     public Result<Organization> create(@RequestBody Organization organization) {
         organizationService.insert(organization);
         return Result.ok(organization);
     }
 
-    @RequiresPermissions("organizations_edit")
+    @RequiresPermissions("organization_edit")
     @PutMapping("/{id}")
     public Result<Organization> edit(@PathVariable Long id, @RequestBody Organization organization) {
         organizationService.updateById(id, organization);
         return Result.ok(organization);
     }
 
-    @RequiresPermissions("organizations_list")
+    @RequiresPermissions("organization_list")
     @GetMapping("/list")
     public Result<PageList<Organization>> list(PageRequest pageRequest,
                                                @RequestParam(defaultValue = "") String name,
@@ -50,19 +50,19 @@ public class OrganizationController {
         return ok(organizationService.page(pageRequest, name, level, status));
     }
 
-    @RequiresPermissions("organizations_details")
+    @RequiresPermissions("organization_details")
     @GetMapping("/{id}")
     public Result<Organization> details(@PathVariable Long id) {
         return Result.ok(organizationService.findById(id));
     }
 
-    @RequiresPermissions("organizations_delete")
+    @RequiresPermissions("organization_delete")
     @DeleteMapping("/{id}")
     public Result<Organization> deleteById(@PathVariable Long id) {
         return Result.ok(organizationService.deleteById(id));
     }
 
-    @RequiresPermissions("organizations_audit")
+    @RequiresPermissions("organization_audit")
     @PostMapping("/{id}/status/{status}")
     public Result<Organization> audit(@PathVariable Long id, @PathVariable int status, @RequestBody Organization organization) {
         organizationService.audit(id, status, organization.getReason());

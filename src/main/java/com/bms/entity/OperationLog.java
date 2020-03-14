@@ -3,6 +3,7 @@ package com.bms.entity;
 import com.bms.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 

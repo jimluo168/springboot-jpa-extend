@@ -30,8 +30,7 @@ public class OpLogService {
 
     private final HibernateDao hibernateDao;
 
-    public PageList<User> page(PageRequest pageRequest, OperationLog log) {
-        Map<String, Object> params = new HashMap<>();
+    public PageList<User> page(PageRequest pageRequest, Map<String,Object> params) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_OPLOG_PAGE, params));
     }
 }
