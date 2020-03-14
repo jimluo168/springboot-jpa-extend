@@ -21,48 +21,13 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/sys/menus")
 @RequiredArgsConstructor
+@RequiresAuthentication
 public class MenuController {
 
     private final MenuService menuService;
 
-    /**
-     * 新增菜单
-     *
-     * @param body
-     * @return
-     */
-    @PostMapping("")
-    public Result<Long> create(@RequestBody Menu body) {
-        Menu menu = menuService.insert(body);
-        return ok(menu.getId());
-    }
 
-    /**
-     * 根据id删除菜单
-     *
-     * @param id
-     * @return
-     */
-    @DeleteMapping("/{id}")
-    public Result<Long> deleteById(@PathVariable Long id) {
-        Menu menu = menuService.deleteById(id);
-        return ok(menu.getId());
-    }
 
-    /**
-     * 根据id编辑菜单
-     *
-     * @param id
-     * @param body
-     * @return
-     */
-    @PutMapping("/{id}")
-    public Result<Menu> edit(@PathVariable Long id, @RequestBody Menu body) {
-        Menu menu = menuService.updateById(id, body);
-        return Result.ok(menu);
-    }
-
-    @RequiresAuthentication
     @GetMapping("/my")
     public Result<List<Menu>> mymenus() {
         Long userId = SessionInfo.getCurrentUserId();
@@ -70,7 +35,6 @@ public class MenuController {
         return ok(list);
     }
 
-    @RequiresAuthentication
     @GetMapping("/all")
     public Result<List<Menu>> all() {
         List<Menu> list = menuService.findAll();

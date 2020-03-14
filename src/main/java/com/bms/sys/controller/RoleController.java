@@ -3,6 +3,7 @@ package com.bms.sys.controller;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Role;
 import com.bms.sys.service.RoleService;
@@ -17,6 +18,7 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/sys/roles")
 @RequiredArgsConstructor
+@RequiresAuthentication
 public class RoleController {
 
     private final RoleService roleService;
