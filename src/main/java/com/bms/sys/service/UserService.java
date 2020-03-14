@@ -79,6 +79,8 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             User value = user.get();
+            updateBody.setAccount(null);
+            updateBody.setPasswd(null);
             JpaUtils.copyNotNullProperties(updateBody, value);
             return value;
         }
