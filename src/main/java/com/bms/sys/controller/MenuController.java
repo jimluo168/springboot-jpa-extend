@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.bms.common.config.session.SessionInfo.SESSION;
 import static com.bms.common.domain.Result.ok;
 
 /**

@@ -449,6 +449,7 @@
   page:int:页码
   size:int:页码大小
   name:string:角色名
+  remark:string:角色描述
 
 @return:
   code:int:操作码
