@@ -5,6 +5,7 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.exception.DatabaseException;
 import com.bms.common.util.BeanMapper;
+import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.OperationLog;
@@ -23,7 +24,7 @@ import java.util.HashMap;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * 用户controller.
+ * 操作日志管理.
  *
  * @author luojimeng
  * @date 2020/3/9

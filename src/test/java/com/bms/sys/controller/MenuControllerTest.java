@@ -1,6 +1,6 @@
 package com.bms.sys.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.bms.common.util.JSON;
 import com.bms.entity.Menu;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

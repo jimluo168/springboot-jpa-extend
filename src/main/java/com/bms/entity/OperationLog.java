@@ -1,6 +1,7 @@
 package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +31,8 @@ public class OperationLog extends BaseEntity {
     /**
      * 企业名称.
      */
-    @ManyToOne
-    @JoinColumn(name = "org_id")
-    private Organization organization;
+    @Column(name = "org_id")
+    private Long orgId;
     /**
      * 组织结构名称.
      */

@@ -7,8 +7,9 @@
         </encoder>
     </appender>
 
+    <logger name="com.bms" level="DEBUG"/>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

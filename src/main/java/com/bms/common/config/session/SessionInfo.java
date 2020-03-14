@@ -1,8 +1,8 @@
 package com.bms.common.config.session;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.exception.ExceptionFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author luojimeng
  * @date 2020/3/11
  */
+@Data
 public class SessionInfo implements Serializable {
 
     public static final ThreadLocal<SessionInfo> SESSION = new ThreadLocal<>();
@@ -39,51 +40,20 @@ public class SessionInfo implements Serializable {
     /**
      * 机构ID.
      */
-    @JSONField(name = "org_id")
     private Long orgId;
+    /**
+     * 机构名称.
+     */
+    private String orgName;
 
     @JsonIgnore
     private String sessionId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
+    @JsonIgnore
+    private String ip;
+    @JsonIgnore
+    private String requestUrl;
+    @JsonIgnore
+    private String requestParams;
 
     public static Long getCurrentUserId() {
         SessionInfo info = SESSION.get();

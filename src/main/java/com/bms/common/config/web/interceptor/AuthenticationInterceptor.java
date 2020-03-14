@@ -3,7 +3,10 @@ package com.bms.common.config.web.interceptor;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
+import com.bms.common.config.web.HttpRequestBodyWrapper;
+import com.bms.common.util.JSON;
 import com.bms.common.web.annotation.RequiresAuthentication;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 授权访问拦截器.
@@ -79,6 +83,20 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             SessionInfo info = session.getAttribute(SessionInfo.CACHE_SESSION_KEY, SessionInfo.class);
             info.setSessionId(token);
+            info.setIp(request.getRemoteAddr());
+            info.setRequestUrl(request.getRequestURI());
+
+            String requestMethod = request.getMethod();
+            String params = "";
+            String contentType = request.getContentType();
+            if (contentType != null && contentType.toLowerCase().contains("application/json") &&
+                    (requestMethod.equalsIgnoreCase("POST") || requestMethod.equalsIgnoreCase("PUT"))) {
+                params = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+            } else {
+                params = request.getQueryString();
+            }
+
+            info.setRequestParams(params);
             SessionInfo.SESSION.set(info);
         }
 
