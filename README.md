@@ -799,3 +799,43 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
+
+### 日志管理-列表
+
+```yaml
+@get: /sys/oplogs/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  account:string:用户名
+  real_name:string:真实姓名
+  org_name:string:机构名称
+  module:string:模块
+  func_name:string:操作名称
+  params:string:参数
+  ip:string:IP
+  create_date:date:操作时间
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:日志列表信息
+      id:long:机构ID
+      account:string:用户名
+      real_name:string:真实姓名
+      org_name:string:机构名称
+      module:string:模块
+      func_name:string:操作名称
+      params:string:参数
+      ip:string:IP
+      create_date:date:操作时间
+
+  success:bool:是否成功
+  msg:string:操作提示
+```
