@@ -590,45 +590,29 @@ File->Preferences->Editor->File and Code Templates->File Header
   code:int:操作码
   data:object:返回信息
     count:int:分页总大小
-    list:array<object>:机构列表信息
+    list:array<object>:用户列表信息
       id:long:用户ID
       account:string:账户
       organization:object:机构信息
+        id:long:机构ID
+        name:string:名称
+        level:string:级别
+        province:string:省
+        city:string:市
+        county:string:区/县
+        address:string:详细地址
+        business_license:string:营业执照(url)
+        business_scope:string:经营范围
+        operate_route:string:运营路线
+        principal:string:负责人
+        contact:string:联系方式
+        remark:string:备注
       real_name:string:用户名
       remark:string:备注
       role:object:角色信息
-      status:int:用户状态
-        - 0:禁用
-        - 1:启用
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 用户管理-列表
-
-```yaml
-@get: /sys/users/list
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  page:int:页码
-  size:int:页码大小
-  keyword:string:关键字
-
-@return:
-  code:int:操作码
-  data:object:返回信息
-    count:int:分页总大小
-    list:array<object>:机构列表信息
-      id:long:用户ID
-      account:string:账户
-      organization:object:机构信息
-      real_name:string:用户名
-      remark:string:备注
-      role:object:角色信息
+        id:long:角色ID
+        name:string:角色名称
+        remark:string:描述
       status:int:用户状态
         - 0:禁用
         - 1:启用
@@ -654,9 +638,25 @@ File->Preferences->Editor->File and Code Templates->File Header
     id:long:用户ID
     account:string:账户
     organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
     real_name:string:用户名
     remark:string:备注
     role:object:角色信息
+      id:long:角色ID
+      name:string:角色名称
+      remark:string:描述
     status:int:用户状态
       - 0:禁用
       - 1:启用
@@ -677,9 +677,11 @@ File->Preferences->Editor->File and Code Templates->File Header
   account:string:账户
   passwd:string:密码
   organization:object:机构信息
+    id:long:机构id
   real_name:string:用户名
   remark:string:备注
   role:object:角色信息
+    id:long:角色id
   status:int:用户状态
     - 0:禁用
     - 1:启用
@@ -705,11 +707,12 @@ File->Preferences->Editor->File and Code Templates->File Header
   id:long:用户id
 
 @payload:
-  account:string:账户
   organization:object:机构信息
+    id:long:机构id
   real_name:string:用户名
   remark:string:备注
   role:object:角色信息
+    id:long:角色id
   
 @return:
   code:int:操作码
