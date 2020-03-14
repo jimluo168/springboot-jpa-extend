@@ -75,4 +75,10 @@ public class UserController {
         return ok(user);
     }
 
+    @RequiresPermissions("user_resetpasswd")
+    @PostMapping("/{id}/resetpasswd")
+    public Result<User> resetPasswd(@PathVariable Long id) {
+        User user = userService.resetPasswd(id);
+        return ok(user);
+    }
 }

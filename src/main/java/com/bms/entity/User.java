@@ -2,6 +2,7 @@ package com.bms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,10 +42,12 @@ public class User extends BaseEntity {
     /**
      * 密码
      */
+    @JsonIgnore
     private String passwd;
     /**
      * 盐 干扰码
      */
+    @JsonIgnore
     private String salt;
     /**
      * 昵称

@@ -709,7 +709,7 @@
   msg:string:操作提示
 ```
 
-### 用户管理-修改状态
+### 用户管理-禁用/启用
 
 ```yaml
 @put: /sys/users/:id/status/:status
@@ -754,6 +754,26 @@
 @return:
   code:int:操作码
   data:object:返回信息
+    id:long:用户ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 用户管理-重置密码
+
+```yaml
+@post: /sys/users/:id/resetpasswd
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户ID
+
+@return:
+  code:int:操作码
+  data:object:用户信息
     id:long:用户ID
   success:bool:是否成功
   msg:string:操作提示

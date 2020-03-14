@@ -91,11 +91,19 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
     public User findById(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             return user.get();
         }
         throw ExceptionFactory.dataNotExistException();
+    }
+
+    public User resetPasswd(Long id) {
+        User user = this.findById(id);
+        String encryptPasswd = StringsUtils.sha256Hex("123456", user.getSalt(), Long.toString(user.getCreateDate().getTime()));
+        user.setPasswd(encryptPasswd);
+        return user;
     }
 }
