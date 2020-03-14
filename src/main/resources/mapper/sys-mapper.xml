@@ -10,6 +10,9 @@
             <#if level!=0>
                 and o.level = :level
             </#if>
+            <#if status!=0>
+                and o.status = :status
+            </#if>
             and o.deleted=:deleted order by o.createDate desc
         ]]>
     </organization_page>

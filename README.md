@@ -222,6 +222,10 @@ File->Preferences->Editor->File and Code Templates->File Header
   size:int:页码大小
   name:string:机构名称
   level:int:机构级别
+  status:int:状态
+    - 1:待审核 
+    - 2:通过审核 
+    - 3:未通过审核
 
 @return:
   code:int:操作码

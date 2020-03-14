@@ -45,8 +45,9 @@ public class OrganizationController {
     @GetMapping("/list")
     public Result<PageList<Organization>> list(PageRequest pageRequest,
                                                @RequestParam(defaultValue = "") String name,
-                                               @RequestParam(defaultValue = "0") int level) {
-        return ok(organizationService.page(pageRequest, name, level));
+                                               @RequestParam(defaultValue = "0") int level,
+                                               @RequestParam(defaultValue = "0") int status) {
+        return ok(organizationService.page(pageRequest, name, level, status));
     }
 
     @RequiresPermissions("organizations_details")

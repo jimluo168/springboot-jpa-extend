@@ -57,7 +57,7 @@ public class OrganizationService {
         }
     }
 
-    public PageList<Organization> page(PageRequest pageRequest, String name, int level) {
+    public PageList<Organization> page(PageRequest pageRequest, String name, int level, int status) {
         Map<String, Object> params = new HashMap<>();
         String likeName = name;
         if (StringUtils.isNotBlank(likeName)) {
@@ -65,6 +65,7 @@ public class OrganizationService {
         }
         params.put("name", likeName);
         params.put("level", level);
+        params.put("status", status);
         params.put("deleted", DELETE_FALSE);
 
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, params));
