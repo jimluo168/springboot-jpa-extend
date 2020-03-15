@@ -36,6 +36,7 @@ import static com.bms.common.domain.Result.ok;
 public class UserController {
 
     private final UserService userService;
+    private final ISessionManager sessionManager;
 
     @OpLog("新增")
     @RequiresPermissions("user_create")
@@ -82,6 +83,13 @@ public class UserController {
         User updateBody = new User();
         updateBody.setStatus(status);
         User user = userService.updateById(id, updateBody);
+        // 更新Session的缓存
+        if (user.getStatus() == User.STATUS_DISABLE) {
+            SessionInfo info = SessionInfo.getCurrentSession();
+            ISession session = sessionManager.getSession(info.getSessionId());
+            info.setStatus(User.STATUS_DISABLE);
+            session.setAttribute(SessionInfo.CACHE_SESSION_KEY, info);
+        }
         return ok(user);
     }
 

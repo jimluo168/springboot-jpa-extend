@@ -1,19 +1,15 @@
 package com.bms.oss;
 
-import com.bms.common.config.redis.RedisProperties;
 import com.bms.common.domain.Result;
 import com.bms.common.exception.ServiceException;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -24,7 +20,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 
 import static com.bms.common.domain.Result.ok;
-import static com.bms.common.exception.ExceptionFactory.OSS_FILE_EMPTY;
+import static com.bms.common.exception.ExceptionFactory.ERR_OSS_FILE_EMPTY;
 
 /**
  * .
@@ -43,7 +39,7 @@ public class OSSController {
     public Result<FileInfo> upload(@PathVariable String dir,
                                    MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new ServiceException(OSS_FILE_EMPTY, "文件内容无效");
+            throw new ServiceException(ERR_OSS_FILE_EMPTY, "文件内容无效");
         }
         String fmtday = DateFormatUtils.format(new Date(), "yyyyMMdd");
         Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);

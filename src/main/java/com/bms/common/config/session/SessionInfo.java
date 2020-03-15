@@ -45,6 +45,10 @@ public class SessionInfo implements Serializable {
      * 机构名称.
      */
     private String orgName;
+    /**
+     * 用户状态(0=禁用 1=启用).
+     */
+    private Integer status;
 
     @JsonIgnore
     private String sessionId;

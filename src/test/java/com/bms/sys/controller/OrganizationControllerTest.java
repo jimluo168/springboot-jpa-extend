@@ -113,7 +113,7 @@ class OrganizationControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.code").value(ExceptionFactory.DATA_NOT_EXIST_ERR))
+                .andExpect(jsonPath("$.code").value(ExceptionFactory.ERR_DATA_NOT_EXIST))
                 .andDo(print())
                 .andReturn();
     }
