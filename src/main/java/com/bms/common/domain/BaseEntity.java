@@ -42,7 +42,7 @@ public abstract class BaseEntity implements Serializable {
      * 删除状态（0=正常，1=删除）(is_delete).
      */
     @Column(name = "is_delete")
-    private int deleted = DELETE_FALSE;
+    private Integer deleted = DELETE_FALSE;
     /**
      * 创建用户(create_user).
      */

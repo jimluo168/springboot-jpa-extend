@@ -27,11 +27,11 @@ public class PageRequest implements Serializable {
         this.size = size;
     }
 
-    public int getPageNumber() {
+    public int getPage() {
         return page;
     }
 
-    public int getPageSize() {
+    public int getSize() {
         return size;
     }
 

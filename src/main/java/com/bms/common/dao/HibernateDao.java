@@ -89,7 +89,7 @@ public class HibernateDao {
     }
 
     public <T> PageList<T> findAll(PageRequest request, DaoCmd cmd) {
-        List<T> list = getList(cmd, request.getOffset(), request.getPageSize());
+        List<T> list = getList(cmd, request.getOffset(), request.getSize());
         long count = getCount(cmd);
         return new PageList<T>(count, list);
     }

@@ -3,7 +3,7 @@
     <organization_page type="hql">
         <![CDATA[
             from Organization o
-            where 1=1
+            where o.deleted = 0
             <#if name?? && name!=''>
                 and o.name like :name||'%'
             </#if>
@@ -13,7 +13,7 @@
             <#if status??>
                 and o.status = :status
             </#if>
-            and o.deleted=:deleted order by o.createDate desc
+            order by o.createDate desc
         ]]>
     </organization_page>
 
