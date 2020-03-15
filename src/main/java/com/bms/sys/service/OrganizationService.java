@@ -61,6 +61,7 @@ public class OrganizationService {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, queryParams));
     }
 
+    @Transactional(readOnly = true)
     public Organization findById(Long id) {
         Optional<Organization> organization = organizationRepository.findById(id);
         if (organization.isPresent()) {
