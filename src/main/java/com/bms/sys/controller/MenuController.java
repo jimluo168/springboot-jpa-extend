@@ -27,7 +27,7 @@ public class MenuController {
     private final MenuService menuService;
 
     @GetMapping("/my")
-    public Result<List<Menu>> mymenus() {
+    public Result<List<Menu>> my() {
         Long userId = SessionInfo.getCurrentUserId();
         List<Menu> list = menuService.mymenus(userId);
         return ok(list);
