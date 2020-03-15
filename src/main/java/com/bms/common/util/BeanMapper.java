@@ -16,7 +16,7 @@ import java.util.Map;
 public class BeanMapper {
 
     public static Map<String, Object> toMap(Object source) throws IllegalAccessException {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         Field[] fields = source.getClass().getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);

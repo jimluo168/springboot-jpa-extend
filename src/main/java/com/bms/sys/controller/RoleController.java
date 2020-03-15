@@ -3,6 +3,7 @@ package com.bms.sys.controller;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
@@ -63,8 +64,8 @@ public class RoleController {
     @OpLog("查询")
     @RequiresPermissions("role_list")
     @GetMapping("/list")
-    public Result<PageList<Role>> list(PageRequest pageRequest, @RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") String remark) {
-        PageList<Role> list = roleService.page(pageRequest, name, remark);
+    public Result<PageList<Role>> list(PageRequest pageRequest, Role role) throws IllegalAccessException {
+        PageList<Role> list = roleService.page(pageRequest, BeanMapper.toMap(role));
         return ok(list);
     }
 

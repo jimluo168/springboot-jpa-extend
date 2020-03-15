@@ -71,17 +71,7 @@ public class UserService {
 
     public PageList<User> page(PageRequest pageRequest, String account, String realName, String organization, int status) {
         Map<String, Object> params = new HashMap<>();
-        String likeName = account;
-        if (StringUtils.isNotBlank(likeName)) {
-            likeName = likeName + "%";
-        }
-        if(StringUtils.isNotBlank(realName)){
-            realName = realName + "%";
-        }
-        if(StringUtils.isNotBlank(organization)){
-            organization = organization + "%";
-        }
-        params.put("name", likeName);
+        params.put("name", account);
         params.put("realName", realName);
         params.put("organization", organization);
         params.put("status", status);

@@ -50,10 +50,10 @@ public class UserController {
     @GetMapping("/list")
     public Result<PageList<User>> list(PageRequest pageRequest,
                                        @RequestParam(defaultValue = "") String account,
-                                       @RequestParam(defaultValue = "") String real_name,
+                                       @RequestParam(defaultValue = "",name = "real_name") String realName,
                                        @RequestParam(defaultValue = "") String organization,
                                        @RequestParam(defaultValue = "-1" ) int status) {
-        return ok(userService.page(pageRequest, account, real_name, organization, status));
+        return ok(userService.page(pageRequest, account, realName, organization, status));
     }
 
     @OpLog("详情")

@@ -5,12 +5,12 @@
             from Organization o
             where 1=1
             <#if name?? && name!=''>
-                and o.name like :name
+                and o.name like :name||'%'
             </#if>
-            <#if level!=0>
+            <#if level??>
                 and o.level = :level
             </#if>
-            <#if status!=0>
+            <#if status??>
                 and o.status = :status
             </#if>
             and o.deleted=:deleted order by o.createDate desc
@@ -22,10 +22,10 @@
             from Role r
             where deleted = 0
             <#if name?? && name!=''>
-                and r.name like :name
+                and r.name like :name||'%'
             </#if>
             <#if remark?? && remark!=''>
-                and r.remark like :remark
+                and r.remark like :remark||'%'
             </#if>
             order by r.createDate desc
         ]]>
@@ -39,10 +39,10 @@
                 and u.account like :account
             </#if>
             <#if realName?? && realName!=''>
-                and u.realName like :realName
+                and u.realName like :realName||'%'
             </#if>
             <#if organization?? && organization!=''>
-                and u.organization.name like :organization
+                and u.organization.name like :organization||'%'
             </#if>
             <#if status!= -1>
                 and u.status = :status
@@ -68,20 +68,20 @@
             <#if account?? && account!=''>
                 and o.account = :account
             </#if>
-            <#if realName?? && realName!=''>
-                and o.realName like :realName
+            <#if real_name?? && real_name!=''>
+                and o.realName like :real_name||'%'
             </#if>
-            <#if orgName?? && orgName!=''>
-                and o.orgName like :orgName
+            <#if org_name?? && org_name!=''>
+                and o.org_name like :org_name||'%'
             </#if>
             <#if module?? && module!=''>
                 and o.module like :module
             </#if>
-            <#if funcName?? && funcName!=''>
-                and o.funcName like :funcName
+            <#if func_name?? && func_name!=''>
+                and o.funcName like :func_name
             </#if>
             <#if params?? && params!=''>
-                and o.params like :params
+                and o.params like :params||'%'
             </#if>
             <#if ip?? && ip!=''>
                 and o.ip like :ip

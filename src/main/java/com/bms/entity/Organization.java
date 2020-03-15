@@ -47,7 +47,7 @@ public class Organization extends BaseEntity {
     /**
      * 级别.
      */
-    private int level;
+    private Integer level;
     /**
      * 省.
      */
@@ -94,7 +94,7 @@ public class Organization extends BaseEntity {
     /**
      * 状态(1:待审核 2:通过审核 3:未通过审核).
      */
-    private int status = STATUS_TO_BE_AUDIT;
+    private Integer status = STATUS_TO_BE_AUDIT;
     /**
      * 理由.
      */

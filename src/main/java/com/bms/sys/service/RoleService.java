@@ -40,19 +40,8 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
-    public PageList<Role> page(PageRequest pageRequest, String name, String remark) {
-        Map<String, Object> params = new HashMap<>();
-        String likeName = name;
-        if (StringUtils.isNotBlank(likeName)) {
-            likeName = likeName + "%";
-        }
-        String likeRemark = remark;
-        if (StringUtils.isNotBlank(likeRemark)) {
-            likeRemark = likeRemark + "%";
-        }
-        params.put("name", likeName);
-        params.put("remark", likeRemark);
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ROLE_PAGE, params));
+    public PageList<Role> page(PageRequest pageRequest, Map<String, Object> queryParams) {
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ROLE_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)

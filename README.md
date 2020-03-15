@@ -828,7 +828,8 @@ File->Preferences->Editor->File and Code Templates->File Header
   func_name:string:操作名称
   params:string:参数
   ip:string:IP
-  create_date:date:操作时间
+  begin:date:开始时间
+  end:date:结束时间
 
 @return:
   code:int:操作码

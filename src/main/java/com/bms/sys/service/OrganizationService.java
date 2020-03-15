@@ -57,18 +57,8 @@ public class OrganizationService {
         }
     }
 
-    public PageList<Organization> page(PageRequest pageRequest, String name, int level, int status) {
-        Map<String, Object> params = new HashMap<>();
-        String likeName = name;
-        if (StringUtils.isNotBlank(likeName)) {
-            likeName = likeName + "%";
-        }
-        params.put("name", likeName);
-        params.put("level", level);
-        params.put("status", status);
-        params.put("deleted", DELETE_FALSE);
-
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, params));
+    public PageList<Organization> page(PageRequest pageRequest, Map<String,Object> queryParams) {
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, queryParams));
     }
 
     public Organization findById(Long id) {

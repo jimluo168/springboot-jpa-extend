@@ -4,12 +4,14 @@ import com.bms.common.config.flake.FlakeId;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Organization;
 import com.bms.sys.service.OrganizationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,7 @@ import static com.bms.common.domain.Result.ok;
 public class OrganizationController {
 
     private final OrganizationService organizationService;
+    private final ObjectMapper objectMapper;
 
     @OpLog("新增")
     @RequiresPermissions("organization_create")
@@ -49,11 +52,8 @@ public class OrganizationController {
     @OpLog("查询")
     @RequiresPermissions("organization_list")
     @GetMapping("/list")
-    public Result<PageList<Organization>> list(PageRequest pageRequest,
-                                               @RequestParam(defaultValue = "") String name,
-                                               @RequestParam(defaultValue = "0") int level,
-                                               @RequestParam(defaultValue = "0") int status) {
-        return ok(organizationService.page(pageRequest, name, level, status));
+    public Result<PageList<Organization>> list(PageRequest pageRequest, Organization organization) throws IllegalAccessException {
+        return ok(organizationService.page(pageRequest, BeanMapper.toMap(organization)));
     }
 
     @OpLog("详情")
