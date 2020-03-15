@@ -66,13 +66,22 @@ public class UserService {
         return presentUser;
     }
 
-    public PageList<User> page(PageRequest pageRequest, String keyword) {
+    public PageList<User> page(PageRequest pageRequest, String account, String realName, String organization, int status) {
         Map<String, Object> params = new HashMap<>();
-        String likeName = keyword;
+        String likeName = account;
         if (StringUtils.isNotBlank(likeName)) {
             likeName = likeName + "%";
         }
-        params.put("keyword", likeName);
+        if(StringUtils.isNotBlank(realName)){
+            realName = realName + "%";
+        }
+        if(StringUtils.isNotBlank(organization)){
+            organization = organization + "%";
+        }
+        params.put("name", likeName);
+        params.put("realName", realName);
+        params.put("organization", organization);
+        params.put("status", status);
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, params));
     }
 

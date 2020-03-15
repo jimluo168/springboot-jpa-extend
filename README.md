@@ -588,8 +588,12 @@ File->Preferences->Editor->File and Code Templates->File Header
 @params:
   page:int:页码
   size:int:页码大小
-  keyword:string:关键字
-
+  account:string:用户名
+  real_name:string:真实姓名
+  organization:string:企业名称
+  status:int:状态
+    - 0:禁用
+    - 1:启用
 @return:
   code:int:操作码
   data:object:返回信息

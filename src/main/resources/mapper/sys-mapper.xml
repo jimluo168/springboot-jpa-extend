@@ -35,8 +35,17 @@
         <![CDATA[
             from User u
             where deleted = 0
-            <#if keyword?? && keyword!=''>
-                and (u.account like :keyword or u.realName like :keyword)
+            <#if account?? && account!=''>
+                and u.account like :account
+            </#if>
+            <#if realName?? && realName!=''>
+                and u.realName like :realName
+            </#if>
+            <#if organization?? && organization!=''>
+                and u.organization.name like :organization
+            </#if>
+            <#if status!= -1>
+                and u.status = :status
             </#if>
             order by u.createDate desc
         ]]>

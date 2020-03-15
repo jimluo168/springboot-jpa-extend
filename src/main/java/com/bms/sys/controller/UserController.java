@@ -47,8 +47,12 @@ public class UserController {
     @OpLog("查询")
     @RequiresPermissions("user_list")
     @GetMapping("/list")
-    public Result<PageList<User>> list(PageRequest pageRequest, String keyword) {
-        return ok(userService.page(pageRequest, keyword));
+    public Result<PageList<User>> list(PageRequest pageRequest,
+                                       @RequestParam(defaultValue = "") String account,
+                                       @RequestParam(defaultValue = "") String real_name,
+                                       @RequestParam(defaultValue = "") String organization,
+                                       @RequestParam(defaultValue = "-1" ) int status) {
+        return ok(userService.page(pageRequest, account, real_name, organization, status));
     }
 
     @OpLog("详情")
