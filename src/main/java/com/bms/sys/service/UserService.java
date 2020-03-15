@@ -44,6 +44,9 @@ public class UserService {
         if (user == null) {
             throw new ServiceException(ErrorCode.ACCOUNT_NOT_EXIST, "账号不存在");
         }
+        if (user.getStatus() == User.STATUS_DISABLE) {
+            throw new ServiceException(ExceptionFactory.ERR_USER_STATUS_DISABLED, "用户已禁用");
+        }
         String encryptPasswd = StringsUtils.sha256Hex(passwd, user.getSalt(), Long.toString(user.getCreateDate().getTime()));
         if (!StringUtils.equals(encryptPasswd, user.getPasswd())) {
             throw new ServiceException(ErrorCode.PASSWD_ERR, "密码错误");

@@ -202,6 +202,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   code:int:操作码
     - 10000:密码错误
     - 10001:账号不存在
+    - 1004:用户已禁用
   success:bool:是否成功
   msg:string:操作提示
 

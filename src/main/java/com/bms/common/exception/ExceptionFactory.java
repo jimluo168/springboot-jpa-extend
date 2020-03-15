@@ -10,31 +10,33 @@ public class ExceptionFactory {
     /**
      * 1000=记录不存在错误码.
      */
-    public static final int DATA_NOT_EXIST_ERR = 1000;
+    public static final int ERR_DATA_NOT_EXIST = 1000;
     /**
      * 1001=数据库异常错误码.
      */
-    public static final int DATABASE_ERR = 1001;
+    public static final int ERR_DATABASE = 1001;
     /**
      * 1002=Session无效或过期.
      */
-    public static final int SESSION_INVALID_ERR = 1002;
+    public static final int ERR_SESSION_INVALID = 1002;
     /**
      * 文件为空.
      */
-    public static final int OSS_FILE_EMPTY = 1003;
-
-
+    public static final int ERR_OSS_FILE_EMPTY = 1003;
+    /**
+     * 用户禁用.
+     */
+    public static final int ERR_USER_STATUS_DISABLED = 1004;
 
     public static DataNotExistException dataNotExistException() {
-        return new DataNotExistException(DATA_NOT_EXIST_ERR, "记录不存在");
+        return new DataNotExistException(ERR_DATA_NOT_EXIST, "记录不存在");
     }
 
     public static DatabaseException databaseException(String message) {
-        return new DatabaseException(DATABASE_ERR, message);
+        return new DatabaseException(ERR_DATABASE, message);
     }
 
     public static SessionInvalidException sessionInvalidException() {
-    return new SessionInvalidException(SESSION_INVALID_ERR, "Session会话无效或已过期");
+        return new SessionInvalidException(ERR_SESSION_INVALID, "Session会话无效或已过期");
     }
 }

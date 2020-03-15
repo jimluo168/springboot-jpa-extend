@@ -75,7 +75,7 @@ public class User extends BaseEntity {
     private Role role;
 
     /**
-     * 用户状态
+     * 用户状态(0=禁用 1=启用).
      */
     private int status = STATUS_ENABLE;
 }
