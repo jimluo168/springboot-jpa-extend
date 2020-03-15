@@ -5,6 +5,8 @@ import com.bms.common.domain.Result;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.entity.Menu;
 import com.bms.sys.service.MenuService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,17 +24,20 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/sys/menus")
 @RequiredArgsConstructor
 @RequiresAuthentication
+@Api("菜单管理")
 public class MenuController {
 
     private final MenuService menuService;
 
+    @ApiOperation("获取我授权的菜单")
     @GetMapping("/my")
-    public Result<List<Menu>> mymenus() {
+    public Result<List<Menu>> my() {
         Long userId = SessionInfo.getCurrentUserId();
         List<Menu> list = menuService.mymenus(userId);
         return ok(list);
     }
 
+    @ApiOperation("获取全部菜单")
     @GetMapping("/all")
     public Result<List<Menu>> all() {
         List<Menu> list = menuService.findAll();
