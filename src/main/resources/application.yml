@@ -74,3 +74,6 @@ oss:
   # 存储仓库 目录
   repo: /Users/jim/Desktop/bms-repo
 
+swagger:
+  # true:启用swagger false关闭 线上系统需要关闭
+  enable: true

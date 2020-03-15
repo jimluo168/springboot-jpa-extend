@@ -1,7 +1,5 @@
 # 行业管理系统后端代码(IndustryManagement-Backend)
 
-
-
 ## 开发环境
 
 1. JDK 1.8+(包含1.8)
@@ -23,6 +21,11 @@ File->Preferences->Editor->File and Code Templates->File Header
  * @date ${DATE}
  */
 ```
+
+### 开发调试
+访问swagger-ui管理界面 http://youhostname:8080/swagger-ui.html
+
+对自己编写的接口进行开发调试测试
 
 ## 系统模块命名
 
