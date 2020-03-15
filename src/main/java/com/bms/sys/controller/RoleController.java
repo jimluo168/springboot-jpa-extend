@@ -55,7 +55,7 @@ public class RoleController {
 
     @OpLog("详情")
     @RequiresPermissions("role_details")
-    @GetMapping("/{id}}")
+    @GetMapping("/{id}")
     public Result<Role> details(@PathVariable Long id) {
         Role role = roleService.findById(id);
         return ok(role);
