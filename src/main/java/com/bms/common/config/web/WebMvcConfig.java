@@ -120,7 +120,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor(sessionManager));
-        registry.addInterceptor(new PermissionInterceptor(sessionManager));
+        // 暂时去掉权限检查
+//        registry.addInterceptor(new PermissionInterceptor(sessionManager));
     }
 
     @Bean
