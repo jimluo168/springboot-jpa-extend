@@ -75,6 +75,30 @@ public class Organization extends BaseEntity {
     @Column(name = "business_scope")
     private String businessScope;
     /**
+     * 企业规模.
+     */
+    private String scale;
+    /**
+     * 销售额.
+     */
+    @Column(name = "sales_volume")
+    private Integer salesVolume;
+    /**
+     * 员工人数.
+     */
+    @Column(name = "staff_number")
+    private Integer staffNumber;
+    /**
+     * 车辆数.
+     */
+    @Column(name = "vehicle_number")
+    private Integer vehicleNumber;
+    /**
+     * 车站数.
+     */
+    @Column(name = "station_number")
+    private Integer stationNumber;
+    /**
      * 运营路线.
      */
     @Column(name = "operate_route", length = 1000)

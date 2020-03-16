@@ -1,9 +1,9 @@
 package com.bms.sys.service;
 
+import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
-import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.Menu;
 import com.bms.entity.Role;
@@ -11,7 +11,7 @@ import com.bms.entity.User;
 import com.bms.sys.Constant;
 import com.bms.sys.dao.MenuRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
+import org.apache.commons.collections.functors.ExceptionFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +47,7 @@ public class MenuService {
         if (menu.isPresent()) {
             return menu.get();
         }
-        throw ExceptionFactory.dataNotExistException();
+        throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
     public Menu deleteById(Long id) {
@@ -57,14 +57,9 @@ public class MenuService {
     }
 
     public Menu updateById(Long id, Menu updateBody) {
-        Optional<Menu> menu = menuRepository.findById(id);
-        if (menu.isPresent()) {
-            Menu value = menu.get();
-            JpaUtils.copyNotNullProperties(updateBody, value);
-            return value;
-        } else {
-            throw ExceptionFactory.dataNotExistException();
-        }
+        Menu value = this.findById(id);
+        JpaUtils.copyNotNullProperties(updateBody, value);
+        return value;
     }
 
     @Transactional(readOnly = true)

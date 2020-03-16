@@ -1,5 +1,6 @@
 package com.bms.oss;
 
+import com.bms.ErrorCodes;
 import com.bms.common.domain.Result;
 import com.bms.common.exception.ServiceException;
 import lombok.Data;
@@ -20,7 +21,6 @@ import java.nio.file.Paths;
 import java.util.Date;
 
 import static com.bms.common.domain.Result.ok;
-import static com.bms.common.exception.ExceptionFactory.ERR_OSS_FILE_EMPTY;
 
 /**
  * .
@@ -39,7 +39,7 @@ public class OSSController {
     public Result<FileInfo> upload(@PathVariable String dir,
                                    MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new ServiceException(ERR_OSS_FILE_EMPTY, "文件内容无效");
+            throw ErrorCodes.build(ErrorCodes.OSS_FILE_EMPTY);
         }
         String fmtday = DateFormatUtils.format(new Date(), "yyyyMMdd");
         Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);

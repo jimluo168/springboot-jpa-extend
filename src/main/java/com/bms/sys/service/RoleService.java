@@ -1,21 +1,20 @@
 package com.bms.sys.service;
 
+import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
-import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.Role;
 import com.bms.sys.Constant;
 import com.bms.sys.dao.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections.functors.ExceptionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class RoleService {
         if (role.isPresent()) {
             return role.get();
         }
-        throw ExceptionFactory.dataNotExistException();
+        throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
     public Role deleteById(Long id) {

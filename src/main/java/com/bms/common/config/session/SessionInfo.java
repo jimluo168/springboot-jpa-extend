@@ -1,8 +1,9 @@
 package com.bms.common.config.session;
 
-import com.bms.common.exception.ExceptionFactory;
+import com.bms.ErrorCodes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.apache.commons.collections.functors.ExceptionFactory;
 
 import java.io.Serializable;
 
@@ -62,7 +63,7 @@ public class SessionInfo implements Serializable {
     public static Long getCurrentUserId() {
         SessionInfo info = SESSION.get();
         if (info == null) {
-            throw ExceptionFactory.sessionInvalidException();
+            throw ErrorCodes.build(ErrorCodes.SESSION_INVALID);
         }
         return info.getId();
     }
