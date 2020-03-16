@@ -23,7 +23,7 @@ import java.util.Optional;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
- * 机构组织Service.
+ * 公交企业管理.
  *
  * @author luojimeng
  * @date 2020/3/12
@@ -50,6 +50,7 @@ public class OrganizationService {
         return value;
     }
 
+    @Transactional(readOnly = true)
     public PageList<Organization> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, queryParams));
     }

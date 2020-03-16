@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * 机构.
+ * 公交企业管理.
  *
  * @author luojimeng
  * @date 2020/3/12
@@ -66,7 +66,7 @@ public class OrganizationController {
     @OpLog("删除")
     @RequiresPermissions("organization_delete")
     @DeleteMapping("/{id}")
-    public Result<Organization> deleteById(@PathVariable Long id) {
+    public Result<Organization> delete(@PathVariable Long id) {
         return Result.ok(organizationService.deleteById(id));
     }
 
@@ -77,6 +77,4 @@ public class OrganizationController {
         organizationService.audit(id, status, organization.getReason());
         return Result.ok();
     }
-
-
 }
