@@ -104,7 +104,7 @@
         ]]>
     </dict_page>
 
-    <practitioner_page type="hql">
+    <practitioner_page type="hql" desc="从业人员分页查询">
         <![CDATA[
             from Practitioner p
             where deleted = 0
