@@ -12,6 +12,8 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Organization;
 import com.bms.sys.service.OrganizationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +30,13 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交企业管理")
+@Api("公交企业管理")
 public class OrganizationController {
 
     private final OrganizationService organizationService;
     private final ObjectMapper objectMapper;
 
+    @ApiOperation("新增")
     @OpLog("新增")
     @RequiresPermissions("organization_create")
     @PostMapping("")
@@ -41,6 +45,7 @@ public class OrganizationController {
         return ok(organization);
     }
 
+    @ApiOperation("编辑")
     @OpLog("编辑")
     @RequiresPermissions("organization_edit")
     @PutMapping("/{id}")
@@ -49,6 +54,7 @@ public class OrganizationController {
         return ok(organization);
     }
 
+    @ApiOperation("查询")
     @OpLog("查询")
     @RequiresPermissions("organization_list")
     @GetMapping("/list")
@@ -56,6 +62,7 @@ public class OrganizationController {
         return ok(organizationService.page(pageRequest, BeanMapper.toMap(organization)));
     }
 
+    @ApiOperation("详情")
     @OpLog("详情")
     @RequiresPermissions("organization_details")
     @GetMapping("/{id}")
@@ -63,6 +70,7 @@ public class OrganizationController {
         return Result.ok(organizationService.findById(id));
     }
 
+    @ApiOperation("删除")
     @OpLog("删除")
     @RequiresPermissions("organization_delete")
     @DeleteMapping("/{id}")
@@ -70,6 +78,7 @@ public class OrganizationController {
         return ok(organizationService.deleteById(id));
     }
 
+    @ApiOperation("审核")
     @OpLog("审核")
     @RequiresPermissions("organization_audit")
     @PostMapping("/{id}/status/{status}")
