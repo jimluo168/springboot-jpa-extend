@@ -30,5 +30,9 @@ public interface Constant {
      */
     String MAPPER_OPLOG_PAGE = "oplog_page";
 
+    /**
+     * 从业人员分页查询
+     */
+    String MAPPER_PRACTITIONER_PAGE = "practitioner_page";
 
 }

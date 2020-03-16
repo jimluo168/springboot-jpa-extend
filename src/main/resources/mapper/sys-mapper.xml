@@ -92,4 +92,30 @@
             order by o.createDate desc
         ]]>
     </oplog_page>
+
+    <practitioner_page type="hql">
+        <![CDATA[
+            from Practitioner p
+            where deleted = 0
+            <#if name?? && name!=''>
+                and p.name like :name
+            </#if>
+            <#if gender?? && gender!=''>
+                and p.gender like :gender||'%'
+            </#if>
+            <#if organization?? && organization!=''>
+                and p.organization.name like :organization||'%'
+            </#if>
+            <#if certificateNumber?? && certificateNumber!=''>
+                and p.certificateNumber like :certificateNumber||'%'
+            </#if>
+            <#if IDNumber?? && IDNumber!=''>
+                and p.IDumber like :IDNumber||'%'
+            </#if>
+            <#if status??>
+                and o.status = :status
+            </#if>
+            order by u.createDate desc
+        ]]>
+    </practitioner_page>
 </mapper>
