@@ -123,9 +123,6 @@
             <#if IDNumber?? && IDNumber!=''>
                 and p.IDumber like :IDNumber||'%'
             </#if>
-            <#if status??>
-                and o.status = :status
-            </#if>
             order by u.createDate desc
         ]]>
     </practitioner_page>
