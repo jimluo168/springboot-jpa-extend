@@ -17,7 +17,25 @@ public interface ISessionManager {
      */
     ISession getSession(String sessionId) throws SessionException;
 
+    /**
+     * 根据用户ID获取自己的SessionID.
+     *
+     * @param userId 用户ID
+     * @return SessionID
+     * @throws SessionException
+     */
+    String getSessionId(Long userId) throws SessionException;
+
     ISession createSession() throws SessionException;
+
+    /**
+     * 根据用户ID或唯一标示创建Session.
+     *
+     * @param userId
+     * @return
+     * @throws SessionException
+     */
+    ISession createSession(Long userId) throws SessionException;
 
     /**
      * 从缓存中移除当前会话.

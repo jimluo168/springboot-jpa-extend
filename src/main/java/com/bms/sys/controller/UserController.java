@@ -15,6 +15,7 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
 import com.bms.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,9 +51,9 @@ public class UserController {
     @GetMapping("/list")
     public Result<PageList<User>> list(PageRequest pageRequest,
                                        @RequestParam(defaultValue = "") String account,
-                                       @RequestParam(defaultValue = "",name = "real_name") String realName,
+                                       @RequestParam(defaultValue = "", name = "real_name") String realName,
                                        @RequestParam(defaultValue = "") String organization,
-                                       @RequestParam(defaultValue = "-1" ) int status) {
+                                       @RequestParam(defaultValue = "-1") int status) {
         return ok(userService.page(pageRequest, account, realName, organization, status));
     }
 
@@ -84,14 +85,13 @@ public class UserController {
     @RequiresPermissions("user_status")
     @PutMapping("/{id}/status/{status}")
     public Result<User> status(@PathVariable Long id, @PathVariable int status) {
-        User updateBody = new User();
-        updateBody.setStatus(status);
-        User user = userService.updateById(id, updateBody);
+        User user = userService.status(id, status);
         // 更新Session的缓存
-        if (user.getStatus() == User.STATUS_DISABLE) {
-            SessionInfo info = SessionInfo.getCurrentSession();
-            ISession session = sessionManager.getSession(info.getSessionId());
-            info.setStatus(User.STATUS_DISABLE);
+        String sessionId = sessionManager.getSessionId(user.getId());
+        if (StringUtils.isNotBlank(sessionId)) {
+            ISession session = sessionManager.getSession(sessionId);
+            SessionInfo info = session.getAttribute(SessionInfo.CACHE_SESSION_KEY, SessionInfo.class);
+            info.setStatus(user.getStatus());
             session.setAttribute(SessionInfo.CACHE_SESSION_KEY, info);
         }
         return ok(user);

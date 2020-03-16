@@ -92,4 +92,15 @@
             order by o.createDate desc
         ]]>
     </oplog_page>
+
+    <dict_page type="hql" desc="字典分页查询">
+        <![CDATA[
+            from Dictionary o
+            where o.deleted = 0
+            <#if code?? && code!=''>
+                and o.code = :code
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </dict_page>
 </mapper>

@@ -19,6 +19,7 @@ import com.bms.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,8 +53,13 @@ public class IndexController {
     @PostMapping("/login")
     public Result<Void> login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         SessionInfo info = userService.loginValidate(user.getAccount(), user.getPasswd());
+        // 将之前session信息从缓存中删除
+        String sessionId = sessionManager.getSessionId(info.getId());
+        if (StringUtils.isNotBlank(sessionId)) {
+            sessionManager.removeSession(sessionId);
+        }
         // 成功登录了 保存session会话到缓存
-        ISession session = sessionManager.createSession();
+        ISession session = sessionManager.createSession(info.getId());
         session.setAttribute(SessionInfo.CACHE_SESSION_KEY, info);
         // 保存权限到缓存
         session.setAttribute(SessionInfo.CACHE_PERMISSION_KEY, JSON.toJSONString(menuService.findPermissionCodeByUserId(info.getId())));

@@ -35,12 +35,28 @@ public class RedisSessionManager implements ISessionManager {
     }
 
     @Override
+    public String getSessionId(Long userId) throws SessionException {
+        String key = RedisSession.buildSessionIdKey(Long.toString(userId));
+        String sessionId = redisSessionClient.get(key);
+        return sessionId;
+    }
+
+    @Override
     public ISession createSession() throws SessionException {
         String sessionId = SessionIdGenerator.generate();
         String key = RedisSession.buildSessionIdKey(sessionId);
         long timestamp = System.currentTimeMillis();
         redisSessionClient.set(key, timestamp, sessionProperties.getExpiryTime());
         return new RedisSession(sessionId, redisSessionClient);
+    }
+
+    @Override
+    public ISession createSession(Long userId) throws SessionException {
+        ISession session = createSession();
+        String key = RedisSession.buildSessionIdKey(Long.toString(userId));
+        String sessionId = session.getSessionId();
+        redisSessionClient.set(key, sessionId, sessionProperties.getExpiryTime());
+        return session;
     }
 
     @Override

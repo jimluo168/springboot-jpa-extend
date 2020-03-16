@@ -29,6 +29,10 @@ public interface Constant {
      * 操作日志分页查询.
      */
     String MAPPER_OPLOG_PAGE = "oplog_page";
+    /**
+     * 字典表分页查询.
+     */
+    String MAPPER_DICT_PAGE = "dict_page";
 
 
 }

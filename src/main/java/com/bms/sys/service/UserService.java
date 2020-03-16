@@ -106,4 +106,10 @@ public class UserService {
         user.setPasswd(encryptPasswd);
         return user;
     }
+
+    public User status(Long id, int status) {
+        User user = this.findById(id);
+        user.setStatus(status);
+        return user;
+    }
 }
