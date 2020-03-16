@@ -33,7 +33,7 @@ public class OpLogController {
 
     @RequiresPermissions("oplog_list")
     @GetMapping("/list")
-    public Result<PageList<User>> list(PageRequest pageRequest, QueryParams params) throws IllegalAccessException {
+    public Result<PageList<OperationLog>> list(PageRequest pageRequest, QueryParams params) throws IllegalAccessException {
         return ok(opLogService.page(pageRequest, BeanMapper.toMap(params)));
     }
 

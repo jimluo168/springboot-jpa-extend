@@ -3,6 +3,7 @@ package com.bms.oss;
 import com.bms.ErrorCodes;
 import com.bms.common.domain.Result;
 import com.bms.common.exception.ServiceException;
+import com.bms.common.web.annotation.RequiresAuthentication;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -23,7 +24,7 @@ import java.util.Date;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * .
+ * OSS文件对象管理.
  *
  * @author luojimeng
  * @date 2020/3/13
@@ -32,6 +33,7 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/oss")
 @RequiredArgsConstructor
 @EnableConfigurationProperties(OSSProperties.class)
+@RequiresAuthentication
 public class OSSController {
     private final OSSProperties ossProperties;
 
