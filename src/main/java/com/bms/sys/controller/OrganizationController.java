@@ -38,7 +38,7 @@ public class OrganizationController {
     @PostMapping("")
     public Result<Organization> create(@RequestBody Organization organization) {
         organizationService.insert(organization);
-        return Result.ok(organization);
+        return ok(organization);
     }
 
     @OpLog("编辑")
@@ -46,7 +46,7 @@ public class OrganizationController {
     @PutMapping("/{id}")
     public Result<Organization> edit(@PathVariable Long id, @RequestBody Organization organization) {
         organizationService.updateById(id, organization);
-        return Result.ok(organization);
+        return ok(organization);
     }
 
     @OpLog("查询")
@@ -67,7 +67,7 @@ public class OrganizationController {
     @RequiresPermissions("organization_delete")
     @DeleteMapping("/{id}")
     public Result<Organization> delete(@PathVariable Long id) {
-        return Result.ok(organizationService.deleteById(id));
+        return ok(organizationService.deleteById(id));
     }
 
     @OpLog("审核")
@@ -75,6 +75,6 @@ public class OrganizationController {
     @PostMapping("/{id}/status/{status}")
     public Result<Organization> audit(@PathVariable Long id, @PathVariable int status, @RequestBody Organization organization) {
         organizationService.audit(id, status, organization.getReason());
-        return Result.ok();
+        return ok();
     }
 }
