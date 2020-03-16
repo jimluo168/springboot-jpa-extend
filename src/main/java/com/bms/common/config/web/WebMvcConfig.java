@@ -121,7 +121,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor(sessionManager));
         // 暂时去掉权限检查
-//        registry.addInterceptor(new PermissionInterceptor(sessionManager));
+        registry.addInterceptor(new PermissionInterceptor(sessionManager));
     }
 
     @Bean
@@ -142,7 +142,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     return null;
                 }
                 try {
-//                    return new SimpleDateFormat(DATE_FMT).parse(source);
                     return DateUtils.parseDate(source, DATE_FMT_DEFAULT, DATE_FMT_UTC);
                 } catch (ParseException e) {
                     logger.error("Parse Date error,source:" + source + " date format:" + DATE_FMT, e);
