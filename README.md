@@ -211,6 +211,71 @@ File->Preferences->Editor->File and Code Templates->File Header
 
 ```
 
+### 用户注销
+
+```yaml
+@post: /sys/logout
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+    - 1002:Session会话无效或过期，请重新登录
+    - 10000:密码错误
+    - 10001:账号不存在
+    - 1004:用户已禁用
+  success:bool:是否成功
+  msg:string:操作提示
+
+```
+
+### 获取我的个人信息
+
+```yaml
+@get: /sys/my/profiles
+
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+@return:
+  code:int:操作码
+    - 1002:Session会话无效或过期，请重新登录
+    - 10000:密码错误
+    - 10001:账号不存在
+    - 1004:用户已禁用
+  data:object:我的个人信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+      id:long:角色ID
+      name:string:角色名称
+      remark:string:描述
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
 
 ### 公交企业管理-列表
 
@@ -245,6 +310,11 @@ File->Preferences->Editor->File and Code Templates->File Header
       address:string:详细地址
       business_license:string:营业执照(url)
       business_scope:string:经营范围
+      scale:string:企业规模
+      sales_volume:int:销售额
+      staff_number:int:员工人数
+      vehicle_number:int:车辆数
+      station_number:int:车站数
       operate_route:string:运营路线
       principal:string:负责人
       contact:string:联系方式

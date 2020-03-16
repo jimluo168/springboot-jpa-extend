@@ -17,6 +17,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrganizationRepository extends PagingAndSortingRepository<Organization, Long>, JpaSpecificationExecutor<Organization> {
-//    @Query(value = "from Organization o where 1=1 and if(:name!='',o.name) like ?1 and o.level = ?2 and o.deleted=?3 order by o.createDate desc")
-//    Page<Organization> page(String name, int level, int deleted, Pageable pageable);
 }
