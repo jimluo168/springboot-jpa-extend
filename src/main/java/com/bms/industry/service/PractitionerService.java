@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,7 +47,13 @@ public class PractitionerService {
         return value;
     }
 
-    public PageList<Practitioner> page(PageRequest pageRequest, Map<String, Object> queryParams) {
+    public PageList<Practitioner> page(PageRequest pageRequest, String name, String gender, String organization, String certificateNumber, String IDNumber) {
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("name", name);
+        queryParams.put("gender", gender);
+        queryParams.put("organization", organization);
+        queryParams.put("certificateNumber", certificateNumber);
+        queryParams.put("IDNumber", IDNumber);
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_PRACTITIONER_PAGE, queryParams));
     }
 
