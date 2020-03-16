@@ -922,3 +922,223 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
+
+### 从业人员管理-列表
+
+```yaml
+@get: /industry/practitioners/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:姓名
+  gender:string:性别
+    - M:男
+    - F:女
+    - N:未知
+  certificate_number:string:资格证号
+  ID_number:string:高价证号
+  organization:string:企业名称
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:用户列表信息
+      id:long:人员ID
+      name:string:人员姓名
+      gender:string:性别
+        - M:男
+        - F:女
+        - N:未知
+      age:int:年龄
+      certificate_number:string:资格证号
+      ID_number:string:身份证号
+      phone:string:联系号码
+      address:string:通讯地址
+      organization:object:机构信息
+        id:long:机构ID
+        name:string:名称
+        level:string:级别
+        province:string:省
+        city:string:市
+        county:string:区/县
+        address:string:详细地址
+        business_license:string:营业执照(url)
+        business_scope:string:经营范围
+        operate_route:string:运营路线
+        principal:string:负责人
+        contact:string:联系方式
+        remark:string:备注
+      fleet:string:车队
+      staff_number:string:员工工号
+      type:string:从业类型
+      line:string:线路
+      remark:string:备注
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 从业人员管理-详情
+
+```yaml
+@get: /industry/practitioners/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+    name:string:人员姓名
+    gender:string:性别
+      - M:男
+      - F:女
+      - N:未知
+    age:int:年龄
+    certificate_number:string:资格证号
+    ID_number:string:身份证号
+    phone:string:联系号码
+    address:string:通讯地址
+    organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+    fleet:string:车队
+    staff_number:string:员工工号
+    type:string:从业类型
+    line:string:线路
+    remark:string:备注
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 从业人员管理-新增
+
+```yaml
+@post: /industry/practitioners
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:人员姓名
+  gender:string:性别
+    - M:男
+    - F:女
+    - N:未知
+  age:int:年龄
+  certificate_number:string:资格证号
+  ID_number:string:身份证号
+  phone:string:联系号码
+  address:string:通讯地址
+  organization:object:机构信息
+    id:long:机构ID
+  fleet:string:车队
+  staff_number:string:员工工号
+  type:string:从业类型
+  line:string:线路
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 从业人员管理-修改
+
+```yaml
+@put: /industry/practitioners/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@payload:
+  organization:object:机构信息
+    id:long:机构id
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+    id:long:角色id
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+    name:string:人员姓名
+    gender:string:性别
+      - M:男
+      - F:女
+      - N:未知
+    age:int:年龄
+    certificate_number:string:资格证号
+    ID_number:string:身份证号
+    phone:string:联系号码
+    address:string:通讯地址
+    organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+    fleet:string:车队
+    staff_number:string:员工工号
+    type:string:从业类型
+    line:string:线路
+    remark:string:备注
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 从业人员管理-删除
+
+```yaml
+@delete: /industry/practitioners/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:人员ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+  success:bool:是否成功
+  msg:string:操作提示

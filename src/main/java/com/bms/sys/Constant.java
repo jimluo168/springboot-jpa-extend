@@ -34,5 +34,9 @@ public interface Constant {
      */
     String MAPPER_DICT_PAGE = "dict_page";
 
+    /**
+     * 从业人员分页查询
+     */
+    String MAPPER_PRACTITIONER_PAGE = "practitioner_page";
 
 }

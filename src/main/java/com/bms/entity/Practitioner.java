@@ -32,7 +32,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 年龄
      */
-    private int age;
+    private Integer age;
 
     /**
      * 资格证号
