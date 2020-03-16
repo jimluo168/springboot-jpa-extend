@@ -121,9 +121,9 @@
                 and p.certificateNumber like :certificateNumber||'%'
             </#if>
             <#if IDNumber?? && IDNumber!=''>
-                and p.IDumber like :IDNumber||'%'
+                and p.IDNumber like :IDNumber||'%'
             </#if>
-            order by u.createDate desc
+            order by p.createDate desc
         ]]>
     </practitioner_page>
 </mapper>

@@ -6,11 +6,9 @@ import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
-import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.PractitionerService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +25,7 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/industry/practitioners")
 @RequiredArgsConstructor
-@RequiresAuthentication
+//@RequiresAuthentication
 @OpLogModule("公交企业管理")
 public class PractitionerController {
     private final PractitionerService practitionerService;
@@ -51,10 +49,14 @@ public class PractitionerController {
     @OpLog("查询")
     @RequiresPermissions("practitioner_list")
     @GetMapping("/list")
-    public Result<PageList<Practitioner>> list(PageRequest pageRequest, Practitioner practitioner,@RequestParam(defaultValue = "") String organization ) throws IllegalAccessException {
-        Map<String, Object> queryParams = BeanMapper.toMap(practitioner);
-        queryParams.put("organization",organization);
-        return ok(practitionerService.page(pageRequest, queryParams));
+    public Result<PageList<Practitioner>> list(PageRequest pageRequest,
+                                               @RequestParam(defaultValue = "") String name,
+                                               @RequestParam(defaultValue = "") String gender,
+                                               @RequestParam(defaultValue = "") String organization,
+                                               @RequestParam(defaultValue = "", name = "certificate_number") String certificateNumber,
+                                               @RequestParam(defaultValue = "", name = "ID_number") String IDNumber
+    ) throws IllegalAccessException {
+        return ok(practitionerService.page(pageRequest, name, gender, organization, certificateNumber, IDNumber));
     }
 
     @OpLog("详情")
