@@ -1,6 +1,6 @@
 package com.bms.sys.controller;
 
-import com.bms.common.exception.ExceptionFactory;
+import com.bms.ErrorCodes;
 import com.bms.common.util.JSON;
 import com.bms.entity.Organization;
 import org.junit.jupiter.api.Test;
@@ -113,7 +113,7 @@ class OrganizationControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.code").value(ExceptionFactory.ERR_DATA_NOT_EXIST))
+                .andExpect(jsonPath("$.code").value(ErrorCodes.DATA_NOT_EXIST.getCode()))
                 .andDo(print())
                 .andReturn();
     }

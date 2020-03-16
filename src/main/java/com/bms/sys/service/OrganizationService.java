@@ -1,11 +1,11 @@
 package com.bms.sys.service;
 
+import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
-import com.bms.common.exception.ExceptionFactory;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.Organization;
 import com.bms.entity.OrganizationAudit;
@@ -13,15 +13,13 @@ import com.bms.sys.Constant;
 import com.bms.sys.dao.OrganizationAuditRepository;
 import com.bms.sys.dao.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections.functors.ExceptionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -47,17 +45,12 @@ public class OrganizationService {
     }
 
     public Organization updateById(Long id, Organization organization) {
-        Optional<Organization> originalOrgan = organizationRepository.findById(id);
-        if (originalOrgan.isPresent()) {
-            Organization value = originalOrgan.get();
-            JpaUtils.copyNotNullProperties(organization, value);
-            return value;
-        } else {
-            throw ExceptionFactory.dataNotExistException();
-        }
+        Organization value = this.findById(id);
+        JpaUtils.copyNotNullProperties(organization, value);
+        return value;
     }
 
-    public PageList<Organization> page(PageRequest pageRequest, Map<String,Object> queryParams) {
+    public PageList<Organization> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_ORGANIZATION_PAGE, queryParams));
     }
 
@@ -67,7 +60,7 @@ public class OrganizationService {
         if (organization.isPresent()) {
             return organization.get();
         }
-        throw ExceptionFactory.dataNotExistException();
+        throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
     public Organization deleteById(Long id) {

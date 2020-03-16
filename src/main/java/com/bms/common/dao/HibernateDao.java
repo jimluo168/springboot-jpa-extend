@@ -1,13 +1,14 @@
 package com.bms.common.dao;
 
+import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
-import com.bms.common.exception.ExceptionFactory;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.commons.collections.functors.ExceptionFactory;
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -127,7 +128,8 @@ public class HibernateDao {
             }
             query = session.createNativeQuery(queryString);
         } else {
-            throw ExceptionFactory.databaseException("Unknown query type: " + queryType);
+            logger.error("Unknown query type: " + queryType);
+            throw ErrorCodes.build(ErrorCodes.DATABASE_ERR);
         }
 
         Map<String, Object> params = cmd.getParams();
@@ -157,7 +159,8 @@ public class HibernateDao {
             String countString = processCountSQL(queryString);
             query = session.createNativeQuery(countString);
         } else {
-            throw ExceptionFactory.databaseException("Unknown query type: " + queryType);
+            logger.error("Unknown query type: " + queryType);
+            throw ErrorCodes.build(ErrorCodes.DATABASE_ERR);
         }
         Map<String, Object> params = cmd.getParams();
         if (params != null && !params.isEmpty()) {
@@ -197,8 +200,8 @@ public class HibernateDao {
             FREEMARKER.getTemplate(queryKey).process(cmd.getParams(), writer);
             return writer.toString();
         } catch (Exception e) {
-            logger.error("freemarker get template is error", e);
-            throw ExceptionFactory.databaseException("An exception occurred while processing the query template: " + e.getMessage());
+            logger.error("An exception occurred while processing the query template", e);
+            throw ErrorCodes.build(ErrorCodes.DATABASE_ERR);
         }
     }
 
@@ -224,8 +227,8 @@ public class HibernateDao {
                 templateLoaderList.add(templateLoader);
             }
         } catch (IOException e) {
-            logger.error("resource.getURL() error.", e);
-            throw ExceptionFactory.databaseException("queryFiles:[" + StringUtils.join(queryFiles, " ") + "] getURL error" + e.getMessage());
+            logger.error("queryFiles:[" + StringUtils.join(queryFiles, " ") + "] getURL error" + e.getMessage(), e);
+            throw ErrorCodes.build(ErrorCodes.DATABASE_ERR);
         }
         FREEMARKER.setTemplateLoader(new MultiTemplateLoader(templateLoaderList.toArray(new TemplateLoader[0])));
     }

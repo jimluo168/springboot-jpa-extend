@@ -6,15 +6,14 @@ import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
-import com.bms.common.exception.ExceptionFactory;
-import com.bms.common.exception.ServiceException;
 import com.bms.common.util.JpaUtils;
 import com.bms.common.util.StringsUtils;
 import com.bms.entity.User;
 import com.bms.sys.Constant;
-import com.bms.sys.ErrorCode;
+import com.bms.ErrorCodes;
 import com.bms.sys.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections.functors.ExceptionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,14 +41,14 @@ public class UserService {
     public SessionInfo loginValidate(String account, String passwd) {
         User user = userRepository.findByAccount(account);
         if (user == null) {
-            throw new ServiceException(ErrorCode.ACCOUNT_NOT_EXIST, "账号不存在");
+            throw ErrorCodes.build(ErrorCodes.ACCOUNT_NOT_EXIST);
         }
         if (user.getStatus() == User.STATUS_DISABLE) {
-            throw new ServiceException(ExceptionFactory.ERR_USER_STATUS_DISABLED, "用户已禁用");
+            throw ErrorCodes.build(ErrorCodes.USER_STATUS_DISABLED);
         }
         String encryptPasswd = StringsUtils.sha256Hex(passwd, user.getSalt(), Long.toString(user.getCreateDate().getTime()));
         if (!StringUtils.equals(encryptPasswd, user.getPasswd())) {
-            throw new ServiceException(ErrorCode.PASSWD_ERR, "密码错误");
+            throw ErrorCodes.build(ErrorCodes.PASSWD_ERR);
         }
         SessionInfo info = new SessionInfo();
         info.setId(user.getId());
@@ -79,15 +78,11 @@ public class UserService {
     }
 
     public User updateById(Long id, User updateBody) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            User value = user.get();
-            updateBody.setAccount(null);
-            updateBody.setPasswd(null);
-            JpaUtils.copyNotNullProperties(updateBody, value);
-            return value;
-        }
-        throw ExceptionFactory.dataNotExistException();
+        User value = this.findById(id);
+        updateBody.setAccount(null);
+        updateBody.setPasswd(null);
+        JpaUtils.copyNotNullProperties(updateBody, value);
+        return value;
     }
 
     public User deleteById(Long id) {
@@ -102,7 +97,7 @@ public class UserService {
         if (user.isPresent()) {
             return user.get();
         }
-        throw ExceptionFactory.dataNotExistException();
+        throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
     public User resetPasswd(Long id) {

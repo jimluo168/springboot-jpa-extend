@@ -1,5 +1,6 @@
 package com.bms.common.config.web.interceptor;
 
+import com.bms.ErrorCodes;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
@@ -17,8 +18,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
-
-import static com.bms.common.exception.ExceptionFactory.ERR_USER_STATUS_DISABLED;
 
 /**
  * 授权访问拦截器.
@@ -84,7 +83,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             SessionInfo info = session.getAttribute(SessionInfo.CACHE_SESSION_KEY, SessionInfo.class);
             if (info.getStatus() != null && info.getStatus() == 0) {
-                throw new ServiceException(ERR_USER_STATUS_DISABLED, "用户已禁用");
+                throw ErrorCodes.build(ErrorCodes.USER_STATUS_DISABLED);
             }
             info.setSessionId(token);
             info.setIp(request.getRemoteAddr());
