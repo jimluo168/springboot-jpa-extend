@@ -245,6 +245,11 @@ File->Preferences->Editor->File and Code Templates->File Header
       address:string:详细地址
       business_license:string:营业执照(url)
       business_scope:string:经营范围
+      scale:string:企业规模
+      sales_volume:int:销售额
+      staff_number:int:员工人数
+      vehicle_number:int:车辆数
+      station_number:int:车站数
       operate_route:string:运营路线
       principal:string:负责人
       contact:string:联系方式
