@@ -166,4 +166,21 @@
             order by o.createDate desc
         ]]>
     </bus_route_page>
+
+    <busTerminal_page type="hql" desc="公交场站分页查询">
+        <![CDATA[
+            from BusTerminal b
+            where deleted = 0
+            <#if name?? && name!=''>
+                and b.name like :name
+            </#if>
+            <#if code?? && code!=''>
+                and b.code like :code||'%'
+            </#if>
+            <#if type?? && type!=''>
+                and b.type like :type||'%'
+            </#if>
+            order by b.createDate desc
+        ]]>
+    </busTerminal_page>
 </mapper>

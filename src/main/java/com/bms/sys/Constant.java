@@ -47,5 +47,9 @@ public interface Constant {
      * 公交路线管理-分页查询.
      */
     String MAPPER_BUS_ROUTE_PAGE = "bus_route_page";
+    /**
+     * 场站分页查询
+     */
+    String MAPPER_BUS_TERMINAL_PAGE = "busTerminal_page";
 
 }
