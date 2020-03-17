@@ -2175,7 +2175,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 
 ```yaml
 VEH_TYPE:int:车辆类型
-EMPLOYMENT_TYPE:int:从业类型
+EMPLOYMENT_TYPE:int:从业人员类型
 FUEL_TYPE:int:燃料类型
 STATION_TYPE:int:场站类型
 UP_DOWN_TYPE:int:上下行

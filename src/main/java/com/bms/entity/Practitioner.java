@@ -27,6 +27,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 性别.
      */
+    @Column(length = 1)
     private String gender;
 
     /**
@@ -37,7 +38,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 架龄
      */
-    @Column(name="driving_age")
+    @Column(name = "driving_age")
     private Integer drivingAge;
 
     /**
@@ -49,12 +50,12 @@ public class Practitioner extends BaseEntity {
     /**
      * 身份证号.
      */
-    @Column(name = "ID_number",unique = true, nullable = false)
+    @Column(name = "ID_number", unique = true, nullable = false)
     private String IDNumber;
 
     /**
      * 联系号码.
-      */
+     */
     @Column(unique = true, nullable = false)
     private String phone;
 
@@ -77,7 +78,7 @@ public class Practitioner extends BaseEntity {
     private String fleet;
 
     /**
-     *员工工号.
+     * 员工工号.
      */
     @Column(name = "staff_number")
     private String staffNumber;

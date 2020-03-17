@@ -79,10 +79,14 @@ public class Vehicle extends BaseEntity {
     /**
      * 所属企业.
      */
+    @ManyToOne
+    @JoinColumn(name = "org_id")
     private Organization organization;
     /**
      * 车队.
      */
+    @ManyToOne
+    @JoinColumn(name = "team_id")
     private BusTeam carTeam;
     /**
      * 路线.
@@ -91,6 +95,7 @@ public class Vehicle extends BaseEntity {
     /**
      * 座位数量.
      */
+    @Column(name = "seat_num")
     private Integer seatNum;
     /**
      * 备注.

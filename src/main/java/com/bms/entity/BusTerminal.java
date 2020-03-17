@@ -22,22 +22,18 @@ import java.util.List;
 @Entity
 @Table(name = "bus_terminals")
 public class BusTerminal extends BaseEntity {
-
     /**
      * 名称.
      */
     private String name;
-
     /**
      * 编号.
      */
     private String code;
-
     /**
      * 类型.
      */
-    private String type;
-
+    private Integer type;
     /**
      * 面积.
      */
