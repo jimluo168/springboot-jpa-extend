@@ -68,7 +68,6 @@ public class Practitioner extends BaseEntity {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
-    @Column(name="car_team")
     private BusTeam carTeam;
     /**
      * 员工工号.
