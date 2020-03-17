@@ -4,6 +4,7 @@ import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.List;
@@ -58,13 +59,18 @@ public class BusTerminal extends BaseEntity {
     /**
      * 停车数
      */
-    @Column(name="parking_number")
+    @Column(name = "parking_number")
     private Integer parkingNumber;
-
+    /**
+     * 现场照片 多张用 , 隔开.
+     */
+    @Column(length = 1000)
+    private String photos;
     /**
      * 现场照片
      */
-    private List<String> photos;
+    @Transient
+    private List<String> photoList;
 
     /**
      * 所属企业.
@@ -79,7 +85,11 @@ public class BusTerminal extends BaseEntity {
      */
     private String remark;
 
-
-
+    public String getPhotos() {
+        if (photoList == null || photoList.isEmpty()) {
+            return "";
+        }
+        return StringUtils.join(photoList, ",");
+    }
 
 }

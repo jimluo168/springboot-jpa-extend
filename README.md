@@ -1413,3 +1413,278 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
+## 公交车辆管理
+
+### 公交车辆管理-列表
+
+```yaml
+@get: /industry/vehicles/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  lic_no:string:车牌号
+  vin:string:VIN码
+  fuel_type:int:燃料类型
+  card_time:date:上牌时间
+  status:int:状态
+    - 1:待审核 
+    - 2:通过审核 
+    - 3:未通过审核
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:公交车辆列表信息
+      id:long:ID
+      lic_no:string:车牌号
+      vin:string:VIN码
+      length:float:车长
+      width:float:车宽
+      height:float:车高
+      fuel_type:int:燃料类型
+      veh_type:int:车辆型号
+      card_time:date:上牌时间
+      sim:string:SIM卡号
+      terminal_no:string:车载终端编号
+      organization:object:所属企业
+        id:long:ID
+        name:string:名称
+      car_team:object:车队
+        id:long:ID
+        name:string:名称
+      route:string:路线
+      seat_num:int:座位数
+      remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+      reason:string:理由
+      audit_list:array<object>:审核记录
+        id:long:审核ID
+        reason:string:原因
+        create_date:date:创建时间
+        create_user:long:创建用户
+        last_upd_date:date:最后修改时间
+        last_upd_user:long:最后修改人
+
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-新增
+
+```yaml
+@post: /industry/vehicles
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  lic_no:string:车牌号
+  vin:string:VIN码
+  length:float:车长
+  width:float:车宽
+  height:float:车高
+  fuel_type:int:燃料类型
+  veh_type:int:车辆型号
+  card_time:date:上牌时间
+  sim:string:SIM卡号
+  terminal_no:string:车载终端编号
+  organization:object:所属企业
+    id:long:ID
+    name:string:名称
+  car_team:object:车队
+    id:long:ID
+    name:string:名称
+  route:string:路线
+  seat_num:int:座位数
+  remark:string:备注
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-编辑
+
+```yaml
+@put: /industry/vehicles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  lic_no:string:车牌号
+  vin:string:VIN码
+  length:float:车长
+  width:float:车宽
+  height:float:车高
+  fuel_type:int:燃料类型
+  veh_type:int:车辆型号
+  card_time:date:上牌时间
+  sim:string:SIM卡号
+  terminal_no:string:车载终端编号
+  organization:object:所属企业
+    id:long:ID
+    name:string:名称
+  car_team:object:车队
+    id:long:ID
+    name:string:名称
+  route:string:路线
+  seat_num:int:座位数
+  remark:string:备注
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-审核
+
+```yaml
+@post: /industry/vehicles/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-详情
+
+```yaml
+@get: /industry/vehicles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+    lic_no:string:车牌号
+    vin:string:VIN码
+    length:float:车长
+    width:float:车宽
+    height:float:车高
+    fuel_type:int:燃料类型
+    veh_type:int:车辆型号
+    card_time:date:上牌时间
+    sim:string:SIM卡号
+    terminal_no:string:车载终端编号
+    organization:object:所属企业
+      id:long:ID
+      name:string:名称
+    car_team:object:车队
+      id:long:ID
+      name:string:名称
+    route:string:路线
+    seat_num:int:座位数
+    remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+    reason:string:理由
+    audit_list:array<object>:审核记录
+      id:long:审核ID
+      reason:string:原因
+      create_date:date:创建时间
+      create_user:long:创建用户
+      last_upd_date:date:最后修改时间
+      last_upd_user:long:最后修改人
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-删除
+
+```yaml
+@delete: /industry/vehicles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-导出
+
+```yaml
+@get: /industry/vehicles/export?name=:name&status=:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  name:string:机构名称
+  status:int:状态
+    - 1:待审核
+    - 2:通过审核
+    - 3:未通过审核
+
+@return:
+  code:int:操作码
+    - 10002:导出数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交车辆管理-导入
+
+```yaml
+@post: /industry/vehicles/import
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:文件名
+  file:file:导入的文件
+
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
