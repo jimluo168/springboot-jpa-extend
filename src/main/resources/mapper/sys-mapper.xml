@@ -167,7 +167,7 @@
         ]]>
     </bus_route_page>
 
-    <busTerminal_page type="hql" desc="公交场站分页查询">
+    <bus_terminal_page type="hql" desc="公交场站分页查询">
         <![CDATA[
             from BusTerminal b
             where deleted = 0
@@ -182,5 +182,5 @@
             </#if>
             order by b.createDate desc
         ]]>
-    </busTerminal_page>
+    </bus_terminal_page>
 </mapper>

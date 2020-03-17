@@ -22,7 +22,7 @@ import static com.bms.common.domain.Result.ok;
  * @date 2020/3/17
  */
 @RestController
-@RequestMapping("/industry/bus/terminals")
+@RequestMapping("/industry/busterminals")
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交场站管理")
