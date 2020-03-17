@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 字典管理.
@@ -18,7 +19,7 @@ import java.util.List;
 @Repository
 public interface DictRepository extends PagingAndSortingRepository<Dictionary, Long> {
 
-    List<Dictionary> findByCodeOrderByIndexAsc(String code);
+    Optional<Dictionary> findByCodeOrderByIndexAsc(String code);
 
     List<Dictionary> findByParentIsNullOrderByIndexAsc();
 }

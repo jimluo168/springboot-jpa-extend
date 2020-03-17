@@ -2087,3 +2087,45 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
+
+
+### 字典管理-获取所有字典类型
+
+```yaml
+@get: /sys/dict/all
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+
+@return:
+  code:int:操作码
+  data:array<object>:类型列表信息
+    id:long:ID
+    code:string:编码
+    type:string:数据类型
+    value:string:数据值
+    text:string:数据文本描述
+    index:int:排序顺序
+    remark:string:备注
+    status:int:状态(0=禁用 1=正常)
+    parent:object:字典类型父信息
+      id:long:ID
+    children:array<object>:子类型信息
+      id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+
+## 字典表类型说明
+
+```yaml
+VEH_TYPE:int:车辆类型
+EMPLOYMENT_TYPE:int:从业类型
+FUEL_TYPE:int:燃料类型
+STATION_TYPE:int:场站类型
+UP_DOWN_TYPE:int:上下行
+```

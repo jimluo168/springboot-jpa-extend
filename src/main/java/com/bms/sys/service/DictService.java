@@ -63,9 +63,9 @@ public class DictService {
 
     @Transactional(readOnly = true)
     public Dictionary findById(Long id) {
-        Optional<Dictionary> organization = dictRepository.findById(id);
-        if (organization.isPresent()) {
-            return organization.get();
+        Optional<Dictionary> dictionary = dictRepository.findById(id);
+        if (dictionary.isPresent()) {
+            return dictionary.get();
         }
         throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
@@ -83,7 +83,12 @@ public class DictService {
 
     @Transactional(readOnly = true)
     public List<Dictionary> findByCode(String code) {
-        return dictRepository.findByCodeOrderByIndexAsc(code);
+        Optional<Dictionary> dictionary = dictRepository.findByCodeOrderByIndexAsc(code);
+        if (dictionary.isPresent()) {
+            Dictionary dict = dictionary.get();
+            return dict.getChildren();
+        }
+        throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
     @Transactional(readOnly = true)
