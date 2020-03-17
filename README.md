@@ -1198,7 +1198,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 场站管理-列表
 
 ```yaml
-@get: /industry/busterminals/list
+@get: /industry/bus/terminals/list
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -1248,7 +1248,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 场站管理-详情
 
 ```yaml
-@get: /industry/busterminals/:id
+@get: /industry/bus/terminals/:id
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -1292,7 +1292,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 场站管理-新增
 
 ```yaml
-@post: /industry/practitioners
+@post: /industry/bus/terminals
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -1323,7 +1323,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 场站管理-修改
 
 ```yaml
-@put: /industry/practitioners/:id
+@put: /industry/bus/terminals/:id
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -1381,7 +1381,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 场站管理-删除
 
 ```yaml
-@delete: /industry/practitioners/:id
+@delete: /industry/bus/terminals/:id
 
 @header:
   X-User-Agent:手机信息(必须)

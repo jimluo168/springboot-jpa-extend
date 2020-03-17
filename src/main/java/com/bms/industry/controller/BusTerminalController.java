@@ -22,7 +22,7 @@ import static com.bms.common.domain.Result.ok;
  * @date 2020/3/17
  */
 @RestController
-@RequestMapping("/industry/busterminals")
+@RequestMapping("/industry/bus/terminals")
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交场站管理")
@@ -31,7 +31,7 @@ public class BusTerminalController {
     private final BusTerminalService busTerminalService;
 
     @OpLog("新增")
-    @RequiresPermissions("busTerminal_create")
+    @RequiresPermissions("bus_terminal_create")
     @PostMapping("")
     public Result<BusTerminal> create(@RequestBody BusTerminal busTerminal) {
         busTerminalService.insert(busTerminal);
@@ -39,7 +39,7 @@ public class BusTerminalController {
     }
 
     @OpLog("编辑")
-    @RequiresPermissions("busTerminal_edit")
+    @RequiresPermissions("bus_terminal_edit")
     @PutMapping("/{id}")
     public Result<BusTerminal> edit(@PathVariable Long id, @RequestBody BusTerminal busTerminal) {
         busTerminalService.updateById(id, busTerminal);
@@ -47,21 +47,21 @@ public class BusTerminalController {
     }
 
     @OpLog("查询")
-    @RequiresPermissions("busTerminal_list")
+    @RequiresPermissions("bus_terminal_list")
     @GetMapping("/list")
     public Result<PageList<BusTerminal>> list(PageRequest pageRequest, BusTerminal busTerminal) throws IllegalAccessException {
         return ok(busTerminalService.page(pageRequest, BeanMapper.toMap(busTerminal)));
     }
 
     @OpLog("详情")
-    @RequiresPermissions("busTerminal_details")
+    @RequiresPermissions("bus_terminal_details")
     @GetMapping("/{id}")
     public Result<BusTerminal> details(@PathVariable Long id) {
         return Result.ok(busTerminalService.findById(id));
     }
 
     @OpLog("删除")
-    @RequiresPermissions("busTerminal_delete")
+    @RequiresPermissions("bus_terminal_delete")
     @DeleteMapping("/{id}")
     public Result<BusTerminal> deleteById(@PathVariable Long id) {
         return Result.ok(busTerminalService.deleteById(id));
