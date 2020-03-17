@@ -1209,6 +1209,55 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
+### 从业人员管理-导出
+
+```yaml
+@get: /industry/busterminals/export?name=:name&status=:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  name:string:姓名
+  gender:string:性别
+    - M:男
+    - F:女
+    - N:未知
+  certificate_number:string:资格证号
+  ID_number:string:高价证号
+  organization:string:企业名称
+
+@return:
+  code:int:操作码
+    - 10002:导出数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 从业人员管理-导入
+
+```yaml
+@post: /industry/busterminals/import
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:文件名
+  file:file:导入的文件
+
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+## 场站管理
+
 ### 场站管理-列表
 
 ```yaml
@@ -1411,7 +1460,46 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
+### 场站管理-导出
 
+```yaml
+@get: /industry/busterminals/export?name=:name&status=:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  name:string:名称
+  code:string:编号
+  type:string:类型
+
+@return:
+  code:int:操作码
+    - 10002:导出数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 场站管理-导入
+
+```yaml
+@post: /industry/busterminals/import
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:文件名
+  file:file:导入的文件
+
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
 
 ## 公交车辆管理
 

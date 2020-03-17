@@ -1,17 +1,34 @@
 package com.bms.industry.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
+import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
+import com.bms.common.util.ResponseUtils;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusTerminal;
+import com.bms.entity.Organization;
 import com.bms.industry.service.BusTerminalService;
+import com.bms.sys.controller.OrganizationController;
+import com.bms.sys.view.OrganizationExcelModel;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static com.bms.common.domain.Result.ok;
 
@@ -65,5 +82,21 @@ public class BusTerminalController {
     @DeleteMapping("/{id}")
     public Result<BusTerminal> deleteById(@PathVariable Long id) {
         return Result.ok(busTerminalService.deleteById(id));
+    }
+
+    @ApiOperation("导出")
+    @OpLog("导出")
+    @RequiresPermissions("bus_terminal_export")
+    @GetMapping("/export")
+    public Result<Void> export(BusTerminal busTerminal, HttpServletResponse response) throws IOException, IllegalAccessException {
+        return ok();
+    }
+
+    @ApiOperation("导入")
+    @OpLog("导入")
+    @RequiresPermissions("bus_terminal_import")
+    @PostMapping("/import")
+    public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
+        return ok();
     }
 }
