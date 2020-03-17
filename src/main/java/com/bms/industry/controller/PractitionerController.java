@@ -13,8 +13,6 @@ import com.bms.industry.service.PractitionerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 import static com.bms.common.domain.Result.ok;
 
 /**
@@ -27,8 +25,9 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/industry/practitioners")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@OpLogModule("公交企业管理")
+@OpLogModule("从业人员管理")
 public class PractitionerController {
+
     private final PractitionerService practitionerService;
 
     @OpLog("新增")

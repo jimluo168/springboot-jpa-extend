@@ -965,7 +965,6 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
-
 ### 从业人员管理-列表
 
 ```yaml
@@ -990,7 +989,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   code:int:操作码
   data:object:返回信息
     count:int:分页总大小
-    list:array<object>:用户列表信息
+    list:array<object>:人员列表信息
       id:long:人员ID
       name:string:人员姓名
       gender:string:性别
@@ -1123,6 +1122,16 @@ File->Preferences->Editor->File and Code Templates->File Header
   id:long:用户id
 
 @payload:
+  name:string:人员姓名
+  gender:string:性别
+    - M:男
+    - F:女
+    - N:未知
+  age:int:年龄
+  certificate_number:string:资格证号
+  ID_number:string:身份证号
+  phone:string:联系号码
+  address:string:通讯地址
   organization:object:机构信息
     id:long:机构id
   real_name:string:用户名
@@ -1185,3 +1194,208 @@ File->Preferences->Editor->File and Code Templates->File Header
     id:long:人员ID
   success:bool:是否成功
   msg:string:操作提示
+```
+### 场站管理-列表
+
+```yaml
+@get: /industry/busterminals/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:名称
+  code:string:编号
+  type:string:类型
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:场站列表信息
+      id:long:人员ID
+      name:string:名称
+      code:string:编码
+      type:string:类型
+      area:float:面积
+      address:string:地址
+      longitude:float:经度
+      latitude:float:纬度
+      parking_numbe:int:停车数
+      photos::array<string>:现场照片
+      organization:object:机构信息
+        id:long:机构ID
+        name:string:名称
+        level:string:级别
+        province:string:省
+        city:string:市
+        county:string:区/县
+        address:string:详细地址
+        business_license:string:营业执照(url)
+        business_scope:string:经营范围
+        operate_route:string:运营路线
+        principal:string:负责人
+        contact:string:联系方式
+        remark:string:备注
+      remark:string:备注
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 场站管理-详情
+
+```yaml
+@get: /industry/busterminals/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+    name:string:名称
+    code:string:编码
+    type:string:类型
+    area:float:面积
+    address:string:地址
+    longitude:float:经度
+    latitude:float:纬度
+    parking_numbe:int:停车数
+    photos::array<string>:现场照片
+    organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+    remark:string:备注
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 场站管理-新增
+
+```yaml
+@post: /industry/practitioners
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:名称
+  code:string:编码
+  type:string:类型
+  area:float:面积
+  address:string:地址
+  longitude:float:经度
+  latitude:float:纬度
+  parking_numbe:int:停车数
+  photos::array<string>:现场照片
+  organization:object:机构信息
+    id:long:机构ID
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 场站管理-修改
+
+```yaml
+@put: /industry/practitioners/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:场站id
+
+@payload:
+  name:string:名称
+  code:string:编码
+  type:string:类型
+  area:float:面积
+  address:string:地址
+  longitude:float:经度
+  latitude:float:纬度
+  parking_numbe:int:停车数
+  photos::array<string>:现场照片
+  organization:object:机构信息
+    id:long:机构ID
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+    name:string:名称
+    code:string:编码
+    type:string:类型
+    area:float:面积
+    address:string:地址
+    longitude:float:经度
+    latitude:float:纬度
+    parking_numbe:int:停车数
+    photos::array<string>:现场照片
+    organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+    remark:string:备注v
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 场站管理-删除
+
+```yaml
+@delete: /industry/practitioners/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:场站ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:场站ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+

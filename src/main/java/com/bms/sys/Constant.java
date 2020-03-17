@@ -39,4 +39,9 @@ public interface Constant {
      */
     String MAPPER_PRACTITIONER_PAGE = "practitioner_page";
 
+    /**
+     * 场站分页查询
+     */
+    String MAPPER_BUS_TERMINAL_PAGE = "busTerminal_page";
+
 }
