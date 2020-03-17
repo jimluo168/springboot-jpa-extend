@@ -6,6 +6,7 @@ import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
+import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.PractitionerService;
@@ -25,7 +26,7 @@ import static com.bms.common.domain.Result.ok;
 @RestController
 @RequestMapping("/industry/practitioners")
 @RequiredArgsConstructor
-//@RequiresAuthentication
+@RequiresAuthentication
 @OpLogModule("公交企业管理")
 public class PractitionerController {
     private final PractitionerService practitionerService;
