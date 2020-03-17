@@ -52,4 +52,6 @@ public class Vehicle extends BaseEntity {
     private Integer vehType;
 
 
+
+
 }

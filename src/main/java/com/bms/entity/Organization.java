@@ -47,6 +47,11 @@ public class Organization extends BaseEntity {
      */
     private Integer level;
     /**
+     * 公司编号.
+     */
+    @Column(name = "company_no")
+    private String companyNo;
+    /**
      * 省.
      */
     private String province;
@@ -126,5 +131,23 @@ public class Organization extends BaseEntity {
     @JsonIgnoreProperties("organization")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
     private List<OrganizationAudit> auditList;
+    /**
+     * 上级公司.
+     */
+    @JsonIgnoreProperties({"children", "audit_list"})
+    @ManyToOne
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    private Organization parent;
+    /**
+     * 子公司.
+     */
+    @JsonIgnoreProperties({"parent", "audit_list"})
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    private List<Organization> children;
+
+    /**
+     * 车队.
+     */
+//    private List<CheDui> cheduiList;
 
 }
