@@ -51,5 +51,8 @@ public interface Constant {
      * 场站分页查询.
      */
     String MAPPER_BUS_TERMINAL_PAGE = "bus_terminal_page";
-
+    /**
+     * 公交车队管理-分页查询.
+     */
+    String MAPPER_BUS_CAR_TEAM_PAGE = "bus_car_team_page";
 }

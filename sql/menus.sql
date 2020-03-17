@@ -6,13 +6,17 @@ select * from role_menus;
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('100', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '434272516287107072', '1', 'user_list','用户管理-查询');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
-VALUES ('101', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '434272516287107072', '1', 'user_create','用户管理-新增');
+VALUES ('101', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '434272516287107072', '2', 'user_create','用户管理-新增');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
-VALUES ('102', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '434272516287107072', '1', 'user_edit','用户管理-编辑');
+VALUES ('102', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '434272516287107072', '3', 'user_edit','用户管理-编辑');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
-VALUES ('103', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '禁用/启用', '2', '434272516287107072', '1', 'user_status','用户管理-禁用/启用');
+VALUES ('103', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '禁用/启用', '2', '434272516287107072', '4', 'user_status','用户管理-禁用/启用');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
-VALUES ('104', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '重制密码', '2', '434272516287107072', '1', 'user_resetpasswd','用户管理-重制密码');
+VALUES ('104', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '重制密码', '2', '434272516287107072', '5', 'user_resetpasswd','用户管理-重制密码');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('105', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272516287107072', '6', 'user_details','用户管理-详情');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('106', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272516287107072', '7', 'user_delete','用户管理-删除');
 
 -- 角色管理-按钮
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
@@ -23,6 +27,8 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('112', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '434272518099046400', '3', 'role_edit','角色管理-编辑');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('113', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '434272518099046400', '4', 'role_delete','角色管理-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('114', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272518099046400', '5', 'role_details','角色管理-详情');
 
 -- 日志管理
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
@@ -126,60 +132,4 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('184', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272530384162816', '5', 'bus_site_details','公交站点管理-详情');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('185', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272530384162816', '6', 'bus_site_audit','公交站点管理-审核/拒绝');
-
-
-
--- role_menus 关系表
-
-insert into role_menus(role_id,menu_id) values('434272239429488640','100');
-insert into role_menus(role_id,menu_id) values('434272239429488640','101');
-insert into role_menus(role_id,menu_id) values('434272239429488640','102');
-insert into role_menus(role_id,menu_id) values('434272239429488640','103');
-insert into role_menus(role_id,menu_id) values('434272239429488640','104');
-insert into role_menus(role_id,menu_id) values('434272239429488640','110');
-insert into role_menus(role_id,menu_id) values('434272239429488640','111');
-insert into role_menus(role_id,menu_id) values('434272239429488640','112');
-insert into role_menus(role_id,menu_id) values('434272239429488640','113');
-insert into role_menus(role_id,menu_id) values('434272239429488640','120');
-insert into role_menus(role_id,menu_id) values('434272239429488640','1000');
-insert into role_menus(role_id,menu_id) values('434272239429488640','130');
-insert into role_menus(role_id,menu_id) values('434272239429488640','131');
-insert into role_menus(role_id,menu_id) values('434272239429488640','132');
-insert into role_menus(role_id,menu_id) values('434272239429488640','133');
-insert into role_menus(role_id,menu_id) values('434272239429488640','134');
-insert into role_menus(role_id,menu_id) values('434272239429488640','135');
-insert into role_menus(role_id,menu_id) values('434272239429488640','136');
-insert into role_menus(role_id,menu_id) values('434272239429488640','137');
-
-
-insert into role_menus(role_id,menu_id) values('434272239429488640','140');
-insert into role_menus(role_id,menu_id) values('434272239429488640','141');
-insert into role_menus(role_id,menu_id) values('434272239429488640','142');
-insert into role_menus(role_id,menu_id) values('434272239429488640','143');
-insert into role_menus(role_id,menu_id) values('434272239429488640','144');
-insert into role_menus(role_id,menu_id) values('434272239429488640','145');
-insert into role_menus(role_id,menu_id) values('434272239429488640','150');
-insert into role_menus(role_id,menu_id) values('434272239429488640','151');
-insert into role_menus(role_id,menu_id) values('434272239429488640','152');
-insert into role_menus(role_id,menu_id) values('434272239429488640','153');
-insert into role_menus(role_id,menu_id) values('434272239429488640','154');
-insert into role_menus(role_id,menu_id) values('434272239429488640','155');
-insert into role_menus(role_id,menu_id) values('434272239429488640','160');
-insert into role_menus(role_id,menu_id) values('434272239429488640','161');
-insert into role_menus(role_id,menu_id) values('434272239429488640','162');
-insert into role_menus(role_id,menu_id) values('434272239429488640','163');
-insert into role_menus(role_id,menu_id) values('434272239429488640','164');
-insert into role_menus(role_id,menu_id) values('434272239429488640','165');
-insert into role_menus(role_id,menu_id) values('434272239429488640','170');
-insert into role_menus(role_id,menu_id) values('434272239429488640','171');
-insert into role_menus(role_id,menu_id) values('434272239429488640','172');
-insert into role_menus(role_id,menu_id) values('434272239429488640','173');
-insert into role_menus(role_id,menu_id) values('434272239429488640','174');
-insert into role_menus(role_id,menu_id) values('434272239429488640','175');
-insert into role_menus(role_id,menu_id) values('434272239429488640','180');
-insert into role_menus(role_id,menu_id) values('434272239429488640','181');
-insert into role_menus(role_id,menu_id) values('434272239429488640','182');
-insert into role_menus(role_id,menu_id) values('434272239429488640','183');
-insert into role_menus(role_id,menu_id) values('434272239429488640','184');
-insert into role_menus(role_id,menu_id) values('434272239429488640','185');
 

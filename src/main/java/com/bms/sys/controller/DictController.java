@@ -55,7 +55,7 @@ public class DictController {
 
     @ApiOperation("查询")
     @OpLog("查询")
-    @RequiresPermissions("dict_list")
+//    @RequiresPermissions("dict_list")
     @GetMapping("/list")
     public Result<PageList<Dictionary>> list(PageRequest pageRequest, Dictionary organization) throws IllegalAccessException {
         return ok(dictService.page(pageRequest, BeanMapper.toMap(organization)));
@@ -87,7 +87,7 @@ public class DictController {
     }
 
     @ApiOperation("根据编码获取字典值集合")
-    @GetMapping("/code/{code}")
+    @GetMapping("/codes/{code}")
     public Result<List<Dictionary>> findByCode(@PathVariable String code) {
         return ok(dictService.findByCode(code));
     }
