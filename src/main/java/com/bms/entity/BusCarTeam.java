@@ -54,10 +54,11 @@ public class BusCarTeam implements Serializable {
      * 负责人.
      */
     @Column(name = "t_per")
-    private String per;
+    private String principal;
     /**
      * 车队编号.
      */
+    @Column(name = "num")
     private String num;
     /**
      * 创建时间.

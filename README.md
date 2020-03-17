@@ -310,6 +310,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       address:string:详细地址
       business_license:string:营业执照(url)
       business_scope:string:经营范围
+      company_no:string:公司编号
       scale:string:企业规模
       sales_volume:int:销售额
       staff_number:int:员工人数
@@ -320,6 +321,19 @@ File->Preferences->Editor->File and Code Templates->File Header
       contact:string:联系方式
       remark:string:备注
       status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+      parent:object:上级公司信息
+        id:long:ID
+        name:string:名称
+      car_team_list:arry<object>:车队信息
+        id:long:ID
+        oid:string:旧系统ID
+        name:string:车队名称
+        address:string:地址
+        telephone:string:电话
+        principal:string:负责人
+        num:string:车队编号
+        create_date:date:创建时间
+        status:int:状态
       reason:string:理由
       audit_list:array<object>:审核记录
         id:long:审核ID

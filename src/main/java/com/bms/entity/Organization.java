@@ -148,6 +148,10 @@ public class Organization extends BaseEntity {
     /**
      * 车队.
      */
-//    private List<CheDui> cheduiList;
+    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JoinTable(name = "bus_carteam_orgs",
+            joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"))
+    private List<BusCarTeam> carTeamList;
 
 }

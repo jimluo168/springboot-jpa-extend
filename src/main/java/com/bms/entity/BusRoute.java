@@ -4,14 +4,13 @@ import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.exception.DataException;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 /**
- * 公交车辆管理.
+ * 公交路线管理.
  *
  * @author luojimeng
  * @date 2020/3/16
@@ -19,8 +18,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
-@Table(name = "bus_vehicles")
-public class Vehicle extends BaseEntity {
+@Table(name = "bus_routes")
+public class BusRoute extends BaseEntity {
     /**
      * 1=待审核.
      */
@@ -34,73 +33,64 @@ public class Vehicle extends BaseEntity {
      */
     public static final int STATUS_UN_AUDIT = 3;
 
-
     /**
-     * 车牌号.
+     * 名称.
      */
-    @Column(length = 50)
-    private String licNo;
+    private String name;
     /**
-     * VIN码.
+     * 编号.
      */
-    @Column(length = 100)
-    private String vin;
+    private String code;
     /**
-     * 车辆尺寸(长).
+     * 票价.
      */
-    private Float length;
+    private Float price;
     /**
-     * 车辆尺寸(宽).
+     * 里程.
      */
-    private Float width;
+    private Float mileage;
     /**
-     * 车辆尺寸(高).
+     * 首发站.
      */
-    private Float height;
+    private String startSite;
     /**
-     * 燃料类型(字典表).
+     * 终点站.
      */
-    private Integer fuelType;
+    private String endSite;
     /**
-     * 车辆型号(字典表).
+     * 途经站点.
      */
-    private Integer vehType;
+    @Column(name = "way_sites", length = 1000)
+    private String waySites;
     /**
-     * 上牌时间.
+     * 首班时间.
      */
-    private Date cardTime;
+    @Column(name = "start_time")
+    private Date startTime;
     /**
-     * SIM卡号.
+     * 末班时间.
      */
-    private String sim;
-    /**
-     * 车载终端编号.
-     */
-    private String terminalNo;
-    /**
-     * 所属企业.
-     */
-    private Organization organization;
-    /**
-     * 车队.
-     */
-    private BusCarTeam carTeam;
-    /**
-     * 路线.
-     */
-    private String route;
-    /**
-     * 座位数量.
-     */
-    private Integer seatNum;
+    @Column(name = "last_time")
+    private Date lastTime;
     /**
      * 备注.
      */
-    @Column(length = 500)
+    @Column(length = 1000)
     private String remark;
     /**
-     * 状态(1:待审核 2:通过审核 3:未通过审核).
+     * 所属企业.
      */
+    @JsonIgnoreProperties("audit_list")
+    @ManyToOne
+    @JoinColumn(name = "org_id")
+    private Organization organization;
+    /**
+     * 所属车队.
+     */
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private BusCarTeam carTeam;
+
     private Integer status = STATUS_TO_BE_AUDIT;
     /**
      * 理由.
@@ -111,8 +101,7 @@ public class Vehicle extends BaseEntity {
      * 审核历史记录.
      */
     @JsonIgnoreProperties("vehicle")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vehicle")
-    private List<VehicleAudit> auditList;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "busRoute")
+    private List<BusRouteAudit> auditList;
 
 }
