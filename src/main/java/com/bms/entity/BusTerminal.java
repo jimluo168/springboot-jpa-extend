@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -90,6 +92,13 @@ public class BusTerminal extends BaseEntity {
             return "";
         }
         return StringUtils.join(photoList, ",");
+    }
+
+    public List<String> getPhotoList() {
+        if (StringUtils.isBlank(photos)) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(photos.split(","));
     }
 
 }
