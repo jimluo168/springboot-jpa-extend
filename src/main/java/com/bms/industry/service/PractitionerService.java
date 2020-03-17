@@ -47,13 +47,13 @@ public class PractitionerService {
         return value;
     }
 
-    public PageList<Practitioner> page(PageRequest pageRequest, String name, String gender, String organization, String certificateNumber, String IDNumber) {
+    public PageList<Practitioner> page(PageRequest pageRequest, String name, String gender, String organization, String certNo, String idNumber) {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("name", name);
         queryParams.put("gender", gender);
         queryParams.put("organization", organization);
-        queryParams.put("certificateNumber", certificateNumber);
-        queryParams.put("IDNumber", IDNumber);
+        queryParams.put("certNo", certNo);
+        queryParams.put("idNumber", idNumber);
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_PRACTITIONER_PAGE, queryParams));
     }
 

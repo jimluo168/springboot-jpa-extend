@@ -15,6 +15,7 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusTerminal;
 import com.bms.entity.Organization;
 import com.bms.industry.service.BusTerminalService;
+import com.bms.industry.view.BusTerminalExcelModel;
 import com.bms.sys.controller.OrganizationController;
 import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.ApiOperation;
@@ -89,7 +90,28 @@ public class BusTerminalController {
     @RequiresPermissions("bus_terminal_export")
     @GetMapping("/export")
     public Result<Void> export(BusTerminal busTerminal, HttpServletResponse response) throws IOException, IllegalAccessException {
-        return ok();
+        try {
+            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageList<BusTerminal> pageList = busTerminalService.page(pageRequest, BeanMapper.toMap(busTerminal));
+            List<BusTerminalExcelModel> data = new ArrayList<>();
+            pageList.getList().stream().forEach(o -> {
+                BusTerminalExcelModel bt = new BusTerminalExcelModel();
+                BeanUtils.copyProperties(o, bt);
+                data.add(bt);
+            });
+
+            ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), "yyyyMMdd"));
+            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+                    .autoCloseStream(Boolean.FALSE)
+                    .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                    .sheet()
+                    .doWrite(data);
+            return null;
+        } catch (Exception e) {
+            // 重置response
+            response.reset();
+            throw ErrorCodes.build(ErrorCodes.EXPORT_DATA_ERR);
+        }
     }
 
     @ApiOperation("导入")

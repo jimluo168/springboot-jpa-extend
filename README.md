@@ -997,8 +997,8 @@ File->Preferences->Editor->File and Code Templates->File Header
     - M:男
     - F:女
     - N:未知
-  certificate_number:string:资格证号
-  ID_number:string:高价证号
+  cert_no:string:资格证号
+  id_number:string:高价证号
   organization:string:企业名称
 @return:
   code:int:操作码
@@ -1013,8 +1013,8 @@ File->Preferences->Editor->File and Code Templates->File Header
         - N:未知
       age:int:年龄
       driving_age:int:架龄
-      certificate_number:string:资格证号
-      ID_number:string:身份证号
+      cert_no:string:资格证号
+      id_number:string:身份证号
       phone:string:联系号码
       address:string:通讯地址
       organization:object:机构信息
@@ -1031,9 +1031,11 @@ File->Preferences->Editor->File and Code Templates->File Header
         principal:string:负责人
         contact:string:联系方式
         remark:string:备注
-      fleet:string:车队
+      car_team:object:车队
+        id:long:ID
+        name:string:名称
       staff_number:string:员工工号
-      cart_number:string:卡号
+      card_number:string:卡号
       type:string:从业类型
       line:string:线路
       remark:string:备注
@@ -1064,8 +1066,8 @@ File->Preferences->Editor->File and Code Templates->File Header
       - N:未知
     age:int:年龄
     driving_age:int:架龄
-    certificate_number:string:资格证号
-    ID_number:string:身份证号
+    cert_no:string:资格证号
+    id_number:string:身份证号
     phone:string:联系号码
     address:string:通讯地址
     organization:object:机构信息
@@ -1082,9 +1084,11 @@ File->Preferences->Editor->File and Code Templates->File Header
       principal:string:负责人
       contact:string:联系方式
       remark:string:备注
-    fleet:string:车队
+    car_team:object:车队
+        id:long:ID
+        name:string:名称
     staff_number:string:员工工号
-    cart_number:string:卡号
+    card_number:string:卡号
     type:string:从业类型
     line:string:线路
     remark:string:备注
@@ -1109,15 +1113,16 @@ File->Preferences->Editor->File and Code Templates->File Header
     - N:未知
   age:int:年龄
   driving_age:int:架龄
-  certificate_number:string:资格证号
-  ID_number:string:身份证号
+  cert_no:string:资格证号
+  id_number:string:身份证号
   phone:string:联系号码
   address:string:通讯地址
   organization:object:机构信息
     id:long:机构ID
-  fleet:string:车队
+  car_team:object:车队
+    id:long:ID
   staff_number:string:员工工号
-  cart_number:string:卡号
+  card_number:string:卡号
   type:string:从业类型
   line:string:线路
   remark:string:备注
@@ -1150,15 +1155,16 @@ File->Preferences->Editor->File and Code Templates->File Header
     - N:未知
   age:int:年龄
   driving_age:int:架龄
-  certificate_number:string:资格证号
-  ID_number:string:身份证号
+  cert_no:string:资格证号
+  id_number:string:身份证号
   phone:string:联系号码
   address:string:通讯地址
   organization:object:机构信息
     id:long:机构id
-  fleet:string:车队
+  car_team:object:车队
+    id:long:ID
   staff_number:string:员工工号
-  cart_number:string:卡号
+  card_number:string:卡号
   type:string:从业类型
   line:string:线路
   remark:string:备注
@@ -1174,8 +1180,8 @@ File->Preferences->Editor->File and Code Templates->File Header
       - N:未知
     age:int:年龄
     driving_age:int:架龄
-    certificate_number:string:资格证号
-    ID_number:string:身份证号
+    cert_no:string:资格证号
+    id_number:string:身份证号
     phone:string:联系号码
     address:string:通讯地址
     organization:object:机构信息
@@ -1192,9 +1198,11 @@ File->Preferences->Editor->File and Code Templates->File Header
       principal:string:负责人
       contact:string:联系方式
       remark:string:备注
-    fleet:string:车队
+    car_team:object:车队
+      id:long:ID
+      name:string:名称
     staff_number:string:员工工号
-    cart_number:string:卡号
+    card_number:string:卡号
     type:string:从业类型
     line:string:线路
     remark:string:备注
@@ -1236,8 +1244,8 @@ File->Preferences->Editor->File and Code Templates->File Header
     - M:男
     - F:女
     - N:未知
-  certificate_number:string:资格证号
-  ID_number:string:高价证号
+  cert_no:string:资格证号
+  id_number:string:高价证号
   organization:string:企业名称
 
 @return:
