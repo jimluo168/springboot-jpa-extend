@@ -45,6 +45,10 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('134', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272522435956736', '5', 'organization_details','公交企业管理-详情');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('135', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272522435956736', '6', 'organization_audit','公交企业管理-审核/拒绝');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('136', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导入', '2', '434272522435956736', '7', 'organization_import','公交企业管理-导入');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('137', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导出', '2', '434272522435956736', '8', 'organization_export','公交企业管理-导出');
 
 
 -- 从业人员管理
@@ -144,6 +148,8 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','132');
 insert into role_menus(role_id,menu_id) values('434272239429488640','133');
 insert into role_menus(role_id,menu_id) values('434272239429488640','134');
 insert into role_menus(role_id,menu_id) values('434272239429488640','135');
+insert into role_menus(role_id,menu_id) values('434272239429488640','136');
+insert into role_menus(role_id,menu_id) values('434272239429488640','137');
 
 
 insert into role_menus(role_id,menu_id) values('434272239429488640','140');

@@ -31,7 +31,9 @@ public enum ErrorCodes {
      * sys(10000-19999).
      */
     PASSWD_ERR(10000, "密码错误"),
-    ACCOUNT_NOT_EXIST(10001, "账号不存在");
+    ACCOUNT_NOT_EXIST(10001, "账号不存在"),
+    EXPORT_DATA_ERR(10002, "导出数据出错"),
+    IMPORT_DATA_ERR(10003, "导入数据出错");
 
 
     /**

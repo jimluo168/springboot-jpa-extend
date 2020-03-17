@@ -12,11 +12,13 @@ import com.bms.entity.OrganizationAudit;
 import com.bms.sys.Constant;
 import com.bms.sys.dao.OrganizationAuditRepository;
 import com.bms.sys.dao.OrganizationRepository;
+import com.bms.sys.view.OrganizationExcelModel;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.functors.ExceptionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -80,5 +82,12 @@ public class OrganizationService {
         audit.setOrganization(organization);
         audit.setReason(reason);
         organizationAuditRepository.save(audit);
+    }
+
+    public void saveAll(List<Organization> list) {
+        list.stream().forEach(o -> {
+            o.setId(flakeId.next());
+        });
+        organizationRepository.saveAll(list);
     }
 }
