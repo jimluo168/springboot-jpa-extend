@@ -89,7 +89,7 @@ public class BusRoute extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "team_id")
-    private BusCarTeam carTeam;
+    private BusTeam carTeam;
 
     private Integer status = STATUS_TO_BE_AUDIT;
     /**

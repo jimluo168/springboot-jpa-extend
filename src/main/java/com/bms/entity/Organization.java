@@ -1,9 +1,7 @@
 package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -152,6 +150,6 @@ public class Organization extends BaseEntity {
     @JoinTable(name = "bus_carteam_orgs",
             joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"))
-    private List<BusCarTeam> carTeamList;
+    private List<BusTeam> carTeamList;
 
 }

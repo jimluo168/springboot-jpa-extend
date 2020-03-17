@@ -6,8 +6,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.entity.BusRoute;
-import com.bms.industry.dao.BusCarTeamRepository;
-import com.bms.industry.dao.BusRouteAuditRepository;
+import com.bms.industry.dao.BusTeamRepository;
 import com.bms.sys.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,8 @@ import java.util.Map;
 @Service
 @Transactional(rollbackFor = RuntimeException.class)
 @RequiredArgsConstructor
-public class BusCarTeamService {
-    private final BusCarTeamRepository busCarTeamRepository;
+public class BusTeamService {
+    private final BusTeamRepository busTeamRepository;
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 

@@ -1,6 +1,6 @@
 # 行业管理系统后端代码(IndustryManagement-Backend)
 
-## 开发环境
+## 1. 开发环境
 
 1. JDK 1.8+(包含1.8)
 
@@ -10,7 +10,7 @@
 - IDEA: https://projectlombok.org/setup/intellij
 - Eclipse: https://projectlombok.org/setup/eclipse
 
-### 代码注视
+### 1.1. 代码注视
 
 File->Preferences->Editor->File and Code Templates->File Header
 
@@ -22,12 +22,12 @@ File->Preferences->Editor->File and Code Templates->File Header
  */
 ```
 
-### 开发调试
+### 1.2. 开发调试
 访问swagger-ui管理界面 http://youhostname:8080/swagger-ui.html
 
 对自己编写的接口进行开发调试测试
 
-## 系统模块命名
+## 2. 系统模块命名
 
 |模块名称|英文|Java包命名|
 |---|---|---|
@@ -37,7 +37,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 |公交综合运行监测与应急响应系统|monitor|com.bms.monitor|
 |公交统计决策分析系统|statis|com.bms.statis|
 
-## 错误码规范
+## 3. 错误码规范
 
 |模块|错误码范围|
 |---|------|
@@ -47,9 +47,9 @@ File->Preferences->Editor->File and Code Templates->File Header
 |monitor|30000-39999|
 |statis|40000-49999|
 
-## 权限编码规范
+## 4. 权限编码规范
 
-### 编码规范
+### 4.1. 编码规范
 功能名称+下划线(_)+操作名称
 
 |操作名称|命名|
@@ -73,7 +73,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 |用户管理-禁用/启用|user_status|
 |用户管理-重制密码|user_reset_passwd|
 
-### 代码规范
+### 4.2. 代码规范
 ```java
     @RequiresPermissions("user_create")
     @PostMapping("")
@@ -110,9 +110,11 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-## API接口
+## 5. API接口
 
-### OSS文件-上传
+## 6. OSS文件管理
+
+### 6.1. OSS文件-上传
 
 `header的Content-Type必须为multipart/form-data`
 
@@ -152,7 +154,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 
 ```
 
-### OSS文件-下载
+### 6.2. OSS文件-下载
 
 ```yaml
 @get: /oss/:path
@@ -168,7 +170,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     - 404:文件不存在壮体啊
 ```
 
-### OSS文件-删除
+### 6.3. OSS文件-删除
 
 ```yaml
 @delete: /oss/:path
@@ -188,8 +190,9 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
+## 7. 用户管理
 
-### 用户登录
+### 7.1. 用户登录
 
 ```yaml
 @post: /sys/login
@@ -211,7 +214,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 
 ```
 
-### 用户注销
+### 7.2. 用户注销
 
 ```yaml
 @post: /sys/logout
@@ -231,7 +234,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 
 ```
 
-### 获取我的个人信息
+### 7.3. 获取我的个人信息
 
 ```yaml
 @get: /sys/my/profiles
@@ -276,9 +279,242 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-## 公交企业管理
 
-### 公交企业管理-列表
+### 7.4. 用户管理-列表
+
+```yaml
+@get: /sys/users/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  account:string:用户名
+  real_name:string:真实姓名
+  organization:string:企业名称
+  status:int:状态
+    - 0:禁用
+    - 1:启用
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:用户列表信息
+      id:long:用户ID
+      account:string:账户
+      organization:object:机构信息
+        id:long:机构ID
+        name:string:名称
+        level:string:级别
+        province:string:省
+        city:string:市
+        county:string:区/县
+        address:string:详细地址
+        business_license:string:营业执照(url)
+        business_scope:string:经营范围
+        operate_route:string:运营路线
+        principal:string:负责人
+        contact:string:联系方式
+        remark:string:备注
+      real_name:string:用户名
+      remark:string:备注
+      role:object:角色信息
+        id:long:角色ID
+        name:string:角色名称
+        remark:string:描述
+      status:int:用户状态
+        - 0:禁用
+        - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 7.5. 用户管理-详情
+
+```yaml
+@get: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+      id:long:机构ID
+      name:string:名称
+      level:string:级别
+      province:string:省
+      city:string:市
+      county:string:区/县
+      address:string:详细地址
+      business_license:string:营业执照(url)
+      business_scope:string:经营范围
+      operate_route:string:运营路线
+      principal:string:负责人
+      contact:string:联系方式
+      remark:string:备注
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+      id:long:角色ID
+      name:string:角色名称
+      remark:string:描述
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 7.6. 用户管理-新增
+
+```yaml
+@post: /sys/users
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  account:string:账户
+  passwd:string:密码
+  organization:object:机构信息
+    id:long:机构id
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+    id:long:角色id
+  status:int:用户状态
+    - 0:禁用
+    - 1:启用
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 7.7. 用户管理-修改
+
+```yaml
+@put: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@payload:
+  organization:object:机构信息
+    id:long:机构id
+  real_name:string:用户名
+  remark:string:备注
+  role:object:角色信息
+    id:long:角色id
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 7.8. 用户管理-禁用/启用
+
+```yaml
+@put: /sys/users/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+  status:int:用户状态
+    - 0:禁用
+    - 1:启用
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+    account:string:账户
+    organization:object:机构信息
+    real_name:string:用户名
+    remark:string:备注
+    role:object:角色信息
+    status:int:用户状态
+      - 0:禁用
+      - 1:启用
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 7.9. 用户管理-删除
+
+```yaml
+@delete: /sys/users/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:用户ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 7.10. 用户管理-重置密码
+
+```yaml
+@post: /sys/users/:id/resetpasswd
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户ID
+
+@return:
+  code:int:操作码
+  data:object:用户信息
+    id:long:用户ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+## 8. 公交企业管理
+
+### 8.1. 公交企业管理-列表
 
 ```yaml
 @get: /sys/organizations/list?page=:page&size=:size&name=:name&status=:status
@@ -348,7 +584,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-新增
+### 8.2. 公交企业管理-新增
 
 ```yaml
 @post: /sys/organizations
@@ -379,7 +615,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-编辑
+### 8.3. 公交企业管理-编辑
 
 ```yaml
 @put: /sys/organizations/:id
@@ -413,7 +649,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-审核
+### 8.4. 公交企业管理-审核
 
 ```yaml
 @post: /sys/organizations/:id/status/:status
@@ -435,7 +671,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-详情
+### 8.5. 公交企业管理-详情
 
 ```yaml
 @get: /sys/organizations/:id
@@ -469,7 +705,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-删除
+### 8.6. 公交企业管理-删除
 
 ```yaml
 @delete: /sys/organizations/:id
@@ -489,7 +725,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-导出
+### 8.7. 公交企业管理-导出
 
 ```yaml
 @get: /sys/organizations/export?name=:name&status=:status
@@ -512,7 +748,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交企业管理-导入
+### 8.8. 公交企业管理-导入
 
 ```yaml
 @post: /sys/organizations/import
@@ -532,7 +768,9 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 菜单管理-我的菜单
+## 9. 菜单管理
+
+### 9.1. 菜单管理-我的菜单
 
 ```yaml
 @get: /sys/menus/my
@@ -558,7 +796,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 菜单管理-全部菜单
+### 9.2. 菜单管理-全部菜单
 
 ```yaml
 @get: /sys/menus/all
@@ -585,8 +823,9 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
+## 10. 角色管理
 
-### 角色-列表
+### 10.1. 角色管理-列表
 
 ```yaml
 @get: /sys/roles/list
@@ -614,7 +853,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
-### 角色-详情
+### 10.2. 角色-详情
 
 ```yaml
 @get: /sys/roles/:id
@@ -636,7 +875,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 角色管理-新增
+### 10.3. 角色管理-新增
 
 ```yaml
 @post: /sys/roles
@@ -659,7 +898,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 角色管理-编辑
+### 10.4. 角色管理-编辑
 
 ```yaml
 @put: /sys/roles/:id
@@ -688,7 +927,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-### 角色管理-删除
+### 10.5. 角色管理-删除
 
 ```yaml
 @delete: /sys/roles/:id
@@ -708,239 +947,9 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 用户管理-列表
+## 11. 日志管理
 
-```yaml
-@get: /sys/users/list
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  page:int:页码
-  size:int:页码大小
-  account:string:用户名
-  real_name:string:真实姓名
-  organization:string:企业名称
-  status:int:状态
-    - 0:禁用
-    - 1:启用
-@return:
-  code:int:操作码
-  data:object:返回信息
-    count:int:分页总大小
-    list:array<object>:用户列表信息
-      id:long:用户ID
-      account:string:账户
-      organization:object:机构信息
-        id:long:机构ID
-        name:string:名称
-        level:string:级别
-        province:string:省
-        city:string:市
-        county:string:区/县
-        address:string:详细地址
-        business_license:string:营业执照(url)
-        business_scope:string:经营范围
-        operate_route:string:运营路线
-        principal:string:负责人
-        contact:string:联系方式
-        remark:string:备注
-      real_name:string:用户名
-      remark:string:备注
-      role:object:角色信息
-        id:long:角色ID
-        name:string:角色名称
-        remark:string:描述
-      status:int:用户状态
-        - 0:禁用
-        - 1:启用
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 用户管理-详情
-
-```yaml
-@get: /sys/users/:id
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  id:long:用户id
-
-@return:
-  code:int:操作码
-  data:object:返回信息
-    id:long:用户ID
-    account:string:账户
-    organization:object:机构信息
-      id:long:机构ID
-      name:string:名称
-      level:string:级别
-      province:string:省
-      city:string:市
-      county:string:区/县
-      address:string:详细地址
-      business_license:string:营业执照(url)
-      business_scope:string:经营范围
-      operate_route:string:运营路线
-      principal:string:负责人
-      contact:string:联系方式
-      remark:string:备注
-    real_name:string:用户名
-    remark:string:备注
-    role:object:角色信息
-      id:long:角色ID
-      name:string:角色名称
-      remark:string:描述
-    status:int:用户状态
-      - 0:禁用
-      - 1:启用
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 用户管理-新增
-
-```yaml
-@post: /sys/users
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@payload:
-  account:string:账户
-  passwd:string:密码
-  organization:object:机构信息
-    id:long:机构id
-  real_name:string:用户名
-  remark:string:备注
-  role:object:角色信息
-    id:long:角色id
-  status:int:用户状态
-    - 0:禁用
-    - 1:启用
-  
-@return:
-  code:int:操作码
-  data:object:返回信息
-    id:long:用户ID
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 用户管理-修改
-
-```yaml
-@put: /sys/users/:id
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  id:long:用户id
-
-@payload:
-  organization:object:机构信息
-    id:long:机构id
-  real_name:string:用户名
-  remark:string:备注
-  role:object:角色信息
-    id:long:角色id
-  
-@return:
-  code:int:操作码
-  data:object:返回信息
-    id:long:用户ID
-    account:string:账户
-    organization:object:机构信息
-    real_name:string:用户名
-    remark:string:备注
-    role:object:角色信息
-    status:int:用户状态
-      - 0:禁用
-      - 1:启用
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 用户管理-禁用/启用
-
-```yaml
-@put: /sys/users/:id/status/:status
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  id:long:用户id
-  status:int:用户状态
-    - 0:禁用
-    - 1:启用
-  
-@return:
-  code:int:操作码
-  data:object:返回信息
-    id:long:用户ID
-    account:string:账户
-    organization:object:机构信息
-    real_name:string:用户名
-    remark:string:备注
-    role:object:角色信息
-    status:int:用户状态
-      - 0:禁用
-      - 1:启用
-  success:bool:是否成功
-  msg:string:操作提示
-```
-### 用户管理-删除
-
-```yaml
-@delete: /sys/users/:id
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  id:long:用户ID
-
-@return:
-  code:int:操作码
-  data:object:返回信息
-    id:long:用户ID
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 用户管理-重置密码
-
-```yaml
-@post: /sys/users/:id/resetpasswd
-
-@header:
-  X-User-Agent:手机信息(必须)
-  Authorization:token令牌
-
-@params:
-  id:long:用户ID
-
-@return:
-  code:int:操作码
-  data:object:用户信息
-    id:long:用户ID
-  success:bool:是否成功
-  msg:string:操作提示
-```
-
-### 日志管理-列表
+### 11.1. 日志管理-列表
 
 ```yaml
 @get: /sys/oplogs/list?page=:page&size=:size
@@ -980,7 +989,10 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
-### 从业人员管理-列表
+
+## 12. 从业人员管理
+
+### 12.1. 从业人员管理-列表
 
 ```yaml
 @get: /industry/practitioners/list
@@ -1041,7 +1053,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 从业人员管理-详情
+### 12.2. 从业人员管理-详情
 
 ```yaml
 @get: /industry/practitioners/:id
@@ -1092,7 +1104,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 从业人员管理-新增
+### 12.3. 从业人员管理-新增
 
 ```yaml
 @post: /industry/practitioners
@@ -1130,7 +1142,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 从业人员管理-修改
+### 12.4. 从业人员管理-修改
 
 ```yaml
 @put: /industry/practitioners/:id
@@ -1202,7 +1214,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 从业人员管理-删除
+### 12.5. 从业人员管理-删除
 
 ```yaml
 @delete: /industry/practitioners/:id
@@ -1221,7 +1233,8 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
-### 从业人员管理-导出
+
+### 12.6. 从业人员管理-导出
 
 ```yaml
 @get: /industry/busterminals/export?name=:name&status=:status
@@ -1247,7 +1260,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 从业人员管理-导入
+### 12.7. 从业人员管理-导入
 
 ```yaml
 @post: /industry/busterminals/import
@@ -1268,9 +1281,9 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-## 场站管理
+## 13. 场站管理
 
-### 场站管理-列表
+### 13.1. 场站管理-列表
 
 ```yaml
 @get: /industry/busterminals/list
@@ -1320,7 +1333,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 场站管理-详情
+### 13.2. 场站管理-详情
 
 ```yaml
 @get: /industry/busterminals/:id
@@ -1364,7 +1377,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 场站管理-新增
+### 13.3. 场站管理-新增
 
 ```yaml
 @post: /industry/busterminals
@@ -1395,7 +1408,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 场站管理-修改
+### 13.4. 场站管理-修改
 
 ```yaml
 @put: /industry/busterminals/:id
@@ -1453,7 +1466,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 场站管理-删除
+### 13.5. 场站管理-删除
 
 ```yaml
 @delete: /industry/busterminals/:id
@@ -1472,7 +1485,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   success:bool:是否成功
   msg:string:操作提示
 ```
-### 场站管理-导出
+### 13.6. 场站管理-导出
 
 ```yaml
 @get: /industry/busterminals/export?name=:name&status=:status
@@ -1493,7 +1506,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 场站管理-导入
+### 13.7. 场站管理-导入
 
 ```yaml
 @post: /industry/busterminals/import
@@ -1513,9 +1526,9 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-## 公交车辆管理
+## 14. 公交车辆管理
 
-### 公交车辆管理-列表
+### 14.1. 公交车辆管理-列表
 
 ```yaml
 @get: /industry/vehicles/list?page=:page&size=:size
@@ -1575,7 +1588,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-新增
+### 14.2. 公交车辆管理-新增
 
 ```yaml
 @post: /industry/vehicles
@@ -1614,7 +1627,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-编辑
+### 14.3. 公交车辆管理-编辑
 
 ```yaml
 @put: /industry/vehicles/:id
@@ -1656,7 +1669,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-审核
+### 14.4. 公交车辆管理-审核
 
 ```yaml
 @post: /industry/vehicles/:id/status/:status
@@ -1678,7 +1691,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-详情
+### 14.5. 公交车辆管理-详情
 
 ```yaml
 @get: /industry/vehicles/:id
@@ -1726,7 +1739,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-删除
+### 14.6. 公交车辆管理-删除
 
 ```yaml
 @delete: /industry/vehicles/:id
@@ -1746,7 +1759,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-导出
+### 14.7. 公交车辆管理-导出
 
 ```yaml
 @get: /industry/vehicles/export?name=:name&status=:status
@@ -1769,7 +1782,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交车辆管理-导入
+### 14.8. 公交车辆管理-导入
 
 ```yaml
 @post: /industry/vehicles/import
@@ -1789,10 +1802,10 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-## 公交路线管理
+## 15. 公交路线管理
 
 
-### 公交线路管理-列表
+### 15.1. 公交路线管理-列表
 
 ```yaml
 @get: /industry/busroutes/list?page=:page&size=:size
@@ -1850,7 +1863,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-新增
+### 15.2. 公交路线管理-新增
 
 ```yaml
 @post: /industry/vehicles
@@ -1885,7 +1898,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-编辑
+### 15.3. 公交路线管理-编辑
 
 ```yaml
 @put: /industry/busroutes/:id
@@ -1923,7 +1936,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-审核
+### 15.4. 公交路线管理-审核
 
 ```yaml
 @post: /industry/busroutes/:id/status/:status
@@ -1945,7 +1958,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-详情
+### 15.5. 公交路线管理-详情
 
 ```yaml
 @get: /industry/busroutes/:id
@@ -1990,7 +2003,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-删除
+### 15.6. 公交路线管理-删除
 
 ```yaml
 @delete: /industry/busroutes/:id
@@ -2010,7 +2023,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-导出
+### 15.7. 公交路线管理-导出
 
 ```yaml
 @get: /industry/busroutes/export?name=:name&status=:status
@@ -2033,7 +2046,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 公交线路管理-导入
+### 15.8. 公交路线管理-导入
 
 ```yaml
 @post: /industry/busroutes/import
@@ -2054,10 +2067,50 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-## 字典表管理
+## 16. 公交车队管理
+
+### 16.1. 公交车队管理-列表
+
+```yaml
+@get: /industry/busteams/list?page=:page&size=:size&name=:name&status=:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:机构名称
+  status:int:状态
+    - 1:待审核
+    - 2:通过审核
+    - 3:未通过审核
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:车队列表信息
+      id:long:ID
+      oid:string:旧系统ID
+      name:string:车队名称
+      ocid:string:旧系统公司ID
+      address:string:地址
+      telephone:string:电话
+      principal:string:负责人
+      num:string:车队编号
+      create_date:date:创建时间
+      status:int:状态
+
+  success:bool:是否成功
+  msg:string:操作提示
+```
 
 
-### 字典管理-根据编码获取字典值集合
+## 17. 字典管理
+
+### 17.1. 字典管理-根据编码获取字典值集合
 
 ```yaml
 @get: /sys/dict/codes/:code
@@ -2089,7 +2142,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-### 字典管理-获取所有字典类型
+### 17.2. 字典管理-获取所有字典类型
 
 ```yaml
 @get: /sys/dict/all
@@ -2118,9 +2171,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-
-
-## 字典表类型说明
+## 18. 字典表类型说明
 
 ```yaml
 VEH_TYPE:int:车辆类型

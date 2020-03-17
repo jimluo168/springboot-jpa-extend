@@ -4,7 +4,6 @@ import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.exception.DataException;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -84,7 +83,7 @@ public class Vehicle extends BaseEntity {
     /**
      * 车队.
      */
-    private BusCarTeam carTeam;
+    private BusTeam carTeam;
     /**
      * 路线.
      */
