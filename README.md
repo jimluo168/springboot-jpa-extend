@@ -280,7 +280,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 公交企业管理-列表
 
 ```yaml
-@get: /sys/organizations/list?page=:page&size=:size&name=:name&level=:level
+@get: /sys/organizations/list?page=:page&size=:size&name=:name&status=:status
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -470,6 +470,49 @@ File->Preferences->Editor->File and Code Templates->File Header
   code:int:操作码
   data:object:返回机构信息
     id:long:机构ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交企业管理-导出
+
+```yaml
+@get: /sys/organizations/export?name=:name&status=:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  name:string:机构名称
+  status:int:状态
+    - 1:待审核
+    - 2:通过审核
+    - 3:未通过审核
+
+@return:
+  code:int:操作码
+    - 10002:导出数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 公交企业管理-导入
+
+```yaml
+@post: /sys/organizations/import
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:文件名
+  file:file:导入的文件
+
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
   success:bool:是否成功
   msg:string:操作提示
 ```

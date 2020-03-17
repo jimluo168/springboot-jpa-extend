@@ -1,6 +1,7 @@
 package com.bms.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,9 +21,10 @@ import java.util.Date;
  * @author luojimeng
  * @date 2020/3/9
  */
+@Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"hibernate_lazy_initializer","handler"})
+@JsonIgnoreProperties(value = {"hibernate_lazy_initializer", "handler"})
 public abstract class BaseEntity implements Serializable {
     /**
      * 0=正常.
@@ -67,52 +69,4 @@ public abstract class BaseEntity implements Serializable {
     @LastModifiedDate
     @Column(name = "last_upd_date")
     private Date lastUpdDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(int deleted) {
-        this.deleted = deleted;
-    }
-
-    public Long getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Long createUser) {
-        this.createUser = createUser;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Long getLastUpdUser() {
-        return lastUpdUser;
-    }
-
-    public void setLastUpdUser(Long lastUpdUser) {
-        this.lastUpdUser = lastUpdUser;
-    }
-
-    public Date getLastUpdDate() {
-        return lastUpdDate;
-    }
-
-    public void setLastUpdDate(Date lastUpdDate) {
-        this.lastUpdDate = lastUpdDate;
-    }
 }

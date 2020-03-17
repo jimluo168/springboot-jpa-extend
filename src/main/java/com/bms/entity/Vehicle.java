@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
-@Table(name = "vehicles")
+@Table(name = "bus_vehicles")
 public class Vehicle extends BaseEntity {
     /**
      * 车牌号.
