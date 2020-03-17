@@ -35,6 +35,12 @@ public class Practitioner extends BaseEntity {
     private Integer age;
 
     /**
+     * 架龄
+     */
+    @Column(name="driving_age")
+    private Integer drivingAge;
+
+    /**
      * 资格证号.
      */
     @Column(name = "certificate_number", unique = true, nullable = false)
@@ -75,6 +81,12 @@ public class Practitioner extends BaseEntity {
      */
     @Column(name = "staff_number")
     private String staffNumber;
+
+    /**
+     * 卡号.
+     */
+    @Column(name = "cart_number")
+    private String cartNumber;
 
     /**
      * 从业类型.
