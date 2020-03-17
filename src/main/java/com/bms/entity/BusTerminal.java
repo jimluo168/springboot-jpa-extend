@@ -69,36 +69,15 @@ public class BusTerminal extends BaseEntity {
     @Column(length = 1000)
     private String photos;
     /**
-     * 现场照片.
-     */
-    @Transient
-    private List<String> photoList;
-
-    /**
      * 所属企业.
      */
     @JsonIgnoreProperties("audit_list")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization organization;
-
     /**
      * 备注.
      */
     private String remark;
-
-    public String getPhotos() {
-        if (photoList == null || photoList.isEmpty()) {
-            return "";
-        }
-        return StringUtils.join(photoList, ",");
-    }
-
-    public List<String> getPhotoList() {
-        if (StringUtils.isBlank(photos)) {
-            return Collections.emptyList();
-        }
-        return Arrays.asList(photos.split(","));
-    }
 
 }
