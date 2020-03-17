@@ -26,6 +26,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 性别.
      */
+    @Column(length = 1)
     private String gender;
     /**
      * 年龄.
@@ -34,7 +35,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 架龄
      */
-    @Column(name="driving_age")
+    @Column(name = "driving_age")
     private Integer drivingAge;
     /**
      * 资格证号.
@@ -48,7 +49,7 @@ public class Practitioner extends BaseEntity {
     private String idNumber;
     /**
      * 联系号码.
-      */
+     */
     @Column(unique = true, nullable = false)
     private String phone;
     /**
@@ -68,9 +69,9 @@ public class Practitioner extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     @Column(name="car_team")
-    private BusCarTeam carTeam;
+    private BusTeam carTeam;
     /**
-     *员工工号.
+     * 员工工号.
      */
     @Column(name = "staff_number")
     private String staffNumber;

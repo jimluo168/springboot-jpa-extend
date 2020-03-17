@@ -1,7 +1,6 @@
 package com.bms.industry.dao;
 
-import com.bms.entity.BusCarTeam;
-import com.bms.entity.BusRoute;
+import com.bms.entity.BusTeam;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @date 2020/3/17
  */
 @Repository
-public interface BusCarTeamRepository extends PagingAndSortingRepository<BusCarTeam, Long> {
+public interface BusTeamRepository extends PagingAndSortingRepository<BusTeam, Long> {
 }

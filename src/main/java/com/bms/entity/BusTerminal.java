@@ -22,7 +22,6 @@ import java.util.List;
 @Entity
 @Table(name = "bus_terminals")
 public class BusTerminal extends BaseEntity {
-
     /**
      * 名称.
      */
@@ -34,7 +33,7 @@ public class BusTerminal extends BaseEntity {
     /**
      * 类型.
      */
-    private String type;
+    private Integer type;
     /**
      * 面积.
      */

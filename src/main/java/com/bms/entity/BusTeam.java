@@ -22,7 +22,7 @@ import java.util.Date;
 @DynamicUpdate
 @Entity
 @Table(name = "bus_carteam")
-public class BusCarTeam implements Serializable {
+public class BusTeam implements Serializable {
 
     @Id
     private Long id;

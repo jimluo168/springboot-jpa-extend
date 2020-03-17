@@ -118,9 +118,66 @@ public class OrganizationExcelModel {
         return level.toString();
     }
 
+    /**
+     * 解析所属区域
+     *
+     * @return
+     */
     public String getRegion() {
-        return province + city + county + address;
+        return StringUtils.replace(
+                StringUtils.join(new String[]{province, city, county, address}, ""),
+                "null", "");
     }
+
+    public String getProvince() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        if (region.contains("省")) {
+            int begin = region.indexOf("省");
+            return region.substring(0, begin + 1);
+        }
+        return "";
+    }
+
+    public String getCity() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        if (region.contains("市")) {
+            int begin = region.indexOf("省");
+            int end = region.indexOf("市");
+            return region.substring(begin + 1, end + 1);
+        }
+        return "";
+    }
+
+    public String getCounty() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        if (region.contains("区") || region.contains("县")) {
+            int begin = region.indexOf("市");
+            int end1 = region.indexOf("区");
+            int end2 = region.indexOf("县");
+            return region.substring(begin + 1, (end1 > -1 ? end1 : end2) + 1);
+        }
+        return "";
+    }
+
+    public String getAddress() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        int begin1 = region.indexOf("区");
+        int begin2 = region.indexOf("县");
+        int begin = begin1 > -1 ? begin1 : begin2;
+        if (begin == -1) {
+            return "";
+        }
+        return region.substring(begin, region.length());
+    }
+
 
     public Integer getStatus() {
         if (StringUtils.isBlank(statusText)) {
