@@ -55,7 +55,7 @@ public class DictController {
 
     @ApiOperation("查询")
     @OpLog("查询")
-//    @RequiresPermissions("dict_list")
+    @RequiresPermissions("dict_list")
     @GetMapping("/list")
     public Result<PageList<Dictionary>> list(PageRequest pageRequest, Dictionary organization) throws IllegalAccessException {
         return ok(dictService.page(pageRequest, BeanMapper.toMap(organization)));
