@@ -87,7 +87,7 @@ public class DictController {
     }
 
     @ApiOperation("根据编码获取字典值集合")
-    @GetMapping("/code/{code}")
+    @GetMapping("/codes/{code}")
     public Result<List<Dictionary>> findByCode(@PathVariable String code) {
         return ok(dictService.findByCode(code));
     }
