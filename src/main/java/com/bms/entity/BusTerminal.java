@@ -21,48 +21,48 @@ import java.util.List;
 public class BusTerminal extends BaseEntity {
 
     /**
-     * 名称
+     * 名称.
      */
     private String name;
 
     /**
-     * 编号
+     * 编号.
      */
     private String code;
 
     /**
-     * 类型
+     * 类型.
      */
     private String type;
 
     /**
-     * 面积
+     * 面积.
      */
     private Float area;
 
     /**
-     * 地址
+     * 地址.
      */
     private String address;
 
     /**
-     * 经度
+     * 经度.
      */
     private Float longitude;
 
     /**
-     * 纬度
+     * 纬度.
      */
     private Float latitude;
 
     /**
-     * 停车数
+     * 停车数.
      */
     @Column(name="parking_number")
     private Integer parkingNumber;
 
     /**
-     * 现场照片
+     * 现场照片.
      */
     private List<String> photos;
 
@@ -75,7 +75,7 @@ public class BusTerminal extends BaseEntity {
     private Organization organization;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
 

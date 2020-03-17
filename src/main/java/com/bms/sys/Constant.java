@@ -35,7 +35,7 @@ public interface Constant {
     String MAPPER_DICT_PAGE = "dict_page";
 
     /**
-     * 从业人员分页查询
+     * 从业人员分页查询.
      */
     String MAPPER_PRACTITIONER_PAGE = "practitioner_page";
 
@@ -48,8 +48,8 @@ public interface Constant {
      */
     String MAPPER_BUS_ROUTE_PAGE = "bus_route_page";
     /**
-     * 场站分页查询
+     * 场站分页查询.
      */
-    String MAPPER_BUS_TERMINAL_PAGE = "busTerminal_page";
+    String MAPPER_BUS_TERMINAL_PAGE = "bus_terminal_page";
 
 }

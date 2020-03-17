@@ -20,40 +20,40 @@ import javax.persistence.*;
 public class Practitioner extends BaseEntity {
 
     /**
-     * 姓名
+     * 姓名.
      */
     private String name;
 
     /**
-     * 性别
+     * 性别.
      */
     private String gender;
 
     /**
-     * 年龄
+     * 年龄.
      */
     private Integer age;
 
     /**
-     * 资格证号
+     * 资格证号.
      */
     @Column(name = "certificate_number", unique = true, nullable = false)
     private String certificateNumber;
 
     /**
-     * 身份证号
+     * 身份证号.
      */
     @Column(name = "ID_number",unique = true, nullable = false)
     private String IDNumber;
 
     /**
-     * 联系号码
+     * 联系号码.
       */
     @Column(unique = true, nullable = false)
     private String phone;
 
     /**
-     * 通讯地址
+     * 通讯地址.
      */
     private String address;
 
@@ -66,28 +66,28 @@ public class Practitioner extends BaseEntity {
     private Organization organization;
 
     /**
-     * 车队
+     * 车队.
      */
     private String fleet;
 
     /**
-     *员工工号
+     *员工工号.
      */
     @Column(name = "staff_number")
     private String staffNumber;
 
     /**
-     * 从业类型
+     * 从业类型.
      */
     private String type;
 
     /**
-     * 线路
+     * 线路.
      */
     private String line;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
 
