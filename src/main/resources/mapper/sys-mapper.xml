@@ -117,11 +117,11 @@
             <#if organization?? && organization!=''>
                 and p.organization.name like :organization||'%'
             </#if>
-            <#if certificateNumber?? && certificateNumber!=''>
-                and p.certificateNumber like :certificateNumber||'%'
+            <#if certNo?? && certNo!=''>
+                and p.certNo like :certNo||'%'
             </#if>
-            <#if IDNumber?? && IDNumber!=''>
-                and p.IDNumber like :IDNumber||'%'
+            <#if idNumber?? && idNumber!=''>
+                and p.idNumber like :idNumber||'%'
             </#if>
             order by p.createDate desc
         ]]>

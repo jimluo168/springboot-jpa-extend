@@ -23,47 +23,39 @@ public class Practitioner extends BaseEntity {
      * 姓名.
      */
     private String name;
-
     /**
      * 性别.
      */
     @Column(length = 1)
     private String gender;
-
     /**
      * 年龄.
      */
     private Integer age;
-
     /**
      * 架龄
      */
     @Column(name = "driving_age")
     private Integer drivingAge;
-
     /**
      * 资格证号.
      */
-    @Column(name = "certificate_number", unique = true, nullable = false)
-    private String certificateNumber;
-
+    @Column(name = "cert_no", unique = true, nullable = false)
+    private String certNo;
     /**
      * 身份证号.
      */
-    @Column(name = "ID_number", unique = true, nullable = false)
-    private String IDNumber;
-
+    @Column(name = "id_number",unique = true, nullable = false)
+    private String idNumber;
     /**
      * 联系号码.
      */
     @Column(unique = true, nullable = false)
     private String phone;
-
     /**
      * 通讯地址.
      */
     private String address;
-
     /**
      * 所属企业.
      */
@@ -71,34 +63,31 @@ public class Practitioner extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization organization;
-
     /**
      * 车队.
      */
-    private String fleet;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    @Column(name="car_team")
+    private BusTeam carTeam;
     /**
      * 员工工号.
      */
     @Column(name = "staff_number")
     private String staffNumber;
-
     /**
      * 卡号.
      */
-    @Column(name = "cart_number")
-    private String cartNumber;
-
+    @Column(name = "card_number")
+    private String cardNumber;
     /**
      * 从业类型.
      */
     private String type;
-
     /**
      * 线路.
      */
     private String line;
-
     /**
      * 备注.
      */

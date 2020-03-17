@@ -38,12 +38,10 @@ public class BusTerminal extends BaseEntity {
      * 面积.
      */
     private Float area;
-
     /**
      * 地址.
      */
     private String address;
-
     /**
      * 经度.
      */
@@ -53,7 +51,6 @@ public class BusTerminal extends BaseEntity {
      * 纬度.
      */
     private Float latitude;
-
     /**
      * 停车数.
      */
