@@ -4,12 +4,10 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
-import com.bms.common.web.annotation.OpLog;
-import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
-import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusRoute;
-import com.bms.industry.service.BusRouteService;
+import com.bms.entity.BusTeam;
+import com.bms.industry.service.BusTeamService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,15 +33,15 @@ import static com.bms.common.domain.Result.ok;
 public class BusTeamController {
     private static final Logger logger = LoggerFactory.getLogger(BusTeamController.class);
 
-    private final BusRouteService busRouteService;
+    private final BusTeamService busTeamService;
     private final ObjectMapper objectMapper;
 
     @ApiOperation("查询")
 //    @OpLog("查询")
 //    @RequiresPermissions("bus_route_list")
     @GetMapping("/list")
-    public Result<PageList<BusRoute>> list(PageRequest pageRequest, BusRoute busRoute) throws IllegalAccessException {
-        return ok(busRouteService.page(pageRequest, BeanMapper.toMap(busRoute)));
+    public Result<PageList<BusTeam>> list(PageRequest pageRequest, BusTeam busTeam) throws IllegalAccessException {
+        return ok(busTeamService.page(pageRequest, BeanMapper.toMap(busTeam)));
     }
 
 }
