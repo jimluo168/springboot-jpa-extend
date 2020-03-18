@@ -72,3 +72,12 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','1124');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1125');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1126');
 
+insert into role_menus(role_id,menu_id) values('434272239429488640','1200');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1210');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1211');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1212');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1213');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1214');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1215');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1216');
+

@@ -19,6 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "bus_routes")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BusRoute extends BaseEntity {
     /**
      * 1=待审核.

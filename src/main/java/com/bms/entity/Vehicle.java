@@ -19,6 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "bus_vehicles")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Vehicle extends BaseEntity {
     /**
      * 1=待审核.
@@ -32,7 +33,6 @@ public class Vehicle extends BaseEntity {
      * 3=未通过审核.
      */
     public static final int STATUS_UN_AUDIT = 3;
-
 
     /**
      * 车牌号.

@@ -45,7 +45,7 @@ public class Practitioner extends BaseEntity {
      */
     private Integer age;
     /**
-     * 架龄
+     * 架龄.
      */
     @Column(name = "driving_age")
     private Integer drivingAge;
@@ -57,7 +57,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 身份证号.
      */
-    @Column(name = "id_number",unique = true, nullable = false)
+    @Column(name = "id_number", unique = true, nullable = false)
     private String idNumber;
     /**
      * 联系号码.
@@ -98,7 +98,11 @@ public class Practitioner extends BaseEntity {
     /**
      * 线路.
      */
-    private String line;
+//    private String line;
+    @JsonIgnoreProperties("audit_list")
+    @ManyToOne
+    @JoinColumn(name = "route_id")
+    private BusRoute busRoute;
     /**
      * 备注.
      */

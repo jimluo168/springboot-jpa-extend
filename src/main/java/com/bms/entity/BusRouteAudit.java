@@ -18,16 +18,11 @@ import java.util.Date;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "bus_route_audits")
-public class BusRouteAudit extends BaseEntity {
+public class BusRouteAudit extends BusRoute {
 
-    @JsonIgnoreProperties("audit_list")
+    @JsonIgnoreProperties({"audit_list", "organization"})
     @ManyToOne
     @JoinColumn(name = "route_id")
     private BusRoute busRoute;
-    /**
-     * 审核理由.
-     */
-    @Column(length = 500)
-    private String reason;
 
 }

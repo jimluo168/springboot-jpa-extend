@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
-@Table(name = "adm_notices")
+@Table(name = "bus_violations")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BusViolation extends BaseEntity {
     /**
@@ -71,10 +71,12 @@ public class BusViolation extends BaseEntity {
     /**
      * 取证照片.
      */
+    @Column(length = 1000)
     private String photos;
     /**
      * 取证视频.
      */
+    @Column(length = 1000)
     private String videos;
     /**
      * 发生时间.
@@ -83,14 +85,17 @@ public class BusViolation extends BaseEntity {
     /**
      * 处理意见.
      */
+    @Column(length = 500)
     private String dealOpinion;
     /**
      * 处理照片.
      */
+    @Column(length = 1000)
     private String dealPhotos;
     /**
      * 处理人.
      */
+    @Column(length = 10)
     private String dealPerson;
     /**
      * 附件 多个以英文 , 号隔开.
