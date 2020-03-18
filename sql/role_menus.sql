@@ -55,3 +55,20 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','183');
 insert into role_menus(role_id,menu_id) values('434272239429488640','184');
 insert into role_menus(role_id,menu_id) values('434272239429488640','185');
 
+insert into role_menus(role_id,menu_id) values('434272239429488640','1100');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1110');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1111');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1112');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1113');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1114');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1115');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1116');
+
+insert into role_menus(role_id,menu_id) values('434272239429488640','1120');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1121');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1122');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1123');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1124');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1125');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1126');
+

@@ -18,5 +18,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交场站管理")
-public class BusSizeController {
+public class BusSiteController {
 }

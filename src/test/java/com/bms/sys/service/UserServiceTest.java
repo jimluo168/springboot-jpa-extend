@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-//@Transactional
+@Transactional
 class UserServiceTest {
 
     @Autowired
@@ -48,47 +48,66 @@ class UserServiceTest {
 
 
         User user = new User();
-        user.setAccount("luojimeng");
+//        user.setAccount("luojimeng");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("罗继猛");
+//        user.setRemark("不要删除");
+//        user.setRole(role);
+//        userService.insert(user);
+//
+//        user = new User();
+//        user.setAccount("zouyongcan");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("邹永灿");
+//        user.setRemark("不要删除");
+//        user.setRole(role);
+//        userService.insert(user);
+//
+//        user = new User();
+//        user.setAccount("luyueya");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("卢月牙");
+//        user.setRemark("不要删除");
+//        user.setRole(role);
+//        userService.insert(user);
+//
+//        user = new User();
+//        user.setAccount("zhouhaiming");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("周海明");
+//        user.setRemark("不要删除");
+//        user.setRole(role);
+//        userService.insert(user);
+//
+//        user = new User();
+//        user.setAccount("hutian");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("胡甜");
+//        user.setRemark("不要删除");
+//        user.setRole(role);
+//        userService.insert(user);
+
+        user = new User();
+        user.setAccount("test01");
         user.setPasswd("123456");
         user.setOrganization(organization);
-        user.setRealName("罗继猛");
-        user.setRemark("不要删除");
+        user.setRealName("测试人1");
+        user.setRemark("测试专用");
         user.setRole(role);
         userService.insert(user);
 
-        user = new User();
-        user.setAccount("zouyongcan");
-        user.setPasswd("123456");
-        user.setOrganization(organization);
-        user.setRealName("邹永灿");
-        user.setRemark("不要删除");
-        user.setRole(role);
-        userService.insert(user);
 
         user = new User();
-        user.setAccount("luyueya");
+        user.setAccount("test02");
         user.setPasswd("123456");
         user.setOrganization(organization);
-        user.setRealName("卢月牙");
-        user.setRemark("不要删除");
-        user.setRole(role);
-        userService.insert(user);
-
-        user = new User();
-        user.setAccount("zhouhaiming");
-        user.setPasswd("123456");
-        user.setOrganization(organization);
-        user.setRealName("周海明");
-        user.setRemark("不要删除");
-        user.setRole(role);
-        userService.insert(user);
-
-        user = new User();
-        user.setAccount("hutian");
-        user.setPasswd("123456");
-        user.setOrganization(organization);
-        user.setRealName("胡甜");
-        user.setRemark("不要删除");
+        user.setRealName("测试人1");
+        user.setRemark("测试专用");
         user.setRole(role);
         userService.insert(user);
     }

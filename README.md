@@ -2241,4 +2241,5 @@ STATION_TYPE:int:场站类型
 UP_DOWN_TYPE:int:上下行
 SUGGEST_TYPE:int:投诉建议类型
 ARTICLE_TYPE:int:文章类型
+VIOLATION_TYPE:int:违规行为
 ```
