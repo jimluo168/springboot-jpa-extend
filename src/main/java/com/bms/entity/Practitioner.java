@@ -94,7 +94,7 @@ public class Practitioner extends BaseEntity {
     /**
      * 从业类型.
      */
-    private String type;
+    private Integer type;
     /**
      * 线路.
      */
