@@ -1049,7 +1049,9 @@ File->Preferences->Editor->File and Code Templates->File Header
       staff_number:string:员工工号
       card_number:string:卡号
       type:string:从业类型
-      line:string:线路
+      bus_route:object:线路
+        id:long:线路id
+        name:string:线路名
       remark:string:备注
       status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
@@ -1103,7 +1105,9 @@ File->Preferences->Editor->File and Code Templates->File Header
     staff_number:string:员工工号
     card_number:string:卡号
     type:string:从业类型
-    line:string:线路
+    bus_route:object:线路
+      id:long:线路id
+      name:string:线路名
     remark:string:备注
     status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
@@ -1138,7 +1142,8 @@ File->Preferences->Editor->File and Code Templates->File Header
   staff_number:string:员工工号
   card_number:string:卡号
   type:string:从业类型
-  line:string:线路
+  bus_route:object:线路
+    id:long:线路id
   remark:string:备注
   
 @return:
@@ -1218,7 +1223,9 @@ File->Preferences->Editor->File and Code Templates->File Header
     staff_number:string:员工工号
     card_number:string:卡号
     type:string:从业类型
-    line:string:线路
+    bus_route:object:线路
+      id:long:线路id
+      name:string:线路名
     remark:string:备注
     status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
