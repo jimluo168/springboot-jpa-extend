@@ -1346,7 +1346,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       address:string:地址
       longitude:float:经度
       latitude:float:纬度
-      parking_numbe:int:停车数
+      parking_number:int:停车数
       photos:string:现场照片
       organization:object:机构信息
         id:long:机构ID
@@ -1391,7 +1391,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     address:string:地址
     longitude:float:经度
     latitude:float:纬度
-    parking_numbe:int:停车数
+    parking_number:int:停车数
     photos:string:现场照片
     organization:object:机构信息
       id:long:机构ID
@@ -1430,7 +1430,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   address:string:地址
   longitude:float:经度
   latitude:float:纬度
-  parking_numbe:int:停车数
+  parking_number:int:停车数
   photos:string:现场照片（逗号分隔）
   organization:object:机构信息
     id:long:机构ID
@@ -1439,7 +1439,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 @return:
   code:int:操作码
   data:object:返回信息
-    id:long:人员ID
+    id:long:场站ID
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1464,7 +1464,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   address:string:地址
   longitude:float:经度
   latitude:float:纬度
-  parking_numbe:int:停车数
+  parking_number:int:停车数
   photos:string:现场照片（逗号分隔）
   organization:object:机构信息
     id:long:机构ID
@@ -1481,7 +1481,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     address:string:地址
     longitude:float:经度
     latitude:float:纬度
-    parking_numbe:int:停车数
+    parking_number:int:停车数
     photos:string:现场照片
     organization:object:机构信息
       id:long:机构ID
@@ -2242,4 +2242,335 @@ UP_DOWN_TYPE:int:上下行
 SUGGEST_TYPE:int:投诉建议类型
 ARTICLE_TYPE:int:文章类型
 VIOLATION_TYPE:int:违规行为
+```
+
+## 19. 公交站点管理
+
+### 19.1. 公交站点管理-列表
+
+```yaml
+@get: /industry/bussites/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:名称
+  code:string:编号
+  province:string:省
+  city:string:市
+  county:string:县
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:场站列表信息
+      id:long:人员ID
+      route:object:线路
+        id:long:ID
+        name:string:名称
+        code:string:编号
+        price:float:票价
+        mileage:string:里程      start_site:string:首发站
+        end_site:string:终点站
+        way_sites:string:途经站点
+        startTime:date:首班时间
+        lastTime:date:首班时间
+        remark:string:备注
+        status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+        organization:object:所属企业
+          id:long:ID
+          name:string:名称
+        car_team:object:车队
+          id:long:ID
+          name:string:名称
+        reason:string:理由
+        audit_list:array<object>:审核记录
+          id:long:审核ID
+          reason:string:原因
+          create_date:date:创建时间
+          create_user:long:创建用户
+          last_upd_date:date:最后修改时间
+          last_upd_user:long:最后修改人
+      index:int:排序顺序
+      upDown:int:上下行
+      name:string:站点名称
+      code:string:站点编号
+      province:string:省      
+      city:string:市
+      county:string:区/县
+      address:sting:详细地址
+      longitude:float:经度
+      latitude:float:纬度
+      gpsAngle:float:GPS夹角
+      radius:float:半径
+      photos:string:现场照片 以英文 , 号隔开
+      remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 19.2. 公交站点管理-详情
+
+```yaml
+@get: /industry/bussites/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+    route:object:线路
+      id:long:ID
+      name:string:名称
+      code:string:编号
+      price:float:票价
+      mileage:string:里程      start_site:string:首发站
+      end_site:string:终点站
+      way_sites:string:途经站点
+      startTime:date:首班时间
+      lastTime:date:首班时间
+      remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+      organization:object:所属企业
+        id:long:ID
+        name:string:名称
+      car_team:object:车队
+        id:long:ID
+        name:string:名称
+      reason:string:理由
+      audit_list:array<object>:审核记录
+        id:long:审核ID
+        reason:string:原因
+        create_date:date:创建时间
+        create_user:long:创建用户
+        last_upd_date:date:最后修改时间
+        last_upd_user:long:最后修改人
+    index:int:排序顺序
+    upDown:int:上下行
+    name:string:站点名称
+    code:string:站点编号
+    province:string:省      
+    city:string:市
+    county:string:区/县
+    address:sting:详细地址
+    longitude:float:经度
+    latitude:float:纬度
+    gpsAngle:float:GPS夹角
+    radius:float:半径
+    photos:string:现场照片 以英文 , 号隔开
+    remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 19.3. 公交站点管理-新增
+
+```yaml
+@post: /industry/bussites
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  id:long:人员ID
+  route:object:线路
+    id:long:ID
+  index:int:排序顺序
+  upDown:int:上下行
+  name:string:站点名称
+  code:string:站点编号
+  province:string:省      
+  city:string:市
+  county:string:区/县
+  address:sting:详细地址
+  longitude:float:经度
+  latitude:float:纬度
+  gpsAngle:float:GPS夹角
+  radius:float:半径
+  photos:string:现场照片 以英文 , 号隔开
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:站点ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 19.4.公交站点管理-修改
+
+```yaml
+@put: /industry/bussites/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  name:string:名称
+  code:string:编码
+  type:string:类型
+  area:float:面积
+  address:string:地址
+  longitude:float:经度
+  latitude:float:纬度
+  parking_number:int:停车数
+  photos:string:现场照片（逗号分隔）
+  organization:object:机构信息
+    id:long:机构ID
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:人员ID
+    route:object:线路
+      id:long:ID
+      name:string:名称
+      code:string:编号
+      price:float:票价
+      mileage:string:里程      start_site:string:首发站
+      end_site:string:终点站
+      way_sites:string:途经站点
+      startTime:date:首班时间
+      lastTime:date:首班时间
+      remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+      organization:object:所属企业
+        id:long:ID
+        name:string:名称
+      car_team:object:车队
+        id:long:ID
+        name:string:名称
+      reason:string:理由
+      audit_list:array<object>:审核记录
+        id:long:审核ID
+        reason:string:原因
+        create_date:date:创建时间
+        create_user:long:创建用户
+        last_upd_date:date:最后修改时间
+        last_upd_user:long:最后修改人
+    index:int:排序顺序
+    upDown:int:上下行
+    name:string:站点名称
+    code:string:站点编号
+    province:string:省      
+    city:string:市
+    county:string:区/县
+    address:sting:详细地址
+    longitude:float:经度
+    latitude:float:纬度
+    gpsAngle:float:GPS夹角
+    radius:float:半径
+    photos:string:现场照片 以英文 , 号隔开
+    remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 19.5. 公交站点管理-删除
+
+```yaml
+@delete: /industry/bussites/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:场站ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 19.6. 公交站点管理-导出
+
+```yaml
+@get: /industry/bussites/export
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  name:string:名称
+  code:string:编号
+  province:string:省
+  city:string:市
+  county:string:县
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@return:
+  code:int:操作码
+    - 10002:导出数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 19.7. 公交站点管理-导入
+
+```yaml
+@post: /industry/busterminals/import
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:文件名
+  file:file:导入的文件
+
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 19.8. 公交站点管理-审核
+
+```yaml
+@post: /industry/bussites/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+>>>>>>> 33e0b181b167c6263f71e263a0ed11374db19fcd
 ```

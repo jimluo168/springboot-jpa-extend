@@ -1,10 +1,14 @@
 package com.bms.industry.dao;
 
+import com.bms.entity.BusSiteAudit;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
 /**
- * TODO(类的简要说明)
+ * 站点审核 repository
  *
  * @author zouyongcan
  * @date 2020/3/18
  */
-public interface BusSiteAuditRepository {
+public interface BusSiteAuditRepository extends PagingAndSortingRepository<BusSiteAudit, Long>, JpaSpecificationExecutor<BusSiteAudit> {
 }
