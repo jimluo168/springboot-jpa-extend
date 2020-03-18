@@ -8,6 +8,10 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusTerminal;
+import com.bms.entity.BusTerminalAudit;
+import com.bms.entity.Practitioner;
+import com.bms.entity.PractitionerAudit;
+import com.bms.industry.dao.BusTerminalAuditRepository;
 import com.bms.industry.dao.BusTerminalRepository;
 import com.bms.sys.Constant;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +35,7 @@ import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 public class BusTerminalService {
 
     private final BusTerminalRepository busTerminalRepository;
+    private final BusTerminalAuditRepository busTerminalAuditRepository;
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
@@ -63,5 +68,17 @@ public class BusTerminalService {
         BusTerminal busTerminal = this.findById(id);
         busTerminal.setDeleted(DELETE_TRUE);
         return busTerminal;
+    }
+
+    public void audit(Long id, int status, String reason) {
+        BusTerminal busTerminal = this.findById(id);
+        busTerminal.setStatus(status);
+        busTerminal.setReason(reason);
+
+        BusTerminalAudit audit = new BusTerminalAudit();
+        audit.setId(flakeId.next());
+        audit.setBusTerminal(busTerminal);
+        audit.setReason(reason);
+        busTerminalAuditRepository.save(audit);
     }
 }

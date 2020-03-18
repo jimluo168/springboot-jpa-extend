@@ -180,6 +180,9 @@
             <#if type?? && type!=''>
                 and b.type like :type||'%'
             </#if>
+            <#if status??>
+                and b.status = :status
+            </#if>
             order by b.createDate desc
         ]]>
     </bus_terminal_page>

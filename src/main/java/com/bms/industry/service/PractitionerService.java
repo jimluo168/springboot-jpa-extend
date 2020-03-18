@@ -7,7 +7,11 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
+import com.bms.entity.Organization;
+import com.bms.entity.OrganizationAudit;
 import com.bms.entity.Practitioner;
+import com.bms.entity.PractitionerAudit;
+import com.bms.industry.dao.PractitionerAuditRepository;
 import com.bms.sys.Constant;
 import com.bms.industry.dao.PractitionerRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +36,7 @@ import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 public class PractitionerService {
 
     private final PractitionerRepository practitionerRepository;
+    private final PractitionerAuditRepository practitionerAuditRepository;
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
@@ -70,5 +75,17 @@ public class PractitionerService {
         Practitioner practitioner = this.findById(id);
         practitioner.setDeleted(DELETE_TRUE);
         return practitioner;
+    }
+
+    public void audit(Long id, int status, String reason) {
+        Practitioner practitioner = this.findById(id);
+        practitioner.setStatus(status);
+        practitioner.setReason(reason);
+
+        PractitionerAudit audit = new PractitionerAudit();
+        audit.setId(flakeId.next());
+        audit.setPractitioner(practitioner);
+        audit.setReason(reason);
+        practitionerAuditRepository.save(audit);
     }
 }

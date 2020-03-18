@@ -23,6 +23,19 @@ import java.util.List;
 @Table(name = "bus_terminals")
 public class BusTerminal extends BaseEntity {
     /**
+     * 1=待审核.
+     */
+    public static final int STATUS_TO_BE_AUDIT = 1;
+    /**
+     * 2=通过审核.
+     */
+    public static final int STATUS_PASS_AUDIT = 2;
+    /**
+     * 3=未通过审核.
+     */
+    public static final int STATUS_UN_AUDIT = 3;
+
+    /**
      * 名称.
      */
     private String name;
@@ -72,5 +85,16 @@ public class BusTerminal extends BaseEntity {
      * 备注.
      */
     private String remark;
+
+    /**
+     * 状态(1:待审核 2:通过审核 3:未通过审核).
+     */
+    private Integer status = STATUS_TO_BE_AUDIT;
+
+    /**
+     * 理由.
+     */
+    @Column(length = 500)
+    private String reason;
 
 }

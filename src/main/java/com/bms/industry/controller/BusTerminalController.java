@@ -12,8 +12,10 @@ import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
+import com.bms.entity.BusRoute;
 import com.bms.entity.BusTerminal;
 import com.bms.entity.Organization;
+import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusTerminalService;
 import com.bms.industry.view.BusTerminalExcelModel;
 import com.bms.sys.controller.OrganizationController;
@@ -83,6 +85,15 @@ public class BusTerminalController {
     @DeleteMapping("/{id}")
     public Result<BusTerminal> deleteById(@PathVariable Long id) {
         return Result.ok(busTerminalService.deleteById(id));
+    }
+
+    @ApiOperation("审核")
+    @OpLog("审核")
+    @RequiresPermissions("bus_terminal_audit")
+    @PostMapping("/{id}/status/{status}")
+    public Result<Practitioner> audit(@PathVariable Long id, @PathVariable int status, @RequestBody BusTerminal busTerminal) {
+        busTerminalService.audit(id, status, busTerminal.getReason());
+        return ok();
     }
 
     @ApiOperation("导出")

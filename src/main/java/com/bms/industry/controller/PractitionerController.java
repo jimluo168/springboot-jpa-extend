@@ -12,6 +12,7 @@ import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
+import com.bms.entity.BusRoute;
 import com.bms.entity.BusTerminal;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.PractitionerService;
@@ -89,6 +90,15 @@ public class PractitionerController {
     @DeleteMapping("/{id}")
     public Result<Practitioner> deleteById(@PathVariable Long id) {
         return Result.ok(practitionerService.deleteById(id));
+    }
+
+    @ApiOperation("审核")
+    @OpLog("审核")
+    @RequiresPermissions("practitioner_audit")
+    @PostMapping("/{id}/status/{status}")
+    public Result<Practitioner> audit(@PathVariable Long id, @PathVariable int status, @RequestBody Practitioner practitioner) {
+        practitionerService.audit(id, status, practitioner.getReason());
+        return ok();
     }
 
     @ApiOperation("导出")

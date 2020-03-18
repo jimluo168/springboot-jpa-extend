@@ -18,6 +18,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "practitioners")
 public class Practitioner extends BaseEntity {
+    /**
+     * 1=待审核.
+     */
+    public static final int STATUS_TO_BE_AUDIT = 1;
+    /**
+     * 2=通过审核.
+     */
+    public static final int STATUS_PASS_AUDIT = 2;
+    /**
+     * 3=未通过审核.
+     */
+    public static final int STATUS_UN_AUDIT = 3;
 
     /**
      * 姓名.
@@ -91,5 +103,14 @@ public class Practitioner extends BaseEntity {
      * 备注.
      */
     private String remark;
+    /**
+     * 状态(1:待审核 2:通过审核 3:未通过审核).
+     */
+    private Integer status = STATUS_TO_BE_AUDIT;
 
+    /**
+     * 理由.
+     */
+    @Column(length = 500)
+    private String reason;
 }
