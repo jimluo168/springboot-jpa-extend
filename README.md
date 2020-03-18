@@ -1347,7 +1347,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       longitude:float:经度
       latitude:float:纬度
       parking_numbe:int:停车数
-      photos::array<string>:现场照片
+      photos:string:现场照片
       organization:object:机构信息
         id:long:机构ID
         name:string:名称
@@ -1392,7 +1392,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     longitude:float:经度
     latitude:float:纬度
     parking_numbe:int:停车数
-    photos::array<string>:现场照片
+    photos:string:现场照片
     organization:object:机构信息
       id:long:机构ID
       name:string:名称
@@ -1431,7 +1431,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   longitude:float:经度
   latitude:float:纬度
   parking_numbe:int:停车数
-  photos::array<string>:现场照片
+  photos:string:现场照片（逗号分隔）
   organization:object:机构信息
     id:long:机构ID
   remark:string:备注
@@ -1465,7 +1465,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   longitude:float:经度
   latitude:float:纬度
   parking_numbe:int:停车数
-  photos::array<string>:现场照片
+  photos:string:现场照片（逗号分隔）
   organization:object:机构信息
     id:long:机构ID
   remark:string:备注
@@ -1482,7 +1482,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     longitude:float:经度
     latitude:float:纬度
     parking_numbe:int:停车数
-    photos::array<string>:现场照片
+    photos:string:现场照片
     organization:object:机构信息
       id:long:机构ID
       name:string:名称
