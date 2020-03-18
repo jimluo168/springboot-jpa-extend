@@ -200,4 +200,30 @@
             order by o.createDate desc
         ]]>
     </bus_car_team_page>
+
+    <bus_site_page type="hql" desc="公交站点管理-分页查询">
+        <![CDATA[
+            from BusSite b
+            where deleted = 0
+            <#if name?? && name!=''>
+                and b.name like :name||'%'
+            </#if>
+            <#if code?? && code!=''>
+                and b.code like :code||'%'
+            </#if>
+            <#if province?? && province!=''>
+                and b.province like :province||'%'
+            </#if>
+            <#if city?? && code!=''>
+                and b.city like :city||'%'
+            </#if>
+            <#if county?? && county!=''>
+                and b.county like :county||'%'
+            </#if>
+            <#if status??>
+                and b.status = :status
+            </#if>
+            order by b.createDate desc
+        ]]>
+    </bus_site_page>
 </mapper>

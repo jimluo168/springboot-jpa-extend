@@ -1,10 +1,16 @@
 package com.bms.industry.dao;
 
+import com.bms.entity.BusSite;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
 /**
- * TODO(类的简要说明)
+ * 站点 repository.
  *
  * @author zouyongcan
  * @date 2020/3/18
  */
-public interface BusSiteRepository {
+@Repository
+public interface BusSiteRepository extends PagingAndSortingRepository<BusSite, Long>, JpaSpecificationExecutor<BusSite> {
 }

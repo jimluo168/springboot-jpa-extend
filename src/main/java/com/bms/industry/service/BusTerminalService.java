@@ -9,8 +9,6 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusTerminal;
 import com.bms.entity.BusTerminalAudit;
-import com.bms.entity.Practitioner;
-import com.bms.entity.PractitionerAudit;
 import com.bms.industry.dao.BusTerminalAuditRepository;
 import com.bms.industry.dao.BusTerminalRepository;
 import com.bms.sys.Constant;
@@ -52,7 +50,7 @@ public class BusTerminalService {
     }
 
     public PageList<BusTerminal> page(PageRequest pageRequest, Map<String, Object> queryParams) {
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_TERMINAL_PAGE, queryParams));
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_SITE_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)
