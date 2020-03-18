@@ -137,7 +137,7 @@
             <#if fuelType??>
                 and o.fuelType = :fuelType
             </#if>
-            <#if vin??>
+            <#if vin??&& vin!=''>
                 and o.vin = :vin
             </#if>
             <#if cardTime??>
