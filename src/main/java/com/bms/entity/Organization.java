@@ -22,6 +22,7 @@ import java.util.List;
 @DynamicUpdate
 @Entity
 @Table(name = "organizations")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Organization extends BaseEntity {
     /**
      * 1=待审核.

@@ -15,6 +15,7 @@ import com.bms.sys.dao.OrganizationRepository;
 import com.bms.sys.view.OrganizationExcelModel;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.functors.ExceptionFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,14 +75,15 @@ public class OrganizationService {
 
     public void audit(Long id, int status, String reason) {
         Organization organization = this.findById(id);
-        organization.setStatus(status);
-        organization.setReason(reason);
 
         OrganizationAudit audit = new OrganizationAudit();
+        BeanUtils.copyProperties(organization, audit);
         audit.setId(flakeId.next());
         audit.setOrganization(organization);
-        audit.setReason(reason);
         organizationAuditRepository.save(audit);
+
+        organization.setStatus(status);
+        organization.setReason(reason);
     }
 
     public void saveAll(List<Organization> list) {

@@ -21,7 +21,7 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "bus_carteam")
+@Table(name = "bus_carteams")
 public class BusTeam implements Serializable {
 
     @Id
