@@ -1,5 +1,7 @@
 # 行业管理系统后端代码(IndustryManagement-Backend)
 
+![avatar](关系图.png)
+
 ## 1. 开发环境
 
 1. JDK 1.8+(包含1.8)
