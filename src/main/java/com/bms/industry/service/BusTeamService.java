@@ -6,6 +6,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.entity.BusRoute;
+import com.bms.entity.BusTeam;
 import com.bms.industry.dao.BusTeamRepository;
 import com.bms.sys.Constant;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class BusTeamService {
     private final HibernateDao hibernateDao;
 
     @Transactional(readOnly = true)
-    public PageList<BusRoute> page(PageRequest pageRequest, Map<String, Object> queryParams) {
+    public PageList<BusTeam> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_CAR_TEAM_PAGE, queryParams));
     }
 }

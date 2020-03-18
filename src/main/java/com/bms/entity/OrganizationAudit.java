@@ -22,15 +22,10 @@ import javax.persistence.*;
 @DynamicUpdate
 @Entity
 @Table(name = "organization_audits")
-public class OrganizationAudit extends BaseEntity {
+public class OrganizationAudit extends Organization {
 
     @JsonIgnoreProperties("audit_list")
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;
-    /**
-     * 审核理由.
-     */
-    @Column(length = 500)
-    private String reason;
 }
