@@ -89,9 +89,13 @@ public class Vehicle extends BaseEntity {
     @JoinColumn(name = "team_id")
     private BusTeam carTeam;
     /**
-     * 路线.
+     * 线路.
      */
-    private String route;
+//    private String route;
+    @JsonIgnoreProperties("audit_list")
+    @ManyToOne
+    @JoinColumn(name = "route_id")
+    private BusRoute busRoute;
     /**
      * 座位数量.
      */

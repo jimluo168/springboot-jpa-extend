@@ -1631,7 +1631,10 @@ File->Preferences->Editor->File and Code Templates->File Header
       car_team:object:车队
         id:long:ID
         name:string:名称
-      route:string:路线
+      -- route:string:路线 删掉此字段
+      bus_route:object:公交路线信息
+        id:long:ID
+        name:string:名称
       seat_num:int:座位数
       remark:string:备注
       status:int:状态(1:待审核 2:通过审核 3:未通过审核)
@@ -1674,7 +1677,10 @@ File->Preferences->Editor->File and Code Templates->File Header
   car_team:object:车队
     id:long:ID
     name:string:名称
-  route:string:路线
+  -- route:string:路线 删掉此字段
+  bus_route:object:公交路线信息
+    id:long:ID
+    name:string:名称
   seat_num:int:座位数
   remark:string:备注
   status:int:状态(1:待审核 2:通过审核 3:未通过审核)
@@ -1716,7 +1722,10 @@ File->Preferences->Editor->File and Code Templates->File Header
   car_team:object:车队
     id:long:ID
     name:string:名称
-  route:string:路线
+  -- route:string:路线 删掉此字段
+  bus_route:object:公交路线信息
+    id:long:ID
+    name:string:名称
   seat_num:int:座位数
   remark:string:备注
   status:int:状态(1:待审核 2:通过审核 3:未通过审核)
@@ -1783,7 +1792,10 @@ File->Preferences->Editor->File and Code Templates->File Header
     car_team:object:车队
       id:long:ID
       name:string:名称
-    route:string:路线
+    -- route:string:路线 删掉此字段
+    bus_route:object:公交路线信息
+      id:long:ID
+      name:string:名称
     seat_num:int:座位数
     remark:string:备注
     status:int:状态(1:待审核 2:通过审核 3:未通过审核)
