@@ -1051,6 +1051,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       type:string:从业类型
       line:string:线路
       remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1104,6 +1105,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     type:string:从业类型
     line:string:线路
     remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1218,6 +1220,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     type:string:从业类型
     line:string:线路
     remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1245,7 +1248,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 12.6. 从业人员管理-导出
 
 ```yaml
-@get: /industry/busterminals/export?name=:name&status=:status
+@get: /industry/practitioners/export?name=:name&status=:status
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -1271,7 +1274,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 12.7. 从业人员管理-导入
 
 ```yaml
-@post: /industry/busterminals/import
+@post: /industry/practitioners/import
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -1284,6 +1287,28 @@ File->Preferences->Editor->File and Code Templates->File Header
 @return:
   code:int:操作码
     - 10003:导入数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 13.8. 从业人员管理-审核
+
+```yaml
+@post: /industry/practitioners/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1306,6 +1331,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   name:string:名称
   code:string:编号
   type:string:类型
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
 
 @return:
   code:int:操作码
@@ -1337,6 +1363,7 @@ File->Preferences->Editor->File and Code Templates->File Header
         contact:string:联系方式
         remark:string:备注
       remark:string:备注
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1381,6 +1408,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       contact:string:联系方式
       remark:string:备注
     remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1469,7 +1497,8 @@ File->Preferences->Editor->File and Code Templates->File Header
       principal:string:负责人
       contact:string:联系方式
       remark:string:备注
-    remark:string:备注v
+    remark:string:备注
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -1530,6 +1559,29 @@ File->Preferences->Editor->File and Code Templates->File Header
 @return:
   code:int:操作码
     - 10003:导入数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 13.8. 场站管理-审核
+
+```yaml
+@post: /industry/busterminals/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
   success:bool:是否成功
   msg:string:操作提示
 ```
