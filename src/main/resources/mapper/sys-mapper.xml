@@ -190,7 +190,7 @@
     <bus_car_team_page type="hql" desc="公交车队管理-分页查询">
         <![CDATA[
             from BusTeam o
-            where o.deleted = 0
+            where 1=1
             <#if name?? && name!=''>
                 and o.name like :name||'%'
             </#if>
