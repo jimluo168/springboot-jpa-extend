@@ -51,7 +51,7 @@ public class BusSiteService {
     }
 
     public PageList<BusSite> page(PageRequest pageRequest, Map<String, Object> queryParams) {
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_TERMINAL_PAGE, queryParams));
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_SITE_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)

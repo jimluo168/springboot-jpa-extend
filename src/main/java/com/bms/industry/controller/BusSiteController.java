@@ -1,9 +1,13 @@
 package com.bms.industry.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
+import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
+import com.bms.common.util.ResponseUtils;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
@@ -11,13 +15,20 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusSite;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusSiteService;
+import com.bms.industry.view.BusSiteExcelModel;
+import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static com.bms.common.domain.Result.ok;
 
@@ -87,7 +98,28 @@ public class BusSiteController {
     @RequiresPermissions("bus_site_export")
     @GetMapping("/export")
     public Result<Void> export(BusSite busSite, HttpServletResponse response) throws IOException, IllegalAccessException {
-        return ok();
+        try {
+            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageList<BusSite> pageList = busSiteService.page(pageRequest, BeanMapper.toMap(busSite));
+            List<BusSiteExcelModel> data = new ArrayList<>();
+            pageList.getList().stream().forEach(o -> {
+                BusSiteExcelModel bs = new BusSiteExcelModel();
+                BeanUtils.copyProperties(o, bs);
+                data.add(bs);
+            });
+
+            ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), "yyyyMMdd"));
+            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+                    .autoCloseStream(Boolean.FALSE)
+                    .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
+                    .sheet()
+                    .doWrite(data);
+            return null;
+        } catch (Exception e) {
+            // 重置response
+            response.reset();
+            throw ErrorCodes.build(ErrorCodes.EXPORT_DATA_ERR);
+        }
     }
 
     @ApiOperation("导入")

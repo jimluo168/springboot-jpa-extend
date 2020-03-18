@@ -50,7 +50,7 @@ public class BusTerminalService {
     }
 
     public PageList<BusTerminal> page(PageRequest pageRequest, Map<String, Object> queryParams) {
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_SITE_PAGE, queryParams));
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_TERMINAL_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)
