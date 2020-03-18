@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 /**
- * 从业人员表
+ * 从业人员表.
  *
  * @author zouyongcan
  * @date 2020/3/16

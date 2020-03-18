@@ -2241,6 +2241,7 @@ STATION_TYPE:int:场站类型
 UP_DOWN_TYPE:int:上下行
 SUGGEST_TYPE:int:投诉建议类型
 ARTICLE_TYPE:int:文章类型
+VIOLATION_TYPE:int:违规行为
 ```
 
 ## 19. 公交站点管理
@@ -2571,4 +2572,5 @@ ARTICLE_TYPE:int:文章类型
   code:int:操作码
   success:bool:是否成功
   msg:string:操作提示
+>>>>>>> 33e0b181b167c6263f71e263a0ed11374db19fcd
 ```

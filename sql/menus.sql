@@ -31,7 +31,7 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('114', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272518099046400', '5', 'role_details','角色管理-详情');
 
 -- 日志管理
-INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
 VALUES ('1000', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '日志管理', '1', '434272512889720832', '3', 'oplog','日志管理');
 
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
@@ -133,3 +133,39 @@ VALUES ('184', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', 
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('185', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272530384162816', '6', 'bus_site_audit','公交站点管理-审核/拒绝');
 
+-- 行政信息管理
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`)
+VALUES ('1100', '2020-03-13 08:43:57.504000', '0', '2020-03-13 08:44:00.072000', '行政信息管理', 'adminfo', '1', '4');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
+VALUES ('1110', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '行政信息发布', '1', '1100', '1', 'notice','行政信息发布');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1111', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '1110', '1', 'notice_list','行政信息发布-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1112', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '1110', '2', 'notice_create','行政信息发布-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1113', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '1110', '3', 'notice_edit','行政信息发布-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1114', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '1110', '4', 'notice_delete','行政信息发布-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1115', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '1110', '4', 'notice_details','行政信息发布-详情');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1116', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '1110', '4', 'notice_audit','行政信息发布-审核');
+
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
+VALUES ('1120', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '投诉建议', '1', '1100', '2', 'suggest','投诉建议');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1121', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '1120', '1', 'suggest_list','投诉建议-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1122', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '1120', '2', 'suggest_create','投诉建议-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1123', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '1120', '3', 'suggest_edit','投诉建议-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1124', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '1120', '4', 'suggest_delete','投诉建议-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1125', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '1120', '4', 'suggest_details','投诉建议-详情');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1126', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '1120', '4', 'suggest_audit','投诉建议-审核');

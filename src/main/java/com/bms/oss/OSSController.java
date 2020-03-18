@@ -33,10 +33,10 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/oss")
 @RequiredArgsConstructor
 @EnableConfigurationProperties(OSSProperties.class)
-@RequiresAuthentication
 public class OSSController {
     private final OSSProperties ossProperties;
 
+    @RequiresAuthentication
     @PostMapping("/{dir}")
     public Result<FileInfo> upload(@PathVariable String dir,
                                    MultipartFile file) throws IOException {
@@ -81,6 +81,7 @@ public class OSSController {
         Files.copy(path, response.getOutputStream());
     }
 
+    @RequiresAuthentication
     @DeleteMapping("/{dir}/{fmtday}/{filename}")
     public Result<Void> delete(@PathVariable String dir,
                                @PathVariable String fmtday,

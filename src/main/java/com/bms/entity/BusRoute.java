@@ -48,7 +48,7 @@ public class BusRoute extends BaseEntity {
     /**
      * 里程.
      */
-    private Float mileage;
+    private String mileage;
     /**
      * 首发站.
      */
