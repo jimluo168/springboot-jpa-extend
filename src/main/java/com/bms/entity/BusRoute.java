@@ -90,7 +90,9 @@ public class BusRoute extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private BusTeam carTeam;
-
+    /**
+     * 状态(1=待审核 2=通过审核 3=未通过审核).
+     */
     private Integer status = STATUS_TO_BE_AUDIT;
     /**
      * 理由.
