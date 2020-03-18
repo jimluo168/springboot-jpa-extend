@@ -29,10 +29,31 @@ INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_u
 VALUES ('1301', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'FUEL_TYPE_CHILD', '2', '气', '2', '气', 'Integer', '2', '102');
 
 
-
+-- 上下行
 INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
 VALUES ('103', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'UP_DOWN_TYPE', '4', '上下行', '1', '上下行', 'Integer');
 INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
 VALUES ('1400', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'FUEL_TYPE_CHILD', '1', '上', '2', '上', 'Integer', '1', '103');
 INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
 VALUES ('1401', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'FUEL_TYPE_CHILD', '2', '下', '2', '下', 'Integer', '2', '103');
+
+
+-- 投诉建议类型
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('104', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'SUGGEST_TYPE', '5', '投诉建议类型', '1', '投诉建议类型', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('1500', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'SUGGEST_TYPE_CHILD', '1', '服务', '2', '服务', 'Integer', '1', '104');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('1501', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'SUGGEST_TYPE_CHILD', '2', '安全', '2', '安全', 'Integer', '2', '104');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('1501', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'SUGGEST_TYPE_CHILD', '2', 'B2C', '2', 'B2C', 'Integer', '3', '104');
+
+-- 文章类型
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('105', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'ARTICLE_TYPE', '6', '文章类型', '1', '文章类型', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('10501', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'ARTICLE_TYPE_CHILD', '1', '政策', '2', '政策', 'Integer', '1', '105');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('10502', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'ARTICLE_TYPE_CHILD', '2', '规范标准', '2', '规范标准', 'Integer', '2', '105');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('10503', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'ARTICLE_TYPE_CHILD', '2', '公告', '2', '公告', 'Integer', '3', '105');

@@ -126,7 +126,9 @@ public class Organization extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
-
+    /**
+     * 审核历史记录.
+     */
     @JsonIgnoreProperties("organization")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
     private List<OrganizationAudit> auditList;
