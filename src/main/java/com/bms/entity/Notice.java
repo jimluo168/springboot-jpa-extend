@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 /**
- * TODO(类的简要说明)
+ * 行政管理-政策公告.
  *
  * @author luojimeng
  * @date 2020/3/18
