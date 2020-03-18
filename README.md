@@ -1933,7 +1933,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ### 15.2. 公交路线管理-新增
 
 ```yaml
-@post: /industry/vehicles
+@post: /industry/busroutes
 
 @header:
   X-User-Agent:手机信息(必须)
