@@ -226,4 +226,41 @@
             order by b.createDate desc
         ]]>
     </bus_site_page>
+
+    <notice_page type="hql" desc="行政管理-分页查询">
+        <![CDATA[
+            from Notice n
+            where deleted = 0
+            <#if title?? && title!=''>
+                and n.title like :title||'%'
+            </#if>
+            <#if type??>
+                and n.type = :type
+            </#if>
+           <#if begin?? && end??>
+                and n.createDate between :begin and :end
+            </#if>
+            order by n.createDate desc
+        ]]>
+    </notice_page>
+
+    <suggest_page type="hql" desc="行政管理-分页查询">
+        <![CDATA[
+            from Suggest s
+            where deleted = 0
+            <#if type?? && type!=''>
+                and s.type = :type
+            </#if>
+            <#if status??>
+                and s.status = :status
+            </#if>
+            <#if content?? && content!=''>
+                and s.content like :content||'%'
+            </#if>
+           <#if begin?? && end??>
+                and s.createDate between :begin and :end
+            </#if>
+            order by s.createDate desc
+        ]]>
+    </suggest_page>
 </mapper>

@@ -15,12 +15,9 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusSite;
-import com.bms.entity.Organization;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusSiteService;
 import com.bms.industry.view.BusSiteExcelModel;
-import com.bms.sys.controller.OrganizationController;
-import com.bms.sys.service.OrganizationService;
 import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +47,7 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/industry/bussites")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@OpLogModule("公交场站管理")
+@OpLogModule("公交站点管理")
 public class BusSiteController {
 
     private static final Logger logger = LoggerFactory.getLogger(BusSiteController.class);

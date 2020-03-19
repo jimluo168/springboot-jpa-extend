@@ -9,7 +9,6 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusSite;
 import com.bms.entity.BusSiteAudit;
-import com.bms.entity.Organization;
 import com.bms.industry.dao.BusSiteAuditRepository;
 import com.bms.industry.dao.BusSiteRepository;
 import com.bms.sys.Constant;
@@ -24,7 +23,7 @@ import java.util.Optional;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
- * TODO(类的简要说明)
+ * 公交站点管理
  *
  * @author zouyongcan
  * @date 2020/3/18
