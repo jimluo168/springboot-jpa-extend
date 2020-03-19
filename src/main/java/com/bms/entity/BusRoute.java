@@ -33,6 +33,15 @@ public class BusRoute extends BaseEntity {
      * 3=未通过审核.
      */
     public static final int STATUS_UN_AUDIT = 3;
+    /**
+     * 0=不是环线.
+     */
+    public static final int LOOP_LINE_FALSE = 0;
+    /**
+     * 1=是环线.
+     */
+    public static final int LOOP_LINE_TRUE = 0;
+
 
     /**
      * 名称.
@@ -79,6 +88,14 @@ public class BusRoute extends BaseEntity {
     @Column(length = 1000)
     private String remark;
     /**
+     * 是否环线(0:否 1：是).
+     */
+    private Integer loopLine = LOOP_LINE_FALSE;
+    /**
+     * 状态(1=待审核 2=通过审核 3=未通过审核).
+     */
+    private Integer status = STATUS_TO_BE_AUDIT;
+    /**
      * 所属企业.
      */
     @JsonIgnoreProperties("audit_list")
@@ -91,10 +108,6 @@ public class BusRoute extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private BusTeam carTeam;
-    /**
-     * 状态(1=待审核 2=通过审核 3=未通过审核).
-     */
-    private Integer status = STATUS_TO_BE_AUDIT;
     /**
      * 理由.
      */

@@ -40,6 +40,7 @@ public class Organization extends BaseEntity {
     /**
      * 组织名称.
      */
+    @Column(unique = true)
     private String name;
     /**
      * 级别.
@@ -48,7 +49,7 @@ public class Organization extends BaseEntity {
     /**
      * 公司编号.
      */
-    @Column(name = "company_no")
+    @Column(name = "company_no", unique = true)
     private String companyNo;
     /**
      * 省.

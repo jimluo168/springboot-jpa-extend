@@ -53,7 +53,7 @@ public class BusSiteExcelModel extends BaseEntity {
     @ExcelProperty(value = "站点位置", index = 4)
     private String address;
 
-    /**1
+    /**
      * 状态(1:待审核 2:通过审核 3:未通过审核).
      */
     @ExcelIgnore

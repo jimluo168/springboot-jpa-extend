@@ -8,6 +8,7 @@ import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.exception.ServiceException;
 import com.bms.common.util.BeanMapper;
 import com.bms.common.util.ResponseUtils;
 import com.bms.common.web.annotation.OpLog;
@@ -16,7 +17,7 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusRoute;
 import com.bms.industry.service.BusRouteService;
-import com.bms.sys.view.OrganizationExcelModel;
+import com.bms.industry.view.BusRouteExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -113,15 +114,15 @@ public class BusRouteController {
         try {
             PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
             PageList<BusRoute> pageList = busRouteService.page(pageRequest, BeanMapper.toMap(busRoute));
-            List<OrganizationExcelModel> data = new ArrayList<>();
+            List<BusRouteExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
-                OrganizationExcelModel m = new OrganizationExcelModel();
+                BusRouteExcelModel m = new BusRouteExcelModel();
                 BeanUtils.copyProperties(o, m);
                 data.add(m);
             });
 
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), "yyyyMMdd"));
-            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+            EasyExcel.write(response.getOutputStream(), BusRouteExcelModel.class)
                     .autoCloseStream(Boolean.FALSE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet()
@@ -140,24 +141,27 @@ public class BusRouteController {
     @PostMapping("/import")
     public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
         try {
-            EasyExcel.read(file.getInputStream(), OrganizationExcelModel.class, new ImportDataListener(busRouteService)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), BusRouteExcelModel.class, new ImportDataListener(busRouteService)).sheet().doRead();
             return ok();
         } catch (Exception e) {
             logger.error("import data error", e);
+            if (e instanceof ServiceException) {
+                throw e;
+            }
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_ERR);
         }
     }
 
     @RequiredArgsConstructor
-    private static class ImportDataListener extends AnalysisEventListener<OrganizationExcelModel> {
+    private static class ImportDataListener extends AnalysisEventListener<BusRouteExcelModel> {
         private static final Logger logger = LoggerFactory.getLogger(ImportDataListener.class);
         private static final int BATCH_COUNT = 3000;
-        private List<OrganizationExcelModel> list = new ArrayList<OrganizationExcelModel>();
+        private List<BusRouteExcelModel> list = new ArrayList<BusRouteExcelModel>();
 
         private final BusRouteService busRouteService;
 
         @Override
-        public void invoke(OrganizationExcelModel data, AnalysisContext context) {
+        public void invoke(BusRouteExcelModel data, AnalysisContext context) {
             list.add(data);
             if (list.size() >= BATCH_COUNT) {
                 saveData();
