@@ -6,6 +6,7 @@ import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.bms.common.domain.BaseEntity;
 import com.bms.entity.Organization;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 公交站点导出excel的model
@@ -42,7 +43,7 @@ public class BusSiteExcelModel extends BaseEntity {
 
     @ColumnWidth(50)
     @ExcelProperty(value = "所在区域", index = 2)
-    private String area;
+    private String region;
 
     @ColumnWidth(50)
     @ExcelProperty(value = "经纬度", index = 3)
@@ -60,6 +61,40 @@ public class BusSiteExcelModel extends BaseEntity {
     @ColumnWidth(15)
     @ExcelProperty(value = "状态", index = 5)
     private String statusText;
+
+    /**
+     * 解析所属区域
+     *
+     * @return
+     */
+    public String getRegion() {
+        return StringUtils.replace(
+                StringUtils.join(new String[]{province, city, county, address}, ""),
+                "null", "");
+    }
+
+    public String getProvince() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        if (region.contains("省")) {
+            int begin = region.indexOf("省");
+            return region.substring(0, begin + 1);
+        }
+        return "";
+    }
+
+    public String getCity() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        if (region.contains("市")) {
+            int begin = region.indexOf("省");
+            int end = region.indexOf("市");
+            return region.substring(begin + 1, end + 1);
+        }
+        return "";
+    }
 
     public String getStatusText() {
         if (status == null) {
