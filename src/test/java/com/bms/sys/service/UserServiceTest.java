@@ -92,22 +92,31 @@ class UserServiceTest {
 //        user.setRole(role);
 //        userService.insert(user);
 
+//        user = new User();
+//        user.setAccount("test01");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("测试人1");
+//        user.setRemark("测试专用");
+//        user.setRole(role);
+//        userService.insert(user);
+//
+//
+//        user = new User();
+//        user.setAccount("test02");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("测试人1");
+//        user.setRemark("测试专用");
+//        user.setRole(role);
+//        userService.insert(user);
+
         user = new User();
-        user.setAccount("test01");
+        user.setAccount("guyingyang");
         user.setPasswd("123456");
         user.setOrganization(organization);
-        user.setRealName("测试人1");
-        user.setRemark("测试专用");
-        user.setRole(role);
-        userService.insert(user);
-
-
-        user = new User();
-        user.setAccount("test02");
-        user.setPasswd("123456");
-        user.setOrganization(organization);
-        user.setRealName("测试人1");
-        user.setRemark("测试专用");
+        user.setRealName("顾迎阳");
+        user.setRemark("");
         user.setRole(role);
         userService.insert(user);
     }

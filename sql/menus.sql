@@ -70,6 +70,10 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('144', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272524021403648', '5', 'employee_details','从业人员管理-详情');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('145', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272524021403648', '6', 'employee_audit','从业人员管理-审核/拒绝');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('146', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导入', '2', '434272524021403648', '7', 'practitioner_import','从业人员管理-导入');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('147', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导出', '2', '434272524021403648', '8', 'practitioner_export','从业人员管理-导出');
 
 
 
@@ -86,6 +90,10 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('154', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272525602656256', '5', 'bus_vehicle_details','公交车辆管理-详情');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('155', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272525602656256', '6', 'bus_vehicle_audit','公交车辆管理-审核/拒绝');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('156', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导入', '2', '434272530384162816', '7', 'bus_vehicle_import','公交车辆管理-导入');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('157', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导出', '2', '434272530384162816', '8', 'bus_vehicle_export','公交车辆管理-导出');
 
 
 
@@ -102,7 +110,10 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('164', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272527175520256', '5', 'bus_rote_details','公交路线管理-详情');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('165', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272527175520256', '6', 'bus_rote_audit','公交路线管理-审核/拒绝');
-
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('166', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导入', '2', '434272530384162816', '7', 'bus_route_import','公交路线管理-导入');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('167', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导出', '2', '434272530384162816', '8', 'bus_route_export','公交路线管理-导出');
 
 
 -- 公交场站管理
@@ -132,6 +143,12 @@ INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, 
 VALUES ('184', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '434272530384162816', '5', 'bus_site_details','公交站点管理-详情');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('185', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核/拒绝', '2', '434272530384162816', '6', 'bus_site_audit','公交站点管理-审核/拒绝');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('186', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导入', '2', '434272530384162816', '7', 'bus_site_import','公交站点管理-导入');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('187', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '导出', '2', '434272530384162816', '8', 'bus_site_export','公交站点管理-导出');
+
+
 
 -- 行政信息管理
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`)
