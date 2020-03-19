@@ -30,6 +30,8 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','142');
 insert into role_menus(role_id,menu_id) values('434272239429488640','143');
 insert into role_menus(role_id,menu_id) values('434272239429488640','144');
 insert into role_menus(role_id,menu_id) values('434272239429488640','145');
+insert into role_menus(role_id,menu_id) values('434272239429488640','146');
+insert into role_menus(role_id,menu_id) values('434272239429488640','147');
 insert into role_menus(role_id,menu_id) values('434272239429488640','150');
 insert into role_menus(role_id,menu_id) values('434272239429488640','151');
 insert into role_menus(role_id,menu_id) values('434272239429488640','152');
@@ -80,4 +82,12 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','1213');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1214');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1215');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1216');
+
+-- 导入/导出
+insert into role_menus(role_id,menu_id) values('434272239429488640','156');
+insert into role_menus(role_id,menu_id) values('434272239429488640','157');
+insert into role_menus(role_id,menu_id) values('434272239429488640','166');
+insert into role_menus(role_id,menu_id) values('434272239429488640','167');
+insert into role_menus(role_id,menu_id) values('434272239429488640','186');
+insert into role_menus(role_id,menu_id) values('434272239429488640','187');
 
