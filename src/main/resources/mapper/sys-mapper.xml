@@ -131,10 +131,10 @@
         <![CDATA[
             from Vehicle o
             where o.deleted = 0
-            <#if lic_no?? && lic_no!=''>
+            <#if licNo?? && licNo!=''>
                 and o.licNo like :licNo||'%'
             </#if>
-            <#if fuel_type??>
+            <#if fuelType??>
                 and o.fuelType = :fuelType
             </#if>
             <#if vin??&& vin!=''>
