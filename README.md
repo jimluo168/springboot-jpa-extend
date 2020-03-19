@@ -2320,7 +2320,7 @@ VIOLATION_TYPE:int:违规行为
           last_upd_date:date:最后修改时间
           last_upd_user:long:最后修改人
       index:int:排序顺序
-      upDown:int:上下行
+      up_down:int:上下行
       name:string:站点名称
       code:string:站点编号
       province:string:省      
@@ -2329,7 +2329,7 @@ VIOLATION_TYPE:int:违规行为
       address:sting:详细地址
       longitude:float:经度
       latitude:float:纬度
-      gpsAngle:float:GPS夹角
+      gps_angle:float:GPS夹角
       radius:float:半径
       photos:string:现场照片 以英文 , 号隔开
       remark:string:备注
@@ -2381,7 +2381,7 @@ VIOLATION_TYPE:int:违规行为
         last_upd_date:date:最后修改时间
         last_upd_user:long:最后修改人
     index:int:排序顺序
-    upDown:int:上下行
+    up_down:int:上下行
     name:string:站点名称
     code:string:站点编号
     province:string:省      
@@ -2390,7 +2390,7 @@ VIOLATION_TYPE:int:违规行为
     address:sting:详细地址
     longitude:float:经度
     latitude:float:纬度
-    gpsAngle:float:GPS夹角
+    gps_angle:float:GPS夹角
     radius:float:半径
     photos:string:现场照片 以英文 , 号隔开
     remark:string:备注
@@ -2412,7 +2412,7 @@ VIOLATION_TYPE:int:违规行为
   route:object:线路
     id:long:ID
   index:int:排序顺序
-  upDown:int:上下行
+  up_down:int:上下行
   name:string:站点名称
   code:string:站点编号
   province:string:省      
@@ -2421,7 +2421,7 @@ VIOLATION_TYPE:int:违规行为
   address:sting:详细地址
   longitude:float:经度
   latitude:float:纬度
-  gpsAngle:float:GPS夹角
+  gps_angle:float:GPS夹角
   radius:float:半径
   photos:string:现场照片 以英文 , 号隔开
   remark:string:备注
@@ -2491,7 +2491,7 @@ VIOLATION_TYPE:int:违规行为
         last_upd_date:date:最后修改时间
         last_upd_user:long:最后修改人
     index:int:排序顺序
-    upDown:int:上下行
+    up_down:int:上下行
     name:string:站点名称
     code:string:站点编号
     province:string:省      
@@ -2500,7 +2500,7 @@ VIOLATION_TYPE:int:违规行为
     address:sting:详细地址
     longitude:float:经度
     latitude:float:纬度
-    gpsAngle:float:GPS夹角
+    gps_angle:float:GPS夹角
     radius:float:半径
     photos:string:现场照片 以英文 , 号隔开
     remark:string:备注
@@ -2881,7 +2881,7 @@ VIOLATION_TYPE:int:违规行为
   data:object:返回信息
     id:long:ID
   success:bool:是否成功
-  msg:string:操作提示
+  msg:string:操作提示2
 ```
 ### 21.5. 投诉建议管理-审核
 
