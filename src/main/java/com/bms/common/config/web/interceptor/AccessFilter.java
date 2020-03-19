@@ -5,8 +5,11 @@ import com.bms.common.util.JSON;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,6 +21,8 @@ import java.nio.charset.StandardCharsets;
  * @author luojimeng
  * @date 2020/3/10
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@WebFilter(filterName = "accessFilter", urlPatterns = "/*")
 public class AccessFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(AccessFilter.class);
 
