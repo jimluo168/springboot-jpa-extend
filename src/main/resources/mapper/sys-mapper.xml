@@ -36,7 +36,7 @@
             from User u
             where deleted = 0
             <#if account?? && account!=''>
-                and u.account like :account
+                and u.account like :account||'%'
             </#if>
             <#if realName?? && realName!=''>
                 and u.realName like :realName||'%'

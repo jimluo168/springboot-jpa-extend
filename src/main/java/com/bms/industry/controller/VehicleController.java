@@ -78,7 +78,7 @@ public class VehicleController {
     @OpLog("查询")
     @RequiresPermissions("bus_vehicle_list")
     @GetMapping("/list")
-    public Result<PageList<Vehicle>> list(PageRequest pageRequest, QueryParams vehicle) throws IllegalAccessException {
+    public Result<PageList<Vehicle>> list(PageRequest pageRequest, Vehicle vehicle) throws IllegalAccessException {
         return ok(vehicleService.page(pageRequest, BeanMapper.toMap(vehicle)));
     }
 
@@ -183,13 +183,6 @@ public class VehicleController {
             });
             vehicleService.saveAll(batchData);
         }
-    }
-
-    @Data
-    private static class QueryParams extends Vehicle{
-        private String lic_no;
-        private Integer fuel_type;
-        private Date card_time;
     }
 
 }
