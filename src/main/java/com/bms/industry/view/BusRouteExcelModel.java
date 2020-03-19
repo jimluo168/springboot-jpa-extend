@@ -2,6 +2,7 @@ package com.bms.industry.view;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.bms.ErrorCodes;
 import com.bms.entity.BusTeam;
@@ -60,11 +61,15 @@ public class BusRouteExcelModel {
     /**
      * 首班时间.
      */
+    @DateTimeFormat("HH:mm")
+    @ColumnWidth(30)
     @ExcelProperty(value = "首班时间", index = 4)
     private Date startTime;
     /**
      * 末班时间.
      */
+    @DateTimeFormat("HH:mm")
+    @ColumnWidth(30)
     @ExcelProperty(value = "末班时间", index = 5)
     private Date lastTime;
     /**

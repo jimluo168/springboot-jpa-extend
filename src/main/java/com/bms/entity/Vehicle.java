@@ -11,6 +11,12 @@ import java.util.List;
 
 /**
  * 公交车辆管理.
+ * <p>
+ * 1.修改字段“线路”：改为可选择，单选，必填字段。
+ * “所属企业”改为非必填。
+ * “车辆型号”改为“车型”，文本类型。
+ * 2.增加字段“载客数量”、“制造商”、“生产日期”、“投产日期”、“车辆用途”、“是否助力”（是/否）、“前后置发动机”（前/后）、“是否空调”（是/否）。非必填
+ * 3.调整线路、车队、所属企业的顺序。
  *
  * @author luojimeng
  * @date 2020/3/16
@@ -63,7 +69,13 @@ public class Vehicle extends BaseEntity {
     /**
      * 车辆型号(字典表).
      */
-    private Integer vehType;
+//    private Integer vehType;
+    /**
+     * 车型(必填) 改为文本 20200320.
+     * “车辆型号”改为“车型”，文本类型.
+     */
+    @Column(nullable = false)
+    private String vehType;
     /**
      * 上牌时间.
      */
@@ -102,10 +114,47 @@ public class Vehicle extends BaseEntity {
     @Column(name = "seat_num")
     private Integer seatNum;
     /**
+     * 载客数量.
+     */
+    @Column(name = "load_num")
+    private Integer loadNum;
+    /**
+     * 制造商.
+     */
+    @Column(name = "factory_name")
+    private String factoryName;
+    /**
+     * 生产日期.
+     */
+    @Column(name = "product_date")
+    private Date productDate;
+    /**
+     * 投产日期.
+     */
+    @Column(name = "register_date")
+    private Date registerDate;
+    /**
+     * 车辆用途.
+     */
+    private String use;
+    /**
+     * 是否助力(1=是  0=否).
+     */
+    private Integer carHelp;
+    /**
+     * 前后置发动机(1=前  2=后).
+     */
+    private Integer engine;
+    /**
+     * 是否空调(1=是  0=否).
+     */
+    private Integer airCondition;
+    /**
      * 备注.
      */
     @Column(length = 500)
     private String remark;
+
     /**
      * 状态(1:待审核 2:通过审核 3:未通过审核).
      */

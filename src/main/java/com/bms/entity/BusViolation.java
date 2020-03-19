@@ -9,6 +9,10 @@ import java.util.Date;
 
 /**
  * 违规信息管理.
+ * <p>
+ * 违规事件的新增页面
+ * 1.新增字段：“车队”，可选，系统默认带出。“经度”、“纬度”、“车辆编号”（文本）。
+ * 2.修改字段：“事件性质”、“严重程度”改为非必填
  *
  * @author luojimeng
  * @date 2020/3/18
@@ -106,6 +110,13 @@ public class BusViolation extends BaseEntity {
      * 状态(1:处理中 2:已处理).
      */
     private Integer status = 1;
+
+    /**
+     * 所属车队.
+     */
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private BusTeam carTeam;
 
 
 }

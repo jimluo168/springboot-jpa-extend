@@ -1635,7 +1635,18 @@ File->Preferences->Editor->File and Code Templates->File Header
       width:float:车宽
       height:float:车高
       fuel_type:int:燃料类型
-      veh_type:int:车辆型号
+      -- veh_type:int:车辆型号 改为string
+      <font color=red>添加字段-开始</font>
+      veh_type:string:车辆型号 改为String 必填
+      load_num:int:载客数量
+      factory_name:string:制造商
+      product_date:date:生产日期
+      register_date:date:投产日期
+      use:string:用途
+      car_help:int:是否助力(1=是  0=否)
+      engine:int:前后置发动机(1=前  2=后)
+      air_condition:int:是否空调(1=是  0=否)
+      <font color=red>添加字段-结束</font>
       card_time:date:上牌时间
       sim:string:SIM卡号
       terminal_no:string:车载终端编号
@@ -1681,7 +1692,18 @@ File->Preferences->Editor->File and Code Templates->File Header
   width:float:车宽
   height:float:车高
   fuel_type:int:燃料类型
-  veh_type:int:车辆型号
+  -- veh_type:int:车辆型号 改为string
+  <font color=red>添加字段-开始</font>
+  veh_type:string:车辆型号 改为String 必填
+  load_num:int:载客数量
+  factory_name:string:制造商
+  product_date:date:生产日期
+  register_date:date:投产日期
+  use:string:用途
+  car_help:int:是否助力(1=是  0=否)
+  engine:int:前后置发动机(1=前  2=后)
+  air_condition:int:是否空调(1=是  0=否)
+  <font color=red>添加字段-结束</font>
   card_time:date:上牌时间
   sim:string:SIM卡号
   terminal_no:string:车载终端编号
@@ -1726,7 +1748,18 @@ File->Preferences->Editor->File and Code Templates->File Header
   width:float:车宽
   height:float:车高
   fuel_type:int:燃料类型
-  veh_type:int:车辆型号
+  -- veh_type:int:车辆型号 改为string
+  <font color=red>添加字段-开始</font>
+  veh_type:string:车辆型号 改为String 必填
+  load_num:int:载客数量
+  factory_name:string:制造商
+  product_date:date:生产日期
+  register_date:date:投产日期
+  use:string:用途
+  car_help:int:是否助力(1=是  0=否)
+  engine:int:前后置发动机(1=前  2=后)
+  air_condition:int:是否空调(1=是  0=否)
+  <font color=red>添加字段-结束</font>
   card_time:date:上牌时间
   sim:string:SIM卡号
   terminal_no:string:车载终端编号
@@ -1796,7 +1829,18 @@ File->Preferences->Editor->File and Code Templates->File Header
     width:float:车宽
     height:float:车高
     fuel_type:int:燃料类型
-    veh_type:int:车辆型号
+    -- veh_type:int:车辆型号 改为string
+    <font color=red>添加字段-开始</font>
+    veh_type:string:车辆型号 改为String 必填
+    load_num:int:载客数量
+    factory_name:string:制造商
+    product_date:date:生产日期
+    register_date:date:投产日期
+    use:string:用途
+    car_help:int:是否助力(1=是  0=否)
+    engine:int:前后置发动机(1=前  2=后)
+    air_condition:int:是否空调(1=是  0=否)
+    <font color=red>添加字段-结束</font>
     card_time:date:上牌时间
     sim:string:SIM卡号
     terminal_no:string:车载终端编号
@@ -1921,6 +1965,9 @@ File->Preferences->Editor->File and Code Templates->File Header
       id:long:ID
       name:string:名称
       code:string:编号
+      <font color=red>添加字段-开始</font>
+      type:int:线路类型(字典表中获取)
+      <font color=red>添加字段-结束</font>
       price:float:票价
       mileage:string:里程
       start_site:string:首发站
@@ -2268,6 +2315,7 @@ UP_DOWN_TYPE:int:上下行
 SUGGEST_TYPE:int:投诉建议类型
 ARTICLE_TYPE:int:文章类型
 VIOLATION_TYPE:int:违规行为
+ROUTE_TYPE:int:线路类型
 ```
 
 ## 19. 公交站点管理
