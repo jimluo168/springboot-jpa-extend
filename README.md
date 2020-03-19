@@ -1030,6 +1030,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       cert_no:string:资格证号
       id_number:string:身份证号
       phone:string:联系号码
+      email:string:电子邮箱
       address:string:通讯地址
       organization:object:机构信息
         id:long:机构ID
@@ -1086,6 +1087,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     cert_no:string:资格证号
     id_number:string:身份证号
     phone:string:联系号码
+    email:string:电子邮箱
     address:string:通讯地址
     organization:object:机构信息
       id:long:机构ID
@@ -1136,6 +1138,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   cert_no:string:资格证号
   id_number:string:身份证号
   phone:string:联系号码
+  email:string:电子邮箱
   address:string:通讯地址
   organization:object:机构信息
     id:long:机构ID
@@ -1205,6 +1208,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     cert_no:string:资格证号
     id_number:string:身份证号
     phone:string:联系号码
+    email:string:电子邮箱
     address:string:通讯地址
     organization:object:机构信息
       id:long:机构ID

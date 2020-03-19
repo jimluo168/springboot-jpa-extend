@@ -65,6 +65,11 @@ public class Practitioner extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String phone;
     /**
+     * 电子邮箱
+     */
+    @Column(unique = true)
+    private String email;
+    /**
      * 通讯地址.
      */
     private String address;
