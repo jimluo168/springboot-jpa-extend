@@ -1185,7 +1185,8 @@ File->Preferences->Editor->File and Code Templates->File Header
   staff_number:string:员工工号
   card_number:string:卡号
   type:string:从业类型
-  line:string:线路
+  car_team:object:车队
+    id:long:ID
   remark:string:备注
 
 @return:
