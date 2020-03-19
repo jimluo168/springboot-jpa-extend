@@ -21,6 +21,7 @@ import com.bms.sys.view.OrganizationExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -77,7 +78,7 @@ public class VehicleController {
     @OpLog("查询")
     @RequiresPermissions("bus_vehicle_list")
     @GetMapping("/list")
-    public Result<PageList<Vehicle>> list(PageRequest pageRequest, Vehicle vehicle) throws IllegalAccessException {
+    public Result<PageList<Vehicle>> list(PageRequest pageRequest, QueryParams vehicle) throws IllegalAccessException {
         return ok(vehicleService.page(pageRequest, BeanMapper.toMap(vehicle)));
     }
 
@@ -182,6 +183,13 @@ public class VehicleController {
             });
             vehicleService.saveAll(batchData);
         }
+    }
+
+    @Data
+    private static class QueryParams extends Vehicle{
+        private String lic_no;
+        private Integer fuel_type;
+        private Date card_time;
     }
 
 }

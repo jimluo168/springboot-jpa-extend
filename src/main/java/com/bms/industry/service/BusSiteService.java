@@ -9,6 +9,7 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusSite;
 import com.bms.entity.BusSiteAudit;
+import com.bms.entity.Organization;
 import com.bms.industry.dao.BusSiteAuditRepository;
 import com.bms.industry.dao.BusSiteRepository;
 import com.bms.sys.Constant;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -79,5 +81,12 @@ public class BusSiteService {
         audit.setBusSite(busSite);
         audit.setReason(reason);
         busSiteAuditRepository.save(audit);
+    }
+
+    public void saveAll(List<BusSite> list) {
+        list.stream().forEach(o -> {
+            o.setId(flakeId.next());
+        });
+        busSiteRepository.saveAll(list);
     }
 }
