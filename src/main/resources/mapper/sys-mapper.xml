@@ -68,17 +68,17 @@
             <#if account?? && account!=''>
                 and o.account = :account
             </#if>
-            <#if real_name?? && real_name!=''>
-                and o.realName like :real_name||'%'
+            <#if realName?? && realName!=''>
+                and o.realName like :realName||'%'
             </#if>
-            <#if org_name?? && org_name!=''>
-                and o.org_name like :org_name||'%'
+            <#if orgName?? && orgName!=''>
+                and o.orgName like :orgName||'%'
             </#if>
             <#if module?? && module!=''>
                 and o.module like :module
             </#if>
-            <#if func_name?? && func_name!=''>
-                and o.funcName like :func_name
+            <#if funcName?? && funcName!=''>
+                and o.funcName like :funcName
             </#if>
             <#if params?? && params!=''>
                 and o.params like :params||'%'
@@ -131,10 +131,10 @@
         <![CDATA[
             from Vehicle o
             where o.deleted = 0
-            <#if lic_no?? && lic_no!=''>
+            <#if licNo?? && licNo!=''>
                 and o.licNo like :licNo||'%'
             </#if>
-            <#if fuel_type??>
+            <#if fuelType??>
                 and o.fuelType = :fuelType
             </#if>
             <#if vin??&& vin!=''>

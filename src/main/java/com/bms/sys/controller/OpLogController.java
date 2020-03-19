@@ -39,9 +39,6 @@ public class OpLogController {
 
     @Data
     private static class QueryParams extends OperationLog {
-        private String real_name;
-        private String org_name;
-        private String func_name;
         private Date begin;
         private Date end;
     }
