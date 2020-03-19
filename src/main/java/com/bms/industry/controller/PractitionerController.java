@@ -1,27 +1,27 @@
 package com.bms.industry.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
-import com.bms.common.util.BeanMapper;
 import com.bms.common.util.ResponseUtils;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
-import com.bms.entity.BusRoute;
-import com.bms.entity.BusTerminal;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.PractitionerService;
-import com.bms.industry.view.BusTerminalExcelModel;
 import com.bms.industry.view.PractitionerExcelModel;
 import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +46,8 @@ import static com.bms.common.domain.Result.ok;
 @RequiresAuthentication
 @OpLogModule("从业人员管理")
 public class PractitionerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PractitionerController.class);
 
     private final PractitionerService practitionerService;
 
@@ -140,6 +142,47 @@ public class PractitionerController {
     @RequiresPermissions("practitioner_import")
     @PostMapping("/import")
     public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
-        return ok();
+        try {
+            EasyExcel.read(file.getInputStream(), PractitionerExcelModel.class, new PractitionerController.ImportDataListener(practitionerService)).sheet().doRead();
+            return ok();
+        } catch (Exception e) {
+            logger.error("import data error", e);
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_ERR);
+        }
+    }
+
+    @RequiredArgsConstructor
+    private static class ImportDataListener extends AnalysisEventListener<PractitionerExcelModel> {
+        private static final Logger logger = LoggerFactory.getLogger(PractitionerController.ImportDataListener.class);
+        private static final int BATCH_COUNT = 3000;
+        private List<PractitionerExcelModel> list = new ArrayList<PractitionerExcelModel>();
+
+        private final PractitionerService practitionerService;
+
+        @Override
+        public void invoke(PractitionerExcelModel data, AnalysisContext context) {
+            list.add(data);
+            if (list.size() >= BATCH_COUNT) {
+                saveData();
+                // 存储完成清理 list
+                list.clear();
+            }
+        }
+
+        @Override
+        public void doAfterAllAnalysed(AnalysisContext context) {
+            saveData();
+            logger.info("所有数据解析完成！");
+        }
+
+        private void saveData() {
+            List<Practitioner> batchData = new ArrayList<>();
+            list.stream().forEach(o -> {
+                Practitioner target = new Practitioner();
+                BeanUtils.copyProperties(o, target);
+                batchData.add(target);
+            });
+            practitionerService.saveAll(batchData);
+        }
     }
 }

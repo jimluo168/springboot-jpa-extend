@@ -70,7 +70,7 @@ public class UserService {
 
     public PageList<User> page(PageRequest pageRequest, String account, String realName, String organization, int status) {
         Map<String, Object> params = new HashMap<>();
-        params.put("name", account);
+        params.put("account", account);
         params.put("realName", realName);
         params.put("organization", organization);
         params.put("status", status);

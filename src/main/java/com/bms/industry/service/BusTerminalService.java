@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -78,5 +79,12 @@ public class BusTerminalService {
         audit.setBusTerminal(busTerminal);
         audit.setReason(reason);
         busTerminalAuditRepository.save(audit);
+    }
+
+    public void saveAll(List<BusTerminal> list) {
+        list.stream().forEach(o -> {
+            o.setId(flakeId.next());
+        });
+        busTerminalRepository.saveAll(list);
     }
 }

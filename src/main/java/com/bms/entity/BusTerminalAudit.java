@@ -11,8 +11,6 @@ import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -24,7 +22,7 @@ public class BusTerminalAudit  extends BaseEntity {
 
     @JsonIgnoreProperties("audit_list")
     @ManyToOne
-    @JoinColumn(name = "org_id")
+    @JoinColumn(name = "terminal_id")
     private BusTerminal busTerminal;
     /**
      * 审核理由.

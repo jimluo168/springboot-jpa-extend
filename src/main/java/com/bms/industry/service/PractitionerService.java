@@ -7,10 +7,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
-import com.bms.entity.Organization;
-import com.bms.entity.OrganizationAudit;
-import com.bms.entity.Practitioner;
-import com.bms.entity.PractitionerAudit;
+import com.bms.entity.*;
 import com.bms.industry.dao.PractitionerAuditRepository;
 import com.bms.sys.Constant;
 import com.bms.industry.dao.PractitionerRepository;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -87,5 +85,12 @@ public class PractitionerService {
         audit.setPractitioner(practitioner);
         audit.setReason(reason);
         practitionerAuditRepository.save(audit);
+    }
+
+    public void saveAll(List<Practitioner> list) {
+        list.stream().forEach(o -> {
+            o.setId(flakeId.next());
+        });
+        practitionerRepository.saveAll(list);
     }
 }

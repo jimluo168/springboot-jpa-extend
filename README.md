@@ -2292,7 +2292,7 @@ VIOLATION_TYPE:int:违规行为
   data:object:返回信息
     count:int:分页总大小
     list:array<object>:场站列表信息
-      id:long:人员ID
+      id:long:站点ID
       route:object:线路
         id:long:ID
         name:string:名称
@@ -2353,7 +2353,7 @@ VIOLATION_TYPE:int:违规行为
 @return:
   code:int:操作码
   data:object:返回信息
-    id:long:人员ID
+    id:long:站点ID
     route:object:线路
       id:long:ID
       name:string:名称
@@ -2409,7 +2409,6 @@ VIOLATION_TYPE:int:违规行为
   Authorization:token令牌
 
 @payload:
-  id:long:人员ID
   route:object:线路
     id:long:ID
   index:int:排序顺序
@@ -2464,7 +2463,7 @@ VIOLATION_TYPE:int:违规行为
 @return:
   code:int:操作码
   data:object:返回信息
-    id:long:人员ID
+    id:long:站点ID
     route:object:线路
       id:long:ID
       name:string:名称
@@ -2578,6 +2577,316 @@ VIOLATION_TYPE:int:违规行为
 
 ```yaml
 @post: /industry/bussites/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+## 20. 行政管理
+
+### 20.1. 行政管理-列表
+
+```yaml
+@get: /industry/notices/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:名称
+  code:string:编号
+  province:string:省
+  city:string:市
+  county:string:县
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:场站列表信息
+      id:long:ID
+      title:string:标题
+      author:string:作者
+      content:string:内容 存放OSS /html/yyyMMdd/xxx.html
+      mileage:string:里程      start_site:string:首发站
+      attachs:string:附件 多个以英文 , 号隔开.
+      type:int:文章类型(字典表)
+      create_date:date:发布时间
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 20.2. 行政管理-详情
+
+```yaml
+@get: /industry/bussites/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    title:string:标题
+    author:string:作者
+    content:string:内容 存放OSS /html/yyyMMdd/xxx.html
+    mileage:string:里程      start_site:string:首发站
+    attachs:string:附件 多个以英文 , 号隔开.
+    type:int:文章类型(字典表)
+    create_date:date:发布时间
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 20.3. 行政管理-新增
+
+```yaml
+@post: /industry/bussites
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  title:string:标题
+  author:string:作者
+  content:string:内容 存放OSS /html/yyyMMdd/xxx.html
+  mileage:string:里程      start_site:string:首发站
+  attachs:string:附件 多个以英文 , 号隔开.
+  type:int:文章类型(字典表)
+  create_date:date:发布时间
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:行政ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 20.4.行政管理-修改
+
+```yaml
+@put: /industry/bussites/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  title:string:标题
+  author:string:作者
+  content:string:内容 存放OSS /html/yyyMMdd/xxx.html
+  mileage:string:里程      start_site:string:首发站
+  attachs:string:附件 多个以英文 , 号隔开.
+  type:int:文章类型(字典表)
+  create_date:date:发布时间
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    title:string:标题
+    author:string:作者
+    content:string:内容 存放OSS /html/yyyMMdd/xxx.html
+    mileage:string:里程      start_site:string:首发站
+    attachs:string:附件 多个以英文 , 号隔开.
+    type:int:文章类型(字典表)
+    create_date:date:发布时间
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 20.5. 行政管理-删除
+
+```yaml
+@delete: /industry/bussites/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:行政ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+## 21. 投诉建议管理
+
+### 21.1. 投诉建议管理-列表
+
+```yaml
+@get: /industry/suggests/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:名称
+  code:string:编号
+  province:string:省
+  city:string:市
+  county:string:县
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:场站列表信息
+      id:long:ID
+      type:string:类型
+      content:string:内容
+      time:date:发生时间
+      promoter:string:投诉人
+      photos:string:照片 多个用英文 , 号隔开.
+      remark:string:备注
+      status:int:(1:待审核 2:通过审核 3:未通过审核)
+  msg:string:操作提示
+```
+
+### 21.2. 投诉建议管理-详情
+
+```yaml
+@get: /industry/suggests/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    type:string:类型
+    content:string:内容
+    time:date:发生时间
+    promoter:string:投诉人
+    photos:string:照片 多个用英文 , 号隔开.
+    remark:string:备注
+    status:int:(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 21.3. 投诉建议管理-新增
+
+```yaml
+@post: /industry/suggests
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  type:string:类型
+  content:string:内容
+  time:date:发生时间
+  promoter:string:投诉人
+  photos:string:照片 多个用英文 , 号隔开.
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:行政ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 21.4.投诉建议管理-修改
+
+```yaml
+@put: /industry/suggests/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  type:string:类型
+  content:string:内容
+  time:date:发生时间
+  promoter:string:投诉人
+  photos:string:照片 多个用英文 , 号隔开.
+  remark:string:备注
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    type:string:类型
+    content:string:内容
+    time:date:发生时间
+    promoter:string:投诉人
+    photos:string:照片 多个用英文 , 号隔开.
+    remark:string:备注
+    status:int:(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 21.5. 投诉建议管理-删除
+
+```yaml
+@delete: /industry/suggests/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 21.5. 投诉建议管理-审核
+
+```yaml
+@post: /industry/suggests/:id/status/:status
 
 @header:
   X-User-Agent:手机信息(必须)

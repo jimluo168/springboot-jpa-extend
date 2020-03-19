@@ -59,4 +59,12 @@ public interface Constant {
      * 公交站点管理-分页查询.
      */
     String MAPPER_BUS_SITE_PAGE = "bus_site_page";
+    /**
+     * 行政管理-分页查询.
+     */
+    String MAPPER_NOTICE_PAGE = "notice_page";
+    /**
+     * 投诉建议管理-分页查询.
+     */
+    String MAPPER_SUGGEST_PAGE = "suggest_page";
 }
