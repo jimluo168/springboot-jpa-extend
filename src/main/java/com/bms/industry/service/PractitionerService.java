@@ -9,7 +9,7 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.*;
 import com.bms.industry.dao.PractitionerAuditRepository;
-import com.bms.sys.Constant;
+import com.bms.Constant;
 import com.bms.industry.dao.PractitionerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

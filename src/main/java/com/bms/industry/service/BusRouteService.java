@@ -11,7 +11,7 @@ import com.bms.entity.BusRoute;
 import com.bms.entity.BusRouteAudit;
 import com.bms.industry.dao.BusRouteAuditRepository;
 import com.bms.industry.dao.BusRouteRepository;
-import com.bms.sys.Constant;
+import com.bms.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

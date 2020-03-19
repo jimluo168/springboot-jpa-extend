@@ -11,7 +11,7 @@ import com.bms.entity.Vehicle;
 import com.bms.entity.VehicleAudit;
 import com.bms.industry.dao.VehicleAuditRepository;
 import com.bms.industry.dao.VehicleRepository;
-import com.bms.sys.Constant;
+import com.bms.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

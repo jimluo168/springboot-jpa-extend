@@ -1,8 +1,8 @@
 package com.bms.oss;
 
+import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.domain.Result;
-import com.bms.common.exception.ServiceException;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class OSSController {
         if (file.isEmpty()) {
             throw ErrorCodes.build(ErrorCodes.OSS_FILE_EMPTY);
         }
-        String fmtday = DateFormatUtils.format(new Date(), "yyyyMMdd");
+        String fmtday = DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD);
         Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);
         if (!Files.exists(path)) {
             Files.createDirectories(path);

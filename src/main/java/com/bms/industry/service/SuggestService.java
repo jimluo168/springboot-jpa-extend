@@ -11,7 +11,7 @@ import com.bms.entity.Suggest;
 import com.bms.entity.SuggestAudit;
 import com.bms.industry.dao.SuggestAuditRepository;
 import com.bms.industry.dao.SuggestRepository;
-import com.bms.sys.Constant;
+import com.bms.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

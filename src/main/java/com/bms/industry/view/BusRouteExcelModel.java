@@ -26,16 +26,19 @@ public class BusRouteExcelModel {
     /**
      * 名称.
      */
+    @ColumnWidth(30)
     @ExcelProperty(value = "线路名称", index = 0)
     private String name;
     /**
      * 票价.
      */
+    @ColumnWidth(15)
     @ExcelProperty(value = "票价", index = 2)
     private Float price;
     /**
      * 里程.
      */
+    @ColumnWidth(30)
     @ExcelProperty(value = "营业里程", index = 1)
     private String mileage;
     /**
@@ -51,17 +54,18 @@ public class BusRouteExcelModel {
     /**
      * 方向.
      */
+    @ColumnWidth(50)
     @ExcelProperty(value = "方向", index = 3)
     private String directionText;
     /**
      * 首班时间.
      */
-    @ExcelProperty(value = "首班时间", index = 5)
+    @ExcelProperty(value = "首班时间", index = 4)
     private Date startTime;
     /**
      * 末班时间.
      */
-    @ExcelProperty(value = "末班时间", index = 6)
+    @ExcelProperty(value = "末班时间", index = 5)
     private Date lastTime;
     /**
      * 状态(1=待审核 2=通过审核 3=未通过审核).
@@ -69,7 +73,7 @@ public class BusRouteExcelModel {
     @ExcelIgnore
     private Integer status;
     @ColumnWidth(15)
-    @ExcelProperty(value = "状态", index = 7)
+    @ExcelProperty(value = "状态", index = 6)
     private String statusText;
 
     public String getDirectionText() {

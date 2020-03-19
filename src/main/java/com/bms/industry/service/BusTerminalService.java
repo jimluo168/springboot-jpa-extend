@@ -11,7 +11,7 @@ import com.bms.entity.BusTerminal;
 import com.bms.entity.BusTerminalAudit;
 import com.bms.industry.dao.BusTerminalAuditRepository;
 import com.bms.industry.dao.BusTerminalRepository;
-import com.bms.sys.Constant;
+import com.bms.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
