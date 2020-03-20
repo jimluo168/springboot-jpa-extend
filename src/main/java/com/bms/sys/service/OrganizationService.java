@@ -90,4 +90,9 @@ public class OrganizationService {
         });
         organizationRepository.saveAll(list);
     }
+
+    @Transactional(readOnly = true)
+    public Organization findByName(String name) {
+        return organizationRepository.findByName(name);
+    }
 }

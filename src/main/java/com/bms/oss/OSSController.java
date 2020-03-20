@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -39,7 +40,8 @@ public class OSSController {
     @RequiresAuthentication
     @PostMapping("/{dir}")
     public Result<FileInfo> upload(@PathVariable String dir,
-                                   MultipartFile file) throws IOException {
+                                   MultipartFile file,
+                                   HttpServletRequest request) throws IOException {
         if (file.isEmpty()) {
             throw ErrorCodes.build(ErrorCodes.OSS_FILE_EMPTY);
         }

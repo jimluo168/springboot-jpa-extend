@@ -79,6 +79,10 @@ public interface Constant {
      * 日期格式=yyyyMMdd.
      */
     String DATE_FORMAT_YYYYMMDD = "yyyyMMdd";
+    /**
+     * 日期格式=yyyy-MM-dd.
+     */
+    String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
 
     /***--------------------------基本常量定义结束--------------------------------------***/
 }

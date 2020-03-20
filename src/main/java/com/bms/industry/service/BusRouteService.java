@@ -88,4 +88,9 @@ public class BusRouteService {
         });
         busRouteRepository.saveAll(list);
     }
+
+    @Transactional(readOnly = true)
+    public BusRoute findByName(String name) {
+        return busRouteRepository.findByName(name);
+    }
 }
