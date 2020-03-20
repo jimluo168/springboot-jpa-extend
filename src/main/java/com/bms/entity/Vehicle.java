@@ -136,7 +136,7 @@ public class Vehicle extends BaseEntity {
     /**
      * 车辆用途.
      */
-    private String use;
+    private String purpose;
     /**
      * 是否助力(1=是  0=否).
      */
