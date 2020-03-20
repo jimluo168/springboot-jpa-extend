@@ -2658,14 +2658,10 @@ ROUTE_TYPE:int:线路类型
   Authorization:token令牌
 
 @params:
-  page:int:页码
-  size:int:页码大小
-  name:string:名称
-  code:string:编号
-  province:string:省
-  city:string:市
-  county:string:县
-  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  title:string:标题
+  type:int:文章类型(字典表)
+  begin:date:开始时间
+  end:date:结束时间
 
 @return:
   code:int:操作码
@@ -2751,7 +2747,6 @@ ROUTE_TYPE:int:线路类型
   title:string:标题
   author:string:作者
   content:string:内容 存放OSS /html/yyyMMdd/xxx.html
-  mileage:string:里程      start_site:string:首发站
   attachs:string:附件 多个以英文 , 号隔开.
   type:int:文章类型(字典表)
   create_date:date:发布时间
@@ -2803,12 +2798,11 @@ ROUTE_TYPE:int:线路类型
 @params:
   page:int:页码
   size:int:页码大小
-  name:string:名称
-  code:string:编号
-  province:string:省
-  city:string:市
-  county:string:县
+  type:string:类型
   status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  content:string:内容
+  begin:date:开始时间
+  end:date:结束时间
 
 @return:
   code:int:操作码
