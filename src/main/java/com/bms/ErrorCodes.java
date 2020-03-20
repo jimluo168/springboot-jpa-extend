@@ -24,6 +24,7 @@ public enum ErrorCodes {
     DATABASE_ERR(1001, "操作数据错误"),
     SESSION_INVALID(1002, "Session会话无效或过期，请重新登录"),
     OSS_FILE_EMPTY(1003, "文件为空或无效"),
+    OSS_CONTENT_TYPE_UNSUPPORTED(1005, "不支持的内容类型"),
     USER_STATUS_DISABLED(1004, "用户禁用"),
 
 

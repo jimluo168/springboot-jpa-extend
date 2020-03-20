@@ -17,6 +17,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "practitioners")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Practitioner extends BaseEntity {
     /**
      * 1=待审核.

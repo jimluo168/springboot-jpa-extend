@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.tomcat.jni.FileInfo;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
+import static com.bms.common.domain.Result.failure;
 import static com.bms.common.domain.Result.ok;
 
 /**
@@ -42,29 +45,56 @@ public class OSSController {
     public Result<FileInfo> upload(@PathVariable String dir,
                                    MultipartFile file,
                                    HttpServletRequest request) throws IOException {
-        if (file.isEmpty()) {
-            throw ErrorCodes.build(ErrorCodes.OSS_FILE_EMPTY);
-        }
-        String fmtday = DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD);
-        Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-        }
-        String md5 = DigestUtils.md5Hex(file.getBytes());
-        String sha1 = DigestUtils.sha1Hex(file.getBytes());
+        if (request.getContentType().contains(MediaType.APPLICATION_FORM_URLENCODED_VALUE)) {
+            String text = request.getParameter("text");
+            String suffix = request.getParameter("suffix");
 
-        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            String md5 = DigestUtils.md5Hex(text.getBytes());
+            String sha1 = DigestUtils.sha1Hex(text.getBytes());
 
-        Path dest = Paths.get(path.toString(), md5 + suffix);
-        FileInfo info = new FileInfo();
-        info.setFilename(dest.toString().replace(ossProperties.getRepo(), ""));
-        info.setOriginalname(file.getOriginalFilename());
-        info.setMd5(md5);
-        info.setSha1(sha1);
-        info.setMimetype(file.getContentType());
-        info.setSize(file.getSize());
-        file.transferTo(dest);
-        return ok(info);
+            String fmtday = DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD);
+            Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+            Path dest = Paths.get(path.toString(), md5 + suffix);
+            FileInfo info = new FileInfo();
+            info.setFilename(dest.toString().replace(ossProperties.getRepo(), ""));
+            info.setOriginalname("");
+            info.setMd5(md5);
+            info.setSha1(sha1);
+            info.setMimetype("text/" + dir);
+            info.setSize(text.length());
+
+            Files.write(dest, text.getBytes());
+            return ok(info);
+        }
+        if (request.getContentType().contains(MediaType.MULTIPART_FORM_DATA_VALUE)) {
+            if (file.isEmpty()) {
+                throw ErrorCodes.build(ErrorCodes.OSS_FILE_EMPTY);
+            }
+            String fmtday = DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD);
+            Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+            String md5 = DigestUtils.md5Hex(file.getBytes());
+            String sha1 = DigestUtils.sha1Hex(file.getBytes());
+
+            String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+
+            Path dest = Paths.get(path.toString(), md5 + suffix);
+            FileInfo info = new FileInfo();
+            info.setFilename(dest.toString().replace(ossProperties.getRepo(), ""));
+            info.setOriginalname(file.getOriginalFilename());
+            info.setMd5(md5);
+            info.setSha1(sha1);
+            info.setMimetype(file.getContentType());
+            info.setSize(file.getSize());
+            file.transferTo(dest);
+            return ok(info);
+        }
+        throw ErrorCodes.build(ErrorCodes.OSS_CONTENT_TYPE_UNSUPPORTED);
     }
 
     @GetMapping("/{dir}/{fmtday}/{filename}")

@@ -158,7 +158,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-#### 1.3.1.3. OSS文件-文本内容 ####
+### 6.2. OSS文件-文本内容
 
 `header的Content-Type必须为application/x-www-form-urlencoded`
 
@@ -195,7 +195,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 
 
-### 6.2. OSS文件-下载
+### 6.3. OSS文件-下载
 
 ```yaml
 @get: /oss/:path
@@ -211,7 +211,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     - 404:文件不存在壮体啊
 ```
 
-### 6.3. OSS文件-删除
+### 6.4. OSS文件-删除
 
 ```yaml
 @delete: /oss/:path
@@ -1344,7 +1344,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 13.8. 从业人员管理-审核
+### 12.8. 从业人员管理-审核
 
 ```yaml
 @post: /industry/practitioners/:id/status/:status
@@ -2525,7 +2525,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 19.4.公交站点管理-修改
+### 19.4. 公交站点管理-修改
 
 ```yaml
 @put: /industry/bussites/:id
@@ -2770,7 +2770,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 20.4.行政管理-修改
+### 20.4. 行政管理-修改
 
 ```yaml
 @put: /industry/notices/:id
@@ -2911,7 +2911,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 21.4.投诉建议管理-修改
+### 21.4. 投诉建议管理-修改
 
 ```yaml
 @put: /industry/suggests/:id
@@ -2965,7 +2965,7 @@ ROUTE_TYPE:int:线路类型
   success:bool:是否成功
   msg:string:操作提示2
 ```
-### 21.5. 投诉建议管理-审核
+### 21.6. 投诉建议管理-审核
 
 ```yaml
 @post: /industry/suggests/:id/status/:status
