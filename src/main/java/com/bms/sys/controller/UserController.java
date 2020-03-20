@@ -52,7 +52,6 @@ public class UserController {
                                        @RequestParam(defaultValue = "") String realName,
                                        @RequestParam(defaultValue = "") String organization,
                                        @RequestParam(defaultValue = "-1") int status) {
-        logger.debug("!!!!!!!!!"+realName);
         return ok(userService.page(pageRequest, account, realName, organization, status));
     }
 

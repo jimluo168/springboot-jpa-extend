@@ -1,5 +1,6 @@
 package com.bms.industry.controller;
 
+import com.bms.common.config.session.SessionInfo;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
@@ -76,7 +77,8 @@ public class SuggestController {
     @RequiresPermissions("suggest_audit")
     @PostMapping("/{id}/status/{status}")
     public Result<Practitioner> audit(@PathVariable Long id, @PathVariable int status, @RequestBody Suggest suggest) {
-        suggestService.audit(id, status, suggest.getReason());
+        Long userId = SessionInfo.getCurrentUserId();
+        suggestService.audit(id, status, suggest.getReason(), userId);
         return ok();
     }
 
