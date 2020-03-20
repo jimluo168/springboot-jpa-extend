@@ -4,12 +4,8 @@ import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * 公交场站 实体

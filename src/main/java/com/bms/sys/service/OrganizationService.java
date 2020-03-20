@@ -1,5 +1,6 @@
 package com.bms.sys.service;
 
+import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
@@ -9,7 +10,6 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.Organization;
 import com.bms.entity.OrganizationAudit;
-import com.bms.Constant;
 import com.bms.sys.dao.OrganizationAuditRepository;
 import com.bms.sys.dao.OrganizationRepository;
 import lombok.RequiredArgsConstructor;

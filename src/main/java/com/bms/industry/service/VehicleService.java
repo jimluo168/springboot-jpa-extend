@@ -1,5 +1,6 @@
 package com.bms.industry.service;
 
+import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
@@ -11,7 +12,6 @@ import com.bms.entity.Vehicle;
 import com.bms.entity.VehicleAudit;
 import com.bms.industry.dao.VehicleAuditRepository;
 import com.bms.industry.dao.VehicleRepository;
-import com.bms.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

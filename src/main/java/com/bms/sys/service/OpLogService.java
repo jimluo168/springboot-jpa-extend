@@ -1,12 +1,12 @@
 package com.bms.sys.service;
 
+import com.bms.Constant;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.entity.OperationLog;
-import com.bms.Constant;
 import com.bms.sys.dao.OpLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

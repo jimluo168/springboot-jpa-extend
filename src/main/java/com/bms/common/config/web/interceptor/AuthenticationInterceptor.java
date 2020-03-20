@@ -4,7 +4,6 @@ import com.bms.ErrorCodes;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
-import com.bms.common.exception.ServiceException;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;

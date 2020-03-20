@@ -3,26 +3,20 @@ package com.bms.sys.controller;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
-import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
-import com.bms.common.exception.ServiceException;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
-import com.bms.industry.controller.BusSiteController;
 import com.bms.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 import static com.bms.common.domain.Result.ok;
 

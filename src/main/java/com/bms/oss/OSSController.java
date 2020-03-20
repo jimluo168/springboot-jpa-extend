@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.tomcat.jni.FileInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +27,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
-import static com.bms.common.domain.Result.failure;
 import static com.bms.common.domain.Result.ok;
 
 /**

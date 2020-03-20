@@ -1,5 +1,6 @@
 package com.bms.industry.service;
 
+import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
@@ -7,9 +8,9 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
-import com.bms.entity.*;
+import com.bms.entity.Practitioner;
+import com.bms.entity.PractitionerAudit;
 import com.bms.industry.dao.PractitionerAuditRepository;
-import com.bms.Constant;
 import com.bms.industry.dao.PractitionerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

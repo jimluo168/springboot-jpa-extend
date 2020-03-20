@@ -1,5 +1,6 @@
 package com.bms.industry.service;
 
+import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;

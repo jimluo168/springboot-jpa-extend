@@ -1,21 +1,16 @@
 package com.bms.sys.controller;
 
-import com.bms.common.config.session.ISession;
-import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
-import com.bms.common.domain.PageList;
-import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
-import com.bms.common.web.annotation.OpLog;
-import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
-import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
 import com.bms.sys.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.bms.common.domain.Result.ok;
 

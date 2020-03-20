@@ -1,6 +1,5 @@
 package com.bms.industry.dao;
 
-import com.bms.entity.BusRoute;
 import com.bms.entity.BusRouteAudit;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
