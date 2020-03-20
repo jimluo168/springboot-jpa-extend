@@ -18,6 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "bus_sites")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BusSite extends BaseEntity {
     /**
      * 1=待审核.
