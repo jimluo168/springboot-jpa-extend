@@ -82,27 +82,27 @@ public class BusRouteExcelModel {
     private String statusText;
 
     public String getDirectionText() {
-        return startSite + "——" + endSite;
+        return startSite + "—" + endSite;
     }
 
     public String getStartSite() {
         if (StringUtils.isBlank(directionText)) {
             return "";
         }
-        if (!StringUtils.contains(directionText, "——")) {
+        if (!StringUtils.contains(directionText, "—")) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR);
         }
-        return directionText.split("——")[0];
+        return directionText.split("—")[0];
     }
 
     public String getEndSite() {
         if (StringUtils.isBlank(directionText)) {
             return "";
         }
-        if (!StringUtils.contains(directionText, "——")) {
+        if (!StringUtils.contains(directionText, "—")) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR);
         }
-        return directionText.split("——")[1];
+        return directionText.split("—")[1];
     }
 
 
