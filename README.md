@@ -123,6 +123,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ```
 /images  图片
 /docs    文档
+/html    html内容
 ```
 
 ```yaml
@@ -155,6 +156,44 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 
 ```
+
+
+#### 1.3.1.3. OSS文件-文本内容 ####
+
+`header的Content-Type必须为application/x-www-form-urlencoded`
+
+```
+@post: /oss/:path
+
+@header:
+	Authorization:登录令牌(必须)	
+	Content-Type:application/x-www-form-urlencoded
+
+@params:
+    path:string:上传文件时所使用的文件目录 参考[常用目录规则]
+    
+
+@payload:
+    suffix:string:文本内容的后缀名 .html .jpg .png
+    text:string:文本内容
+
+@return:
+    code:int:操作状态
+        - 200:操作成功
+        - 500:未知错误
+        - 31000:不支持的http消息头
+    data:object:返回存储文件的信息
+        mimetype:string:文件类型
+            - text:文本
+        filename:string:上传到OSS的文件路径
+        size:long:文本长度
+        sha1:string:文本的SHA
+        md5:string:文本的MD5
+    success:bool:是否成功
+    msg:string:操作提示
+
+```
+
 
 ### 6.2. OSS文件-下载
 
@@ -2307,7 +2346,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 ## 18. 字典表类型说明
 
 ```yaml
-VEH_TYPE:int:车辆类型
+# VEH_TYPE:int:车辆类型 删除 不需要
 EMPLOYMENT_TYPE:int:从业人员类型
 FUEL_TYPE:int:燃料类型
 STATION_TYPE:int:场站类型

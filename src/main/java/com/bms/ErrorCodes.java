@@ -61,5 +61,16 @@ public enum ErrorCodes {
     public static ServiceException build(ErrorCodes err) {
         return new ServiceException(err.code, err.message);
     }
+
+    /**
+     * 更具体的错误说明.
+     *
+     * @param err
+     * @param detailedErrMsg 更具体的错误说明
+     * @return ServiceException
+     */
+    public static ServiceException build(ErrorCodes err, String detailedErrMsg) {
+        return new ServiceException(err.code, err.message + " " + detailedErrMsg);
+    }
 }
 
