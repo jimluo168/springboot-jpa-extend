@@ -1,5 +1,6 @@
 package com.bms.sys.service;
 
+import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
@@ -8,7 +9,6 @@ import com.bms.common.util.JpaUtils;
 import com.bms.entity.Menu;
 import com.bms.entity.Role;
 import com.bms.entity.User;
-import com.bms.Constant;
 import com.bms.sys.dao.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

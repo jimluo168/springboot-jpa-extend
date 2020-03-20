@@ -1,7 +1,6 @@
 package com.bms.common.config.web.interceptor;
 
 import com.bms.common.config.web.HttpRequestBodyWrapper;
-import com.bms.common.util.JSON;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

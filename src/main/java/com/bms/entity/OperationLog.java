@@ -1,12 +1,12 @@
 package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * 操作日志.

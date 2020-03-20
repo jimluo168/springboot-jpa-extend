@@ -5,7 +5,6 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.RequiresAuthentication;
-import com.bms.entity.BusRoute;
 import com.bms.entity.BusTeam;
 import com.bms.industry.service.BusTeamService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,7 +13,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.bms.common.domain.Result.ok;
 

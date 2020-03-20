@@ -5,15 +5,10 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.bms.ErrorCodes;
-import com.bms.entity.BusTeam;
 import com.bms.entity.Organization;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**

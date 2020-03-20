@@ -1,15 +1,11 @@
 package com.bms.common.util;
 
-import org.apache.commons.beanutils.BeanMap;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * JAVA Bean转换类.

@@ -1,6 +1,5 @@
 package com.bms.industry.dao;
 
-import com.bms.entity.Vehicle;
 import com.bms.entity.VehicleAudit;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

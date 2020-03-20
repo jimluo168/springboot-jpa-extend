@@ -1,7 +1,6 @@
 package com.bms.common.config.web;
 
 import com.bms.common.config.session.ISessionManager;
-import com.bms.common.config.web.interceptor.AccessFilter;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
 import com.bms.common.config.web.interceptor.PermissionInterceptor;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,12 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;

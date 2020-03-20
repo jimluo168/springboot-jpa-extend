@@ -2,7 +2,10 @@ package com.bms.common.config.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * 将下划线式参数进行驼峰式字段进行绑定包装.

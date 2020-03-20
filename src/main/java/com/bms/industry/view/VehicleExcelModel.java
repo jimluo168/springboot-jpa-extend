@@ -11,14 +11,11 @@ import com.bms.entity.BusRoute;
 import com.bms.entity.Dictionary;
 import com.bms.entity.Organization;
 import com.bms.industry.service.BusRouteService;
-import com.bms.industry.service.VehicleService;
 import com.bms.sys.service.DictService;
 import com.bms.sys.service.OrganizationService;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.validation.Errors;
 
 import java.util.Date;
 import java.util.List;

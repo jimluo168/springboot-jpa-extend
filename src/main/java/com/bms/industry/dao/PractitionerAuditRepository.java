@@ -1,6 +1,5 @@
 package com.bms.industry.dao;
 
-import com.bms.entity.Practitioner;
 import com.bms.entity.PractitionerAudit;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;

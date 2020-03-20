@@ -1,7 +1,6 @@
 package com.bms.oss;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * OSS配置.

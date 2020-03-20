@@ -1,5 +1,7 @@
 package com.bms.sys.service;
 
+import com.bms.Constant;
+import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.config.session.SessionInfo;
 import com.bms.common.dao.DaoCmd;
@@ -9,8 +11,6 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.common.util.StringsUtils;
 import com.bms.entity.User;
-import com.bms.Constant;
-import com.bms.ErrorCodes;
 import com.bms.sys.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

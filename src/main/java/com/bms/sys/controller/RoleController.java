@@ -10,9 +10,7 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Role;
 import com.bms.sys.service.RoleService;
-import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
 
 import static com.bms.common.domain.Result.ok;

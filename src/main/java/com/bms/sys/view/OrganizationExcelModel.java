@@ -7,8 +7,6 @@ import com.bms.entity.Organization;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.Column;
-
 /**
  * 企业管理-Excel模型.
  *

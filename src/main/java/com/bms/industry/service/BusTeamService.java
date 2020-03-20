@@ -1,5 +1,6 @@
 package com.bms.industry.service;
 
+import com.bms.Constant;
 import com.bms.common.config.flake.FlakeId;
 import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
@@ -7,7 +8,6 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.entity.BusTeam;
 import com.bms.industry.dao.BusTeamRepository;
-import com.bms.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
