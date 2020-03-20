@@ -2676,7 +2676,6 @@ ROUTE_TYPE:int:线路类型
       title:string:标题
       author:string:作者
       content:string:内容 存放OSS /html/yyyMMdd/xxx.html
-      mileage:string:里程      start_site:string:首发站
       attachs:string:附件 多个以英文 , 号隔开.
       type:int:文章类型(字典表)
       create_date:date:发布时间
@@ -2687,7 +2686,7 @@ ROUTE_TYPE:int:线路类型
 ### 20.2. 行政管理-详情
 
 ```yaml
-@get: /industry/bussites/:id
+@get: /industry/notices/:id
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -2703,7 +2702,6 @@ ROUTE_TYPE:int:线路类型
     title:string:标题
     author:string:作者
     content:string:内容 存放OSS /html/yyyMMdd/xxx.html
-    mileage:string:里程      start_site:string:首发站
     attachs:string:附件 多个以英文 , 号隔开.
     type:int:文章类型(字典表)
     create_date:date:发布时间
@@ -2714,7 +2712,7 @@ ROUTE_TYPE:int:线路类型
 ### 20.3. 行政管理-新增
 
 ```yaml
-@post: /industry/bussites
+@post: /industry/notices
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -2740,7 +2738,7 @@ ROUTE_TYPE:int:线路类型
 ### 20.4.行政管理-修改
 
 ```yaml
-@put: /industry/bussites/:id
+@put: /industry/notices/:id
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -2765,7 +2763,6 @@ ROUTE_TYPE:int:线路类型
     title:string:标题
     author:string:作者
     content:string:内容 存放OSS /html/yyyMMdd/xxx.html
-    mileage:string:里程      start_site:string:首发站
     attachs:string:附件 多个以英文 , 号隔开.
     type:int:文章类型(字典表)
     create_date:date:发布时间
@@ -2776,7 +2773,7 @@ ROUTE_TYPE:int:线路类型
 ### 20.5. 行政管理-删除
 
 ```yaml
-@delete: /industry/bussites/:id
+@delete: /industry/notices/:id
 
 @header:
   X-User-Agent:手机信息(必须)
