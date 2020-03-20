@@ -17,14 +17,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "bus_site_audits")
-public class BusSiteAudit extends BaseEntity {
+public class BusSiteAudit extends BusSite {
     @JsonIgnoreProperties("audit_list")
     @ManyToOne
     @JoinColumn(name = "site_id")
     private BusSite busSite;
-    /**
-     * 审核理由.
-     */
-    @Column(length = 500)
-    private String reason;
 }
