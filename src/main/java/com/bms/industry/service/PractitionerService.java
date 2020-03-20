@@ -51,6 +51,7 @@ public class PractitionerService {
         return value;
     }
 
+    @Transactional(readOnly = true)
     public PageList<Practitioner> page(PageRequest pageRequest, String name, String gender, String practitioner, String certNo, String idNumber) {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("name", name);
