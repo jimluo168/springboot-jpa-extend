@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Entity
 @Table(name = "organization_audits")
-public class OrganizationAudit extends Organization {
+public class OrganizationAudit extends OrganizationCommon {
 
     @JsonIgnoreProperties("audit_list")
     @ManyToOne

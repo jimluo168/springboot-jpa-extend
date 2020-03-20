@@ -3,6 +3,8 @@ package com.bms.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,12 +20,14 @@ import javax.persistence.Table;
 
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "practitioner_audits")
-public class PractitionerAudit extends Practitioner {
+public class PractitionerAudit extends PractitionerCommon {
 
     @JsonIgnoreProperties("audit_list")
     @ManyToOne
-    @JoinColumn(name = "pra_id")
+    @JoinColumn(name = "pract_id")
     private Practitioner practitioner;
 }

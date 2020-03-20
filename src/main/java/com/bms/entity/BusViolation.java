@@ -3,6 +3,8 @@ package com.bms.entity;
 import com.bms.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,9 +21,10 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "bus_violations")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BusViolation extends BaseEntity {
     /**
      * 司机姓名.

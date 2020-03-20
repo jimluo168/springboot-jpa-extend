@@ -3,6 +3,8 @@ package com.bms.entity;
 import com.bms.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.Table;
  */
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "operation_logs")
 public class OperationLog extends BaseEntity {

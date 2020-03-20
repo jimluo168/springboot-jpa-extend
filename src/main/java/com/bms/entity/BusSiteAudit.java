@@ -3,6 +3,8 @@ package com.bms.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,6 +19,8 @@ import javax.persistence.Table;
  */
 @Data
 @EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "bus_site_audits")
 public class BusSiteAudit extends BusSite {
