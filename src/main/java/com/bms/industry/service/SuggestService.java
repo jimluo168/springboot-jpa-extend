@@ -7,15 +7,19 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
+import com.bms.entity.*;
 import com.bms.entity.Suggest;
 import com.bms.entity.SuggestAudit;
 import com.bms.industry.dao.SuggestAuditRepository;
 import com.bms.industry.dao.SuggestRepository;
 import com.bms.Constant;
+import com.bms.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,8 +35,10 @@ import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 @Transactional(rollbackFor = RuntimeException.class)
 @RequiredArgsConstructor
 public class SuggestService {
+
     private final SuggestRepository suggestRepository;
     private final SuggestAuditRepository suggestAuditRepository;
+    private final UserService userService;
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
@@ -67,15 +73,20 @@ public class SuggestService {
         return suggest;
     }
 
-    public void audit(Long id, int status, String reason) {
+    public void audit(Long id, int status, String reason, Long userId) {
         Suggest suggest = this.findById(id);
-        suggest.setStatus(status);
-        suggest.setReason(reason);
+        User auditor = userService.findById(userId);
+        Date auditTime = new Date();
 
         SuggestAudit audit = new SuggestAudit();
+        BeanUtils.copyProperties(suggest, audit);
         audit.setId(flakeId.next());
         audit.setSuggest(suggest);
-        audit.setReason(reason);
         suggestAuditRepository.save(audit);
+
+        suggest.setStatus(status);
+        suggest.setReason(reason);
+        suggest.setAuditor(auditor);
+        suggest.setAuditTime(auditTime);
     }
 }
