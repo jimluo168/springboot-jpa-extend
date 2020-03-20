@@ -2853,6 +2853,11 @@ ROUTE_TYPE:int:线路类型
       time:date:发生时间
       promoter:string:投诉人
       photos:string:照片 多个用英文 , 号隔开.
+      auditor:object:审核人
+        id:long:用户id
+        real_name:string:审核人姓名
+      reason:string:审核理由-意见
+      audit_time:date:审核时间
       remark:string:备注
       status:int:(1:待审核 2:通过审核 3:未通过审核)
   msg:string:操作提示
@@ -2879,6 +2884,11 @@ ROUTE_TYPE:int:线路类型
     time:date:发生时间
     promoter:string:投诉人
     photos:string:照片 多个用英文 , 号隔开.
+    auditor:object:审核人
+      id:long:用户id
+      real_name:string:审核人姓名
+    reason:string:审核理由-意见
+    audit_time:date:审核时间
     remark:string:备注
     status:int:(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
@@ -2939,6 +2949,11 @@ ROUTE_TYPE:int:线路类型
     time:date:发生时间
     promoter:string:投诉人
     photos:string:照片 多个用英文 , 号隔开.
+    auditor:object:审核人
+      id:long:用户id
+      real_name:string:审核人姓名
+    reason:string:审核理由-意见
+    audit_time:date:审核时间
     remark:string:备注
     status:int:(1:待审核 2:通过审核 3:未通过审核)
   success:bool:是否成功
