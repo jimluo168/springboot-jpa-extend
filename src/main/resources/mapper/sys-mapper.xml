@@ -84,7 +84,7 @@
                 and o.params like '%'||:params||'%'
             </#if>
             <#if ip?? && ip!=''>
-                and o.ip like '%'||:ip'%'||
+                and o.ip like '%'||:ip||'%'
             </#if>
             <#if begin?? && end??>
                 and o.createDate between :begin and :end

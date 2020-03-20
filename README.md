@@ -2788,7 +2788,6 @@ ROUTE_TYPE:int:线路类型
   content:string:内容 存放OSS /html/yyyMMdd/xxx.html
   attachs:string:附件 多个以英文 , 号隔开.
   type:int:文章类型(字典表)
-  create_date:date:发布时间
   
 @return:
   code:int:操作码
