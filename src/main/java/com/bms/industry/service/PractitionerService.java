@@ -12,6 +12,7 @@ import com.bms.industry.dao.PractitionerAuditRepository;
 import com.bms.Constant;
 import com.bms.industry.dao.PractitionerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,11 +51,11 @@ public class PractitionerService {
         return value;
     }
 
-    public PageList<Practitioner> page(PageRequest pageRequest, String name, String gender, String organization, String certNo, String idNumber) {
+    public PageList<Practitioner> page(PageRequest pageRequest, String name, String gender, String practitioner, String certNo, String idNumber) {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("name", name);
         queryParams.put("gender", gender);
-        queryParams.put("organization", organization);
+        queryParams.put("practitioner", practitioner);
         queryParams.put("certNo", certNo);
         queryParams.put("idNumber", idNumber);
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_PRACTITIONER_PAGE, queryParams));
@@ -77,14 +78,15 @@ public class PractitionerService {
 
     public void audit(Long id, int status, String reason) {
         Practitioner practitioner = this.findById(id);
-        practitioner.setStatus(status);
-        practitioner.setReason(reason);
 
         PractitionerAudit audit = new PractitionerAudit();
+        BeanUtils.copyProperties(practitioner, audit);
         audit.setId(flakeId.next());
         audit.setPractitioner(practitioner);
-        audit.setReason(reason);
         practitionerAuditRepository.save(audit);
+
+        practitioner.setStatus(status);
+        practitioner.setReason(reason);
     }
 
     public void saveAll(List<Practitioner> list) {

@@ -18,15 +18,10 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 @Table(name = "practitioner_audits")
-public class PractitionerAudit extends BaseEntity {
+public class PractitionerAudit extends Practitioner {
 
     @JsonIgnoreProperties("audit_list")
     @ManyToOne
     @JoinColumn(name = "pra_id")
     private Practitioner practitioner;
-    /**
-     * 审核理由.
-     */
-    @Column(length = 500)
-    private String reason;
 }

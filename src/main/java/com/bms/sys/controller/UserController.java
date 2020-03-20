@@ -13,9 +13,12 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
+import com.bms.industry.controller.BusSiteController;
 import com.bms.sys.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +39,7 @@ import static com.bms.common.domain.Result.ok;
 @OpLogModule("用户管理")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final ISessionManager sessionManager;
 
@@ -51,9 +55,10 @@ public class UserController {
     @GetMapping("/list")
     public Result<PageList<User>> list(PageRequest pageRequest,
                                        @RequestParam(defaultValue = "") String account,
-                                       @RequestParam(defaultValue = "", name = "real_name") String realName,
+                                       @RequestParam(defaultValue = "") String realName,
                                        @RequestParam(defaultValue = "") String organization,
                                        @RequestParam(defaultValue = "-1") int status) {
+        logger.debug("!!!!!!!!!"+realName);
         return ok(userService.page(pageRequest, account, realName, organization, status));
     }
 

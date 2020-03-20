@@ -1642,7 +1642,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       factory_name:string:制造商
       product_date:date:生产日期
       register_date:date:投产日期
-      use:string:用途
+      purpose:string:用途
       car_help:int:是否助力(1=是  0=否)
       engine:int:前后置发动机(1=前  2=后)
       air_condition:int:是否空调(1=是  0=否)
@@ -1699,7 +1699,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   factory_name:string:制造商
   product_date:date:生产日期
   register_date:date:投产日期
-  use:string:用途
+  purpose:string:用途
   car_help:int:是否助力(1=是  0=否)
   engine:int:前后置发动机(1=前  2=后)
   air_condition:int:是否空调(1=是  0=否)
@@ -1755,7 +1755,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   factory_name:string:制造商
   product_date:date:生产日期
   register_date:date:投产日期
-  use:string:用途
+  purpose:string:用途
   car_help:int:是否助力(1=是  0=否)
   engine:int:前后置发动机(1=前  2=后)
   air_condition:int:是否空调(1=是  0=否)
@@ -1836,7 +1836,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     factory_name:string:制造商
     product_date:date:生产日期
     register_date:date:投产日期
-    use:string:用途
+    purpose:string:用途
     car_help:int:是否助力(1=是  0=否)
     engine:int:前后置发动机(1=前  2=后)
     air_condition:int:是否空调(1=是  0=否)
