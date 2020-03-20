@@ -7,18 +7,23 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.tomcat.jni.FileInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,6 +43,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @EnableConfigurationProperties(OSSProperties.class)
 public class OSSController {
+    private static final Logger logger = LoggerFactory.getLogger(OSSController.class);
     private final OSSProperties ossProperties;
 
     @RequiresAuthentication
@@ -107,9 +113,13 @@ public class OSSController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        response.setHeader("content-type", "application/octet-stream");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+        String contentType = getContentType(path);
+        response.setHeader("content-type", contentType);
+        response.setContentType(contentType);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        if (StringUtils.equals(contentType, MediaType.APPLICATION_OCTET_STREAM_VALUE)) {
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+        }
         Files.copy(path, response.getOutputStream());
     }
 
@@ -136,5 +146,18 @@ public class OSSController {
         private long size;
         private String sha1;
         private String md5;
+    }
+
+    public static String getContentType(Path path) {
+        try {
+            String type = Files.probeContentType(path);
+            if (type == null) {
+                MimetypesFileTypeMap map = new MimetypesFileTypeMap(path.toString());
+                return map.getContentType(path.toFile());
+            }
+        } catch (IOException e) {
+            logger.error("get filename:" + path + " content type error", e);
+        }
+        return MediaType.APPLICATION_OCTET_STREAM_VALUE;
     }
 }
