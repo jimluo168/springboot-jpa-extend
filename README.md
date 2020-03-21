@@ -1,4 +1,127 @@
 # 行业管理系统后端代码(IndustryManagement-Backend)
+<!-- TOC -->
+
+- 1. 开发环境
+  - 1.1. 代码注视
+  - 1.2. 开发调试
+- 2. 系统模块命名
+- 3. 错误码规范
+- 4. 权限编码规范
+  - 4.1. 编码规范
+  - 4.2. 代码规范
+- 5. API接口
+- 6. OSS文件管理
+  - 6.1. OSS文件-上传
+  - 6.2. OSS文件-文本内容
+  - 6.3. OSS文件-下载
+  - 6.4. OSS文件-删除
+- 7. 用户管理
+  - 7.1. 用户登录
+  - 7.2. 用户注销
+  - 7.3. 获取我的个人信息
+  - 7.4. 用户管理-列表
+  - 7.5. 用户管理-详情
+  - 7.6. 用户管理-新增
+  - 7.7. 用户管理-修改
+  - 7.8. 用户管理-禁用/启用
+  - 7.9. 用户管理-删除
+  - 7.10. 用户管理-重置密码
+- 8. 公交企业管理
+  - 8.1. 公交企业管理-列表
+  - 8.2. 公交企业管理-新增
+  - 8.3. 公交企业管理-编辑
+  - 8.4. 公交企业管理-审核
+  - 8.5. 公交企业管理-详情
+  - 8.6. 公交企业管理-删除
+  - 8.7. 公交企业管理-导出
+  - 8.8. 公交企业管理-导入
+- 9. 菜单管理
+  - 9.1. 菜单管理-我的菜单
+  - 9.2. 菜单管理-全部菜单
+- 10. 角色管理
+  - 10.1. 角色管理-列表
+  - 10.2. 角色-详情
+  - 10.3. 角色管理-新增
+  - 10.4. 角色管理-编辑
+  - 10.5. 角色管理-删除
+- 11. 日志管理
+  - 11.1. 日志管理-列表
+- 12. 从业人员管理
+  - 12.1. 从业人员管理-列表
+  - 12.2. 从业人员管理-详情
+  - 12.3. 从业人员管理-新增
+  - 12.4. 从业人员管理-修改
+  - 12.5. 从业人员管理-删除
+  - 12.6. 从业人员管理-导出
+  - 12.7. 从业人员管理-导入
+  - 12.8. 从业人员管理-审核
+- 13. 场站管理
+  - 13.1. 场站管理-列表
+  - 13.2. 场站管理-详情
+  - 13.3. 场站管理-新增
+  - 13.4. 场站管理-修改
+  - 13.5. 场站管理-删除
+  - 13.6. 场站管理-导出
+  - 13.7. 场站管理-导入
+  - 13.8. 场站管理-审核
+- 14. 公交车辆管理
+  - 14.1. 公交车辆管理-列表
+  - 14.2. 公交车辆管理-新增
+  - 14.3. 公交车辆管理-编辑
+  - 14.4. 公交车辆管理-审核
+  - 14.5. 公交车辆管理-详情
+  - 14.6. 公交车辆管理-删除
+  - 14.7. 公交车辆管理-导出
+  - 14.8. 公交车辆管理-导入
+- 15. 公交路线管理
+  - 15.1. 公交路线管理-列表
+  - 15.2. 公交路线管理-新增
+  - 15.3. 公交路线管理-编辑
+  - 15.4. 公交路线管理-审核
+  - 15.5. 公交路线管理-详情
+  - 15.6. 公交路线管理-删除
+  - 15.7. 公交路线管理-导出
+  - 15.8. 公交路线管理-导入
+- 16. 公交车队管理
+  - 16.1. 公交车队管理-列表
+- 17. 字典管理
+  - 17.1. 字典管理-根据编码获取字典值集合
+  - 17.2. 字典管理-获取所有字典类型
+- 18. 字典表类型说明
+- 19. 公交站点管理
+  - 19.1. 公交站点管理-列表
+  - 19.2. 公交站点管理-详情
+  - 19.3. 公交站点管理-新增
+  - 19.4. 公交站点管理-修改
+  - 19.5. 公交站点管理-删除
+  - 19.6. 公交站点管理-导出
+  - 19.7. 公交站点管理-导入
+  - 19.8. 公交站点管理-审核
+- 20. 行政管理
+  - 20.1. 行政管理-列表
+  - 20.2. 行政管理-详情
+  - 20.3. 行政管理-新增
+  - 20.4. 行政管理-修改
+  - 20.5. 行政管理-删除
+- 21. 投诉建议管理
+  - 21.1. 投诉建议管理-列表
+  - 21.2. 投诉建议管理-详情
+  - 21.3. 投诉建议管理-新增
+  - 21.4. 投诉建议管理-修改
+  - 21.5. 投诉建议管理-删除
+  - 21.6. 投诉建议管理-审核
+- 22. 违规信息管理
+  - 22.1. 违规信息管理-列表
+  - 22.2. 违规信息管理-新增
+  - 22.3. 违规信息管理-处理
+  - 22.4. 违规信息管理-详情
+  - 22.5. 违规信息管理-删除
+  - 22.6. 违规信息管理-导出
+  - 22.7. 违规信息管理-导入
+
+<!-- /TOC -->
+
+
 
 ![avatar](关系图.png)
 
@@ -2824,6 +2947,7 @@ ROUTE_TYPE:int:线路类型
   success:bool:是否成功
   msg:string:操作提示
 ```
+
 ## 21. 投诉建议管理
 
 ### 21.1. 投诉建议管理-列表
@@ -2999,6 +3123,318 @@ ROUTE_TYPE:int:线路类型
 
 @return:
   code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+## 22. 违规信息管理
+
+### 22.1. 违规信息管理-列表
+
+```yaml
+@get: /industry/busviolations/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  vehicle.licNo:string:车牌号
+  practitioner.name:string:司机姓名
+  busRoute.name:string:线路
+  veh_type:string:车辆型号
+  organization.name:string:企业名称
+  type:int:违规行为
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:违规信息列表信息
+      id:long:ID
+      practitioner:object:司机信息
+        id:long:ID
+        name:string:司机姓名
+        organization:object:企业信息
+          id:long:ID
+          name:string:企业名称
+        car_team:object:车队信息
+          id:long:ID
+          oid:string:旧系统ID
+          name:string:车队名称
+        bus_route:object:线路信息
+          id:long:ID
+          name:string:线路名称
+      vehicle:object:车辆信息
+        id:long:ID
+        lic_no:string:车牌号
+        veh_type:string:车辆型号
+        organization:object:企业信息
+          id:long:ID
+          name:string:企业名称
+        car_team:object:车队信息
+          id:long:ID
+          oid:string:旧系统ID
+          name:string:车队名称
+        bus_route:object:线路信息
+          id:long:ID
+          name:string:线路名称
+      veh_type:string:车辆型号(车辆信息的veh_type)
+      bus_route:object:线路信息
+        id:long:ID
+        name:string:线路名称
+      organization:object:企业信息
+        id:long:ID
+        name:string:企业名称
+      car_team:object:车队信息
+        id:long:ID
+        oid:string:旧系统ID
+        name:string:车队名称
+      longitude:float:经度
+      latitude:float:纬度
+      type:int:违规类型-行为(字典表 VIOLATION_TYPE)
+      event_nature:int:事件性质(字典表 VIOLATION_NATURE_TYPE)
+      severity:int:严重程度(字典表 VIOLATION_SEVERITY_TYPE)
+      place:string:违规地点
+      description:string:违规描述
+      photos:string:取证照片
+      videos:string:取证视频
+      time:date:发生时间
+      deal_opinion:string:处理意见
+      deal_photos:strign:处理照片
+      transactor:object:处理人信息
+        id:long:处理人ID
+        real_name:string:真实姓名
+      attachs:string:附件 多个以英文 , 号隔开
+      status:int:状态(1:处理中 2:已处理)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 22.2. 违规信息管理-新增
+
+```yaml
+@post: /industry/busviolations
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  practitioner:object:司机信息
+    id:long:ID
+    name:string:司机姓名
+  vehicle:object:车辆信息
+    id:long:ID
+    lic_no:string:车牌号
+    veh_type:string:车辆型号
+  veh_type:string:车辆型号(车辆信息的veh_type)
+  bus_route:object:线路信息
+    id:long:ID
+    name:string:线路名称
+  organization:object:企业信息
+    id:long:ID
+    name:string:企业名称
+  car_team:object:车队信息
+    id:long:ID
+    oid:string:旧系统ID
+    name:string:车队名称
+  longitude:float:经度
+  latitude:float:纬度
+  type:int:违规类型-行为(字典表 VIOLATION_TYPE)
+  event_nature:int:事件性质(字典表 VIOLATION_NATURE_TYPE)
+  severity:int:严重程度(字典表 VIOLATION_SEVERITY_TYPE)
+  place:string:违规地点
+  description:string:违规描述
+  photos:string:取证照片
+  videos:string:取证视频
+  time:date:发生时间
+  deal_opinion:string:处理意见
+  deal_photos:strign:处理照片
+  transactor:object:处理人信息
+    id:long:处理人ID
+    real_name:string:真实姓名
+  attachs:string:附件 多个以英文 , 号隔开
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 22.3. 违规信息管理-处理
+
+```yaml
+@post: /industry/busviolations/:id/deals
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  deal_opinion:string:处理意见
+  deal_photos:string:处理照片 多个以英文 , 号隔开
+  transactor:object:处理人信息
+    id:long:处理人ID
+    real_name:string:真实姓名
+  attachs:string:附件 多个以英文 , 号隔开
+  
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 22.4. 违规信息管理-详情
+
+```yaml
+@get: /industry/busviolations/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+    practitioner:object:司机信息
+      id:long:ID
+      name:string:司机姓名
+      organization:object:企业信息
+        id:long:ID
+        name:string:企业名称
+      car_team:object:车队信息
+        id:long:ID
+        oid:string:旧系统ID
+        name:string:车队名称
+      bus_route:object:线路信息
+        id:long:ID
+        name:string:线路名称
+    vehicle:object:车辆信息
+      id:long:ID
+      lic_no:string:车牌号
+      veh_type:string:车辆型号
+      organization:object:企业信息
+        id:long:ID
+        name:string:企业名称
+      car_team:object:车队信息
+        id:long:ID
+        oid:string:旧系统ID
+        name:string:车队名称
+      bus_route:object:线路信息
+        id:long:ID
+        name:string:线路名称
+    veh_type:string:车辆型号(车辆信息的veh_type)
+    bus_route:object:线路信息
+      id:long:ID
+      name:string:线路名称
+    organization:object:企业信息
+      id:long:ID
+      name:string:企业名称
+    car_team:object:车队信息
+      id:long:ID
+      oid:string:旧系统ID
+      name:string:车队名称
+    longitude:float:经度
+    latitude:float:纬度
+    type:int:违规类型-行为(字典表 VIOLATION_TYPE)
+    event_nature:int:事件性质(字典表 VIOLATION_NATURE_TYPE)
+    severity:int:严重程度(字典表 VIOLATION_SEVERITY_TYPE)
+    place:string:违规地点
+    description:string:违规描述
+    photos:string:取证照片
+    videos:string:取证视频
+    time:date:发生时间
+    deal_opinion:string:处理意见
+    deal_photos:strign:处理照片
+    transactor:object:处理人信息
+      id:long:处理人ID
+      real_name:string:真实姓名
+    attachs:string:附件 多个以英文 , 号隔开
+    status:int:状态(1:处理中 2:已处理)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 22.5. 违规信息管理-删除
+
+```yaml
+@delete: /industry/busviolations/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回违规信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 22.6. 违规信息管理-导出
+
+```yaml
+@get: /industry/busviolations/export
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  vehicle.licNo:string:车牌号
+  practitioner.name:string:司机姓名
+  busRoute.name:string:线路
+  veh_type:string:车辆型号
+  organization.name:string:企业名称
+  type:int:违规行为
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+    - 10002:导出数据出错
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 22.7. 违规信息管理-导入
+
+```yaml
+@post: /industry/busviolations/import
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:文件名
+  file:file:导入的文件
+
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
+    - 10004:导入的数据格式不正确
   success:bool:是否成功
   msg:string:操作提示
 ```
