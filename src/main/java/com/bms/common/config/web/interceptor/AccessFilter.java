@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -39,8 +40,8 @@ public class AccessFilter implements Filter {
         try {
             if (logger.isDebugEnabled()) {
                 String contentType = request.getContentType();
-                if (contentType != null && contentType.toLowerCase().contains("application/json")
-                        && (httpReq.getMethod().equalsIgnoreCase("POST") || httpReq.getMethod().equalsIgnoreCase("PUT"))) {
+                if (contentType != null && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)
+                        && ("POST".equalsIgnoreCase(httpReq.getMethod()) || "PUT".equalsIgnoreCase(httpReq.getMethod()))) {
                     httpReq = new HttpRequestBodyWrapper(httpReq);
                     String body = IOUtils.toString(httpReq.getInputStream(), StandardCharsets.UTF_8);
                     logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);

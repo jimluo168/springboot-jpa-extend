@@ -15,7 +15,7 @@ import java.util.Optional;
 public class UserIDAuditorBean implements AuditorAware<Long> {
     @Override
     public Optional<Long> getCurrentAuditor() {
-        SessionInfo session = SessionInfo.SESSION.get();
+        SessionInfo session = SessionInfo.getCurrentSession();
         if (session == null) {
             return Optional.empty();
         }

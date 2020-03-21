@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.MediaType;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -91,21 +92,21 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             String requestMethod = request.getMethod();
             String params = "";
             String contentType = request.getContentType();
-            if (contentType != null && contentType.toLowerCase().contains("application/json") &&
-                    (requestMethod.equalsIgnoreCase("POST") || requestMethod.equalsIgnoreCase("PUT"))) {
+            if (contentType != null && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)
+                    && ("POST".equalsIgnoreCase(requestMethod) || "PUT".equalsIgnoreCase(requestMethod))) {
                 params = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
             } else {
                 params = request.getQueryString();
             }
 
             info.setRequestParams(params);
-            SessionInfo.SESSION.set(info);
+            SessionInfo.createSession(info);
         }
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        SessionInfo.SESSION.remove();
+        SessionInfo.removeSession();
     }
 }

@@ -45,6 +45,6 @@ public class ErrorHandler {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()));
+                .body(Result.failure(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器出错"));
     }
 }

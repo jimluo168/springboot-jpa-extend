@@ -27,7 +27,7 @@ public class HibernateDaoConfig {
     /**
      * 约定俗成 规定Mapper xml的位置.
      */
-    public static final String mapperLocation = "classpath:mapper/*.xml";
+    public static final String MAPPER_LOCATION = "classpath:mapper/*.xml";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -37,9 +37,9 @@ public class HibernateDaoConfig {
         HibernateDao dao = new HibernateDao(entityManager);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            dao.setQueryFiles(resolver.getResources(mapperLocation));
+            dao.setQueryFiles(resolver.getResources(MAPPER_LOCATION));
         } catch (ConfigurationException | IOException e) {
-            logger.error("HibernateDAO get resources from [" + mapperLocation + "] error ", e);
+            logger.error("HibernateDAO get resources from [" + MAPPER_LOCATION + "] error ", e);
         }
         return dao;
     }
