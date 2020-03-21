@@ -18,5 +18,5 @@ public @interface RequiresPermissions {
      *
      * @return
      */
-    String value() default "";
+    String[] value() default {};
 }

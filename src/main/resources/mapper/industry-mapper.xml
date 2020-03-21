@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.bms.common.dao.DaoCmd">
+
+    <practitioner_page type="hql" desc="从业人员分页查询">
+        <![CDATA[
+            from Practitioner p
+            where deleted = 0
+            <#if name?? && name!=''>
+                and p.name like '%'||:name'%'||
+            </#if>
+            <#if gender?? && gender!=''>
+                and p.gender like '%'||:gender||'%'
+            </#if>
+            <#if organization?? && organization!=''>
+                and p.organization.name like '%'||:organization||'%'
+            </#if>
+            <#if certNo?? && certNo!=''>
+                and p.certNo like '%'||:certNo||'%'
+            </#if>
+            <#if idNumber?? && idNumber!=''>
+                and p.idNumber like '%'||:idNumber||'%'
+            </#if>
+            order by p.createDate desc
+        ]]>
+    </practitioner_page>
+
+    <vehicle_page type="hql" desc="公交车辆管理-分页查询">
+        <![CDATA[
+            from Vehicle o
+            where o.deleted = 0
+            <#if licNo?? && licNo!=''>
+                and o.licNo like '%'||:licNo||'%'
+            </#if>
+            <#if fuelType??>
+                and o.fuelType = '%'||:fuelType
+            </#if>
+            <#if vin??&& vin!=''>
+                and o.vin = :vin
+            </#if>
+            <#if cardTime??>
+                and o.cardTime = :cardTime
+            </#if>
+            <#if status??>
+                and o.status = :status
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </vehicle_page>
+
+    <bus_route_page type="hql" desc="公交线路管理-分页查询">
+        <![CDATA[
+            from BusRoute o
+            where o.deleted = 0
+            <#if name?? && name!=''>
+                and o.name like '%'||:name||'%'
+            </#if>
+            <#if waySites?? && waySites!=''>
+                and o.waySites like '%'||:waySites||'%'
+            </#if>
+            <#if organization?? && organization.name!=''>
+                and o.organization.name like  '%${organization.name}%'
+            </#if>
+            <#if status??>
+                and o.status = :status
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </bus_route_page>
+
+    <bus_terminal_page type="hql" desc="公交场站分页查询">
+        <![CDATA[
+            from BusTerminal b
+            where deleted = 0
+            <#if name?? && name!=''>
+                and b.name like '%'||:name'%'||
+            </#if>
+            <#if code?? && code!=''>
+                and b.code like '%'||:code||'%'
+            </#if>
+            <#if type??>
+                and b.type = :type
+            </#if>
+            <#if status??>
+                and b.status = :status
+            </#if>
+            order by b.createDate desc
+        ]]>
+    </bus_terminal_page>
+
+    <bus_car_team_page type="hql" desc="公交车队管理-分页查询">
+        <![CDATA[
+            from BusTeam o
+            where 1=1
+            <#if name?? && name!=''>
+                and o.name like '%'||:name||'%'
+            </#if>
+            <#if status??>
+                and o.status = :status
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </bus_car_team_page>
+
+    <bus_site_page type="hql" desc="公交站点管理-分页查询">
+        <![CDATA[
+            from BusSite b
+            where deleted = 0
+            <#if name?? && name!=''>
+                and b.name like '%'||:name||'%'
+            </#if>
+            <#if code?? && code!=''>
+                and b.code like '%'||:code||'%'
+            </#if>
+            <#if province?? && province!=''>
+                and b.province = :province
+            </#if>
+            <#if city?? && code!=''>
+                and b.city = :city
+            </#if>
+            <#if county?? && county!=''>
+                and b.county = :county
+            </#if>
+            <#if status??>
+                and b.status = :status
+            </#if>
+            order by b.createDate desc
+        ]]>
+    </bus_site_page>
+
+    <notice_page type="hql" desc="行政管理-分页查询">
+        <![CDATA[
+            from Notice n
+            where deleted = 0
+            <#if title?? && title!=''>
+                and n.title like '%'||:title||'%'
+            </#if>
+            <#if type??>
+                and n.type = :type
+            </#if>
+           <#if begin?? && end??>
+                and n.createDate between :begin and :end
+            </#if>
+            order by n.createDate desc
+        ]]>
+    </notice_page>
+
+    <suggest_page type="hql" desc="行政管理-分页查询">
+        <![CDATA[
+            from Suggest s
+            where deleted = 0
+            <#if type?? && type!=''>
+                and s.type = :type
+            </#if>
+            <#if status??>
+                and s.status = :status
+            </#if>
+            <#if content?? && content!=''>
+                and s.content like '%'||:content||'%'
+            </#if>
+           <#if begin?? && end??>
+                and s.createDate between :begin and :end
+            </#if>
+            order by s.createDate desc
+        ]]>
+    </suggest_page>
+</mapper>

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 权限拦截器.
@@ -40,16 +41,30 @@ public class PermissionInterceptor implements HandlerInterceptor {
             access = method.getBeanType().getAnnotation(RequiresPermissions.class);
         }
 
-        if (access != null && StringUtils.isNotBlank(access.value())) {
-            String code = access.value();
+        if (access != null) {
+            if (access.value().length == 0) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return false;
+            }
             SessionInfo sessionInfo = SessionInfo.getCurrentSession();
             ISession session = sessionManager.getSession(sessionInfo.getSessionId());
             if (session == null) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 return false;
             }
-            HashSet<String> codeSet = session.getAttribute(SessionInfo.CACHE_PERMISSION_KEY, HashSet.class);
-            if (codeSet == null || !codeSet.contains(code)) {
+
+            Set<String> codeSet = session.getAttribute(SessionInfo.CACHE_PERMISSION_KEY, HashSet.class);
+            String[] codes = access.value();
+            boolean pass = false;
+            if (codeSet != null && !codeSet.isEmpty()) {
+                for (String code : codes) {
+                    if (codeSet.contains(code)) {
+                        pass = true;
+                        break;
+                    }
+                }
+            }
+            if (!pass) {
                 if (logger.isDebugEnabled()) {
                     logger.debug("用户:{} 账号:{} 拒绝访问, 返回403状态码.", sessionInfo.getName(), sessionInfo.getAccount());
                 }

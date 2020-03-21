@@ -102,8 +102,8 @@ public class BusViolation extends BaseEntity {
     /**
      * 处理人.
      */
-    @Column(length = 10)
-    private String dealPerson;
+    @JoinColumn(name = "transactor_id")
+    private User transactor;
     /**
      * 附件 多个以英文 , 号隔开.
      */

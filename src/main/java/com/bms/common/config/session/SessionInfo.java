@@ -14,8 +14,11 @@ import java.io.Serializable;
  */
 @Data
 public class SessionInfo implements Serializable {
+    /**
+     * session
+     */
+    private static final ThreadLocal<SessionInfo> SESSION = new ThreadLocal<>();
 
-    public static final ThreadLocal<SessionInfo> SESSION = new ThreadLocal<>();
     /**
      * 存放到缓存的key.
      */
@@ -59,6 +62,11 @@ public class SessionInfo implements Serializable {
     @JsonIgnore
     private String requestParams;
 
+    /**
+     * 获取当前用户ID.
+     *
+     * @return Long
+     */
     public static Long getCurrentUserId() {
         SessionInfo info = SESSION.get();
         if (info == null) {
@@ -67,7 +75,28 @@ public class SessionInfo implements Serializable {
         return info.getId();
     }
 
+    /**
+     * 获取当前session信息.
+     *
+     * @return SessionInfo
+     */
     public static SessionInfo getCurrentSession() {
         return SESSION.get();
+    }
+
+    /**
+     * 清空session。
+     */
+    public static void removeSession() {
+        SESSION.remove();
+    }
+
+    /**
+     * 创建一个新的session 保存到当前线程局部变量.
+     *
+     * @param info SessionInfo
+     */
+    public static void createSession(SessionInfo info) {
+        SESSION.set(info);
     }
 }
