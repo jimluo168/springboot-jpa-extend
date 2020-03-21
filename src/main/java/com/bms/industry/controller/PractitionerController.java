@@ -9,6 +9,7 @@ import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.util.BeanMapper;
 import com.bms.common.util.ResponseUtils;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
@@ -71,14 +72,8 @@ public class PractitionerController {
     @OpLog("查询")
     @RequiresPermissions("practitioner_list")
     @GetMapping("/list")
-    public Result<PageList<Practitioner>> list(PageRequest pageRequest,
-                                               @RequestParam(defaultValue = "") String name,
-                                               @RequestParam(defaultValue = "") String gender,
-                                               @RequestParam(defaultValue = "") String organization,
-                                               @RequestParam(defaultValue = "", name = "certificate_number") String certificateNumber,
-                                               @RequestParam(defaultValue = "", name = "ID_number") String IDNumber
-    ) throws IllegalAccessException {
-        return ok(practitionerService.page(pageRequest, name, gender, organization, certificateNumber, IDNumber));
+    public Result<PageList<Practitioner>> list(PageRequest pageRequest,Practitioner practitioner) throws IllegalAccessException {
+        return ok(practitionerService.page(pageRequest, BeanMapper.toMap(practitioner)));
     }
 
     @OpLog("详情")
@@ -108,15 +103,11 @@ public class PractitionerController {
     @OpLog("导出")
     @RequiresPermissions("practitioner_export")
     @GetMapping("/export")
-    public Result<Void> export(@RequestParam(defaultValue = "") String name,
-                               @RequestParam(defaultValue = "") String gender,
-                               @RequestParam(defaultValue = "") String organization,
-                               @RequestParam(defaultValue = "", name = "cert_no") String certNo,
-                               @RequestParam(defaultValue = "", name = "id_number") String idNumber,
+    public Result<Void> export(Practitioner practitioner,
                                HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
             PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
-            PageList<Practitioner> pageList = practitionerService.page(pageRequest, name, gender, organization, certNo, idNumber);
+            PageList<Practitioner> pageList = practitionerService.page(pageRequest, BeanMapper.toMap(practitioner));
             List<PractitionerExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
                 PractitionerExcelModel p = new PractitionerExcelModel();

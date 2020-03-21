@@ -11,14 +11,17 @@
             <#if gender?? && gender!=''>
                 and p.gender like '%'||:gender||'%'
             </#if>
-            <#if organization?? && organization!=''>
-                and p.organization.name like '%'||:organization||'%'
+            <#if organization?? && organization.name!=''>
+                and p.organization.name like '%${organization.name}%'
             </#if>
             <#if certNo?? && certNo!=''>
                 and p.certNo like '%'||:certNo||'%'
             </#if>
             <#if idNumber?? && idNumber!=''>
                 and p.idNumber like '%'||:idNumber||'%'
+            </#if>
+            <#if status??>
+                and p.status = :status
             </#if>
             order by p.createDate desc
         ]]>
@@ -57,8 +60,14 @@
             <#if waySites?? && waySites!=''>
                 and o.waySites like '%'||:waySites||'%'
             </#if>
+            <#if mileage?? && mileage!=''>
+                and o.mileage like '%'||:mileage||'%'
+            </#if>
             <#if organization?? && organization.name!=''>
                 and o.organization.name like  '%${organization.name}%'
+            </#if>
+            <#if price?? && price != 0>
+                and o.price = ：price
             </#if>
             <#if status??>
                 and o.status = :status

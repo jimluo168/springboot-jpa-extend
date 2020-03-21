@@ -6,6 +6,7 @@ import com.bms.common.config.session.SessionInfo;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
@@ -47,12 +48,8 @@ public class UserController {
     @OpLog("查询")
     @RequiresPermissions("user_list")
     @GetMapping("/list")
-    public Result<PageList<User>> list(PageRequest pageRequest,
-                                       @RequestParam(defaultValue = "") String account,
-                                       @RequestParam(defaultValue = "") String realName,
-                                       @RequestParam(defaultValue = "") String organization,
-                                       @RequestParam(defaultValue = "-1") int status) {
-        return ok(userService.page(pageRequest, account, realName, organization, status));
+    public Result<PageList<User>> list(PageRequest pageRequest,User user) throws IllegalAccessException {
+        return ok(userService.page(pageRequest, BeanMapper.toMap(user)));
     }
 
     @OpLog("详情")
