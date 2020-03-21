@@ -88,6 +88,7 @@ public abstract class VehicleCommon extends BaseEntity {
     /**
      * 所属企业.
      */
+    @JsonIgnoreProperties({"audit_list", "car_team_list", "parent", "children"})
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;
@@ -161,7 +162,6 @@ public abstract class VehicleCommon extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
-
 
 
 }

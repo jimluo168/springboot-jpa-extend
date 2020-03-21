@@ -1,4 +1,4 @@
-package com.bms.sys.controller;
+package com.bms.industry.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
@@ -16,8 +16,8 @@ import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
-import com.bms.entity.Organization;
-import com.bms.sys.service.OrganizationService;
+import com.bms.entity.BusViolation;
+import com.bms.industry.service.BusViolationService;
 import com.bms.sys.view.OrganizationExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -39,82 +39,82 @@ import java.util.List;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * 公交企业管理.
+ * 违规信息管理.
  *
  * @author luojimeng
  * @date 2020/3/12
  */
 @RestController
-@RequestMapping("/sys/organizations")
+@RequestMapping("/industry/busviolations")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@OpLogModule("公交企业管理")
-@Api("公交企业管理")
-public class OrganizationController {
-    private static final Logger logger = LoggerFactory.getLogger(OrganizationController.class);
+@OpLogModule("违规信息管理")
+@Api("违规信息管理")
+public class BusViolationController {
+    private static final Logger logger = LoggerFactory.getLogger(BusViolationController.class);
 
-    private final OrganizationService organizationService;
+    private final BusViolationService busViolationService;
     private final ObjectMapper objectMapper;
 
     @ApiOperation("新增")
     @OpLog("新增")
-    @RequiresPermissions("organization_create")
+    @RequiresPermissions("bus_violation_create")
     @PostMapping("")
-    public Result<Organization> create(@RequestBody Organization organization) {
-        organizationService.insert(organization);
-        return ok(organization);
+    public Result<BusViolation> create(@RequestBody BusViolation busViolation) {
+        busViolationService.insert(busViolation);
+        return ok(busViolation);
     }
 
     @ApiOperation("编辑")
     @OpLog("编辑")
-    @RequiresPermissions("organization_edit")
+    @RequiresPermissions("bus_violation_edit")
     @PutMapping("/{id}")
-    public Result<Organization> edit(@PathVariable Long id, @RequestBody Organization organization) {
-        organizationService.updateById(id, organization);
-        return ok(organization);
+    public Result<BusViolation> edit(@PathVariable Long id, @RequestBody BusViolation busViolation) {
+        busViolationService.updateById(id, busViolation);
+        return ok(busViolation);
     }
 
     @ApiOperation("查询")
     @OpLog("查询")
-    @RequiresPermissions("organization_list")
+    @RequiresPermissions("bus_violation_list")
     @GetMapping("/list")
-    public Result<PageList<Organization>> list(PageRequest pageRequest, Organization organization) throws IllegalAccessException {
-        return ok(organizationService.page(pageRequest, BeanMapper.toMap(organization)));
+    public Result<PageList<BusViolation>> list(PageRequest pageRequest, BusViolation busViolation) throws IllegalAccessException {
+        return ok(busViolationService.page(pageRequest, BeanMapper.toMap(busViolation)));
     }
 
     @ApiOperation("详情")
     @OpLog("详情")
-    @RequiresPermissions("organization_details")
+    @RequiresPermissions("bus_violation_details")
     @GetMapping("/{id}")
-    public Result<Organization> details(@PathVariable Long id) {
-        return Result.ok(organizationService.findById(id));
+    public Result<BusViolation> details(@PathVariable Long id) {
+        return Result.ok(busViolationService.findById(id));
     }
 
     @ApiOperation("删除")
     @OpLog("删除")
-    @RequiresPermissions("organization_delete")
+    @RequiresPermissions("bus_violation_delete")
     @DeleteMapping("/{id}")
-    public Result<Organization> delete(@PathVariable Long id) {
-        return ok(organizationService.deleteById(id));
+    public Result<BusViolation> delete(@PathVariable Long id) {
+        return ok(busViolationService.deleteById(id));
     }
 
-    @ApiOperation("审核")
-    @OpLog("审核")
-    @RequiresPermissions("organization_audit")
-    @PostMapping("/{id}/status/{status}")
-    public Result<Organization> audit(@PathVariable Long id, @PathVariable int status, @RequestBody Organization organization) {
-        organizationService.audit(id, status, organization.getReason());
+    @ApiOperation("处理")
+    @OpLog("处理")
+    @RequiresPermissions("bus_violation_deal")
+    @PostMapping("/{id}/deals")
+    public Result<BusViolation> deal(@PathVariable Long id, @RequestBody BusViolation busViolation) {
+        busViolationService.deal(id, busViolation);
         return ok();
     }
 
     @ApiOperation("导出")
     @OpLog("导出")
-    @RequiresPermissions("organization_export")
+    @RequiresPermissions("bus_violation_export")
     @GetMapping("/export")
-    public Result<Void> export(Organization organization, HttpServletResponse response) throws IOException, IllegalAccessException {
+    public Result<Void> export(BusViolation busViolation, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
             PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
-            PageList<Organization> pageList = organizationService.page(pageRequest, BeanMapper.toMap(organization));
+            PageList<BusViolation> pageList = busViolationService.page(pageRequest, BeanMapper.toMap(busViolation));
             List<OrganizationExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
                 OrganizationExcelModel m = new OrganizationExcelModel();
@@ -138,11 +138,11 @@ public class OrganizationController {
 
     @ApiOperation("导入")
     @OpLog("导入")
-    @RequiresPermissions("organization_import")
+    @RequiresPermissions("bus_violation_import")
     @PostMapping("/import")
     public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
         try {
-            EasyExcel.read(file.getInputStream(), OrganizationExcelModel.class, new ImportDataListener(organizationService)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), OrganizationExcelModel.class, new ImportDataListener(busViolationService)).sheet().doRead();
             return ok();
         } catch (Exception e) {
             logger.error("import data error", e);
@@ -159,7 +159,7 @@ public class OrganizationController {
         private static final int BATCH_COUNT = 3000;
         private List<OrganizationExcelModel> list = new ArrayList<OrganizationExcelModel>();
 
-        private final OrganizationService organizationService;
+        private final BusViolationService busViolationService;
 
         @Override
         public void invoke(OrganizationExcelModel data, AnalysisContext context) {
@@ -178,15 +178,14 @@ public class OrganizationController {
         }
 
         private void saveData() {
-            List<Organization> batchData = new ArrayList<>();
+            List<BusViolation> batchData = new ArrayList<>();
             list.stream().forEach(o -> {
-                Organization target = new Organization();
+                BusViolation target = new BusViolation();
                 BeanUtils.copyProperties(o, target);
                 batchData.add(target);
             });
-            organizationService.saveAll(batchData);
+            busViolationService.saveAll(batchData);
         }
     }
-
 
 }

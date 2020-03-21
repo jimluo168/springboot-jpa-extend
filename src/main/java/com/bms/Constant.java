@@ -69,6 +69,11 @@ public interface Constant {
      * 投诉建议管理-分页查询.
      */
     String MAPPER_SUGGEST_PAGE = "suggest_page";
+    /**
+     * 违规信息管理-分页查询.
+     */
+    String MAPPER_BUS_VIOLATION_PAGE = "bus_violation_page";
+
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
