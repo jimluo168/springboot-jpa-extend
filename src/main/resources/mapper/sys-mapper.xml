@@ -41,8 +41,8 @@
             <#if realName?? && realName!=''>
                 and u.realName like '%'||:realName||'%'
             </#if>
-            <#if organization?? && organization!=''>
-                and u.organization.name like '%'||:organization||'%'
+            <#if organization?? && organization.name!=''>
+                and u.organization.name like '%'||:organization.name||'%'
             </#if>
             <#if status!= -1>
                 and u.status = :status
@@ -109,13 +109,13 @@
             from Practitioner p
             where deleted = 0
             <#if name?? && name!=''>
-                and p.name like '%'||:name'%'||
+                and p.name like '%'||:name||'%'
             </#if>
             <#if gender?? && gender!=''>
                 and p.gender like '%'||:gender||'%'
             </#if>
-            <#if organization?? && organization!=''>
-                and p.organization.name like '%'||:organization||'%'
+            <#if organization?? && organization.name!=''>
+                and p.organization.name like '%'||:organization.name||'%'
             </#if>
             <#if certNo?? && certNo!=''>
                 and p.certNo like '%'||:certNo||'%'
@@ -135,7 +135,7 @@
                 and o.licNo like '%'||:licNo||'%'
             </#if>
             <#if fuelType??>
-                and o.fuelType = '%'||:fuelType
+                and o.fuelType = :fuelType
             </#if>
             <#if vin??&& vin!=''>
                 and o.vin = :vin

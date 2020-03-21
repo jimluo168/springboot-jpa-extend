@@ -67,13 +67,8 @@ public class UserService {
         return presentUser;
     }
 
-    public PageList<User> page(PageRequest pageRequest, String account, String realName, String organization, int status) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("account", account);
-        params.put("realName", realName);
-        params.put("organization", organization);
-        params.put("status", status);
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, params));
+    public PageList<User> page(PageRequest pageRequest,  Map<String, Object> queryParams) {
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, queryParams));
     }
 
     public User updateById(Long id, User updateBody) {
