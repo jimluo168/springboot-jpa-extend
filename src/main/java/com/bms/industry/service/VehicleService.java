@@ -88,4 +88,9 @@ public class VehicleService {
         });
         vehicleRepository.saveAll(list);
     }
+
+    @Transactional(readOnly = true)
+    public Vehicle findByLicNo(String licNo) {
+        return vehicleRepository.findByLicNo(licNo);
+    }
 }

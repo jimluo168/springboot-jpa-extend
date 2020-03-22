@@ -1,6 +1,7 @@
 package com.bms.industry.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -17,7 +18,13 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusViolation;
+import com.bms.industry.service.BusRouteService;
 import com.bms.industry.service.BusViolationService;
+import com.bms.industry.service.PractitionerService;
+import com.bms.industry.service.VehicleService;
+import com.bms.industry.view.BusViolationExcelModel;
+import com.bms.sys.service.DictService;
+import com.bms.sys.service.OrganizationService;
 import com.bms.sys.view.OrganizationExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -55,6 +62,11 @@ public class BusViolationController {
 
     private final BusViolationService busViolationService;
     private final ObjectMapper objectMapper;
+    private final DictService dictService;
+    private final PractitionerService practitionerService;
+    private final VehicleService vehicleService;
+    private final BusRouteService busRouteService;
+    private final OrganizationService organizationService;
 
     @ApiOperation("新增")
     @OpLog("新增")
@@ -113,17 +125,17 @@ public class BusViolationController {
     @GetMapping("/export")
     public Result<Void> export(BusViolation busViolation, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
-            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<BusViolation> pageList = busViolationService.page(pageRequest, BeanMapper.toMap(busViolation));
-            List<OrganizationExcelModel> data = new ArrayList<>();
+            List<BusViolationExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
-                OrganizationExcelModel m = new OrganizationExcelModel();
+                BusViolationExcelModel m = new BusViolationExcelModel(dictService, practitionerService, vehicleService, busRouteService, organizationService);
                 BeanUtils.copyProperties(o, m);
                 data.add(m);
             });
 
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD));
-            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+            EasyExcel.write(response.getOutputStream(), BusViolationExcelModel.class)
                     .autoCloseStream(Boolean.FALSE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet()
@@ -142,7 +154,7 @@ public class BusViolationController {
     @PostMapping("/import")
     public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
         try {
-            EasyExcel.read(file.getInputStream(), OrganizationExcelModel.class, new ImportDataListener(busViolationService)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), BusViolationExcelModel.class, new ImportDataListener(busViolationService)).sheet().doRead();
             return ok();
         } catch (Exception e) {
             logger.error("import data error", e);
@@ -154,15 +166,15 @@ public class BusViolationController {
     }
 
     @RequiredArgsConstructor
-    private static class ImportDataListener extends AnalysisEventListener<OrganizationExcelModel> {
+    private static class ImportDataListener extends AnalysisEventListener<BusViolationExcelModel> {
         private static final Logger logger = LoggerFactory.getLogger(ImportDataListener.class);
         private static final int BATCH_COUNT = 3000;
-        private List<OrganizationExcelModel> list = new ArrayList<OrganizationExcelModel>();
+        private List<BusViolationExcelModel> list = new ArrayList<BusViolationExcelModel>();
 
         private final BusViolationService busViolationService;
 
         @Override
-        public void invoke(OrganizationExcelModel data, AnalysisContext context) {
+        public void invoke(BusViolationExcelModel data, AnalysisContext context) {
             list.add(data);
             if (list.size() >= BATCH_COUNT) {
                 saveData();

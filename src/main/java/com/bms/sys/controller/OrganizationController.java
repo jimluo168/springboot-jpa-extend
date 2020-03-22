@@ -113,7 +113,7 @@ public class OrganizationController {
     @GetMapping("/export")
     public Result<Void> export(Organization organization, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
-            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<Organization> pageList = organizationService.page(pageRequest, BeanMapper.toMap(organization));
             List<OrganizationExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
@@ -157,7 +157,7 @@ public class OrganizationController {
     private static class ImportDataListener extends AnalysisEventListener<OrganizationExcelModel> {
         private static final Logger logger = LoggerFactory.getLogger(ImportDataListener.class);
         private static final int BATCH_COUNT = 3000;
-        private List<OrganizationExcelModel> list = new ArrayList<OrganizationExcelModel>();
+        private List<OrganizationExcelModel> list = new ArrayList<>();
 
         private final OrganizationService organizationService;
 

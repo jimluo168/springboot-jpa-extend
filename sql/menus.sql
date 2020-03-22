@@ -179,7 +179,7 @@ VALUES ('1126', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000',
 -- 服务稽查管理
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`)
 VALUES ('1200', '2020-03-13 08:43:57.504000', '0', '2020-03-13 08:44:00.072000', '服务稽查管理', 'service_audit', '1', '4');
-
+-- 违规信息管理
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
 VALUES ('1210', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '违规信息管理', '1', '1200', '1', 'violation','违规信息管理');
 
@@ -194,7 +194,7 @@ VALUES ('1215', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000',
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('1216', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '处理', '2', '1210', '5', 'violation_deal','违规信息管理-处理');
 
-
+-- 事件统计分析
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
 VALUES ('1220', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '事件统计分析', '1', '1200', '2', 'bus_event_stats','事件统计分析');
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)

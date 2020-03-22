@@ -15,7 +15,12 @@ import java.util.Optional;
  */
 @Repository
 public interface DictRepository extends PagingAndSortingRepository<Dictionary, Long> {
-
+    /**
+     * 根据字典编码获取该条数据记录.
+     *
+     * @param code 字典编码
+     * @return Dictionary
+     */
     Optional<Dictionary> findByCodeOrderByIndexAsc(String code);
 
     List<Dictionary> findByParentIsNullOrderByIndexAsc();

@@ -91,4 +91,9 @@ public class PractitionerService {
         });
         practitionerRepository.saveAll(list);
     }
+
+    @Transactional(readOnly = true)
+    public Practitioner findByName(String name) {
+        return practitionerRepository.findByName(name);
+    }
 }

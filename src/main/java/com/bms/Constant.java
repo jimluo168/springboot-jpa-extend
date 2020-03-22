@@ -75,7 +75,6 @@ public interface Constant {
     String MAPPER_BUS_VIOLATION_PAGE = "bus_violation_page";
 
 
-
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 
     /***--------------------------基本常量定义开始--------------------------------------***/
@@ -88,6 +87,10 @@ public interface Constant {
      * 日期格式=yyyy-MM-dd.
      */
     String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
+    /**
+     * 导出Excel最大行数.
+     */
+    int EXPORT_EXCEL_MAX_LINE = 65530;
 
     /***--------------------------基本常量定义结束--------------------------------------***/
 }
