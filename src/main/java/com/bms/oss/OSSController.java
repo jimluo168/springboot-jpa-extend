@@ -148,9 +148,12 @@ public class OSSController {
     public static String getContentType(Path path) {
         try {
             String type = Files.probeContentType(path);
+            logger.info("path:{} type:{}", path, type);
             if (type == null) {
                 MimetypesFileTypeMap map = new MimetypesFileTypeMap(path.toString());
-                return map.getContentType(path.toFile());
+                type = map.getContentType(path.toFile());
+                logger.info("path:{} type:{}", path, type);
+                return type;
             }
         } catch (IOException e) {
             logger.error("get filename:" + path + " content type error", e);
