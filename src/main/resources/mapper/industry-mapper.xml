@@ -61,7 +61,7 @@
                 and o.waySites like '%'||:waySites||'%'
             </#if>
             <#if mileage?? && mileage!=''>
-                and o.mileage like '%'||:mileage||'%'
+                and o.mileage  = :mileage||'%'
             </#if>
             <#if organization?? && organization.name!=''>
                 and o.organization.name like  '%${organization.name}%'
