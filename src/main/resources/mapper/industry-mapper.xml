@@ -6,7 +6,7 @@
             from Practitioner p
             where deleted = 0
             <#if name?? && name!=''>
-                and p.name like '%'||:name'%'||
+                and p.name like '%'||:name||'%'
             </#if>
             <#if gender?? && gender!=''>
                 and p.gender like '%'||:gender||'%'
@@ -61,13 +61,13 @@
                 and o.waySites like '%'||:waySites||'%'
             </#if>
             <#if mileage?? && mileage!=''>
-                and o.mileage  = :mileage||'%'
+                and o.mileage like '%'||:mileage||'%'
             </#if>
             <#if organization?? && organization.name!=''>
                 and o.organization.name like  '%${organization.name}%'
             </#if>
             <#if price?? && price != 0>
-                and o.price = ：price
+                and o.price = :price
             </#if>
             <#if status??>
                 and o.status = :status
