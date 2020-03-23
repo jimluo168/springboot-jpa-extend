@@ -115,7 +115,7 @@ public class OSSController {
         response.setContentType(contentType);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         if (StringUtils.equals(contentType, MediaType.APPLICATION_OCTET_STREAM_VALUE)) {
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8.name()));
         }
         Files.copy(path, response.getOutputStream());
     }
