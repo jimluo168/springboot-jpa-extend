@@ -111,7 +111,6 @@ public class OSSController {
             return;
         }
         String contentType = getContentType(path);
-        logger.info("cc path:{} contentType:{}", path, contentType);
         response.setHeader("content-type", contentType);
         response.setContentType(contentType);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
@@ -149,13 +148,12 @@ public class OSSController {
     public static String getContentType(Path path) {
         try {
             String type = Files.probeContentType(path);
-            logger.info("aa path:{} type:{}", path, type);
             if (type == null) {
                 MimetypesFileTypeMap map = new MimetypesFileTypeMap(path.toString());
                 type = map.getContentType(path.toFile());
-                logger.info("bb path:{} type:{}", path, type);
                 return type;
             }
+            return type;
         } catch (IOException e) {
             logger.error("get filename:" + path + " content type error", e);
         }
