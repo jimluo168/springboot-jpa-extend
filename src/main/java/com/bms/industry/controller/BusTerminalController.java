@@ -106,7 +106,7 @@ public class BusTerminalController {
     @GetMapping("/export")
     public Result<Void> export(BusTerminal busTerminal, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
-            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<BusTerminal> pageList = busTerminalService.page(pageRequest, BeanMapper.toMap(busTerminal));
             List<BusTerminalExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {

@@ -172,4 +172,35 @@
             order by s.createDate desc
         ]]>
     </suggest_page>
+    <bus_violation_page type="hql" desc="违规信息管理-分页查询">
+        <![CDATA[
+            from BusViolation o
+            where o.deleted = 0
+            <#if vehicle?? && vehicle.licNo!=''>
+                and o.vehicle.licNo like '%${vehicle.licNo}%'
+            </#if>
+            <#if practitioner?? && practitioner.name!=''>
+                and o.practitioner.name like '%${practitioner.name}%'
+            </#if>
+            <#if busRoute?? && busRoute.name!=''>
+                and o.busRoute.name like '%${busRoute.name}%'
+            </#if>
+            <#if vehType?? && vehType!=''>
+                and o.vehType like '%'||:vehType||'%'
+            </#if>
+            <#if organization?? && organization.name!=''>
+                and o.organization.name like  '%${organization.name}%'
+            </#if>
+            <#if type??>
+                and o.type = :type
+            </#if>
+            <#if status??>
+                and o.status = :status
+            </#if>
+           <#if begin?? && end??>
+                and o.time between :begin and :end
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </bus_violation_page>
 </mapper>

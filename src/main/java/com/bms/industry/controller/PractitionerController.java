@@ -106,7 +106,7 @@ public class PractitionerController {
     public Result<Void> export(Practitioner practitioner,
                                HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
-            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<Practitioner> pageList = practitionerService.page(pageRequest, BeanMapper.toMap(practitioner));
             List<PractitionerExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {

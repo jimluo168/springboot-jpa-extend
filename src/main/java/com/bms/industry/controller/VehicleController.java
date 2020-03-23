@@ -112,7 +112,7 @@ public class VehicleController {
     @GetMapping("/export")
     public Result<Void> export(Vehicle vehicle, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
-            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<Vehicle> pageList = vehicleService.page(pageRequest, BeanMapper.toMap(vehicle));
             List<OrganizationExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {

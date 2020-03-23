@@ -113,7 +113,7 @@ public class BusRouteController {
     @GetMapping("/export")
     public Result<Void> export(BusRoute busRoute, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
-            PageRequest pageRequest = new PageRequest(1, Integer.MAX_VALUE);
+            PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<BusRoute> pageList = busRouteService.page(pageRequest, BeanMapper.toMap(busRoute));
             List<BusRouteExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {

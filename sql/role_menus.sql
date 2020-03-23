@@ -91,3 +91,7 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','167');
 insert into role_menus(role_id,menu_id) values('434272239429488640','186');
 insert into role_menus(role_id,menu_id) values('434272239429488640','187');
 
+-- 事件统计分析
+insert into role_menus(role_id,menu_id) values('434272239429488640','1220');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1221');
+

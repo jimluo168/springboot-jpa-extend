@@ -1,6 +1,7 @@
 package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -27,6 +28,15 @@ import java.util.Date;
 @Table(name = "bus_violations")
 public class BusViolation extends BaseEntity {
     /**
+     * 1=待处理.
+     */
+    public static final int STATUS_PENDING = 1;
+    /**
+     * 2=已处理.
+     */
+    public static final int STATUS_PROCESSED = 2;
+
+    /**
      * 司机姓名.
      */
     @ManyToOne
@@ -35,13 +45,15 @@ public class BusViolation extends BaseEntity {
     /**
      * 违规车辆信息.
      */
+    @JsonIgnoreProperties({"audit_list"})
     @ManyToOne
     @JoinColumn(name = "veh_id")
     private Vehicle vehicle;
     /**
-     * 车辆型号(字典表).
+     * 车型(必填) 改为文本 20200320.
+     * “车辆型号”改为“车型”，文本类型.
      */
-    private Integer vehType;
+    private String vehType;
     /**
      * 线路.
      */
@@ -51,19 +63,28 @@ public class BusViolation extends BaseEntity {
     /**
      * 所属企业.
      */
+    @JsonIgnoreProperties({"audit_list", "car_team_list", "parent", "children"})
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;
     /**
-     * 违规类型-行为(字典表).
+     * 经度.
+     */
+    private Float longitude;
+    /**
+     * 纬度.
+     */
+    private Float latitude;
+    /**
+     * 违规类型-行为(字典表 VIOLATION_TYPE).
      */
     private Integer type;
     /**
-     * 事件性质(字典表).
+     * 事件性质(字典表 VIOLATION_NATURE_TYPE).
      */
     private Integer eventNature;
     /**
-     * 严重程度(字典表).
+     * 严重程度(字典表 VIOLATION_SEVERITY_TYPE).
      */
     private Integer severity;
     /**
@@ -102,6 +123,8 @@ public class BusViolation extends BaseEntity {
     /**
      * 处理人.
      */
+    @JsonIgnoreProperties({"organization", "role"})
+    @ManyToOne
     @JoinColumn(name = "transactor_id")
     private User transactor;
     /**
@@ -112,14 +135,12 @@ public class BusViolation extends BaseEntity {
     /**
      * 状态(1:处理中 2:已处理).
      */
-    private Integer status = 1;
-
+    private Integer status = STATUS_PENDING;
     /**
      * 所属车队.
      */
     @ManyToOne
     @JoinColumn(name = "team_id")
     private BusTeam carTeam;
-
 
 }

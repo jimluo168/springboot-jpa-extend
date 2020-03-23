@@ -69,6 +69,10 @@ public interface Constant {
      * 投诉建议管理-分页查询.
      */
     String MAPPER_SUGGEST_PAGE = "suggest_page";
+    /**
+     * 违规信息管理-分页查询.
+     */
+    String MAPPER_BUS_VIOLATION_PAGE = "bus_violation_page";
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
@@ -83,6 +87,10 @@ public interface Constant {
      * 日期格式=yyyy-MM-dd.
      */
     String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
+    /**
+     * 导出Excel最大行数.
+     */
+    int EXPORT_EXCEL_MAX_LINE = 65530;
 
     /***--------------------------基本常量定义结束--------------------------------------***/
 }

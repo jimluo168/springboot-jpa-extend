@@ -7,6 +7,9 @@ package com.bms;
  * @date 2020/3/20
  */
 public interface DictConstant {
+    /**
+     * 字典的子节点 约定俗成 后缀必须是_CHILD.
+     */
     String CHILD_NODE = "_CHILD";
     /**
      * 从业人员类型.
@@ -37,7 +40,7 @@ public interface DictConstant {
      */
     String ROUTE_TYPE = "ROUTE_TYPE";
 
-    default String buildChildType(String type) {
+    static String buildChildType(String type) {
         return type + CHILD_NODE;
     }
 }

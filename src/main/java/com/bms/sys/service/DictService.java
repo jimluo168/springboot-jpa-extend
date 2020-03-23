@@ -74,6 +74,12 @@ public class DictService {
         dict.setStatus(status);
     }
 
+    /**
+     * 根据字典编码获取该字典下的所有的子节点，并且按照index进行排序.
+     *
+     * @param code 字典编码
+     * @return List&lt;Dictionary&gt;
+     */
     @Transactional(readOnly = true)
     public List<Dictionary> findByCode(String code) {
         Optional<Dictionary> dictionary = dictRepository.findByCodeOrderByIndexAsc(code);

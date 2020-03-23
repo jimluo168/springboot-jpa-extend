@@ -12,5 +12,6 @@ import org.springframework.stereotype.Repository;
  * @date 2020/3/16
  */
 @Repository
-public interface PractitionerRepository extends PagingAndSortingRepository<Practitioner, Long>, JpaSpecificationExecutor<Practitioner> {
+public interface PractitionerRepository extends PagingAndSortingRepository<Practitioner, Long> {
+    Practitioner findByName(String name);
 }
