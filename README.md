@@ -247,6 +247,8 @@ File->Preferences->Editor->File and Code Templates->File Header
 /images  图片
 /docs    文档
 /html    html内容
+/videos  视频
+
 ```
 
 ```yaml
@@ -2476,7 +2478,7 @@ STATION_TYPE:int:场站类型
 UP_DOWN_TYPE:int:上下行
 SUGGEST_TYPE:int:投诉建议类型
 ARTICLE_TYPE:int:文章类型
-VIOLATION_TYPE:int:违规行为
+VIOLATION_TYPE:int:违规行为=违规类型
 VIOLATION_NATURE_TYPE:int:事件性质
 VIOLATION_SEVERITY_TYPE:int:严重程度
 ROUTE_TYPE:int:线路类型
