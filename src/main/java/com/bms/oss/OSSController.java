@@ -154,7 +154,6 @@ public class OSSController {
             if (type == null) {
                 MimetypesFileTypeMap map = new MimetypesFileTypeMap(path.toString());
                 type = map.getContentType(path.toFile());
-                return type;
             }
             return type;
         } catch (IOException e) {
