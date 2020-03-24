@@ -52,6 +52,8 @@ public class OSSController {
             String text = request.getParameter("text");
             String suffix = request.getParameter("suffix");
 
+            logger.info("text:{} suffix:{}", text, suffix);
+
             String md5 = DigestUtils.md5Hex(text.getBytes());
             String sha1 = DigestUtils.sha1Hex(text.getBytes());
 
