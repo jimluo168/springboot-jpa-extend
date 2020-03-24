@@ -3444,8 +3444,8 @@ ROUTE_TYPE:int:线路类型
 ## 23. 违规信息统计
 
 ### 23.1. 公司违规信息统计
-```ymal
-@get:/stats/busviolation/organization
+```yaml
+@get:/industry/busviolationstats/companies
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -3457,18 +3457,16 @@ ROUTE_TYPE:int:线路类型
 
 @return:
   code:int:操作码
-  data:array<object>:
-    organization:object:公司信息
-      id:long:ID
-      name:string:公司名
-    violation:int:违规量
+  data:array<object>:规信息统计
+    company:object:公司名
+    num:int:违规量
   success:bool:是否成功
   msg:string:操作提示
 ```
 
 ### 23.2. 司机违规信息排行
-```ymal
-@get:/stats/busviolation/practitioner
+```yaml
+@get:/industry/busviolationstats/drivers
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -3481,13 +3479,9 @@ ROUTE_TYPE:int:线路类型
 @return:
   code:int:操作码
   data:array<object>:
-    practitioner:object:司机信息
-      id:long:ID
-      name:string:司机名
-      organization:object:公司信息
-        id:long:ID
-        name:string:公司名
-      violation:int:违规量
+    driver:string:司机名
+    company:string:公司名
+    num:int:违规量
   success:bool:是否成功
   msg:string:操作提示
 ```

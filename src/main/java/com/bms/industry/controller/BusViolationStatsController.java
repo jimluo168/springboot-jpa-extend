@@ -6,6 +6,8 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.industry.service.BusViolationStatsService;
+import com.bms.industry.view.BusViolationStatsCompany;
+import com.bms.industry.view.BusViolationStatsDriver;
 import com.bms.industry.view.BusViolationStatsType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,8 +42,8 @@ public class BusViolationStatsController {
     @ApiOperation("公司违规事件排行")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/companies")
-    public Result<Void> company() {
-        return ok();
+    public Result<List<BusViolationStatsCompany>> company(BusViolationStatsCompany params) throws IllegalAccessException {
+        return ok(busViolationStatsService.company(BeanMapper.toMap(params)));
     }
 
     /**
@@ -60,8 +62,8 @@ public class BusViolationStatsController {
     @ApiOperation("司机违规排行")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/drivers")
-    public Result<Void> driver() {
-        return ok();
+    public Result<List<BusViolationStatsDriver>> driver(BusViolationStatsDriver params) throws IllegalAccessException {
+        return ok(busViolationStatsService.driver(BeanMapper.toMap(params)));
     }
 
     /**

@@ -215,4 +215,45 @@
             order by d.index asc
         ]]>
     </bus_violation_stats_type>
+
+    <bus_violation_stats_company type="sql" desc="事件统计分析-公司违规排行">
+        <![CDATA[
+            select
+                o.name as company,
+                count(*) as num
+            from
+                bus_violations v
+            left join
+                organizations o on o.id = v.org_id
+            where
+                v.is_delete = 0
+            <#if begin?? && end??>
+                and v.time between :begin and :end
+            </#if>
+            group by v.org_id
+            order by num desc
+        ]]>
+    </bus_violation_stats_company>
+
+    <bus_violation_stats_driver type="sql" desc="事件统计分析-司机违规排行">
+        <![CDATA[
+            select
+                p.name as driver,
+                o.name as company,
+                count(*) as num
+            from
+                bus_violations v
+            left join
+                practitioners p on p.id = v.pract_id
+            left join
+                organizations o on o.id = v.org_id
+            where
+                v.is_delete = 0
+            <#if begin?? && end??>
+                and v.time between :begin and :end
+            </#if>
+            group by v.pract_id
+            order by num desc
+        ]]>
+    </bus_violation_stats_driver>
 </mapper>

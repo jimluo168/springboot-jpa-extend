@@ -77,6 +77,14 @@ public interface Constant {
      * 事件统计分析-司机违规排行.
      */
     String MAPPER_BUS_VIOLATION_STATS_TYPE="bus_violation_stats_type";
+    /**
+     * 事件统计分析-公司违规排行.
+     */
+    String MAPPER_BUS_VIOLATION_STATS_COMPANY ="bus_violation_stats_company";
+    /**
+     * 事件统计分析-司机违规排行.
+     */
+    String MAPPER_BUS_VIOLATION_STATS_DRIVER ="bus_violation_stats_driver";
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
