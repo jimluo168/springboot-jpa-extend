@@ -52,8 +52,11 @@ public class OSSController {
             String text = request.getParameter("text");
             String suffix = request.getParameter("suffix");
 
-            String md5 = DigestUtils.md5Hex(text.getBytes());
-            String sha1 = DigestUtils.sha1Hex(text.getBytes());
+            logger.info("text:{} suffix:{}", text, suffix);
+
+            byte[] textData = text.getBytes(StandardCharsets.UTF_8);
+            String md5 = DigestUtils.md5Hex(textData);
+            String sha1 = DigestUtils.sha1Hex(textData);
 
             String fmtday = DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD);
             Path path = Paths.get(ossProperties.getRepo(), dir, fmtday);
@@ -67,9 +70,9 @@ public class OSSController {
             info.setMd5(md5);
             info.setSha1(sha1);
             info.setMimetype("text/" + dir);
-            info.setSize(text.length());
+            info.setSize(textData.length);
 
-            Files.write(dest, text.getBytes());
+            Files.write(dest, textData);
             return ok(info);
         }
         if (request.getContentType().contains(MediaType.MULTIPART_FORM_DATA_VALUE)) {
@@ -151,7 +154,6 @@ public class OSSController {
             if (type == null) {
                 MimetypesFileTypeMap map = new MimetypesFileTypeMap(path.toString());
                 type = map.getContentType(path.toFile());
-                return type;
             }
             return type;
         } catch (IOException e) {

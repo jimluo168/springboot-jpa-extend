@@ -3488,6 +3488,21 @@ ROUTE_TYPE:int:线路类型
         id:long:ID
         name:string:公司名
       violation:int:违规量
+@return:
+  code:int:操作码
+    - 10003:导入数据出错
+    - 10004:导入的数据格式不正确
   success:bool:是否成功
   msg:string:操作提示
+```
+## 事件统计分析
+
+### 违规类型
+
+```yaml
+@get: /industry/busviolationstats/types?begin=:begin&end=:end
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
 ```
