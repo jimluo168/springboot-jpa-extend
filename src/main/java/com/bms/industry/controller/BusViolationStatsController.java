@@ -6,6 +6,7 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.industry.service.BusViolationStatsService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class BusViolationStatsController {
     /**
      * 公司违规事件排行.
      */
+    @ApiOperation("公司违规事件排行")
     @RequiresPermissions("bus_violation_stats")
     @GetMapping("/companies")
     public Result<Void> company() {
@@ -41,6 +43,7 @@ public class BusViolationStatsController {
     /**
      * 违规类型.
      */
+    @ApiOperation("违规类型")
     @RequiresPermissions("bus_violation_stats")
     @GetMapping("/types")
     public Result<Void> type() {
@@ -50,6 +53,7 @@ public class BusViolationStatsController {
     /**
      * 司机违规排行.
      */
+    @ApiOperation("司机违规排行")
     @RequiresPermissions("bus_violation_stats")
     @GetMapping("/drivers")
     public Result<Void> driver() {
@@ -59,6 +63,7 @@ public class BusViolationStatsController {
     /**
      * 全部违规行为统计(周、月、年)-周.
      */
+    @ApiOperation("全部违规行为统计(周、月、年)-周")
     @RequiresPermissions("bus_violation_stats")
     @GetMapping("/weeks")
     public Result<Void> week() {
@@ -68,6 +73,7 @@ public class BusViolationStatsController {
     /**
      * 全部违规行为统计(周、月、年)-月.
      */
+    @ApiOperation("全部违规行为统计(周、月、年)-月")
     @RequiresPermissions("bus_violation_stats")
     @GetMapping("/months")
     public Result<Void> moth() {
@@ -77,6 +83,7 @@ public class BusViolationStatsController {
     /**
      * 全部违规行为统计(周、月、年)-年.
      */
+    @ApiOperation("全部违规行为统计(周、月、年)-年")
     @RequiresPermissions("bus_violation_stats")
     @GetMapping("/years")
     public Result<Void> year() {
