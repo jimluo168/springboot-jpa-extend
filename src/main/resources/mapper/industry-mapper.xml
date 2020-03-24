@@ -81,7 +81,7 @@
             from BusTerminal b
             where deleted = 0
             <#if name?? && name!=''>
-                and b.name like '%'||:name'%'||
+                and b.name like '%'||:name||'%'
             </#if>
             <#if code?? && code!=''>
                 and b.code like '%'||:code||'%'
