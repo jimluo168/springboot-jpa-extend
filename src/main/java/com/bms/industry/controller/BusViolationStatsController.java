@@ -34,7 +34,7 @@ public class BusViolationStatsController {
      * 公司违规事件排行.
      */
     @ApiOperation("公司违规事件排行")
-    @RequiresPermissions("bus_violation_stats")
+    @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/companies")
     public Result<Void> company() {
         return ok();
@@ -44,7 +44,7 @@ public class BusViolationStatsController {
      * 违规类型.
      */
     @ApiOperation("违规类型")
-    @RequiresPermissions("bus_violation_stats")
+    @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/types")
     public Result<Void> type() {
         return ok();
@@ -54,7 +54,7 @@ public class BusViolationStatsController {
      * 司机违规排行.
      */
     @ApiOperation("司机违规排行")
-    @RequiresPermissions("bus_violation_stats")
+    @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/drivers")
     public Result<Void> driver() {
         return ok();
@@ -64,7 +64,7 @@ public class BusViolationStatsController {
      * 全部违规行为统计(周、月、年)-周.
      */
     @ApiOperation("全部违规行为统计(周、月、年)-周")
-    @RequiresPermissions("bus_violation_stats")
+    @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/weeks")
     public Result<Void> week() {
         return ok();
@@ -74,7 +74,7 @@ public class BusViolationStatsController {
      * 全部违规行为统计(周、月、年)-月.
      */
     @ApiOperation("全部违规行为统计(周、月、年)-月")
-    @RequiresPermissions("bus_violation_stats")
+    @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/months")
     public Result<Void> moth() {
         return ok();
@@ -84,7 +84,7 @@ public class BusViolationStatsController {
      * 全部违规行为统计(周、月、年)-年.
      */
     @ApiOperation("全部违规行为统计(周、月、年)-年")
-    @RequiresPermissions("bus_violation_stats")
+    @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/years")
     public Result<Void> year() {
         return ok();
