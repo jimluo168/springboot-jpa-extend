@@ -3445,7 +3445,7 @@ ROUTE_TYPE:int:线路类型
 
 ### 23.1. 公司违规信息统计
 ```ymal
-@get:/busviolation/stats/organization
+@get:/stats/busviolation/organization
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -3468,7 +3468,7 @@ ROUTE_TYPE:int:线路类型
 
 ### 23.2. 司机违规信息排行
 ```ymal
-@get:/busviolation/stats/practitioner
+@get:/stats/busviolation/practitioner
 
 @header:
   X-User-Agent:手机信息(必须)
