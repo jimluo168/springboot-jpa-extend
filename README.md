@@ -3488,10 +3488,6 @@ ROUTE_TYPE:int:线路类型
         id:long:ID
         name:string:公司名
       violation:int:违规量
-@return:
-  code:int:操作码
-    - 10003:导入数据出错
-    - 10004:导入的数据格式不正确
   success:bool:是否成功
   msg:string:操作提示
 ```
