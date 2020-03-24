@@ -1,16 +1,20 @@
 package com.bms.industry.controller;
 
 import com.bms.common.domain.Result;
+import com.bms.common.util.BeanMapper;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.industry.service.BusViolationStatsService;
+import com.bms.industry.view.BusViolationStatsType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import static com.bms.common.domain.Result.ok;
 
@@ -46,8 +50,8 @@ public class BusViolationStatsController {
     @ApiOperation("违规类型")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/types")
-    public Result<Void> type() {
-        return ok();
+    public Result<List<BusViolationStatsType>> type(BusViolationStatsType params) throws IllegalAccessException {
+        return ok(busViolationStatsService.type(BeanMapper.toMap(params)));
     }
 
     /**

@@ -73,6 +73,10 @@ public interface Constant {
      * 违规信息管理-分页查询.
      */
     String MAPPER_BUS_VIOLATION_PAGE = "bus_violation_page";
+    /**
+     * 事件统计分析-司机违规排行.
+     */
+    String MAPPER_BUS_VIOLATION_STATS_TYPE="bus_violation_stats_type";
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/

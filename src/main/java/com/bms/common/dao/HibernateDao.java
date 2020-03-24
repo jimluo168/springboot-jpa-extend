@@ -14,6 +14,9 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.query.internal.NativeQueryImpl;
+import org.hibernate.transform.ResultTransformer;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -80,6 +83,10 @@ public class HibernateDao {
             query.setMaxResults(maxResult);
         }
 
+        if (cmd.getResultClass() != null) {
+            query.setResultTransformer(getTransformerAdapter(cmd.getResultClass()));
+        }
+
         return query.list();
     }
 
@@ -113,8 +120,8 @@ public class HibernateDao {
                     queryString = queryString + " order by " + cmd.getOrderString();
                 }
             }
-            query = session.createQuery(queryString);
 
+            query = session.createQuery(queryString);
         } else if (SQL.equals(queryType)) {
 
             String queryString = processTemplate(cmd);
@@ -125,6 +132,7 @@ public class HibernateDao {
                     queryString = queryString + " order by " + cmd.getOrderString();
                 }
             }
+
             query = session.createNativeQuery(queryString);
         } else {
             logger.error("Unknown query type: " + queryType);
@@ -271,5 +279,15 @@ public class HibernateDao {
     protected String getQueryType(DaoCmd cmd) {
         String key = buildQueryKeyType(cmd);
         return queryFileKeyMap.get(key);
+    }
+
+    /**
+     * 将class转换为ResultTransformer.
+     *
+     * @param clazz
+     * @return
+     */
+    public ResultTransformer getTransformerAdapter(Class clazz) {
+        return Map.class.isAssignableFrom(clazz) ? Transformers.ALIAS_TO_ENTITY_MAP : BeanTransformerAdapter.newInstance(clazz);
     }
 }
