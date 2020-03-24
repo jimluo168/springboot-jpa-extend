@@ -3441,7 +3441,56 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
+## 23. 违规信息统计
 
+### 23.1. 公司违规信息统计
+```ymal
+@get:/stats/busviolation/organization
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:array<object>:
+    organization:object:公司信息
+      id:long:ID
+      name:string:公司名
+    violation:int:违规量
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 23.2. 司机违规信息排行
+```ymal
+@get:/stats/busviolation/practitioner
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:array<object>:
+    practitioner:object:司机信息
+      id:long:ID
+      name:string:司机名
+      organization:object:公司信息
+        id:long:ID
+        name:string:公司名
+      violation:int:违规量
+  success:bool:是否成功
+  msg:string:操作提示
+```
 ## 事件统计分析
 
 ### 违规类型
@@ -3453,9 +3502,16 @@ ROUTE_TYPE:int:线路类型
   X-User-Agent:手机信息(必须)
   Authorization:token令牌
 
+@params:
+  begin:date:开始日期
+  end:date:结束日期
+
 @return:
   code:int:操作码
-  data:
+  data:array<object>:统计信息
+    type:int:违规类型
+    text:string:违规类型文字说明
+    num:int:违规数量
   success:bool:是否成功
-  msg:string:操作提示
+  msg:string:操作提示  
 ```
