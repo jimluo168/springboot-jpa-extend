@@ -35,7 +35,7 @@
                 and o.licNo like '%'||:licNo||'%'
             </#if>
             <#if fuelType??>
-                and o.fuelType = '%'||:fuelType
+                and o.fuelType = :fuelType
             </#if>
             <#if vin??&& vin!=''>
                 and o.vin = :vin
