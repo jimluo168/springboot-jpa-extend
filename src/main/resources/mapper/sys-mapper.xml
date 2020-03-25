@@ -42,7 +42,7 @@
                 and u.realName like '%'||:realName||'%'
             </#if>
             <#if organization?? && organization.name!=''>
-                and u.organization.name like '%'||:organization.name||'%'
+                and u.organization.name like '%${organization.name}%'
             </#if>
             <#if status!= -1>
                 and u.status = :status
