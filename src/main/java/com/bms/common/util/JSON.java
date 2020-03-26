@@ -23,7 +23,7 @@ public abstract class JSON {
     static {
         mapper = new ObjectMapper();
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        mapper.setDateFormat(new SimpleDateFormat(WebMvcConfig.DATE_FMT));
+        mapper.setDateFormat(new SimpleDateFormat(WebMvcConfig.DATE_FMT_UTC));
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);

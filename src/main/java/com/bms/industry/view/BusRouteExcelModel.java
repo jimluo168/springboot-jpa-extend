@@ -5,10 +5,14 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.bms.ErrorCodes;
+import com.bms.common.util.DateUtil;
 import com.bms.entity.Organization;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -56,17 +60,20 @@ public class BusRouteExcelModel {
     /**
      * 首班时间.
      */
-    @DateTimeFormat("HH:mm")
+    @ExcelIgnore
+    private Date startTime;
     @ColumnWidth(30)
     @ExcelProperty(value = "首班时间", index = 4)
-    private Date startTime;
+    private String startTimeText;
+
     /**
      * 末班时间.
      */
-    @DateTimeFormat("HH:mm")
+    private Date lastTime;
+
     @ColumnWidth(30)
     @ExcelProperty(value = "末班时间", index = 5)
-    private Date lastTime;
+    private String lastTimeText;
     /**
      * 状态(1=待审核 2=通过审核 3=未通过审核).
      */
@@ -75,6 +82,42 @@ public class BusRouteExcelModel {
     @ColumnWidth(15)
     @ExcelProperty(value = "状态", index = 6)
     private String statusText;
+
+    public Date getStartTime() {
+        if (StringUtils.isBlank(startTimeText)) {
+            return null;
+        }
+        try {
+            return DateUtils.parseDate(startTimeText, "HH:mm");
+        } catch (ParseException e) {
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "首班时间格式错误");
+        }
+    }
+
+    public String getStartTimeText() {
+        if (startTime == null) {
+            return "";
+        }
+        return DateFormatUtils.format(DateUtil.utc2gmt8(startTime), "HH:mm");
+    }
+
+    public Date getLastTime() {
+        if (StringUtils.isBlank(lastTimeText)) {
+            return null;
+        }
+        try {
+            return DateUtils.parseDate(lastTimeText, "HH:mm");
+        } catch (ParseException e) {
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "首班时间格式错误");
+        }
+    }
+
+    public String getLastTimeText() {
+        if (lastTime == null) {
+            return "";
+        }
+        return DateFormatUtils.format(DateUtil.utc2gmt8(lastTime), "HH:mm");
+    }
 
     public String getDirectionText() {
         return startSite + "—" + endSite;
