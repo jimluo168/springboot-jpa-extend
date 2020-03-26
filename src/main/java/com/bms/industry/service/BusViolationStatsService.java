@@ -73,6 +73,7 @@ public class BusViolationStatsService {
             params.put("begin", begin);
             params.put("end", end2);
             List<BusViolationStatsWeek> dayList = hibernateDao.getList(new DaoCmd(Constant.MAPPER_BUS_VIOLATION_STATS_WEEK, params, BusViolationStatsWeek.class));
+            begin = new Date(end2.getTime() + 1);
             if (dayList == null || dayList.isEmpty()) {
                 legendData.forEach(o -> {
                     BusViolationStatsEchartView.Series evs = seriesMap.get(o);
@@ -109,7 +110,7 @@ public class BusViolationStatsService {
                 }
                 evs.getData().add(arw.getNum());
             });
-            begin = end2;
+
         }
 
         legendData.forEach(o -> {

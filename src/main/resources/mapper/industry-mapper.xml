@@ -203,15 +203,15 @@
             order by o.createDate desc
         ]]>
     </bus_violation_page>
-    <bus_violation_stats_type type="sql" desc="事件统计分析-司机违规排行">
+    <bus_violation_stats_type type="sql" desc="事件统计分析-违规类型">
         <![CDATA[
-            select v.type as type, d.text as text, count(*) as num
+             select v.type as type, d.text as text, count(*) as num
             from bus_violations v
             left join
-                (select text,value from sys_dict where code = 'VIOLATION_TYPE_CHILD') d
+                (select text,value,`index` from sys_dict where code = 'VIOLATION_TYPE_CHILD') d
             on d.value = v.type
             where v.is_delete = 0
-            <#if begin?? && end??>
+             <#if begin?? && end??>
                 and v.time between :begin and :end
             </#if>
             group by type
@@ -265,14 +265,14 @@
             select v.type, d.text, count(*) as num
             from bus_violations v
             left join
-                (select text,value from sys_dict where code = 'VIOLATION_TYPE_CHILD') d
+                (select text,value,`index` from sys_dict where code = 'VIOLATION_TYPE_CHILD') d
             on d.value = v.type
             where v.is_delete = 0
             <#if begin?? && end??>
                 and v.time between :begin and :end
             </#if>
             group by v.type
-            order by num desc
+            order by d.index asc
         ]]>
     </bus_violation_stats_week>
 </mapper>
