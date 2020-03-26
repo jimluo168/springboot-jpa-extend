@@ -49,16 +49,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     public static final String DATE_FMT_DEFAULT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     public static final String DATE_FMT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    public static final String DATE_FMT;
 
-    static {
-        String tz = TimeZone.getDefault().getID();
-        String format = DATE_FMT_DEFAULT;
-        if ("Etc/UTC".equals(tz) || "UTC".equals(tz) || "GMT".equals(tz) || "GMT-00:00".equals(tz) || "GMT+00:00".equals(tz)) {
-            format = DATE_FMT_UTC;
-        }
-        DATE_FMT = DATE_FMT_UTC;
-    }
 
     private final ISessionManager sessionManager;
 
@@ -85,7 +76,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
         ObjectMapper mapper = builder.createXmlMapper(false).build();
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        mapper.setDateFormat(new SimpleDateFormat(WebMvcConfig.DATE_FMT));
+        mapper.setDateFormat(new SimpleDateFormat(DATE_FMT_UTC));
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
@@ -139,9 +130,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     return null;
                 }
                 try {
-                    return DateUtils.parseDate(source, DATE_FMT_DEFAULT, DATE_FMT_UTC);
+                    return DateUtils.parseDate(source, DATE_FMT_UTC);
                 } catch (ParseException e) {
-                    logger.error("Parse Date error,source:" + source + " date format:" + DATE_FMT, e);
+                    logger.error("Parse Date error,source:" + source + " date format:" + DATE_FMT_UTC, e);
                 }
                 return null;
             }
