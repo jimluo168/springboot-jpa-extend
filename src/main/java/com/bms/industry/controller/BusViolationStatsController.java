@@ -78,6 +78,7 @@ public class BusViolationStatsController {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.DAY_OF_MONTH, -7);
         params.setBegin(calendar.getTime());
         params.setEnd(now);
@@ -95,6 +96,7 @@ public class BusViolationStatsController {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.MONTH, -1);
         params.setBegin(calendar.getTime());
         params.setEnd(now);

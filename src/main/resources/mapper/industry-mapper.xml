@@ -207,7 +207,9 @@
         <![CDATA[
             select v.type as type, d.text as text, count(*) as num
             from bus_violations v
-            left join sys_dict d on d.id = v.type
+            left join
+                (select text,value from sys_dict where code = 'VIOLATION_TYPE_CHILD') d
+            on d.value = v.type
             where v.is_delete = 0
             <#if begin?? && end??>
                 and v.time between :begin and :end
