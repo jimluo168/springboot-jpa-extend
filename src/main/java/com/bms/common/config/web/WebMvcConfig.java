@@ -57,7 +57,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         if ("Etc/UTC".equals(tz) || "UTC".equals(tz) || "GMT".equals(tz) || "GMT-00:00".equals(tz) || "GMT+00:00".equals(tz)) {
             format = DATE_FMT_UTC;
         }
-        DATE_FMT = format;
+        DATE_FMT = DATE_FMT_UTC;
     }
 
     private final ISessionManager sessionManager;
