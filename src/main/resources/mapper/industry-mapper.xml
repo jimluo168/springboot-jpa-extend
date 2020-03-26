@@ -123,7 +123,7 @@
             <#if province?? && province!=''>
                 and b.province = :province
             </#if>
-            <#if city?? && code!=''>
+            <#if city?? && city!=''>
                 and b.city = :city
             </#if>
             <#if county?? && county!=''>

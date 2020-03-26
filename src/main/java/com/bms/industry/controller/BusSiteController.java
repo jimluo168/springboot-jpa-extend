@@ -114,11 +114,10 @@ public class BusSiteController {
                 BusSiteExcelModel bs = new BusSiteExcelModel();
                 BeanUtils.copyProperties(o, bs);
                 System.out.println(o.getId().toString());
-                System.out.println(o.getLatitude());
                 data.add(bs);
             });
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD));
-            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+            EasyExcel.write(response.getOutputStream(), BusSiteExcelModel.class)
                     .autoCloseStream(Boolean.FALSE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet()

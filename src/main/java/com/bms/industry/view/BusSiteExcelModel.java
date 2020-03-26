@@ -3,16 +3,11 @@ package com.bms.industry.view;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
-import com.bms.common.domain.BaseEntity;
+import com.bms.ErrorCodes;
 import com.bms.entity.BusSite;
 import com.bms.entity.Organization;
-import com.bms.industry.controller.BusSiteController;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.math.BigDecimal;
 
 /**
  * 公交站点导出excel的model
@@ -21,8 +16,7 @@ import java.math.BigDecimal;
  * @date 2020/3/18
  */
 @Data
-public class BusSiteExcelModel extends BaseEntity {
-    private static final Logger logger = LoggerFactory.getLogger(BusSiteExcelModel.class);
+public class BusSiteExcelModel {
 
     @ColumnWidth(50)
     @ExcelProperty(value = "站点名称", index = 0)
@@ -87,9 +81,8 @@ public class BusSiteExcelModel extends BaseEntity {
      * @return
      */
     public String getRegion() {
-        return StringUtils.replace(
-                StringUtils.join(new String[]{province, city, county, address}, ""),
-                "null", "");
+        String region = StringUtils.replace(StringUtils.join(new String[]{province, city, county, address}, ""), "null", "");
+        return region;
     }
 
     public String getProvince() {
@@ -115,8 +108,62 @@ public class BusSiteExcelModel extends BaseEntity {
         return "";
     }
 
+    public String getCounty() {
+        if (StringUtils.isBlank(region)) {
+            return "";
+        }
+        if (region.contains("区") || region.contains("县")) {
+            int begin = region.indexOf("市");
+            int end1 = region.indexOf("区");
+            int end2 = region.indexOf("县");
+            return region.substring(begin + 1, (end1 > -1 ? end1 : end2) + 1);
+        }
+        return "";
+    }
+
     public String getLongitudeAndLatitude() {
-        return longitude.toString()+ "," + latitude.toString();
+        if(longitude == null || latitude == null){
+            return "";
+        }
+        return longitude.toString() + "," + latitude.toString();
+    }
+
+    public Float getLongitude(){
+        if(longitudeAndLatitude==null){
+            return null;
+        }
+        String[] str = longitudeAndLatitude.split(",");
+        if(str.length < 1){
+            return null;
+        }
+        return Float.valueOf(str[0]);
+    }
+
+    public Float getLatitude(){
+        if(longitudeAndLatitude == null){
+            return null;
+        }
+        String[] str = longitudeAndLatitude.split(",");
+        if(str.length < 1){
+            return null;
+        }
+        return Float.valueOf(str[1]);
+    }
+
+    public Integer getStatus() {
+        if (StringUtils.isBlank(statusText)) {
+            return -1;
+        }
+        if (StringUtils.equals(statusText, "待审核")) {
+            return Organization.STATUS_TO_BE_AUDIT;
+        }
+        if (StringUtils.equals(statusText, "已通过")) {
+            return Organization.STATUS_PASS_AUDIT;
+        }
+        if (StringUtils.equals(statusText, "未通过")) {
+            return Organization.STATUS_UN_AUDIT;
+        }
+        throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR);
     }
 
     public String getStatusText() {
