@@ -1810,6 +1810,7 @@ File->Preferences->Editor->File and Code Templates->File Header
       car_help:int:是否助力(1=是  0=否)
       engine:int:前后置发动机(1=前  2=后)
       air_condition:int:是否空调(1=是  0=否)
+      code:string:车辆编号
       <font color=red>添加字段-结束</font>
       card_time:date:上牌时间
       sim:string:SIM卡号
@@ -1867,6 +1868,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   car_help:int:是否助力(1=是  0=否)
   engine:int:前后置发动机(1=前  2=后)
   air_condition:int:是否空调(1=是  0=否)
+  code:string:车辆编号
   <font color=red>添加字段-结束</font>
   card_time:date:上牌时间
   sim:string:SIM卡号
@@ -1923,6 +1925,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   car_help:int:是否助力(1=是  0=否)
   engine:int:前后置发动机(1=前  2=后)
   air_condition:int:是否空调(1=是  0=否)
+  code:string:车辆编号
   <font color=red>添加字段-结束</font>
   card_time:date:上牌时间
   sim:string:SIM卡号
@@ -2004,6 +2007,7 @@ File->Preferences->Editor->File and Code Templates->File Header
     car_help:int:是否助力(1=是  0=否)
     engine:int:前后置发动机(1=前  2=后)
     air_condition:int:是否空调(1=是  0=否)
+    code:string:车辆编号
     <font color=red>添加字段-结束</font>
     card_time:date:上牌时间
     sim:string:SIM卡号
@@ -3178,6 +3182,7 @@ ROUTE_TYPE:int:线路类型
         id:long:ID
         lic_no:string:车牌号
         veh_type:string:车辆型号
+        code:string:车辆编号
         organization:object:企业信息
           id:long:ID
           name:string:企业名称
@@ -3189,6 +3194,7 @@ ROUTE_TYPE:int:线路类型
           id:long:ID
           name:string:线路名称
       veh_type:string:车辆型号(车辆信息的veh_type)
+      veh_code:string:车辆编号(车辆信息的code)
       bus_route:object:线路信息
         id:long:ID
         name:string:线路名称
@@ -3257,7 +3263,9 @@ ROUTE_TYPE:int:线路类型
     id:long:ID
     lic_no:string:车牌号
     veh_type:string:车辆型号
+    code:string:车辆编号
   veh_type:string:车辆型号(车辆信息的veh_type)
+  veh_code:string:车辆编号(车辆信息的code)
   bus_route:object:线路信息
     id:long:ID
     name:string:线路名称
@@ -3352,6 +3360,7 @@ ROUTE_TYPE:int:线路类型
       id:long:ID
       lic_no:string:车牌号
       veh_type:string:车辆型号
+      code:string:车辆编号
       organization:object:企业信息
         id:long:ID
         name:string:企业名称
@@ -3363,6 +3372,7 @@ ROUTE_TYPE:int:线路类型
         id:long:ID
         name:string:线路名称
     veh_type:string:车辆型号(车辆信息的veh_type)
+    veh_code:string:车辆编号(车辆信息的code)
     bus_route:object:线路信息
       id:long:ID
       name:string:线路名称

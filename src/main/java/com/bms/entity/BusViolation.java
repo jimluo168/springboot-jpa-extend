@@ -55,6 +55,10 @@ public class BusViolation extends BaseEntity {
      */
     private String vehType;
     /**
+     * 车辆编号.
+     */
+    private String vehCode;
+    /**
      * 线路.
      */
     @ManyToOne

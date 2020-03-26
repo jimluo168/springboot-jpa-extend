@@ -43,6 +43,10 @@ public abstract class VehicleCommon extends BaseEntity {
     @Column(length = 50)
     private String licNo;
     /**
+     * 车辆编号.
+     */
+    private String code;
+    /**
      * VIN码.
      */
     @Column(length = 100)
