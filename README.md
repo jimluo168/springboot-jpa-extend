@@ -3152,6 +3152,8 @@ ROUTE_TYPE:int:线路类型
   type:int:违规行为
   begin:date:开始时间
   end:date:结束时间
+  status:int:状态(1:处理中 2:已处理)
+
 
 @return:
   code:int:操作码
@@ -3212,10 +3214,30 @@ ROUTE_TYPE:int:线路类型
       transactor:object:处理人信息
         id:long:处理人ID
         real_name:string:真实姓名
-      attachs:string:附件 多个以英文 , 号隔开
+      attachs:string:附件 json字符串 格式参看:attachs:string:附件说明
       status:int:状态(1:处理中 2:已处理)
   success:bool:是否成功
   msg:string:操作提示
+```
+
+#### attachs:string:附件说明
+
+```json
+[{
+  "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "filename": "/html/20200325/8eb73eac323849e6a9150ffbe35cf67d.xlsx",
+  "originalname": "20200316.xlsx",
+  "size": "3857",
+  "sha1": "27ebcf0f1f645ca3b00c7f63254439191d44418b",
+  "md5": "8eb73eac323849e6a9150ffbe35cf67d"
+},{
+  "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "filename": "/html/20200325/8eb73eac323849e6a9150ffbe35cf67d.xlsx",
+  "originalname": "20200325.xlsx",
+  "size": "3857",
+  "sha1": "27ebcf0f1f645ca3b00c7f63254439191d44418b",
+  "md5": "8eb73eac323849e6a9150ffbe35cf67d"
+}]
 ```
 
 ### 22.2. 违规信息管理-新增
@@ -3261,7 +3283,7 @@ ROUTE_TYPE:int:线路类型
   transactor:object:处理人信息
     id:long:处理人ID
     real_name:string:真实姓名
-  attachs:string:附件 多个以英文 , 号隔开
+  attachs:string:附件 json字符串 格式参看:attachs:string:附件说明
 @return:
   code:int:操作码
   data:object:返回机构信息
@@ -3289,7 +3311,7 @@ ROUTE_TYPE:int:线路类型
   transactor:object:处理人信息
     id:long:处理人ID
     real_name:string:真实姓名
-  attachs:string:附件 多个以英文 , 号隔开
+  attachs:string:附件 json字符串 格式参看:attachs:string:附件说明
   
 @return:
   code:int:操作码
@@ -3366,7 +3388,7 @@ ROUTE_TYPE:int:线路类型
     transactor:object:处理人信息
       id:long:处理人ID
       real_name:string:真实姓名
-    attachs:string:附件 多个以英文 , 号隔开
+    attachs:string:附件 json字符串 格式参看:attachs:string:附件说明
     status:int:状态(1:处理中 2:已处理)
   success:bool:是否成功
   msg:string:操作提示
@@ -3441,7 +3463,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-## 23. 违规信息统计
+## 23. 事件统计分析
 
 ### 23.1. 公司违规信息统计
 ```yaml
@@ -3485,9 +3507,9 @@ ROUTE_TYPE:int:线路类型
   success:bool:是否成功
   msg:string:操作提示
 ```
-## 事件统计分析
 
-### 违规类型
+
+### 23.3. 违规类型
 
 ```yaml
 @get: /industry/busviolationstats/types?begin=:begin&end=:end
@@ -3508,4 +3530,67 @@ ROUTE_TYPE:int:线路类型
     num:int:违规数量
   success:bool:是否成功
   msg:string:操作提示  
+```
+
+### 全部违规行为统计(周、月、年)-周
+
+```yaml
+@get: /industry/busviolationstats/weeks
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    legend_data:array<string>:类型数组
+    series:array<object>:序列
+      name:string:违规类型
+      data:array<int>:违规数量
+  success:bool:是否成功
+  msg:string:操作提示  
+
+```
+
+### 全部违规行为统计(周、月、年)-月
+
+```yaml
+@get: /industry/busviolationstats/months
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    legend_data:array<string>:类型数组
+    series:array<object>:序列
+      name:string:违规类型
+      data:array<int>:违规数量
+  success:bool:是否成功
+  msg:string:操作提示  
+
+```
+
+### 全部违规行为统计(周、月、年)-年
+
+```yaml
+@get: /industry/busviolationstats/years
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    legend_data:array<string>:类型数组
+    series:array<object>:序列
+      name:string:违规类型
+      data:array<int>:违规数量
+  success:bool:是否成功
+  msg:string:操作提示  
+
 ```

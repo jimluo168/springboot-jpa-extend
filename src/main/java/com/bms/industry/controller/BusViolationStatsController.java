@@ -6,16 +6,17 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.industry.service.BusViolationStatsService;
-import com.bms.industry.view.BusViolationStatsCompany;
-import com.bms.industry.view.BusViolationStatsDriver;
-import com.bms.industry.view.BusViolationStatsType;
+import com.bms.industry.view.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.bms.common.domain.Result.ok;
@@ -72,8 +73,15 @@ public class BusViolationStatsController {
     @ApiOperation("全部违规行为统计(周、月、年)-周")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/weeks")
-    public Result<Void> week() {
-        return ok();
+    public Result<BusViolationStatsEchartView> week() throws IllegalAccessException {
+        BusViolationStatsWeek params = new BusViolationStatsWeek();
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
+        calendar.add(Calendar.DAY_OF_MONTH, -7);
+        params.setBegin(calendar.getTime());
+        params.setEnd(now);
+        return ok(busViolationStatsService.week(BeanMapper.toMap(params)));
     }
 
     /**
@@ -82,8 +90,15 @@ public class BusViolationStatsController {
     @ApiOperation("全部违规行为统计(周、月、年)-月")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/months")
-    public Result<Void> moth() {
-        return ok();
+    public Result<BusViolationStatsEchartView> moth() throws IllegalAccessException {
+        BusViolationStatsWeek params = new BusViolationStatsWeek();
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
+        calendar.add(Calendar.MONTH, -1);
+        params.setBegin(calendar.getTime());
+        params.setEnd(now);
+        return ok(busViolationStatsService.month(BeanMapper.toMap(params)));
     }
 
     /**
@@ -92,7 +107,17 @@ public class BusViolationStatsController {
     @ApiOperation("全部违规行为统计(周、月、年)-年")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/years")
-    public Result<Void> year() {
-        return ok();
+    public Result<BusViolationStatsEchartView> year() throws IllegalAccessException {
+        BusViolationStatsWeek params = new BusViolationStatsWeek();
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.add(Calendar.MONTH, -11);
+        calendar.setTime(calendar.getTime());
+        calendar.set(Calendar.DAY_OF_MONTH, 0);
+        params.setBegin(calendar.getTime());
+        params.setEnd(now);
+        return ok(busViolationStatsService.year(BeanMapper.toMap(params)));
     }
 }

@@ -205,7 +205,8 @@
     </bus_violation_page>
     <bus_violation_stats_type type="sql" desc="事件统计分析-司机违规排行">
         <![CDATA[
-            select v.type as type, d.text as text, count(*) as num from bus_violations v
+            select v.type as type, d.text as text, count(*) as num
+            from bus_violations v
             left join sys_dict d on d.id = v.type
             where v.is_delete = 0
             <#if begin?? && end??>
@@ -256,4 +257,20 @@
             order by num desc
         ]]>
     </bus_violation_stats_driver>
+
+    <bus_violation_stats_week type="sql" desc="事件统计分析-全部违规行为统计(周、月、年)-周">
+        <![CDATA[
+            select v.type, d.text, count(*) as num
+            from bus_violations v
+            left join
+                (select text,value from sys_dict where code = 'VIOLATION_TYPE_CHILD') d
+            on d.value = v.type
+            where v.is_delete = 0
+            <#if begin?? && end??>
+                and v.time between :begin and :end
+            </#if>
+            group by v.type
+            order by num desc
+        ]]>
+    </bus_violation_stats_week>
 </mapper>
