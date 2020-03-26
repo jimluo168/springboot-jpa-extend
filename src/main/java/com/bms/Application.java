@@ -18,8 +18,10 @@ import java.util.TimeZone;
 public class Application {
 
     public static void main(String[] args) {
-        System.setProperty("user.timezone", "GMT+8");
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+//        System.setProperty("user.timezone", "GMT+8");
+//        TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+        System.setProperty("user.timezone", "UTC");
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         SpringApplication.run(Application.class, args);
     }
 }
