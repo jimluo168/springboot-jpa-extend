@@ -53,7 +53,7 @@ public abstract class BusRouteCommon extends BaseEntity {
      */
     private String code;
     /**
-     * 线路类型.
+     * 线路类型(字典表 ROUTE_TYPE).
      */
     private Integer type;
     /**
