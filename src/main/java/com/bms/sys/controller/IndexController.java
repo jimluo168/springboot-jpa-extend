@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static com.bms.common.domain.Result.ok;
 
 /**
@@ -60,7 +63,18 @@ public class IndexController {
         ISession session = sessionManager.createSession(info.getId());
         session.setAttribute(SessionInfo.CACHE_SESSION_KEY, info);
         // 保存权限到缓存
-        session.setAttribute(SessionInfo.CACHE_PERMISSION_KEY, JSON.toJSONString(menuService.findPermissionCodeByUserId(info.getId())));
+        Set<String> set = menuService.findPermissionCodeByUserId(info.getId());
+        Set<String> singleSet = new HashSet<>();
+        for (String s : set) {
+            if (!s.contains(",")) {
+                singleSet.add(s);
+                continue;
+            }
+            for (String ss : s.split(",")) {
+                singleSet.add(ss);
+            }
+        }
+        session.setAttribute(SessionInfo.CACHE_PERMISSION_KEY, JSON.toJSONString(singleSet));
 
         // 设置头信息
         response.addHeader(AuthenticationInterceptor.HTTP_HEAD_AUTH, session.getSessionId());
