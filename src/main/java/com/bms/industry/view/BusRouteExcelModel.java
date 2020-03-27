@@ -69,8 +69,8 @@ public class BusRouteExcelModel {
     /**
      * 末班时间.
      */
+    @ExcelIgnore
     private Date lastTime;
-
     @ColumnWidth(30)
     @ExcelProperty(value = "末班时间", index = 5)
     private String lastTimeText;
@@ -88,7 +88,7 @@ public class BusRouteExcelModel {
             return null;
         }
         try {
-            return DateUtils.parseDate(startTimeText, "HH:mm");
+            return DateUtil.gmt82utc(DateUtils.parseDate(startTimeText, "HH:mm"));
         } catch (ParseException e) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "首班时间格式错误");
         }
@@ -106,7 +106,7 @@ public class BusRouteExcelModel {
             return null;
         }
         try {
-            return DateUtils.parseDate(lastTimeText, "HH:mm");
+            return DateUtil.gmt82utc(DateUtils.parseDate(lastTimeText, "HH:mm"));
         } catch (ParseException e) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "首班时间格式错误");
         }

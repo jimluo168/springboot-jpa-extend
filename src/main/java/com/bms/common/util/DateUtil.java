@@ -22,4 +22,11 @@ public class DateUtil {
         calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 8);
         return calendar.getTime();
     }
+
+    public static Date gmt82utc(Date gmt8Date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(gmt8Date);
+        calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) - 8);
+        return calendar.getTime();
+    }
 }

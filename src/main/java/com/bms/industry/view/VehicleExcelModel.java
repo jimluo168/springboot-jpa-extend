@@ -7,6 +7,7 @@ import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.bms.Constant;
 import com.bms.DictConstant;
 import com.bms.ErrorCodes;
+import com.bms.common.util.DateUtil;
 import com.bms.entity.BusRoute;
 import com.bms.entity.Dictionary;
 import com.bms.entity.Organization;
@@ -28,13 +29,24 @@ import java.util.concurrent.atomic.AtomicReference;
  * @date 2020/3/19
  */
 @Data
-@RequiredArgsConstructor
 public class VehicleExcelModel {
 
-    private final BusRouteService busRouteService;
-    private final OrganizationService organizationService;
-    private final DictService dictService;
+    @ExcelIgnore
+    private BusRouteService busRouteService;
+    @ExcelIgnore
+    private OrganizationService organizationService;
+    @ExcelIgnore
+    private DictService dictService;
 
+    public VehicleExcelModel() {
+        this(null, null, null);
+    }
+
+    public VehicleExcelModel(BusRouteService busRouteService, OrganizationService organizationService, DictService dictService) {
+        this.busRouteService = busRouteService;
+        this.organizationService = organizationService;
+        this.dictService = dictService;
+    }
 
     /**
      * 车牌号.
@@ -47,7 +59,7 @@ public class VehicleExcelModel {
      */
     @ExcelIgnore
     private Organization organization;
-    @ColumnWidth(80)
+    @ColumnWidth(50)
     @ExcelProperty(value = "所属企业", index = 1)
     private String orgName;
     /**
@@ -73,10 +85,12 @@ public class VehicleExcelModel {
     /**
      * 上牌时间.
      */
+    @ExcelIgnore
+    private Date cardTime;
     @ColumnWidth(40)
     @DateTimeFormat(Constant.DATE_FORMAT_YYYY_MM_DD)
-    @ExcelProperty(value = "燃料类型", index = 5)
-    private Date cardTime;
+    @ExcelProperty(value = "上牌时间", index = 5)
+    private Date cardTimeGMT8;
     /**
      * 座位数量.
      */
@@ -94,7 +108,10 @@ public class VehicleExcelModel {
     /**
      * 状态(1:待审核 2:通过审核 3:未通过审核).
      */
+    @ExcelIgnore
     private Integer status;
+    @ColumnWidth(20)
+    @ExcelProperty(value = "状态", index = 8)
     private String statusText;
 
     public Organization getOrganization() {
@@ -123,13 +140,14 @@ public class VehicleExcelModel {
         if (list == null || list.isEmpty()) {
             return "";
         }
-        AtomicReference<String> rs = new AtomicReference<>("");
-        list.forEach(o -> {
-            if (StringUtils.equals(o.getValue(), fuelType.toString())) {
-                rs.set(o.getValue());
+        String text = "";
+        for (Dictionary dict : list) {
+            if (StringUtils.equals(dict.getValue(), fuelType.toString())) {
+                text = dict.getText();
+                break;
             }
-        });
-        return rs.get();
+        }
+        return text;
     }
 
     public Integer getFuelType() {
@@ -140,13 +158,13 @@ public class VehicleExcelModel {
         if (list == null || list.isEmpty()) {
             return null;
         }
-        AtomicReference<Integer> rs = new AtomicReference<>(null);
-        list.forEach(o -> {
-            if (StringUtils.equals(o.getText(), fuelTypeText)) {
-                rs.set(Integer.parseInt(o.getValue()));
+        Integer type = null;
+        for (Dictionary dict : list) {
+            if (StringUtils.equals(dict.getText(), fuelTypeText)) {
+                type = Integer.parseInt(dict.getValue());
             }
-        });
-        return rs.get();
+        }
+        return type;
     }
 
     public String getBusRouteText() {
@@ -156,15 +174,29 @@ public class VehicleExcelModel {
         return busRoute.getName();
     }
 
+    public Date getCardTime() {
+        if (cardTimeGMT8 == null) {
+            return null;
+        }
+        return DateUtil.gmt82utc(cardTimeGMT8);
+    }
+
+    public Date getCardTimeGMT8() {
+        if (cardTime == null) {
+            return null;
+        }
+        return DateUtil.utc2gmt8(cardTime);
+    }
+
     public BusRoute getBusRoute() {
         if (StringUtils.isBlank(busRouteText)) {
             return null;
         }
-        BusRoute busRoute = busRouteService.findByName(busRouteText);
-        if (busRoute == null) {
+        List<BusRoute> list = busRouteService.findByName(busRouteText);
+        if (list == null || list.isEmpty()) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "线路名称不存在");
         }
-        return busRoute;
+        return list.get(0);
     }
 
     public Integer getStatus() {

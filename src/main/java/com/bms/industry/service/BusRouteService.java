@@ -90,7 +90,7 @@ public class BusRouteService {
     }
 
     @Transactional(readOnly = true)
-    public BusRoute findByName(String name) {
+    public List<BusRoute> findByName(String name) {
         return busRouteRepository.findByName(name);
     }
 }
