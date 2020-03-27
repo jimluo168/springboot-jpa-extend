@@ -19,7 +19,6 @@ import com.bms.entity.BusTerminal;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusTerminalService;
 import com.bms.industry.view.BusTerminalExcelModel;
-import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -116,7 +115,7 @@ public class BusTerminalController {
             });
 
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD));
-            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+            EasyExcel.write(response.getOutputStream(), BusTerminalExcelModel.class)
                     .autoCloseStream(Boolean.FALSE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet()
