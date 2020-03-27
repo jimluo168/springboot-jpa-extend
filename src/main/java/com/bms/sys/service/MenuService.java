@@ -127,7 +127,13 @@ public class MenuService {
         }
         // 父节点
         for (Map.Entry<Long, Menu> entry : parentMap.entrySet()) {
-            rootList.add(entry.getValue());
+            Menu menu = entry.getValue();
+            if (menu.getChildren() != null && !menu.getChildren().isEmpty()) {
+                Collections.sort(menu.getChildren(), (m1, m2) -> {
+                    return m1.getIndex() - m2.getIndex();
+                });
+            }
+            rootList.add(menu);
         }
 
         Collections.sort(rootList, (m1, m2) -> {
