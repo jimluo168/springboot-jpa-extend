@@ -66,7 +66,7 @@
             <#if organization?? && organization.name!=''>
                 and o.organization.name like  '%${organization.name}%'
             </#if>
-            <#if price?? && price != 0>
+            <#if price??>
                 and o.price = :price
             </#if>
             <#if status??>
@@ -157,7 +157,7 @@
         <![CDATA[
             from Suggest s
             where deleted = 0
-            <#if type?? && type!=''>
+            <#if type??>
                 and s.type = :type
             </#if>
             <#if status??>
@@ -167,7 +167,7 @@
                 and s.content like '%'||:content||'%'
             </#if>
            <#if begin?? && end??>
-                and s.createDate between :begin and :end
+                and s.time between :begin and :end
             </#if>
             order by s.createDate desc
         ]]>

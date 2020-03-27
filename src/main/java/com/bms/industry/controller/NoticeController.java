@@ -9,7 +9,6 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Notice;
-import com.bms.entity.Suggest;
 import com.bms.industry.service.NoticeService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -75,7 +74,7 @@ public class NoticeController {
     }
 
     @Data
-    private static class QueryParams extends Suggest {
+    private static class QueryParams extends Notice {
         private Date begin;
         private Date end;
     }
