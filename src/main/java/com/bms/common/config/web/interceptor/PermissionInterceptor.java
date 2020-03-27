@@ -62,6 +62,29 @@ public class PermissionInterceptor implements HandlerInterceptor {
                         break;
                     }
                 }
+                // 如果不包含上面的 就检测包含多个权限编码
+                if (!pass) {
+                    for (String code : codes) {
+                        for (String permissions : codeSet) {
+                            if (!permissions.contains(",")) {
+                                continue;
+                            }
+                            String[] arr = permissions.split(",");
+                            for (String s : arr) {
+                                if (s.equals(code)) {
+                                    pass = true;
+                                    break;
+                                }
+                            }
+                            if (pass) {
+                                break;
+                            }
+                        }
+                        if (pass) {
+                            break;
+                        }
+                    }
+                }
             }
             if (!pass) {
                 if (logger.isDebugEnabled()) {

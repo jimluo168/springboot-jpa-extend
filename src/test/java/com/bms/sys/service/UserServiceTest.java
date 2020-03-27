@@ -111,12 +111,30 @@ class UserServiceTest {
 //        user.setRole(role);
 //        userService.insert(user);
 
+//        user = new User();
+//        user.setAccount("guyingyang");
+//        user.setPasswd("123456");
+//        user.setOrganization(organization);
+//        user.setRealName("顾迎阳");
+//        user.setRemark("");
+//        user.setRole(role);
+//        userService.insert(user);
+
         user = new User();
-        user.setAccount("guyingyang");
+        user.setAccount("hangtian01");
         user.setPasswd("123456");
         user.setOrganization(organization);
-        user.setRealName("顾迎阳");
-        user.setRemark("");
+        user.setRealName("航天测试01");
+        user.setRemark("航天测试01 请勿其他人员删除和使用");
+        user.setRole(role);
+        userService.insert(user);
+
+        user = new User();
+        user.setAccount("hangtian02");
+        user.setPasswd("123456");
+        user.setOrganization(organization);
+        user.setRealName("航天测试02");
+        user.setRemark("航天测试02 请勿其他人员删除和使用");
         user.setRole(role);
         userService.insert(user);
     }

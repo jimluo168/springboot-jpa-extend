@@ -2,6 +2,7 @@ package com.bms.industry.controller;
 
 import com.bms.common.domain.Result;
 import com.bms.common.util.BeanMapper;
+import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
@@ -41,6 +42,7 @@ public class BusViolationStatsController {
      * 公司违规事件排行.
      */
     @ApiOperation("公司违规事件排行")
+    @OpLog("公司违规事件排行")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/companies")
     public Result<List<BusViolationStatsCompany>> company(BusViolationStatsCompany params) throws IllegalAccessException {
@@ -51,6 +53,7 @@ public class BusViolationStatsController {
      * 违规类型.
      */
     @ApiOperation("违规类型")
+    @OpLog("违规类型")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/types")
     public Result<List<BusViolationStatsType>> type(BusViolationStatsType params) throws IllegalAccessException {
@@ -61,6 +64,7 @@ public class BusViolationStatsController {
      * 司机违规排行.
      */
     @ApiOperation("司机违规排行")
+    @OpLog("司机违规排行")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/drivers")
     public Result<List<BusViolationStatsDriver>> driver(BusViolationStatsDriver params) throws IllegalAccessException {
@@ -71,6 +75,7 @@ public class BusViolationStatsController {
      * 全部违规行为统计(周、月、年)-周.
      */
     @ApiOperation("全部违规行为统计(周、月、年)-周")
+    @OpLog("全部违规行为统计(周、月、年)-周")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/weeks")
     public Result<BusViolationStatsEchartView> week() throws IllegalAccessException {
@@ -89,6 +94,7 @@ public class BusViolationStatsController {
      * 全部违规行为统计(周、月、年)-月.
      */
     @ApiOperation("全部违规行为统计(周、月、年)-月")
+    @OpLog("全部违规行为统计(周、月、年)-月")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/months")
     public Result<BusViolationStatsEchartView> moth() throws IllegalAccessException {
@@ -107,6 +113,7 @@ public class BusViolationStatsController {
      * 全部违规行为统计(周、月、年)-年.
      */
     @ApiOperation("全部违规行为统计(周、月、年)-年")
+    @OpLog("全部违规行为统计(周、月、年)-年")
     @RequiresPermissions("bus_violation_stats_list")
     @GetMapping("/years")
     public Result<BusViolationStatsEchartView> year() throws IllegalAccessException {

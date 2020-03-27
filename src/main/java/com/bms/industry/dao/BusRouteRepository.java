@@ -4,6 +4,8 @@ import com.bms.entity.BusRoute;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 公交路线管理.
  *
@@ -12,5 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BusRouteRepository extends PagingAndSortingRepository<BusRoute, Long> {
-    BusRoute findByName(String name);
+    List<BusRoute> findByName(String name);
 }

@@ -1,6 +1,7 @@
 package com.bms.industry.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -16,7 +17,11 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Vehicle;
+import com.bms.industry.service.BusRouteService;
 import com.bms.industry.service.VehicleService;
+import com.bms.industry.view.VehicleExcelModel;
+import com.bms.sys.service.DictService;
+import com.bms.sys.service.OrganizationService;
 import com.bms.sys.view.OrganizationExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -54,6 +59,9 @@ public class VehicleController {
 
     private final VehicleService vehicleService;
     private final ObjectMapper objectMapper;
+    private final BusRouteService busRouteService;
+    private final OrganizationService organizationService;
+    private final DictService dictService;
 
     @ApiOperation("新增")
     @OpLog("新增")
@@ -114,15 +122,15 @@ public class VehicleController {
         try {
             PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
             PageList<Vehicle> pageList = vehicleService.page(pageRequest, BeanMapper.toMap(vehicle));
-            List<OrganizationExcelModel> data = new ArrayList<>();
+            List<VehicleExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
-                OrganizationExcelModel m = new OrganizationExcelModel();
+                VehicleExcelModel m = new VehicleExcelModel(busRouteService, organizationService, dictService);
                 BeanUtils.copyProperties(o, m);
                 data.add(m);
             });
 
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD));
-            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+            EasyExcel.write(response.getOutputStream(), VehicleExcelModel.class)
                     .autoCloseStream(Boolean.FALSE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet()
@@ -141,7 +149,8 @@ public class VehicleController {
     @PostMapping("/import")
     public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
         try {
-            EasyExcel.read(file.getInputStream(), OrganizationExcelModel.class, new ImportDataListener(vehicleService)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), VehicleExcelModel.class,
+                    new ImportDataListener(vehicleService, busRouteService, organizationService, dictService)).sheet().doRead();
             return ok();
         } catch (Exception e) {
             logger.error("import data error", e);
@@ -150,15 +159,21 @@ public class VehicleController {
     }
 
     @RequiredArgsConstructor
-    private static class ImportDataListener extends AnalysisEventListener<OrganizationExcelModel> {
+    private static class ImportDataListener extends AnalysisEventListener<VehicleExcelModel> {
         private static final Logger logger = LoggerFactory.getLogger(ImportDataListener.class);
         private static final int BATCH_COUNT = 3000;
-        private List<OrganizationExcelModel> list = new ArrayList<OrganizationExcelModel>();
+        private List<VehicleExcelModel> list = new ArrayList<VehicleExcelModel>();
 
         private final VehicleService vehicleService;
+        private final BusRouteService busRouteService;
+        private final OrganizationService organizationService;
+        private final DictService dictService;
 
         @Override
-        public void invoke(OrganizationExcelModel data, AnalysisContext context) {
+        public void invoke(VehicleExcelModel data, AnalysisContext context) {
+            data.setBusRouteService(busRouteService);
+            data.setOrganizationService(organizationService);
+            data.setDictService(dictService);
             list.add(data);
             if (list.size() >= BATCH_COUNT) {
                 saveData();

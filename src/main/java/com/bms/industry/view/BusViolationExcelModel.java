@@ -137,11 +137,11 @@ public class BusViolationExcelModel {
         if (StringUtils.isBlank(busRouteNameText)) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "线路不能为空");
         }
-        BusRoute busRoute = busRouteService.findByName(busRouteNameText);
-        if (busRoute == null) {
+        List<BusRoute> list = busRouteService.findByName(busRouteNameText);
+        if (list == null || list.isEmpty()) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "线路[" + busRouteNameText + "]不存在");
         }
-        return busRoute;
+        return list.get(0);
     }
 
     public String getBusRouteNameText() {
