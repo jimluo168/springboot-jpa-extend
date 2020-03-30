@@ -2,9 +2,16 @@ package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import java.math.BigDecimal;
 
 /**
  * 申报明细
@@ -12,6 +19,12 @@ import javax.persistence.ManyToOne;
  * @author zouyongcan
  * @date 2020/3/30
  */
+@Data
+@EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
+@Entity
+@Table(name = "Bus_online_data_declare_item")
 public class BusOnlineDataDeclareItem extends BaseEntity {
 
     /**
@@ -28,6 +41,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;
+    private String orgName;
 
     /**
      * 所属车队.
@@ -35,6 +49,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private BusTeam carTeam;
+    private String teamName;
 
     /**
      * 所属路线.
@@ -42,6 +57,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "route_id")
     private BusRoute busRoute;
+    private String routeName;
 
     /**
      * 车辆编号.
@@ -51,60 +67,60 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     /**
      * 汽油数量.
      */
-    private Float gasQuantity;
+    private BigDecimal gasQuantity;
 
     /**
      * 汽油 单价.
      */
-    private Float gasPrice;
+    private BigDecimal gasPrice;
 
     /**
      * 汽油 金额.
      */
-    private Float gasBalance;
+    private BigDecimal gasBalance;
 
     /**
      * 柴油 数量.
      */
-    private Float dieselOilQuantity;
+    private BigDecimal dieselOilQuantity;
 
     /**
      * 柴油 单价.
      */
-    private Float dieselOilPrice;
+    private BigDecimal dieselOilPrice;
 
     /**
      *柴油 金额.
      */
-    private Float dieselOilBalance;
+    private BigDecimal dieselOilBalance;
 
     /**
      * 天然气 数量.
      */
-    private Float naturalGasQuantity;
+    private BigDecimal naturalGasQuantity;
 
     /**
      * 天然气 单价.
      */
-    private Float naturalGasPrice;
+    private BigDecimal naturalGasPrice;
 
     /**
      * 天然气 金额.
      */
-    private Float naturalGasBalance;
+    private BigDecimal naturalGasBalance;
 
     /**
      *电能 数量.
      */
-    private Float electricQuantity;
+    private BigDecimal electricQuantity;
 
     /**
      * 电能 单价.
      */
-    private Float electricPrice;
+    private BigDecimal electricPrice;
 
     /**
      *电能 金额.
      */
-    private Float electricBalance;
+    private BigDecimal electricBalance;
 }
