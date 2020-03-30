@@ -3,8 +3,11 @@ package com.bms.industry.view;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.bms.ErrorCodes;
 import com.bms.entity.Organization;
+import com.bms.sys.service.OrganizationService;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 从业人员导出excel的model.
@@ -14,6 +17,8 @@ import lombok.Data;
  */
 @Data
 public class PractitionerExcelModel {
+    @ExcelIgnore
+    private final OrganizationService organizationService;
 
     @ColumnWidth(50)
     @ExcelProperty(value = "姓名", index = 0)
@@ -99,4 +104,14 @@ public class PractitionerExcelModel {
         return status.toString();
     }
 
+    public Organization getOrganization() {
+        if (StringUtils.isBlank(organizationName)) {
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "公司名称不能为空");
+        }
+        Organization organization = organizationService.findByName(organizationName);
+        if (organization == null) {
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "公司名称[" + organizationName + "]不存在");
+        }
+        return organization;
+    }
 }
