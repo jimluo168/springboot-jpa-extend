@@ -14,6 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 网上数据申报管理.
@@ -72,5 +73,11 @@ public abstract class BusOnlineDataDeclareCommon extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
+
+    /**
+     * 明细表
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "declare")
+    private List<BusOnlineDataDeclareItem> itemList;
 
 }
