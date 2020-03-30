@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -23,14 +24,14 @@ public class JpaUtils {
      * @param target
      */
     public static void copyNotNullProperties(Object src, Object target, String... ignoreProperties) {
-        List<String> ignoreList = (ignoreProperties != null ? Arrays.asList(ignoreProperties) : null);
+        List<String> ignoreList = ignoreProperties.length > 0 ? Arrays.asList(ignoreProperties) : new ArrayList<>();
         List<String> nullList = Arrays.asList(getNullPropertyNames(src));
         nullList.addAll(ignoreList);
         BeanUtils.copyProperties(src, target, nullList.toArray(new String[0]));
     }
 
     private static String[] getNullPropertyNames(Object object) {
-        final BeanWrapperImpl wrapper = new BeanWrapperImpl(object);
+        BeanWrapperImpl wrapper = new BeanWrapperImpl(object);
         return Stream.of(wrapper.getPropertyDescriptors())
                 .map(PropertyDescriptor::getName)
                 .filter(propertyName -> wrapper.getPropertyValue(propertyName) == null)

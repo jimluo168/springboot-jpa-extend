@@ -2488,9 +2488,15 @@ VIOLATION_SEVERITY_TYPE:int:严重程度
 ROUTE_TYPE:int:线路类型
 ```
 
-## 19. 公交站点管理
+## 19. 模版配置说明
+```yaml
+网上数据申报模版: docs/20200330/online_data_declare.xlsx
 
-### 19.1. 公交站点管理-列表
+```
+
+## 20. 公交站点管理
+
+### 20.1. 公交站点管理-列表
 
 ```yaml
 @get: /industry/bussites/list
@@ -2560,7 +2566,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 19.2. 公交站点管理-详情
+### 20.2. 公交站点管理-详情
 
 ```yaml
 @get: /industry/bussites/:id
@@ -2621,7 +2627,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 19.3. 公交站点管理-新增
+### 20.3. 公交站点管理-新增
 
 ```yaml
 @post: /industry/bussites
@@ -2656,7 +2662,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 19.4. 公交站点管理-修改
+### 20.4. 公交站点管理-修改
 
 ```yaml
 @put: /industry/bussites/:id
@@ -2731,7 +2737,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 19.5. 公交站点管理-删除
+### 20.5. 公交站点管理-删除
 
 ```yaml
 @delete: /industry/bussites/:id
@@ -2750,7 +2756,7 @@ ROUTE_TYPE:int:线路类型
   success:bool:是否成功
   msg:string:操作提示
 ```
-### 19.6. 公交站点管理-导出
+### 20.6. 公交站点管理-导出
 
 ```yaml
 @get: /industry/bussites/export
@@ -2774,7 +2780,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 19.7. 公交站点管理-导入
+### 20.7. 公交站点管理-导入
 
 ```yaml
 @post: /industry/busterminals/import
@@ -2795,7 +2801,7 @@ ROUTE_TYPE:int:线路类型
 ```
 
 
-### 19.8. 公交站点管理-审核
+### 20.8. 公交站点管理-审核
 
 ```yaml
 @post: /industry/bussites/:id/status/:status
@@ -2816,9 +2822,9 @@ ROUTE_TYPE:int:线路类型
   success:bool:是否成功
   msg:string:操作提示
 ```
-## 20. 行政管理
+## 21. 行政管理
 
-### 20.1. 行政管理-列表
+### 21.1. 行政管理-列表
 
 ```yaml
 @get: /industry/notices/list
@@ -2849,7 +2855,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 20.2. 行政管理-详情
+### 21.2. 行政管理-详情
 
 ```yaml
 @get: /industry/notices/:id
@@ -2875,7 +2881,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 20.3. 行政管理-新增
+### 21.3. 行政管理-新增
 
 ```yaml
 @post: /industry/notices
@@ -2901,7 +2907,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 20.4. 行政管理-修改
+### 21.4. 行政管理-修改
 
 ```yaml
 @put: /industry/notices/:id
@@ -2934,7 +2940,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 20.5. 行政管理-删除
+### 21.5. 行政管理-删除
 
 ```yaml
 @delete: /industry/notices/:id
@@ -2954,9 +2960,9 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-## 21. 投诉建议管理
+## 22. 投诉建议管理
 
-### 21.1. 投诉建议管理-列表
+### 22.1. 投诉建议管理-列表
 
 ```yaml
 @get: /industry/suggests/list
@@ -2995,7 +3001,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 21.2. 投诉建议管理-详情
+### 22.2. 投诉建议管理-详情
 
 ```yaml
 @get: /industry/suggests/:id
@@ -3027,7 +3033,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 21.3. 投诉建议管理-新增
+### 22.3. 投诉建议管理-新增
 
 ```yaml
 @post: /industry/suggests
@@ -3052,7 +3058,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 21.4. 投诉建议管理-修改
+### 22.4. 投诉建议管理-修改
 
 ```yaml
 @put: /industry/suggests/:id
@@ -3092,7 +3098,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 21.5. 投诉建议管理-删除
+### 22.5. 投诉建议管理-删除
 
 ```yaml
 @delete: /industry/suggests/:id
@@ -3111,7 +3117,7 @@ ROUTE_TYPE:int:线路类型
   success:bool:是否成功
   msg:string:操作提示2
 ```
-### 21.6. 投诉建议管理-审核
+### 22.6. 投诉建议管理-审核
 
 ```yaml
 @post: /industry/suggests/:id/status/:status
@@ -3134,9 +3140,9 @@ ROUTE_TYPE:int:线路类型
 ```
 
 
-## 22. 违规信息管理
+## 23. 违规信息管理
 
-### 22.1. 违规信息管理-列表
+### 23.1. 违规信息管理-列表
 
 ```yaml
 @get: /industry/busviolations/list?page=:page&size=:size
@@ -3226,7 +3232,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-#### attachs:string:附件说明
+#### 23.1.1. attachs:string:附件说明
 
 ```json
 [{
@@ -3246,7 +3252,7 @@ ROUTE_TYPE:int:线路类型
 }]
 ```
 
-### 22.2. 违规信息管理-新增
+### 23.2. 违规信息管理-新增
 
 ```yaml
 @post: /industry/busviolations
@@ -3301,7 +3307,7 @@ ROUTE_TYPE:int:线路类型
 ```
 
 
-### 22.3. 违规信息管理-处理
+### 23.3. 违规信息管理-处理
 
 ```yaml
 @post: /industry/busviolations/:id/deals
@@ -3327,7 +3333,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 22.4. 违规信息管理-详情
+### 23.4. 违规信息管理-详情
 
 ```yaml
 @get: /industry/busviolations/:id
@@ -3404,7 +3410,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 22.5. 违规信息管理-删除
+### 23.5. 违规信息管理-删除
 
 ```yaml
 @delete: /industry/busviolations/:id
@@ -3424,7 +3430,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 22.6. 违规信息管理-导出
+### 23.6. 违规信息管理-导出
 
 ```yaml
 @get: /industry/busviolations/export
@@ -3452,7 +3458,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 22.7. 违规信息管理-导入
+### 23.7. 违规信息管理-导入
 
 ```yaml
 @post: /industry/busviolations/import
@@ -3473,9 +3479,9 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-## 23. 事件统计分析
+## 24. 事件统计分析
 
-### 23.1. 公司违规信息统计
+### 24.1. 公司违规信息统计
 ```yaml
 @get:/industry/busviolationstats/companies
 
@@ -3496,7 +3502,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示
 ```
 
-### 23.2. 司机违规信息排行
+### 24.2. 司机违规信息排行
 ```yaml
 @get:/industry/busviolationstats/drivers
 
@@ -3519,7 +3525,7 @@ ROUTE_TYPE:int:线路类型
 ```
 
 
-### 23.3. 违规类型
+### 24.3. 违规类型
 
 ```yaml
 @get: /industry/busviolationstats/types?begin=:begin&end=:end
@@ -3542,7 +3548,7 @@ ROUTE_TYPE:int:线路类型
   msg:string:操作提示  
 ```
 
-### 全部违规行为统计(周、月、年)-周
+### 24.4. 全部违规行为统计(周、月、年)-周
 
 ```yaml
 @get: /industry/busviolationstats/weeks
@@ -3563,7 +3569,7 @@ ROUTE_TYPE:int:线路类型
 
 ```
 
-### 全部违规行为统计(周、月、年)-月
+### 24.5. 全部违规行为统计(周、月、年)-月
 
 ```yaml
 @get: /industry/busviolationstats/months
@@ -3584,7 +3590,7 @@ ROUTE_TYPE:int:线路类型
 
 ```
 
-### 全部违规行为统计(周、月、年)-年
+### 24.6. 全部违规行为统计(周、月、年)-年
 
 ```yaml
 @get: /industry/busviolationstats/years

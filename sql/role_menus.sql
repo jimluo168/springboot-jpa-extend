@@ -95,3 +95,19 @@ insert into role_menus(role_id,menu_id) values('434272239429488640','187');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1220');
 insert into role_menus(role_id,menu_id) values('434272239429488640','1221');
 
+-- 燃油油耗管理
+insert into role_menus(role_id,menu_id) values('434272239429488640','1300');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1310');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1311');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1312');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1313');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1314');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1315');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1316');
+-- 查询统计分析
+insert into role_menus(role_id,menu_id) values('434272239429488640','1410');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1411');
+-- 统计数据表
+insert into role_menus(role_id,menu_id) values('434272239429488640','1510');
+insert into role_menus(role_id,menu_id) values('434272239429488640','1511');
+
