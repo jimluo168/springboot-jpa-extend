@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
- * TODO(类的简要说明)
+ * 申报明细
  *
  * @author zouyongcan
  * @date 2020/3/30
@@ -19,7 +19,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "declare_id")
-    private BusBusOnlineDataDeclare busBusOnlineDataDeclare;
+    private BusOnlineDataDeclare busOnlineDataDeclare;
 
     /**
      * 所属企业.

@@ -7,9 +7,10 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * TODO(类的简要说明)
@@ -22,13 +23,13 @@ import javax.persistence.Table;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "online_data_declare_audits")
-public class BusBusOnlineDataDeclareAudit extends BusOnlineDataDeclareCommon {
+@Table(name = "online_data_declare")
+public class BusOnlineDataDeclare extends BusOnlineDataDeclareCommon {
     /**
-     * 关联OnlineDataDeclare.
+     * 审核历史记录.
      */
-    @JsonIgnoreProperties({"audit_list"})
-    @ManyToOne
-    @JoinColumn(name = "declare_id")
-    private BusBusOnlineDataDeclare busOnlineDataDeclare;
+    @JsonIgnoreProperties("bus_route")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "busRoute")
+    private List<BusRouteAudit> auditList;
+
 }
