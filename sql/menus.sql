@@ -200,3 +200,37 @@ VALUES ('1220', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000',
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('1221', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查看', '2', '1220', '1', 'bus_event_stats_list','违规信息管理-查看');
 
+
+-- 燃油油耗管理
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`)
+VALUES ('1300', '2020-03-13 08:43:57.504000', '0', '2020-03-13 08:44:00.072000', '燃油消耗管理', 'fuel_management', '1', '5');
+-- 网上数据申报
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
+VALUES ('1310', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '网上数据申报', '1', '1300', '1', 'online_data_declare','网上数据申报');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1311', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '1310', '1', 'online_data_declare_list','网上数据申报-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1312', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '1310', '2', 'online_data_declare_create','网上数据申报-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1313', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '1310', '3', 'online_data_declare_edit','网上数据申报-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1314', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '1310', '4', 'online_data_declare_delete','网上数据申报-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1315', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '1310', '4', 'online_data_declare_details','网上数据申报-详情');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1316', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '1310', '4', 'online_data_declare_audit','网上数据申报-审核');
+
+-- 查询统计分析
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
+VALUES ('1410', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询统计分析', '1', '1300', '2', 'query_statis','查询统计分析');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1411', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '1410', '1', 'query_statis_list','查询统计分析-查询');
+
+-- 统计数据表
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`)
+VALUES ('1510', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '统计数据表', '1', '1300', '3', 'statis_data','统计数据表');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('1511', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '1510', '1', 'statis_data_list','统计数据表-查询');
