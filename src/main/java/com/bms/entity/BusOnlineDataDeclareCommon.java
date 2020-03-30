@@ -65,7 +65,10 @@ public class BusOnlineDataDeclareCommon extends BaseEntity {
     @Column(length = 500)
     private String reason;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    /**
+     * 明细表
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "declare")
     private List<BusOnlineDataDeclareItem> itemList;
 
 }

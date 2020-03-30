@@ -31,7 +31,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "declare_id")
-    private BusOnlineDataDeclare busOnlineDataDeclare;
+    private BusOnlineDataDeclare declare;
 
     /**
      * 所属企业.
