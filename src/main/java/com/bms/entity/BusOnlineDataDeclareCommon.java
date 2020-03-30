@@ -2,10 +2,12 @@ package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -14,6 +16,12 @@ import java.util.Date;
  * @author zouyongcan
  * @date 2020/3/30
  */
+@Data
+@EqualsAndHashCode(of = "id", callSuper = true)
+@DynamicInsert
+@DynamicUpdate
+@Entity
+@Table(name = "Bus_online_data_declare")
 public class BusOnlineDataDeclareCommon extends BaseEntity {
     /**
      * 1=待审核.

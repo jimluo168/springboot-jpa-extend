@@ -1,6 +1,6 @@
 package com.bms.industry.dao;
 
-import com.bms.entity.BusOnlineDataDeclare;
+import com.bms.entity.BusOnlineDataDeclareAudit;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @date 2020/3/30
  */
 @Repository
-public interface BusOnlineDataDeclareRepository extends PagingAndSortingRepository<BusOnlineDataDeclare, Long> {
+public interface BusOnlineDataDeclareAuditRepository extends PagingAndSortingRepository<BusOnlineDataDeclareAudit, Long> {
 }

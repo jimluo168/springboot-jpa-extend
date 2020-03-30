@@ -30,6 +30,6 @@ public class BusOnlineDataDeclare extends BusOnlineDataDeclareCommon {
      */
     @JsonIgnoreProperties("bus_route")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "busRoute")
-    private List<BusRouteAudit> auditList;
+    private List<BusOnlineDataDeclareAudit> auditList;
 
 }
