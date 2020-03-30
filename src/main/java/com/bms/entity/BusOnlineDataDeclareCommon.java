@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 网上数据申报管理.
@@ -17,11 +18,7 @@ import java.util.Date;
  * @date 2020/3/30
  */
 @Data
-@EqualsAndHashCode(of = "id", callSuper = true)
-@DynamicInsert
-@DynamicUpdate
-@Entity
-@Table(name = "Bus_online_data_declare")
+@MappedSuperclass
 public class BusOnlineDataDeclareCommon extends BaseEntity {
     /**
      * 1=待审核.
@@ -67,5 +64,8 @@ public class BusOnlineDataDeclareCommon extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    private List<BusOnlineDataDeclareItem> itemList;
 
 }
