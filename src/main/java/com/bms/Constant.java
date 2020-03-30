@@ -98,15 +98,13 @@ public interface Constant {
      */
     String MAPPER_BUS_VIOLATION_STATS_YEAR = "bus_violation_stats_year";
     /**
-<<<<<<< HEAD
      * 燃油消耗管理-统计数据表.
      */
     String MAPPER_BUS_ONLINE_DATA_DECLARE_STATS = "bus_online_data_declare_stats";
-=======
+    /**
      * 公交路线管理-分页查询.
      */
     String MAPPER_ONLINE_DATA_DECLARE_PAGE = "online_data_declare";
->>>>>>> dcc1adaf65888fcfbe9d092d33ab192e9cfdb30d
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/

@@ -61,8 +61,8 @@ public class BusOnlineDataDeclareController {
     @Transactional(rollbackFor = RuntimeException.class)
     public Result<BusOnlineDataDeclare> create(@RequestBody BusOnlineDataDeclare busOnlineDataDeclare, MultipartFile file) throws IOException, IllegalAccessException  {
         try {
-            BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare);
-            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareController.ImportDataListener(declareItemService)).sheet().doRead();
+            BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, file);
+
             return ok(declare);
         } catch (Exception e) {
             logger.error("import data error", e);
@@ -116,38 +116,5 @@ public class BusOnlineDataDeclareController {
         return ok();
     }
 
-@RequiredArgsConstructor
-private static class ImportDataListener extends AnalysisEventListener<DeclareItemExcelModel> {
-    private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareController.ImportDataListener.class);
-    private static final int BATCH_COUNT = 3000;
-    private List<DeclareItemExcelModel> list = new ArrayList<>();
 
-    private final BusOnlineDataDeclareItemService declareItemService;
-
-    @Override
-    public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
-        list.add(data);
-        if (list.size() >= BATCH_COUNT) {
-            saveData();
-            // 存储完成清理 list
-            list.clear();
-        }
-    }
-
-    @Override
-    public void doAfterAllAnalysed(AnalysisContext context) {
-        saveData();
-        logger.info("所有数据解析完成！");
-    }
-
-    private void saveData() {
-        List<BusOnlineDataDeclareItem> batchData = new ArrayList<>();
-        list.stream().forEach(o -> {
-            BusOnlineDataDeclareItem target = new BusOnlineDataDeclareItem();
-            BeanUtils.copyProperties(o, target);
-            batchData.add(target);
-        });
-        declareItemService.saveAll(batchData);
-    }
-}
 }

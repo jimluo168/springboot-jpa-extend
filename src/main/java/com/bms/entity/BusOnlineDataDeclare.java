@@ -28,12 +28,7 @@ public class BusOnlineDataDeclare extends BusOnlineDataDeclareCommon {
     /**
      * 审核历史记录.
      */
-<<<<<<< HEAD
-    @JsonIgnoreProperties("bus_route")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "busOnlineDataDeclare")
-=======
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "declare")
->>>>>>> dcc1adaf65888fcfbe9d092d33ab192e9cfdb30d
     private List<BusOnlineDataDeclareAudit> auditList;
 
 }
