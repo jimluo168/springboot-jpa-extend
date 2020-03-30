@@ -3607,6 +3607,63 @@ ROUTE_TYPE:int:线路类型
       name:string:违规类型
       data:array<int>:违规数量
   success:bool:是否成功
-  msg:string:操作提示  
+  msg:string:操作提示
+```
+
+
+## 25. 燃油消耗管理-统计数据表
+
+### 25.1. 总排炭量统计
+
+```yaml
+@get: /industry/onlinedatadeclares/stats/carbons
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    gas_quantity:float:汽油数量(换算为排碳量)
+    diesel_oil_quantity:float:柴油数量(换算为排碳量)
+    natural_gas_quantity:float:天然气数量(换算为排碳量)
+    electric_quantity:float:电能数量(换算为排碳量)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 25.2. 节能减排数据
+
+```yaml
+@get: /industry/onlinedatadeclares/stats/cutemissions?begin=:begin&end=:end
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  begin:date:开始日期
+  end:date:结束日期
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    gas_quantity:float:汽油数量(换算为排碳量)
+    diesel_oil_quantity:float:柴油数量(换算为排碳量)
+    natural_gas_quantity:float:天然气数量(换算为排碳量)
+    electric_quantity:float:电能数量(换算为排碳量)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+```
+二氧化碳排行量（千克）等于：
+1. 汽油数乘以2.7
+2. 耗电量乘以0.997
+3. 柴油数乘以3.115
+4. 天然气数（立方米）乘以1.96
+
+总排量参考蓝湖计算方式.
 
 ```

@@ -275,4 +275,27 @@
             order by d.index asc
         ]]>
     </bus_violation_stats_week>
+
+
+    <bus_online_data_declare_stats type="sql" desc="燃油消耗管理-统计数据表">
+        <![CDATA[
+            SELECT
+                sum(gas_quantity) as gas_quantity,
+                sum(diesel_oil_quantity) as diesel_oil_quantity,
+                sum(natural_gas_quantity) as natural_gas_quantity,
+                sum(electric_quantity) as electric_quantity
+            FROM bus_online_data_declare_items
+            where is_delete = 0
+            <#if begin?? && end??>
+                and create_date between :begin and :end
+            </#if>
+            <#if organization?? && organization.id!=''>
+                and org_id = ${organization.id}
+            </#if>
+            <#if busRoute?? && busRoute.id!=''>
+                and route_id= ${busRoute.id}
+            </#if>
+        ]]>
+    </bus_online_data_declare_stats>
+
 </mapper>

@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 public class BusOnlineDataDeclareItem extends BaseEntity {
 
     /**
-     * 所属申报
+     * 所属申报.
      */
     @ManyToOne
     @JoinColumn(name = "declare_id")
@@ -90,7 +90,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     private BigDecimal dieselOilPrice;
 
     /**
-     *柴油 金额.
+     * 柴油 金额.
      */
     private BigDecimal dieselOilBalance;
 
@@ -110,7 +110,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     private BigDecimal naturalGasBalance;
 
     /**
-     *电能 数量.
+     * 电能 数量.
      */
     private BigDecimal electricQuantity;
 
@@ -120,7 +120,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     private BigDecimal electricPrice;
 
     /**
-     *电能 金额.
+     * 电能 金额.
      */
     private BigDecimal electricBalance;
 }

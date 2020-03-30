@@ -14,7 +14,6 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
@@ -66,6 +65,16 @@ public class HibernateDao {
      */
     protected final Session getSession() {
         return (Session) entityManager.getDelegate();
+    }
+
+    public <T> T getSingle(DaoCmd cmd) {
+        Query query = createQuery(cmd);
+
+        if (cmd.getResultClass() != null) {
+            query.setResultTransformer(getTransformerAdapter(cmd.getResultClass()));
+        }
+
+        return (T) query.getSingleResult();
     }
 
     public <T> List<T> getList(DaoCmd cmd) {
