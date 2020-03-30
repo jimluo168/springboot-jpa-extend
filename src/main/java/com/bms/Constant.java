@@ -97,6 +97,10 @@ public interface Constant {
      * 事件统计分析-全部违规行为统计(周、月、年)-年.
      */
     String MAPPER_BUS_VIOLATION_STATS_YEAR = "bus_violation_stats_year";
+    /**
+     * 公交路线管理-分页查询.
+     */
+    String MAPPER_ONLINE_DATA_DECLARE_PAGE = "online_data_declare";
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/

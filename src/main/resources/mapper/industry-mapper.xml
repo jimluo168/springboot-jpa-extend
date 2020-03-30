@@ -275,4 +275,24 @@
             order by d.index asc
         ]]>
     </bus_violation_stats_week>
+
+    <vehicle_page type="hql" desc="网上申报管理-分页查询">
+        <![CDATA[
+            from BusOnlineDataDeclare b
+            where b.deleted = 0
+            <#if organization?? && organization.name!=''>
+                and b.organization.name like '%${organization.name}%'
+            </#if>
+            <#if status??>
+                and b.status = :status
+            </#if>
+            <#if begin??>
+                and b.startTime &gt;= :begin
+            </#if>
+            <#if end??>
+                and b.startTime &lt;= :end
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </vehicle_page>
 </mapper>
