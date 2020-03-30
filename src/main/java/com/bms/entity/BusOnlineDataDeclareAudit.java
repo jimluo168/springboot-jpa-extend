@@ -30,5 +30,5 @@ public class BusOnlineDataDeclareAudit extends BusOnlineDataDeclareCommon {
     @JsonIgnoreProperties({"audit_list"})
     @ManyToOne
     @JoinColumn(name = "declare_id")
-    private BusOnlineDataDeclare busOnlineDataDeclare;
+    private BusOnlineDataDeclare declare;
 }

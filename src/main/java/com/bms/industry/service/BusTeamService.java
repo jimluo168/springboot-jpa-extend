@@ -6,12 +6,14 @@ import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
+import com.bms.entity.BusRoute;
 import com.bms.entity.BusTeam;
 import com.bms.industry.dao.BusTeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,5 +33,10 @@ public class BusTeamService {
     @Transactional(readOnly = true)
     public PageList<BusTeam> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_BUS_CAR_TEAM_PAGE, queryParams));
+    }
+
+    @Transactional(readOnly = true)
+    public List<BusTeam> findByName(String name) {
+        return busTeamRepository.findByName(name);
     }
 }

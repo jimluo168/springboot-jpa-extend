@@ -276,6 +276,7 @@
         ]]>
     </bus_violation_stats_week>
 
+<<<<<<< HEAD
 
     <bus_online_data_declare_stats type="sql" desc="燃油消耗管理-统计数据表">
         <![CDATA[
@@ -298,4 +299,25 @@
         ]]>
     </bus_online_data_declare_stats>
 
+=======
+    <vehicle_page type="hql" desc="网上申报管理-分页查询">
+        <![CDATA[
+            from BusOnlineDataDeclare b
+            where b.deleted = 0
+            <#if organization?? && organization.name!=''>
+                and b.organization.name like '%${organization.name}%'
+            </#if>
+            <#if status??>
+                and b.status = :status
+            </#if>
+            <#if begin??>
+                and b.startTime &gt;= :begin
+            </#if>
+            <#if end??>
+                and b.startTime &lt;= :end
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </vehicle_page>
+>>>>>>> dcc1adaf65888fcfbe9d092d33ab192e9cfdb30d
 </mapper>
