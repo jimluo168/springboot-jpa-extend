@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * TODO(类的简要说明)
+ * 网上数据申报审核表.
  *
  * @author zouyongcan
  * @date 2020/3/30

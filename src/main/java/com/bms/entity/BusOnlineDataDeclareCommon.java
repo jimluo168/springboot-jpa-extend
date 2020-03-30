@@ -2,10 +2,12 @@ package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 /**
@@ -14,7 +16,9 @@ import java.util.Date;
  * @author zouyongcan
  * @date 2020/3/30
  */
-public class BusOnlineDataDeclareCommon extends BaseEntity {
+@Data
+@MappedSuperclass
+public abstract class BusOnlineDataDeclareCommon extends BaseEntity {
     /**
      * 1=待审核.
      */
@@ -30,10 +34,14 @@ public class BusOnlineDataDeclareCommon extends BaseEntity {
     /**
      * 所属企业.
      */
-    @JsonIgnoreProperties("audit_list")
+    @JsonIgnoreProperties({"audit_list", "car_team_list"})
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;
+    /**
+     * 企业名称.
+     */
+    private String orgName;
     /**
      * 申报人
      */

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 /**
- * TODO(类的简要说明)
+ * 网上数据申报.
  *
  * @author zouyongcan
  * @date 2020/3/30
@@ -30,6 +30,6 @@ public class BusOnlineDataDeclare extends BusOnlineDataDeclareCommon {
      */
     @JsonIgnoreProperties("bus_route")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "busRoute")
-    private List<BusRouteAudit> auditList;
+    private List<BusOnlineDataDeclareAudit> auditList;
 
 }
