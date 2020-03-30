@@ -32,6 +32,7 @@ public abstract class BusTerminalCommon extends BaseEntity {
     /**
      * 名称.
      */
+    @Column(unique = true)
     private String name;
     /**
      * 编号.
