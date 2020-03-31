@@ -26,11 +26,21 @@ import java.util.List;
 @Data
 public class DeclareItemExcelModel {
     @ExcelIgnore
-    private final BusTeamService busTeamService;
+    private BusTeamService busTeamService;
     @ExcelIgnore
-    private final BusRouteService busRouteService;
+    private BusRouteService busRouteService;
     @ExcelIgnore
-    private final OrganizationService organizationService;
+    private OrganizationService organizationService;
+
+    public DeclareItemExcelModel() {
+        this(null, null, null);
+    }
+
+    public DeclareItemExcelModel(BusTeamService busTeamService, BusRouteService busRouteService, OrganizationService organizationService) {
+        this.busTeamService = busTeamService;
+        this.busRouteService = busRouteService;
+        this.organizationService = organizationService;
+    }
 
     /**
      * 所属申报
@@ -100,7 +110,7 @@ public class DeclareItemExcelModel {
     private BigDecimal dieselOilPrice;
 
     /**
-     *柴油 金额.
+     * 柴油 金额.
      */
     @ExcelProperty(value = "柴油金额", index = 10)
     private BigDecimal dieselOilBalance;
@@ -124,7 +134,7 @@ public class DeclareItemExcelModel {
     private BigDecimal naturalGasBalance;
 
     /**
-     *电能 数量.
+     * 电能 数量.
      */
     @ExcelProperty(value = "电能数量", index = 14)
     private BigDecimal electricQuantity;
@@ -136,7 +146,7 @@ public class DeclareItemExcelModel {
     private BigDecimal electricPrice;
 
     /**
-     *电能 金额.
+     * 电能 金额.
      */
     @ExcelProperty(value = "电能金额", index = 16)
     private BigDecimal electricBalance;

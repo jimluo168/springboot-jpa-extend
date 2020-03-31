@@ -18,6 +18,7 @@ import com.bms.entity.BusOnlineDataDeclareItem;
 import com.bms.industry.dao.BusOnlineDataDeclareAuditRepository;
 import com.bms.industry.dao.BusOnlineDataDeclareRepository;
 import com.bms.industry.view.DeclareItemExcelModel;
+import com.bms.sys.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,14 +50,17 @@ public class BusOnlineDataDeclareService {
     private final BusOnlineDataDeclareAuditRepository busOnlineDataDeclareAuditRepository;
     private final HibernateDao hibernateDao;
     private final BusOnlineDataDeclareItemService busOnlineDataDeclareItemService;
+    private final BusTeamService busTeamService;
+    private final BusRouteService busRouteService;
+    private final OrganizationService organizationService;
 
     public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, MultipartFile file) throws IOException, IllegalAccessException {
         try {
             declare.setId(flakeId.next());
             busOnlineDataDeclareRepository.save(declare);
-            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(busOnlineDataDeclareItemService, declare)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(busOnlineDataDeclareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().doRead();
             return declare;
-        }catch (Exception e) {
+        } catch (Exception e) {
 //            logger.error("import data error", e);
             if (e instanceof ServiceException) {
                 throw e;
@@ -117,10 +121,16 @@ public class BusOnlineDataDeclareService {
         private List<DeclareItemExcelModel> list = new ArrayList<>();
 
         private final BusOnlineDataDeclareItemService declareItemService;
+        private final BusTeamService busTeamService;
+        private final BusRouteService busRouteService;
+        private final OrganizationService organizationService;
         private final BusOnlineDataDeclare declare;
 
         @Override
         public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
+            data.setBusRouteService(busRouteService);
+            data.setBusTeamService(busTeamService);
+            data.setOrganizationService(organizationService);
             list.add(data);
             if (list.size() >= BATCH_COUNT) {
                 saveData();
