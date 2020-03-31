@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "bus_online_data_declare_audit")
+@Table(name = "bus_online_data_declare_audits")
 public class BusOnlineDataDeclareAudit extends BusOnlineDataDeclareCommon {
     /**
      * 关联OnlineDataDeclare.
