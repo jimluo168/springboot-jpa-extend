@@ -316,4 +316,61 @@
             order by b.createDate desc
         ]]>
     </online_data_declare_page>
+
+    <bus_online_data_declare_retrieval type="sql" desc="查询统计分析">
+        <![CDATA[
+            select
+                org_name,
+                team_name,
+                route_name,
+                gas_quantity,
+                gas_price,
+                gas_balance,
+                diesel_oil_quantity,
+                diesel_oil_price,
+                diesel_oil_balance,
+                natural_gas_quantity,
+                natural_gas_price,
+                natural_gas_balance,
+                electric_quantity,
+                electric_price,
+                electric_balance,
+                sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as total_balance
+            from bus_online_data_declare_items b
+            where is_delete =0
+            group by b.org_id,b.team_id,b.route_id,b.veh_code
+            order by total_balance desc
+        ]]>
+    </bus_online_data_declare_retrieval>
+    <bus_online_data_declare_total type="sql" desc="查询统计总计">
+        <![CDATA[
+            select
+                sum(gas_quantity),
+                sum(gas_balance),
+                sum(diesel_oil_quantity),
+                sum(diesel_oil_balance),
+                sum(natural_gas_quantity),
+                sum(natural_gas_balance),
+                sum(electric_quantity),
+                sum(electric_balance)
+            from bus_online_data_declare_items b
+            where is_delete =0
+            <#if organization?? && organization.name!=''>
+                and b.organization.name like '%${organization.name}%'
+            </#if>
+            <#if organization?? && organization.name!=''>
+                and b.organization.name like '%${organization.name}%'
+            </#if>
+            <#if carTeam?? && carTeam.id!=''>
+                and b.carTeam.id = :carTeam.id
+            </#if>
+            <#if busRoute?? && busRoute.id!=''>
+                and b.busRoute.id = :busRoute.id
+            </#if>
+            <#if vehCode?? && vehCode!=''>
+                and b.vehCode like '%'||:vehCode||'%'
+            </#if>
+        ]]>
+    </bus_online_data_declare_total>
+
 </mapper>

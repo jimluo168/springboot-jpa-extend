@@ -8,8 +8,10 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusOnlineDataDeclare;
 import com.bms.entity.BusOnlineDataDeclareItem;
 import com.bms.industry.service.BusOnlineDataDeclareStatsService;
+import com.bms.industry.view.DataDeclareTotalRetrieval;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,5 +56,11 @@ public class BusOnlineDataDeclareStatsController {
         return ok(busOnlineDataDeclareStatsService.cutEmissions(BeanMapper.toMap(item)));
     }
 
+    @ApiOperation("统计查询")
+    @RequiresPermissions("statis_data_list")
+    @GetMapping("/energycomparisons")
+    public Result<DataDeclareTotalRetrieval> totalRetrieval(DataDeclareTotalRetrieval data) throws IllegalAccessException {
+        return ok(busOnlineDataDeclareStatsService.totalRetrieval(BeanMapper.toMap(data)));
+    }
 
 }

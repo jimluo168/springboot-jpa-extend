@@ -102,10 +102,18 @@ public interface Constant {
      */
     String MAPPER_BUS_ONLINE_DATA_DECLARE_STATS = "bus_online_data_declare_stats";
     /**
-     * 公交路线管理-分页查询.
+     * 网上申报-分页查询.
      */
     String MAPPER_ONLINE_DATA_DECLARE_PAGE = "online_data_declare_page";
+    /**
+     * 申报明细-统计查询
+     */
+    String MAPPER_ONLINE_DATA_DECLARE_RETRIEVAL = "bus_online_data_declare_retrieval";
 
+    /**
+     * 申报明细-总计
+     */
+    String MAPPER_ONLINE_DATA_DECLARE_TOTAL = "bus_online_data_declare_total";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 
