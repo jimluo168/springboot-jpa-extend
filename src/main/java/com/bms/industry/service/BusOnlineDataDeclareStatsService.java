@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 统计数据表.
@@ -34,10 +35,10 @@ public class BusOnlineDataDeclareStatsService {
             item.setElectricQuantity(new BigDecimal(0.0));
             return item;
         }
-        item.setGasQuantity(item.getGasQuantity().multiply(new BigDecimal(2.7)));
-        item.setDieselOilQuantity(item.getDieselOilQuantity().multiply(new BigDecimal(3.115)));
-        item.setNaturalGasQuantity(item.getNaturalGasQuantity().multiply(new BigDecimal(1.96)));
-        item.setElectricQuantity(item.getElectricQuantity().multiply(new BigDecimal(0.997)));
+        item.setGasQuantity(Optional.ofNullable(item.getGasQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(2.7)));
+        item.setDieselOilQuantity(Optional.ofNullable(item.getDieselOilQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(3.115)));
+        item.setNaturalGasQuantity(Optional.ofNullable(item.getNaturalGasQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(1.96)));
+        item.setElectricQuantity(Optional.ofNullable(item.getElectricQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(0.997)));
         return item;
     }
 
@@ -51,10 +52,10 @@ public class BusOnlineDataDeclareStatsService {
             item.setElectricQuantity(new BigDecimal(0.0));
             return item;
         }
-        item.setGasQuantity(item.getGasQuantity().multiply(new BigDecimal(2.7)));
-        item.setDieselOilQuantity(item.getDieselOilQuantity().multiply(new BigDecimal(3.115)));
-        item.setNaturalGasQuantity(item.getNaturalGasQuantity().multiply(new BigDecimal(1.96)));
-        item.setElectricQuantity(item.getElectricQuantity().multiply(new BigDecimal(0.997)));
+        item.setGasQuantity(Optional.ofNullable(item.getGasQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(2.7)));
+        item.setDieselOilQuantity(Optional.ofNullable(item.getDieselOilQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(3.115)));
+        item.setNaturalGasQuantity(Optional.ofNullable(item.getNaturalGasQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(1.96)));
+        item.setElectricQuantity(Optional.ofNullable(item.getElectricQuantity()).orElse(new BigDecimal(0.0)).multiply(new BigDecimal(0.997)));
         return item;
     }
 }
