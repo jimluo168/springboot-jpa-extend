@@ -1,5 +1,8 @@
 package com.bms.industry.service;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
@@ -7,15 +10,24 @@ import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
+import com.bms.common.exception.ServiceException;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusOnlineDataDeclare;
 import com.bms.entity.BusOnlineDataDeclareAudit;
+import com.bms.entity.BusOnlineDataDeclareItem;
 import com.bms.industry.dao.BusOnlineDataDeclareAuditRepository;
 import com.bms.industry.dao.BusOnlineDataDeclareRepository;
+import com.bms.industry.view.DeclareItemExcelModel;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,11 +48,21 @@ public class BusOnlineDataDeclareService {
     private final FlakeId flakeId;
     private final BusOnlineDataDeclareAuditRepository busOnlineDataDeclareAuditRepository;
     private final HibernateDao hibernateDao;
+    private final BusOnlineDataDeclareItemService busOnlineDataDeclareItemService;
 
-    public BusOnlineDataDeclare insert(BusOnlineDataDeclare busOnlineDataDeclare) {
-        busOnlineDataDeclare.setId(flakeId.next());
-        busOnlineDataDeclareRepository.save(busOnlineDataDeclare);
-        return busOnlineDataDeclare;
+    public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, MultipartFile file) throws IOException, IllegalAccessException {
+        try {
+            declare.setId(flakeId.next());
+            busOnlineDataDeclareRepository.save(declare);
+            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(busOnlineDataDeclareItemService, declare)).sheet().doRead();
+            return declare;
+        }catch (Exception e) {
+//            logger.error("import data error", e);
+            if (e instanceof ServiceException) {
+                throw e;
+            }
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_ERR);
+        }
     }
 
     public BusOnlineDataDeclare updateById(Long id, BusOnlineDataDeclare busOnlineDataDeclare) {
@@ -86,6 +108,43 @@ public class BusOnlineDataDeclareService {
             o.setId(flakeId.next());
         });
         busOnlineDataDeclareRepository.saveAll(list);
+    }
+
+    @RequiredArgsConstructor
+    private static class ImportDataListener extends AnalysisEventListener<DeclareItemExcelModel> {
+        private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareService.ImportDataListener.class);
+        private static final int BATCH_COUNT = 3000;
+        private List<DeclareItemExcelModel> list = new ArrayList<>();
+
+        private final BusOnlineDataDeclareItemService declareItemService;
+        private final BusOnlineDataDeclare declare;
+
+        @Override
+        public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
+            list.add(data);
+            if (list.size() >= BATCH_COUNT) {
+                saveData();
+                // 存储完成清理 list
+                list.clear();
+            }
+        }
+
+        @Override
+        public void doAfterAllAnalysed(AnalysisContext context) {
+            saveData();
+            logger.info("所有数据解析完成！");
+        }
+
+        private void saveData() {
+            List<BusOnlineDataDeclareItem> batchData = new ArrayList<>();
+            list.stream().forEach(o -> {
+                BusOnlineDataDeclareItem target = new BusOnlineDataDeclareItem();
+                target.setId(declare.getId());
+                BeanUtils.copyProperties(o, target);
+                batchData.add(target);
+            });
+            declareItemService.saveAll(batchData);
+        }
     }
 
 }
