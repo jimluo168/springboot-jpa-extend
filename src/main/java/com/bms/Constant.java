@@ -104,7 +104,7 @@ public interface Constant {
     /**
      * 公交路线管理-分页查询.
      */
-    String MAPPER_ONLINE_DATA_DECLARE_PAGE = "online_data_declare";
+    String MAPPER_ONLINE_DATA_DECLARE_PAGE = "online_data_declare_page";
 
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/

@@ -3667,3 +3667,204 @@ ROUTE_TYPE:int:线路类型
 总排量参考蓝湖计算方式.
 
 ```
+## 26. 网上数据申报管理
+
+### 26.1. 网上数据申报管理-列表
+
+```yaml
+@get: /industry/datadeclares/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  organization.name:string:公司名称
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:申报列表信息
+      id:long:ID
+      organization:object:公司信息
+        id:long:ID
+        name:string:名称
+      org_name:string:公司名
+      declarer:string:申报人
+      start_time:date:申报时间-开始
+      end_time:date:申报时间-结束
+      reason:string:理由
+      status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.2. 网上数据申报管理-详情
+
+```yaml
+@get: /industry/datadeclares/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:用户id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    organization:object:公司信息
+      id:long:ID
+      name:string:名称
+    org_name:string:公司名
+    declarer:string:申报人
+    start_time:date:申报时间-开始
+    end_time:date:申报时间-结束
+    reason:string:理由
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+    item_list:array<object>:明细列表 
+      declare:object:申报信息
+        id:long:申报id
+      organization:object:公司信息
+        id:long:公司信息
+        name:string:公司名
+      org_name:string:机构名
+      car_team:object:车队信息
+        id:long:车队id
+        name:string:车队名
+      team_name:string:车队名
+      bus_route:object:线路信息
+        id:long:线路id
+        name:string:线路名
+      team_name:string:车队名 
+      veh_vode:string:车辆编号
+      gas_quantity:float:汽油数量
+      gas_price:float:汽油单价
+      gas_balance:float:汽油金额
+      diesel_oil_quantity:float:柴油数量
+      diesel_oil_price:float:柴油单价
+      diesel_oil_balance:float:柴油金额
+      natural_gas_quantity:float:天然气数量
+      natural_gas_price:float:天然气单价
+      natural_gas_balance:float:天然气金额
+      electric_quantity:float:电能数量
+      electric_price:float:电能单价
+      electric_balance:float:电能金额
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.3. 网上数据申报管理-新增
+
+```yaml
+@post: /industry/datadeclares
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  organization:object:公司信息
+    id:long:ID
+  org_name:string:公司名
+  declarer:string:申报人
+  start_time:date:申报时间-开始
+  end_time:date:申报时间-结束
+  file:file:申报明细的文件
+
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:申报ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.4. 网上数据申报管理-修改
+
+```yaml
+@put: /industry/datadeclares/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  organization:object:公司信息
+    id:long:ID
+  org_name:string:公司名
+  declarer:string:申报人
+  start_time:date:申报时间-开始
+  end_time:date:申报时间-结束
+  file:file:申报明细的文件
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    organization:object:公司信息
+      id:long:ID
+      name:string:名称
+    org_name:string:公司名
+    declarer:string:申报人
+    start_time:date:申报时间-开始
+    end_time:date:申报时间-结束
+    reason:string:理由
+    status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.5. 网上数据申报管理-删除
+
+```yaml
+@delete: /industry/datadeclares/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:申报ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.6. 网上数据申报管理-审核
+
+```yaml
+@post: /industry/datadeclares/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```

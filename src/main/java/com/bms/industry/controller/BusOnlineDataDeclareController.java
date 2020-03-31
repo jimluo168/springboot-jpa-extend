@@ -58,19 +58,9 @@ public class BusOnlineDataDeclareController {
     @OpLog("新增")
     @RequiresPermissions("online_data_declare_create")
     @PostMapping("")
-    @Transactional(rollbackFor = RuntimeException.class)
-    public Result<BusOnlineDataDeclare> create(@RequestBody BusOnlineDataDeclare busOnlineDataDeclare, MultipartFile file) throws IOException, IllegalAccessException  {
-        try {
-            BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, file);
-
-            return ok(declare);
-        } catch (Exception e) {
-            logger.error("import data error", e);
-            if (e instanceof ServiceException) {
-                throw e;
-            }
-            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_ERR);
-        }
+    public Result<BusOnlineDataDeclare> create(@RequestBody BusOnlineDataDeclare busOnlineDataDeclare, MultipartFile file) throws IOException, IllegalAccessException {
+        BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, file);
+        return ok(declare);
     }
 
 
