@@ -3671,6 +3671,12 @@ ROUTE_TYPE:int:线路类型
 
 ```yaml
 
+params:
+  org_name:string:公司名称
+  route_name:string:线路名称
+  
+
+
 ```
 
 ## 26. 网上数据申报管理
