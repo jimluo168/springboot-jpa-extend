@@ -358,9 +358,6 @@
             <#if organization?? && organization.name!=''>
                 and b.organization.name like '%${organization.name}%'
             </#if>
-            <#if organization?? && organization.name!=''>
-                and b.organization.name like '%${organization.name}%'
-            </#if>
             <#if carTeam?? && carTeam.id!=''>
                 and b.carTeam.id = :carTeam.id
             </#if>
@@ -369,6 +366,9 @@
             </#if>
             <#if vehCode?? && vehCode!=''>
                 and b.vehCode like '%'||:vehCode||'%'
+            </#if>
+             <#if begin?? && end??>
+                and b.create_date between :begin and :end
             </#if>
         ]]>
     </bus_online_data_declare_total>
