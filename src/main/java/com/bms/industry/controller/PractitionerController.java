@@ -18,6 +18,7 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.PractitionerService;
 import com.bms.industry.view.PractitionerExcelModel;
+import com.bms.sys.service.OrganizationService;
 import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,7 @@ public class PractitionerController {
     private static final Logger logger = LoggerFactory.getLogger(PractitionerController.class);
 
     private final PractitionerService practitionerService;
+    private final OrganizationService organizationService;
 
     @OpLog("新增")
     @RequiresPermissions("practitioner_create")
@@ -110,7 +112,7 @@ public class PractitionerController {
             PageList<Practitioner> pageList = practitionerService.page(pageRequest, BeanMapper.toMap(practitioner));
             List<PractitionerExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
-                PractitionerExcelModel p = new PractitionerExcelModel();
+                PractitionerExcelModel p = new PractitionerExcelModel(organizationService);
                 BeanUtils.copyProperties(o, p);
                 data.add(p);
             });

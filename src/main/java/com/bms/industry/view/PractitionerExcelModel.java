@@ -68,6 +68,8 @@ public class PractitionerExcelModel {
     @ExcelProperty(value = "状态", index = 8)
     private String statusText;
 
+
+
     public String getOrganizationName() {
         return this.organization.getName();
     }
