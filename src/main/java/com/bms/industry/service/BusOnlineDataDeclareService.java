@@ -15,6 +15,7 @@ import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusOnlineDataDeclare;
 import com.bms.entity.BusOnlineDataDeclareAudit;
 import com.bms.entity.BusOnlineDataDeclareItem;
+import com.bms.industry.controller.BusOnlineDataDeclareController;
 import com.bms.industry.dao.BusOnlineDataDeclareAuditRepository;
 import com.bms.industry.dao.BusOnlineDataDeclareRepository;
 import com.bms.industry.view.DeclareItemExcelModel;
@@ -53,6 +54,8 @@ public class BusOnlineDataDeclareService {
     private final BusTeamService busTeamService;
     private final BusRouteService busRouteService;
     private final OrganizationService organizationService;
+
+    private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareService.class);
 
     public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, MultipartFile file) throws IOException, IllegalAccessException {
         try {
@@ -128,6 +131,7 @@ public class BusOnlineDataDeclareService {
 
         @Override
         public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
+            logger.info("!!!!!!!!!!!!invoke");
             data.setBusRouteService(busRouteService);
             data.setBusTeamService(busTeamService);
             data.setOrganizationService(organizationService);
@@ -149,8 +153,8 @@ public class BusOnlineDataDeclareService {
             List<BusOnlineDataDeclareItem> batchData = new ArrayList<>();
             list.stream().forEach(o -> {
                 BusOnlineDataDeclareItem target = new BusOnlineDataDeclareItem();
-                target.setId(declare.getId());
                 BeanUtils.copyProperties(o, target);
+                target.setDeclare(declare);
                 batchData.add(target);
             });
             declareItemService.saveAll(batchData);
