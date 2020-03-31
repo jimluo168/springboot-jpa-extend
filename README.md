@@ -3667,3 +3667,29 @@ ROUTE_TYPE:int:线路类型
 总排量参考蓝湖计算方式.
 
 ```
+
+
+
+### 25.2. 能源趋势对比
+
+```yaml
+@get: /industry/onlinedatadeclares/stats/cutemissions?begin=:begin&end=:end
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  begin:date:开始日期
+  end:date:结束日期
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    gas_quantity:float:汽油数量(换算为排碳量)
+    diesel_oil_quantity:float:柴油数量(换算为排碳量)
+    natural_gas_quantity:float:天然气数量(换算为排碳量)
+    electric_quantity:float:电能数量(换算为排碳量)
+  success:bool:是否成功
+  msg:string:操作提示
+```
