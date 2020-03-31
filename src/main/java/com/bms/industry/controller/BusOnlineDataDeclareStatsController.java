@@ -49,7 +49,7 @@ public class BusOnlineDataDeclareStatsController {
 
     @ApiOperation("能源趋势对比")
     @RequiresPermissions("statis_data_list")
-    @GetMapping("/energycomparisons/year")
+    @GetMapping("/energycomparisons")
     public Result<BusOnlineDataDeclareItem> energycomparisonsYear(BusOnlineDataDeclareItem item) throws IllegalAccessException {
         return ok(busOnlineDataDeclareStatsService.cutEmissions(BeanMapper.toMap(item)));
     }

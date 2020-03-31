@@ -3670,11 +3670,28 @@ ROUTE_TYPE:int:线路类型
 ### 能源趋势对比
 
 ```yaml
+@get: /industry/onlinedatadeclares/stats/energycomparisons?begin=:begin&end=:end
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
 
 params:
-  org_name:string:公司名称
-  route_name:string:线路名称
-  
+  organization.id:long:公司ID
+  bus_route.id:long:线路ID
+  category:int:类型(1:年 2:季 3:月 4:周)
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:object:统计信息
+    legend_data:array<string>:类型数组
+    series:array<object>:序列
+      name:string:能耗类别
+      data:array<int>:能耗数量
+  success:bool:是否成功
+  msg:string:操作提示
 
 
 ```
