@@ -57,10 +57,10 @@ public class BusOnlineDataDeclareStatsController {
     }
 
     @ApiOperation("统计查询")
-    @RequiresPermissions("statis_data_list")
-    @GetMapping("/energycomparisons")
-    public Result<DataDeclareTotalRetrieval> totalRetrieval(DataDeclareTotalRetrieval data) throws IllegalAccessException {
-        return ok(busOnlineDataDeclareStatsService.totalRetrieval(BeanMapper.toMap(data)));
+    @RequiresPermissions("query_statis_list")
+    @GetMapping("/querystatis")
+    public Result<DataDeclareTotalRetrieval> queryStatis(DataDeclareTotalRetrieval data) throws IllegalAccessException {
+        return ok(busOnlineDataDeclareStatsService.queryStatis(BeanMapper.toMap(data)));
     }
 
 }
