@@ -23,7 +23,7 @@ import java.util.List;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "bus_online_data_declare")
+@Table(name = "bus_online_data_declares")
 public class BusOnlineDataDeclare extends BusOnlineDataDeclareCommon {
     /**
      * 审核历史记录.

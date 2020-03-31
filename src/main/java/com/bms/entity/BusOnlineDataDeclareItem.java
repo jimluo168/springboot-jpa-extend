@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "Bus_online_data_declare_item")
+@Table(name = "Bus_online_data_declare_items")
 public class BusOnlineDataDeclareItem extends BaseEntity {
 
     /**
