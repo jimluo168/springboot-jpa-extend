@@ -356,7 +356,7 @@
                 and b.create_date between :begin and :end
             </#if>
             group by b.org_id,b.team_id,b.route_id,b.veh_code
-            order by b.org_id,total_balance desc
+            order by b.org_id,b.team_id,b.route_id,total_balance desc
         ]]>
     </bus_online_data_declare_retrieval>
     <bus_online_data_declare_total type="sql" desc="查询统计总计">
