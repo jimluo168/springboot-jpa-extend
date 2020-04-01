@@ -323,6 +323,7 @@
                 org_name,
                 team_name,
                 route_name,
+                veh_code,
                 gas_quantity,
                 gas_price,
                 gas_balance,
@@ -337,24 +338,25 @@
                 electric_balance,
                 sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as total_balance
             from bus_online_data_declare_items b
-            where is_delete =0
+            left join organizations o on b.org_id = o.id
+            where b.is_delete =0
             <#if organization?? && organization.name!=''>
-                and b.organization.name like '%${organization.name}%'
+                and b.name like '%${organization.name}%'
             </#if>
             <#if carTeam?? && carTeam.id??>
-                and b.carTeam.id = :carTeam.id
+                and b.team_id = :carTeam.id
             </#if>
             <#if busRoute?? && busRoute.id??>
-                and b.busRoute.id = :busRoute.id
+                and b.route_id = :busRoute.id
             </#if>
             <#if vehCode?? && vehCode!=''>
-                and b.vehCode like '%'||:vehCode||'%'
+                and b.veh_code like '%${vehCode}%'
             </#if>
              <#if begin?? && end??>
                 and b.create_date between :begin and :end
             </#if>
             group by b.org_id,b.team_id,b.route_id,b.veh_code
-            order by total_balance desc
+            order by b.org_id,total_balance desc
         ]]>
     </bus_online_data_declare_retrieval>
     <bus_online_data_declare_total type="sql" desc="查询统计总计">
@@ -370,18 +372,18 @@
                 sum(electric_balance) as electric_balance_total,
                 sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as all_balance_total
             from bus_online_data_declare_items b
-            where is_delete =0
+            where b.is_delete =0
             <#if organization?? && organization.name!=''>
-                and b.organization.name like '%${organization.name}%'
+                and b.name like '%${organization.name}%'
             </#if>
             <#if carTeam?? && carTeam.id??>
-                and b.carTeam.id = :carTeam.id
+                and b.team_id = :carTeam.id
             </#if>
             <#if busRoute?? && busRoute.id??>
-                and b.busRoute.id = :busRoute.id
+                and b.route_id = :busRoute.id
             </#if>
             <#if vehCode?? && vehCode!=''>
-                and b.vehCode like '%'||:vehCode||'%'
+                and b.veh_code like '%${vehCode}%'
             </#if>
              <#if begin?? && end??>
                 and b.create_date between :begin and :end
