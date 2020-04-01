@@ -64,7 +64,7 @@ public class BusOnlineDataDeclareStatsService {
     }
 
     public DataDeclareTotalRetrieval queryStatis(Map<String, Object> params){
-        List<DataDeclareRetrieval> list = hibernateDao.getSingle(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_RETRIEVAL, params, DataDeclareRetrieval.class));
+        List<DataDeclareRetrieval> list = hibernateDao.getList(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_RETRIEVAL, params, DataDeclareRetrieval.class));
         DataDeclareTotal total = hibernateDao.getSingle(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_TOTAL, params, DataDeclareTotal.class));
         DataDeclareTotalRetrieval dataDeclareTotalRetrieval = new DataDeclareTotalRetrieval();
         dataDeclareTotalRetrieval.setList(list);

@@ -57,5 +57,5 @@ public class DataDeclareTotal {
     /**
      * 总金额
      */
-    private BigDecimal totalAllBalance;
+    private BigDecimal allBalanceTotal;
 }

@@ -338,6 +338,21 @@
                 sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as total_balance
             from bus_online_data_declare_items b
             where is_delete =0
+            <#if organization?? && organization.name!=''>
+                and b.organization.name like '%${organization.name}%'
+            </#if>
+            <#if carTeam?? && carTeam.id??>
+                and b.carTeam.id = :carTeam.id
+            </#if>
+            <#if busRoute?? && busRoute.id??>
+                and b.busRoute.id = :busRoute.id
+            </#if>
+            <#if vehCode?? && vehCode!=''>
+                and b.vehCode like '%'||:vehCode||'%'
+            </#if>
+             <#if begin?? && end??>
+                and b.create_date between :begin and :end
+            </#if>
             group by b.org_id,b.team_id,b.route_id,b.veh_code
             order by total_balance desc
         ]]>
@@ -345,23 +360,24 @@
     <bus_online_data_declare_total type="sql" desc="查询统计总计">
         <![CDATA[
             select
-                sum(gas_quantity),
-                sum(gas_balance),
-                sum(diesel_oil_quantity),
-                sum(diesel_oil_balance),
-                sum(natural_gas_quantity),
-                sum(natural_gas_balance),
-                sum(electric_quantity),
-                sum(electric_balance)
+                sum(gas_quantity) as gas_quantity_total,
+                sum(gas_balance) as gas_balance_total,
+                sum(diesel_oil_quantity) as diesel_oil_quantity_total,
+                sum(diesel_oil_balance) as diesel_oil_balance_total,
+                sum(natural_gas_quantity) as natural_gas_quantity_total,
+                sum(natural_gas_balance) as natural_gas_balance_total,
+                sum(electric_quantity) as electric_quantity_total,
+                sum(electric_balance) as electric_balance_total,
+                sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as all_balance_total
             from bus_online_data_declare_items b
             where is_delete =0
             <#if organization?? && organization.name!=''>
                 and b.organization.name like '%${organization.name}%'
             </#if>
-            <#if carTeam?? && carTeam.id!=''>
+            <#if carTeam?? && carTeam.id??>
                 and b.carTeam.id = :carTeam.id
             </#if>
-            <#if busRoute?? && busRoute.id!=''>
+            <#if busRoute?? && busRoute.id??>
                 and b.busRoute.id = :busRoute.id
             </#if>
             <#if vehCode?? && vehCode!=''>
