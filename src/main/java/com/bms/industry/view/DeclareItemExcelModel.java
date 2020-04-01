@@ -168,7 +168,7 @@ public class DeclareItemExcelModel {
 
     public String getOrgName() {
         if (organization == null) {
-            return "";
+            return this.orgName;
         }
         return organization.getName();
     }
@@ -186,7 +186,7 @@ public class DeclareItemExcelModel {
 
     public String getRouteName() {
         if (busRoute == null) {
-            return "";
+            return this.routeName;
         }
         return busRoute.getName();
     }
@@ -204,7 +204,7 @@ public class DeclareItemExcelModel {
 
     public String getTeamName() {
         if (carTeam == null) {
-            return "";
+            return this.teamName;
         }
         return carTeam.getName();
     }
