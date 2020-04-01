@@ -3733,7 +3733,7 @@ params:
       electric_balance:float:电能金额
       total_balance:float:总金额
     total:object:总计
-       gas_quantity_total:float:汽油总数量
+      gas_quantity_total:float:汽油总数量
       gas_balance_total:float:汽油总金额
       diesel_oil_quantity_total:float:柴油总数量
       diesel_oil_balance_total:float:柴油总金额
