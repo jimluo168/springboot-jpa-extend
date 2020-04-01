@@ -62,7 +62,8 @@ public class BusOnlineDataDeclareService {
             busOnlineDataDeclareRepository.save(declare);
 
         try {
-            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().doRead();
+            // 从excel第三行开始读取
+            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().headRowNumber(2).doRead();
             return declare;
         } catch (Exception e) {
 //            logger.error("import data error", e);
