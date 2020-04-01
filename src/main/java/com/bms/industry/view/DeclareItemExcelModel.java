@@ -48,6 +48,10 @@ public class DeclareItemExcelModel {
     @ExcelIgnore
     private BusOnlineDataDeclare declare;
 
+
+    @ExcelProperty(value = "序号", index = 0)
+    private String num;
+
     /**
      * 所属企业.
      */

@@ -50,7 +50,7 @@ public class BusOnlineDataDeclareService {
     private final FlakeId flakeId;
     private final BusOnlineDataDeclareAuditRepository busOnlineDataDeclareAuditRepository;
     private final HibernateDao hibernateDao;
-    private final BusOnlineDataDeclareItemService busOnlineDataDeclareItemService;
+    private final BusOnlineDataDeclareItemService declareItemService;
     private final BusTeamService busTeamService;
     private final BusRouteService busRouteService;
     private final OrganizationService organizationService;
@@ -58,10 +58,11 @@ public class BusOnlineDataDeclareService {
     private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareService.class);
 
     public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, MultipartFile file) throws IOException, IllegalAccessException {
-        try {
             declare.setId(flakeId.next());
             busOnlineDataDeclareRepository.save(declare);
-            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(busOnlineDataDeclareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().doRead();
+
+        try {
+            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().doRead();
             return declare;
         } catch (Exception e) {
 //            logger.error("import data error", e);
@@ -131,7 +132,6 @@ public class BusOnlineDataDeclareService {
 
         @Override
         public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
-            logger.info("!!!!!!!!!!!!invoke");
             data.setBusRouteService(busRouteService);
             data.setBusTeamService(busTeamService);
             data.setOrganizationService(organizationService);

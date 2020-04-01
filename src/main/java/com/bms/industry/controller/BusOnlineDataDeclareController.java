@@ -58,7 +58,7 @@ public class BusOnlineDataDeclareController {
     @OpLog("新增")
     @RequiresPermissions("online_data_declare_create")
     @PostMapping("")
-    public Result<BusOnlineDataDeclare> create(@RequestBody BusOnlineDataDeclare busOnlineDataDeclare, MultipartFile file) throws IOException, IllegalAccessException {
+    public Result<BusOnlineDataDeclare> create(BusOnlineDataDeclare busOnlineDataDeclare, MultipartFile file) throws IOException, IllegalAccessException {
         BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, file);
         return ok(declare);
     }
