@@ -30,6 +30,7 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     /**
      * 所属申报.
      */
+    @JsonIgnoreProperties("item_list")
     @ManyToOne
     @JoinColumn(name = "declare_id")
     private BusOnlineDataDeclare declare;

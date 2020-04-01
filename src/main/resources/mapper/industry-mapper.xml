@@ -338,16 +338,15 @@
                 electric_balance,
                 sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as total_balance
             from bus_online_data_declare_items b
-            left join organizations o on b.org_id = o.id
             where b.is_delete =0
-            <#if organization?? && organization.name!=''>
-                and b.name like '%${organization.name}%'
+            <#if orgName?? && orgName!=''>
+                and b.org_name like '%${orgName}%'
             </#if>
-            <#if carTeam?? && carTeam.id??>
-                and b.team_id = :carTeam.id
+            <#if teamId??>
+                and b.team_id = :teamId
             </#if>
-            <#if busRoute?? && busRoute.id??>
-                and b.route_id = :busRoute.id
+            <#if routeId??>
+                and b.route_id = :routeId
             </#if>
             <#if vehCode?? && vehCode!=''>
                 and b.veh_code like '%${vehCode}%'
@@ -373,14 +372,14 @@
                 sum(gas_balance+diesel_oil_balance+natural_gas_balance+electric_balance) as all_balance_total
             from bus_online_data_declare_items b
             where b.is_delete =0
-            <#if organization?? && organization.name!=''>
-                and b.name like '%${organization.name}%'
+            <#if orgName?? && orgName!=''>
+                and b.org_name like '%${orgName}%'
             </#if>
-            <#if carTeam?? && carTeam.id??>
-                and b.team_id = :carTeam.id
+            <#if teamId??>
+                and b.team_id = :teamId
             </#if>
-            <#if busRoute?? && busRoute.id??>
-                and b.route_id = :busRoute.id
+            <#if routeId??>
+                and b.route_id = :routeId
             </#if>
             <#if vehCode?? && vehCode!=''>
                 and b.veh_code like '%${vehCode}%'

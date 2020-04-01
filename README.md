@@ -3704,9 +3704,9 @@ params:
   Authorization:token令牌
 
 @params:
-  organization.name:string:公司名
-  car_team.id:long:车队id
-  busRoute.id:long:线路id
+  org_name:string:公司名
+  team_id:long:车队id
+  route_id:long:线路id
   veh_code：string:车辆编号
   begin:date:开始日期
   end:date:结束日期
