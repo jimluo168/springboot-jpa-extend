@@ -3694,7 +3694,7 @@ params:
   msg:string:操作提示
 ```
 
-### 26.2. 网上数据申报管理-详情
+### 26.2. 统计查询
 
 ```yaml
 @get: /industry/onlinedatadeclares/stats/querystatis
@@ -3741,7 +3741,7 @@ params:
       natural_gas_balance_total:float:天然气总金额
       electric_quantity_total:float:电能总数量
       electric_balance_total:float:电能总金额
-      total_all_balance:float:总金额
+      all_balance_total:float:总金额
   success:bool:是否成功
   msg:string:操作提示
 ```
