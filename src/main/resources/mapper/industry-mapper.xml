@@ -316,11 +316,10 @@
             from bus_online_data_declare_statis
             where is_delete = 0
             and category = :category
-            <#if organization?? && organization.id!=''>
+            <#if organization?? && (organization.id)??>
                 and org_id = ${organization.id}
-
             </#if>
-            <#if busRoute?? && busRoute.id!=''>
+            <#if busRoute?? && (busRoute.id)??>
                 and route_id= ${busRoute.id}
             </#if>
             <#if begin?? && end??>

@@ -106,6 +106,17 @@ public class BusOnlineDataDeclareStatsService {
                 fmtTime = DateFormatUtils.format(DateUtil.utc2gmt8(end2), "yyyyMMdd");
             }
 
+            Calendar cl = Calendar.getInstance();
+            cl.setTime(end2);
+            if (params.getCategory() == BusOnlineDataDeclareStats.CATEGORY_YEAR) {
+                cl.add(Calendar.MONTH, 1);
+            } else if (params.getCategory() == BusOnlineDataDeclareStats.CATEGORY_QUARTER) {
+                cl.add(Calendar.DATE, 15);
+            } else {
+                cl.add(Calendar.DATE, 1);
+            }
+            end2 = cl.getTime();
+
             if (list == null || list.isEmpty()) {
                 view.getLegendData().forEach(o -> {
                     BusOnlineDataDeclareStatsEnergyComparisonEchartView.Series series = seriesMap.get(o);
@@ -148,26 +159,15 @@ public class BusOnlineDataDeclareStatsService {
                 }
                 series.getData().add(new BigDecimal(0.0));
             }
-
-            Calendar cl = Calendar.getInstance();
-            cl.setTime(end2);
-            if (params.getCategory() == BusOnlineDataDeclareStats.CATEGORY_YEAR) {
-                cl.add(Calendar.MONTH, 1);
-            } else if (params.getCategory() == BusOnlineDataDeclareStats.CATEGORY_QUARTER) {
-                cl.add(Calendar.DATE, 15);
-            } else {
-                cl.add(Calendar.DATE, 1);
-            }
-            end2 = cl.getTime();
         }
+
         view.getLegendData().forEach(k -> {
             view.getSeries().add(seriesMap.get(k));
         });
-
         return view;
     }
 
-    public DataDeclareTotalRetrieval queryStatis(Map<String, Object> params){
+    public DataDeclareTotalRetrieval queryStatis(Map<String, Object> params) {
         List<DataDeclareRetrieval> list = hibernateDao.getList(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_RETRIEVAL, params, DataDeclareRetrieval.class));
         DataDeclareTotal total = hibernateDao.getSingle(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_TOTAL, params, DataDeclareTotal.class));
         DataDeclareTotalRetrieval dataDeclareTotalRetrieval = new DataDeclareTotalRetrieval();
