@@ -75,10 +75,10 @@
                 and o.orgName like '%'||:orgName||'%'
             </#if>
             <#if module?? && module!=''>
-                and o.module like '%'||:module
+                and o.module like '%'||:module||'%'
             </#if>
             <#if funcName?? && funcName!=''>
-                and o.funcName like '%'||:funcName
+                and o.funcName like '%'||:funcName||'%'
             </#if>
             <#if params?? && params!=''>
                 and o.params like '%'||:params||'%'
