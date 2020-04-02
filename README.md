@@ -953,11 +953,15 @@ File->Preferences->Editor->File and Code Templates->File Header
     path:string:路径
     icon:string:图标
     index:int:顺序
+    type:int:类型(1=菜单 2=按钮 3=tab页选项卡)
+    has_tabs:int:标记该菜单下是否有tabs选项卡(1:有 0:无)
     children:array<object>:子菜单
-        name:string:名称
-        path:string:路径
-        parent:string:父菜单的path
-        index:int:顺序
+      name:string:名称
+      path:string:路径
+      parent:string:父菜单的path
+      index:int:顺序
+      type:int:类型(1=菜单 2=按钮 3=tab页选项卡)
+      has_tabs:int:标记该菜单下是否有tabs选项卡(1:有 0:无)
   success:bool:是否成功
   msg:string:操作提示
 ```
@@ -978,16 +982,67 @@ File->Preferences->Editor->File and Code Templates->File Header
     path:string:路径
     icon:string:图标
     index:int:顺序
-    type:int:类型(1=菜单 2=按钮)
+    type:int:类型(1=菜单 2=按钮 3=tab页选项卡)
+    has_tabs:int:标记该菜单下是否有tabs选项卡(1:有 0:无)
     children:array<object>:子菜单
-        name:string:名称
-        path:string:路径
-        parent:string:父菜单的path
-        index:int:顺序
-        type:int:类型(1=菜单 2=按钮)
+      name:string:名称
+      path:string:路径
+      parent:string:父菜单的path
+      index:int:顺序
+      type:int:类型(1=菜单 2=按钮 3=tab页选项卡)
+      has_tabs:int:标记该菜单下是否有tabs选项卡(1:有 0:无)
   success:bool:是否成功
   msg:string:操作提示
 ```
+
+### 菜单管理-菜单下所有的tabs页签
+
+```yaml
+@get: /sys/menus/:id/alltabs
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:菜单ID
+
+@return:
+  code:int:操作码
+  data:array<object>:菜单信息
+    name:string:名称
+    path:string:路径
+    icon:string:图标
+    index:int:顺序
+    type:int:类型(1=菜单 2=按钮 3=tab页选项卡)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 菜单管理-菜单下我拥有的tabs页签
+
+```yaml
+@get: /sys/menus/:id/mytabs
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:菜单ID
+
+@return:
+  code:int:操作码
+  data:array<object>:tab页签信息
+    name:string:名称
+    path:string:路径
+    icon:string:图标
+    index:int:顺序
+    type:int:类型(1=菜单 2=按钮 3=tab页选项卡)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
 
 ## 10. 角色管理
 
@@ -3855,7 +3910,8 @@ params:
   declarer:string:申报人
   start_time:date:申报时间-开始
   end_time:date:申报时间-结束
-  file:file:申报明细的文件
+  # file:file:申报明细的文件
+  file:string:申报明细的文件路径(oss返回的路径)
 
   
 @return:

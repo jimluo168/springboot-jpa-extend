@@ -54,6 +54,11 @@ public class Menu extends BaseEntity {
     @Column(name = "[index]")
     private int index;
     /**
+     * 标记该菜单下是否有tabs选项卡(1:有tab页 0:无).
+     */
+    @Column(name = "has_tabs")
+    private Integer hasTabs;
+    /**
      * 权限编码.
      */
     @Column(name = "permission_code", length = 100)

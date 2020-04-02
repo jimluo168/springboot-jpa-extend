@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -57,13 +58,13 @@ public class BusOnlineDataDeclareService {
 
     private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareService.class);
 
-    public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, MultipartFile file) throws IOException, IllegalAccessException {
+    public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, InputStream ins) throws IOException, IllegalAccessException {
             declare.setId(flakeId.next());
             busOnlineDataDeclareRepository.save(declare);
 
         try {
             // 从excel第三行开始读取
-            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().headRowNumber(2).doRead();
+            EasyExcel.read(ins, DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().headRowNumber(2).doRead();
             return declare;
         } catch (Exception e) {
 //            logger.error("import data error", e);

@@ -18,10 +18,12 @@ import com.bms.entity.BusOnlineDataDeclareItem;
 import com.bms.industry.service.BusOnlineDataDeclareService;
 import com.bms.industry.service.BusOnlineDataDeclareItemService;
 import com.bms.industry.view.DeclareItemExcelModel;
+import com.bms.oss.OSSProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -30,6 +32,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +58,15 @@ public class BusOnlineDataDeclareController {
     private final BusOnlineDataDeclareService busOnlineDataDeclareService;
     private final BusOnlineDataDeclareItemService declareItemService;
     private final ObjectMapper objectMapper;
+    private final OSSProperties ossProperties;
 
     @ApiOperation("新增")
     @OpLog("新增")
     @RequiresPermissions("online_data_declare_create")
     @PostMapping("")
-    public Result<BusOnlineDataDeclare> create(BusOnlineDataDeclare busOnlineDataDeclare, MultipartFile file) throws IOException, IllegalAccessException {
-        BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, file);
+    public Result<BusOnlineDataDeclare> create(@RequestBody  BusOnlineDataDeclare busOnlineDataDeclare) throws IOException, IllegalAccessException {
+        Path path = Paths.get(ossProperties.getRepo(), busOnlineDataDeclare.getFile());
+        BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, Files.newInputStream(path));
         return ok(declare);
     }
 

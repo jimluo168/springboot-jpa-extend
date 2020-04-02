@@ -6,10 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -30,5 +27,10 @@ public class BusOnlineDataDeclare extends BusOnlineDataDeclareCommon {
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "declare")
     private List<BusOnlineDataDeclareAudit> auditList;
+    /**
+     * oss文件地址.
+     */
+    @Transient
+    private String file;
 
 }
