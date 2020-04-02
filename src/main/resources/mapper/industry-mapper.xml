@@ -288,11 +288,11 @@
             <#if begin?? && end??>
                 and create_date between :begin and :end
             </#if>
-            <#if organization?? && organization.id!=''>
-                and org_id = ${organization.id}
+            <#if organization?? && (organization.id)??>
+                and org_id = '${organization.id}'
             </#if>
-            <#if busRoute?? && busRoute.id!=''>
-                and route_id= ${busRoute.id}
+            <#if busRoute?? && (busRoute.id)??>
+                and route_id= '${busRoute.id}'
             </#if>
         ]]>
     </bus_online_data_declare_stats>
@@ -317,10 +317,10 @@
             where is_delete = 0
             and category = :category
             <#if organization?? && (organization.id)??>
-                and org_id = ${organization.id}
+                and org_id = '${organization.id}'
             </#if>
             <#if busRoute?? && (busRoute.id)??>
-                and route_id= ${busRoute.id}
+                and route_id= '${busRoute.id}'
             </#if>
             <#if begin?? && end??>
                 and time between :begin and :end
