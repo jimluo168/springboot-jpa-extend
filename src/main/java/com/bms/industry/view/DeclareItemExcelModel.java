@@ -29,17 +29,17 @@ public class DeclareItemExcelModel {
     private BusTeamService busTeamService;
     @ExcelIgnore
     private BusRouteService busRouteService;
-    @ExcelIgnore
-    private OrganizationService organizationService;
+//    @ExcelIgnore
+//    private OrganizationService organizationService;
 
     public DeclareItemExcelModel() {
-        this(null, null, null);
+        this(null, null);
     }
 
-    public DeclareItemExcelModel(BusTeamService busTeamService, BusRouteService busRouteService, OrganizationService organizationService) {
+    public DeclareItemExcelModel(BusTeamService busTeamService, BusRouteService busRouteService) {
         this.busTeamService = busTeamService;
         this.busRouteService = busRouteService;
-        this.organizationService = organizationService;
+//        this.organizationService = organizationService;
     }
 
     /**
@@ -155,23 +155,23 @@ public class DeclareItemExcelModel {
     @ExcelProperty(value = "电能金额", index = 16)
     private BigDecimal electricBalance;
 
-    public Organization getOrganization() {
-        if (StringUtils.isBlank(orgName)) {
-            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "企业名称不能为空");
-        }
-        Organization org = organizationService.findByName(orgName);
-        if (org == null) {
-            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "企业名称不存在");
-        }
-        return org;
-    }
-
-    public String getOrgName() {
-        if (organization == null) {
-            return this.orgName;
-        }
-        return organization.getName();
-    }
+//    public Organization getOrganization() {
+//        if (StringUtils.isBlank(orgName)) {
+//            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "企业名称不能为空");
+//        }
+//        Organization org = organizationService.findByName(orgName);
+//        if (org == null) {
+//            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "企业名称不存在");
+//        }
+//        return org;
+//    }
+//
+//    public String getOrgName() {
+//        if (organization == null) {
+//            return this.orgName;
+//        }
+//        return organization.getName();
+//    }
 
     public BusRoute getBusRoute() {
         if (StringUtils.isBlank(routeName)) {

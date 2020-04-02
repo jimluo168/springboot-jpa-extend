@@ -1,8 +1,10 @@
 package com.bms.industry.service;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.metadata.Sheet;
 import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.config.flake.FlakeId;
@@ -11,16 +13,20 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.exception.ServiceException;
+import com.bms.common.util.BeanMapper;
+import com.bms.common.util.JSON;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusOnlineDataDeclare;
 import com.bms.entity.BusOnlineDataDeclareAudit;
 import com.bms.entity.BusOnlineDataDeclareItem;
-import com.bms.industry.controller.BusOnlineDataDeclareController;
+import com.bms.entity.Organization;
 import com.bms.industry.dao.BusOnlineDataDeclareAuditRepository;
 import com.bms.industry.dao.BusOnlineDataDeclareRepository;
 import com.bms.industry.view.DeclareItemExcelModel;
 import com.bms.sys.service.OrganizationService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.RequiredArgsConstructor;
+import net.sf.cglib.beans.BeanMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -59,12 +65,20 @@ public class BusOnlineDataDeclareService {
     private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareService.class);
 
     public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, InputStream ins) throws IOException, IllegalAccessException {
+        try {
+
+            List<Map<String, Object>> list = EasyExcel.read(ins).sheet().headRowNumber(2).doReadSync();
+            Map<String, Object> rowMap = list.get(0);
+            String orgName = rowMap.get(1).toString();
+            Organization organization = organizationService.findByName(orgName);
+            if (organization != null) {
+                declare.setOrganization(organization);
+            }
+            declare.setOrgName(orgName);
             declare.setId(flakeId.next());
             busOnlineDataDeclareRepository.save(declare);
-
-        try {
             // 从excel第三行开始读取
-            EasyExcel.read(ins, DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().headRowNumber(2).doRead();
+            EasyExcel.read(ins, DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, declare)).sheet().headRowNumber(2).doRead();
             return declare;
         } catch (Exception e) {
 //            logger.error("import data error", e);
@@ -129,14 +143,14 @@ public class BusOnlineDataDeclareService {
         private final BusOnlineDataDeclareItemService declareItemService;
         private final BusTeamService busTeamService;
         private final BusRouteService busRouteService;
-        private final OrganizationService organizationService;
+        //        private final OrganizationService organizationService;
         private final BusOnlineDataDeclare declare;
 
         @Override
         public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
             data.setBusRouteService(busRouteService);
             data.setBusTeamService(busTeamService);
-            data.setOrganizationService(organizationService);
+//            data.setOrganizationService(organizationService);
             list.add(data);
             if (list.size() >= BATCH_COUNT) {
                 saveData();
@@ -156,6 +170,9 @@ public class BusOnlineDataDeclareService {
             list.stream().forEach(o -> {
                 BusOnlineDataDeclareItem target = new BusOnlineDataDeclareItem();
                 BeanUtils.copyProperties(o, target);
+//                target.setDeclare(declare);
+                target.setOrganization(declare.getOrganization());
+                target.setOrgName(declare.getOrgName());
                 target.setDeclare(declare);
                 batchData.add(target);
             });

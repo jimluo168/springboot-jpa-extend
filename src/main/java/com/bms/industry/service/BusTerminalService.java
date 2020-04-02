@@ -8,6 +8,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
+import com.bms.entity.BusRoute;
 import com.bms.entity.BusTerminal;
 import com.bms.entity.BusTerminalAudit;
 import com.bms.industry.dao.BusTerminalAuditRepository;
@@ -86,5 +87,10 @@ public class BusTerminalService {
             o.setId(flakeId.next());
         });
         busTerminalRepository.saveAll(list);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BusTerminal> findByName(String name) {
+        return busTerminalRepository.findByName(name);
     }
 }

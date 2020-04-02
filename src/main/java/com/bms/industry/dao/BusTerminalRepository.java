@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 场站 DAO
  *
@@ -13,4 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BusTerminalRepository extends PagingAndSortingRepository<BusTerminal, Long>, JpaSpecificationExecutor<BusTerminal> {
+    List<BusTerminal> findByName(String name);
 }
