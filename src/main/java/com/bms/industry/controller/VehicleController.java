@@ -69,9 +69,9 @@ public class VehicleController {
         if (vehicleService.existsByLicNo(vehicle.getLicNo(), null)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌号已存在", true);
         }
-        if (vehicleService.existsByCode(vehicle.getCode(), null)) {
-            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌编号已存在", true);
-        }
+//        if (vehicleService.existsByCode(vehicle.getCode(), null)) {
+//            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌编号已存在", true);
+//        }
         return ok(vehicleService.insert(vehicle));
     }
 
@@ -83,9 +83,9 @@ public class VehicleController {
         if (vehicleService.existsByLicNo(vehicle.getLicNo(), id)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌号已存在", true);
         }
-        if (vehicleService.existsByCode(vehicle.getCode(), id)) {
-            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌编号已存在", true);
-        }
+//        if (vehicleService.existsByCode(vehicle.getCode(), id)) {
+//            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌编号已存在", true);
+//        }
         return ok(vehicleService.updateById(id, vehicle));
     }
 
