@@ -64,7 +64,7 @@ public class BusOnlineDataDeclareController {
     @OpLog("新增")
     @RequiresPermissions("online_data_declare_create")
     @PostMapping("")
-    public Result<BusOnlineDataDeclare> create(@RequestBody  BusOnlineDataDeclare busOnlineDataDeclare) throws IOException, IllegalAccessException {
+    public Result<BusOnlineDataDeclare> create(@RequestBody BusOnlineDataDeclare busOnlineDataDeclare) throws IOException, IllegalAccessException {
         Path path = Paths.get(ossProperties.getRepo(), busOnlineDataDeclare.getFile());
         BusOnlineDataDeclare declare = busOnlineDataDeclareService.insert(busOnlineDataDeclare, Files.newInputStream(path));
         return ok(declare);
