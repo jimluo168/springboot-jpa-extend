@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * @author luojimeng
  * @date 2020/3/12
  */
-public class JpaUtils {
+public abstract class JpaUtils {
 
     /**
      * 对不是null值de逆行拷贝.

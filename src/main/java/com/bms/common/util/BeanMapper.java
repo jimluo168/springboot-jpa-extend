@@ -13,7 +13,7 @@ import java.util.Map;
  * @author luojimeng
  * @date 2020/3/14
  */
-public class BeanMapper {
+public abstract class BeanMapper {
 
     public static Map<String, Object> toMap(Object source) {
         Map<String, Object> map = new HashMap<>();

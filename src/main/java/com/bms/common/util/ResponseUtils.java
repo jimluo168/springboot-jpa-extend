@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  * @author luojimeng
  * @date 2020/3/17
  */
-public class ResponseUtils {
+public abstract class ResponseUtils {
 
     public static void setHeader(HttpServletResponse response, String fileName) throws UnsupportedEncodingException {
         response.setContentType("application/vnd.ms-excel");

@@ -4,6 +4,7 @@ import com.bms.ErrorCodes;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
+import com.bms.common.util.IPUtils;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -86,7 +87,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 throw ErrorCodes.build(ErrorCodes.USER_STATUS_DISABLED);
             }
             info.setSessionId(token);
-            info.setIp(request.getRemoteAddr());
+            info.setIp(IPUtils.getClinetIpByRequest(request));
             info.setRequestUrl(request.getRequestURI());
 
             String requestMethod = request.getMethod();

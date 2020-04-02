@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author luojimeng
  * @date 2020/3/12
  */
-public class StringsUtils {
+public abstract class StringsUtils {
 
     /**
      * sha1加密.

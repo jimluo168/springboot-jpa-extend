@@ -1,6 +1,7 @@
 package com.bms.common.config.web.interceptor;
 
 import com.bms.common.config.web.HttpRequestBodyWrapper;
+import com.bms.common.util.IPUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,18 +45,18 @@ public class AccessFilter implements Filter {
                         && ("POST".equalsIgnoreCase(httpReq.getMethod()) || "PUT".equalsIgnoreCase(httpReq.getMethod()))) {
                     httpReq = new HttpRequestBodyWrapper(httpReq);
                     String body = IOUtils.toString(httpReq.getInputStream(), StandardCharsets.UTF_8);
-                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);
+                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", IPUtils.getClinetIpByRequest(httpReq), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);
                 } else {
-                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, "");
+                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", IPUtils.getClinetIpByRequest(httpReq), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, "");
                 }
             }
             chain.doFilter(httpReq, response);
         } catch (Exception ex) {
-            String errMsg = "<--- request:" + httpReq.getRemoteAddr() + " " + httpReq.getMethod() + " " + httpReq.getRequestURI() + "?" + httpReq.getQueryString() + " token:" + token + " X-User-Agent:" + xUserAgent;
+            String errMsg = "<--- request:" + IPUtils.getClinetIpByRequest(httpReq) + " " + httpReq.getMethod() + " " + httpReq.getRequestURI() + "?" + httpReq.getQueryString() + " token:" + token + " X-User-Agent:" + xUserAgent;
             logger.error(errMsg, ex);
         } finally {
             HttpServletResponse resp = (HttpServletResponse) response;
-            logger.info("<--- request:{} {} {} {} {}ms", httpReq.getRemoteAddr(), httpReq.getMethod(), httpReq.getRequestURI(), resp.getStatus(), (System.currentTimeMillis() - start));
+            logger.info("<--- request:{} {} {} {} {}ms", IPUtils.getClinetIpByRequest(httpReq), httpReq.getMethod(), httpReq.getRequestURI(), resp.getStatus(), (System.currentTimeMillis() - start));
         }
     }
 

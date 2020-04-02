@@ -9,7 +9,7 @@ import java.util.Date;
  * @author luojimeng
  * @date 2020/3/26
  */
-public class DateUtil {
+public abstract class DateUtil {
     /**
      * UTC 转换 GMT+8时间.
      *
