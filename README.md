@@ -3717,7 +3717,7 @@ params:
     list:attay<object>:查询信息
       org_name:string:公司名
       team_name:string:所属车队
-      oute_name:string:线路;
+      oute_name:string:线路
       veh_code:string:车辆编号;
       gas_quantity:float:汽油数量
       gas_price:float:汽油单价
