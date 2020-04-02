@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -67,8 +68,8 @@ public class RoleService {
     @Transactional(readOnly = true)
     public boolean existsByName(String name, Long id) {
         if (id == null) {
-            return roleRepository.countByNameAndDeletedFalse(name) > 0;
+            return roleRepository.countByNameAndDeleted(name, DELETE_FALSE) > 0;
         }
-        return roleRepository.countByNameAndIdNotAndDeletedFalse(name, id) > 0;
+        return roleRepository.countByNameAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
     }
 }

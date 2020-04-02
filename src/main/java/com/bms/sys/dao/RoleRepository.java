@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
-    int countByNameAndIdNotAndDeletedFalse(String name, Long id);
+    int countByNameAndIdNotAndDeleted(String name, Long id, int deleted);
 
-    int countByNameAndDeletedFalse(String name);
+    int countByNameAndDeleted(String name, int deleted);
 }
