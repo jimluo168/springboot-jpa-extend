@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -100,16 +101,16 @@ public class PractitionerService {
     @Transactional(readOnly = true)
     public boolean existsByStaffNumber(String staffNumber, Long id) {
         if (id == null) {
-            return practitionerRepository.countByStaffNumber(staffNumber) > 0;
+            return practitionerRepository.countByStaffNumberAndDeleted(staffNumber, DELETE_FALSE) > 0;
         }
-        return practitionerRepository.countByStaffNumberAndIdNot(staffNumber, id) > 0;
+        return practitionerRepository.countByStaffNumberAndIdNotAndDeleted(staffNumber, id, DELETE_FALSE) > 0;
     }
 
     @Transactional(readOnly = true)
     public boolean existsByIdNumber(String idNumber, Long id) {
         if (id == null) {
-            return practitionerRepository.countByIdNumber(idNumber) > 0;
+            return practitionerRepository.countByIdNumberAndDeleted(idNumber, DELETE_FALSE) > 0;
         }
-        return practitionerRepository.countByIdNumberAndIdNot(idNumber, id) > 0;
+        return practitionerRepository.countByIdNumberAndIdNotAndDeleted(idNumber, id, DELETE_FALSE) > 0;
     }
 }

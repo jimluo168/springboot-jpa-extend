@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -99,8 +100,8 @@ public class OrganizationService {
     @Transactional(readOnly = true)
     public boolean existsByName(String name, Long id) {
         if (id == null) {
-            return organizationRepository.countByName(name) > 0;
+            return organizationRepository.countByNameAndDeleted(name, DELETE_FALSE) > 0;
         }
-        return organizationRepository.countByNameAndIdNot(name, id) > 0;
+        return organizationRepository.countByNameAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
     }
 }

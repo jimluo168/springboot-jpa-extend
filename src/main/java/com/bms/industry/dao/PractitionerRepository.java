@@ -15,11 +15,11 @@ import org.springframework.stereotype.Repository;
 public interface PractitionerRepository extends PagingAndSortingRepository<Practitioner, Long> {
     Practitioner findByName(String name);
 
-    int countByStaffNumber(String staffNumber);
+    int countByStaffNumberAndDeleted(String staffNumber, int deleted);
 
-    int countByStaffNumberAndIdNot(String staffNumber, Long id);
+    int countByStaffNumberAndIdNotAndDeleted(String staffNumber, Long id, int deleted);
 
-    int countByIdNumber(String idNumber);
+    int countByIdNumberAndDeleted(String idNumber, int deleted);
 
-    int countByIdNumberAndIdNot(String idNumber, Long id);
+    int countByIdNumberAndIdNotAndDeleted(String idNumber, Long id, int deleted);
 }

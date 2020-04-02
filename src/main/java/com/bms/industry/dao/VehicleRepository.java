@@ -14,11 +14,11 @@ import org.springframework.stereotype.Repository;
 public interface VehicleRepository extends PagingAndSortingRepository<Vehicle, Long> {
     Vehicle findByLicNo(String licNo);
 
-    int countByLicNo(String licNo);
+    int countByLicNoAndDeleted(String licNo, int deleted);
 
-    int countByLicNoAndIdNot(String licNo, Long id);
+    int countByLicNoAndIdNotAndDeleted(String licNo, Long id, int deleted);
 
-    int countByCode(String code);
+    int countByCodeAndDeleted(String code, int deleted);
 
-    int countByCodeAndIdNot(String code, Long id);
+    int countByCodeAndIdNotAndDeleted(String code, Long id, int deleted);
 }

@@ -17,11 +17,11 @@ import java.util.List;
 public interface BusTerminalRepository extends PagingAndSortingRepository<BusTerminal, Long>, JpaSpecificationExecutor<BusTerminal> {
     List<BusTerminal> findByName(String name);
 
-    int countByName(String name);
+    int countByNameAndDeleted(String name, int deleted);
 
-    int countByNameAndIdNot(String name, Long id);
+    int countByNameAndIdNotAndDeleted(String name, Long id, int deleted);
 
-    int countByCode(String code);
+    int countByCodeAndDeleted(String code, int deleted);
 
-    int countByCodeAndIdNot(String code, Long id);
+    int countByCodeAndIdNotAndDeleted(String code, Long id, int deleted);
 }

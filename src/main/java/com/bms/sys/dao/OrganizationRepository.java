@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface OrganizationRepository extends PagingAndSortingRepository<Organization, Long>, JpaSpecificationExecutor<Organization> {
     Organization findByName(String name);
 
-    int countByName(String name);
+    int countByNameAndDeleted(String name,int deleted);
 
-    int countByNameAndIdNot(String name, Long id);
+    int countByNameAndIdNotAndDeleted(String name, Long id,int deleted);
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BusSiteRepository extends PagingAndSortingRepository<BusSite, Long>, JpaSpecificationExecutor<BusSite> {
 
-    int countByRouteAndNameAndUpDown(BusRoute route, String name, Integer upDown);
+    int countByRouteAndNameAndUpDownAndDeleted(BusRoute route, String name, Integer upDown, int deleted);
 
-    int countByRouteAndNameAndUpDownAndIdNot(BusRoute route, String name, Integer upDown, Long id);
+    int countByRouteAndNameAndUpDownAndIdNotAndDeleted(BusRoute route, String name, Integer upDown, Long id, int deleted);
 }

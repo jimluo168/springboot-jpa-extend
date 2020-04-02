@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -97,8 +98,8 @@ public class BusRouteService {
     @Transactional(readOnly = true)
     public boolean existsByNameAndType(String name, Integer type, Long id) {
         if (id == null) {
-            return busRouteRepository.countByNameAndType(name, type) > 0;
+            return busRouteRepository.countByNameAndTypeAndDeleted(name, type, DELETE_FALSE) > 0;
         }
-        return busRouteRepository.countByNameAndTypeAndIdNot(name, type, id) > 0;
+        return busRouteRepository.countByNameAndTypeAndIdNotAndDeleted(name, type, id, DELETE_FALSE) > 0;
     }
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -94,8 +95,8 @@ public class BusSiteService {
     @Transactional(readOnly = true)
     public boolean existsByRouteAndNameAndUpDown(BusRoute route, String name, Integer upDown, Long id) {
         if (id == null) {
-            return busSiteRepository.countByRouteAndNameAndUpDown(route, name, upDown) > 0;
+            return busSiteRepository.countByRouteAndNameAndUpDownAndDeleted(route, name, upDown, DELETE_FALSE) > 0;
         }
-        return busSiteRepository.countByRouteAndNameAndUpDownAndIdNot(route, name, upDown, id) > 0;
+        return busSiteRepository.countByRouteAndNameAndUpDownAndIdNotAndDeleted(route, name, upDown, id, DELETE_FALSE) > 0;
     }
 }

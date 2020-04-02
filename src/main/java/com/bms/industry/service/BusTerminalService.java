@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -97,16 +98,16 @@ public class BusTerminalService {
     @Transactional(readOnly = true)
     public boolean existsByName(String name, Long id) {
         if (id == null) {
-            return busTerminalRepository.countByName(name) > 0;
+            return busTerminalRepository.countByNameAndDeleted(name, DELETE_FALSE) > 0;
         }
-        return busTerminalRepository.countByNameAndIdNot(name, id) > 0;
+        return busTerminalRepository.countByNameAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
     }
 
     @Transactional(readOnly = true)
     public boolean existsByCode(String code, Long id) {
         if (id == null) {
-            return busTerminalRepository.countByCode(code) > 0;
+            return busTerminalRepository.countByCodeAndDeleted(code, DELETE_FALSE) > 0;
         }
-        return busTerminalRepository.countByCodeAndIdNot(code, id) > 0;
+        return busTerminalRepository.countByCodeAndIdNotAndDeleted(code, id, DELETE_FALSE) > 0;
     }
 }

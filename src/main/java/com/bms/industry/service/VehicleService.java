@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -97,16 +98,16 @@ public class VehicleService {
     @Transactional(readOnly = true)
     public boolean existsByLicNo(String licNo, Long id) {
         if (id == null) {
-            return vehicleRepository.countByLicNo(licNo) > 0;
+            return vehicleRepository.countByLicNoAndDeleted(licNo, DELETE_FALSE) > 0;
         }
-        return vehicleRepository.countByLicNoAndIdNot(licNo, id) > 0;
+        return vehicleRepository.countByLicNoAndIdNotAndDeleted(licNo, id, DELETE_FALSE) > 0;
     }
 
     @Transactional(readOnly = true)
     public boolean existsByCode(String code, Long id) {
         if (id == null) {
-            return vehicleRepository.countByCode(code) > 0;
+            return vehicleRepository.countByCodeAndDeleted(code, DELETE_FALSE) > 0;
         }
-        return vehicleRepository.countByCodeAndIdNot(code, id) > 0;
+        return vehicleRepository.countByCodeAndIdNotAndDeleted(code, id, DELETE_FALSE) > 0;
     }
 }
