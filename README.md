@@ -3849,9 +3849,6 @@ params:
   Authorization:token令牌
 
 @payload:
-  organization:object:公司信息
-    id:long:ID
-  org_name:string:公司名
   declarer:string:申报人
   start_time:date:申报时间-开始
   end_time:date:申报时间-结束
