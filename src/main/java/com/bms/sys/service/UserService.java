@@ -108,7 +108,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public boolean existsAccount(String account) {
+    public boolean existsByAccount(String account) {
         return userRepository.countByAccount(account) > 0;
     }
 }

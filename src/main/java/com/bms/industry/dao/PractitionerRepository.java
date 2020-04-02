@@ -14,4 +14,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PractitionerRepository extends PagingAndSortingRepository<Practitioner, Long> {
     Practitioner findByName(String name);
+
+    int countByStaffNumber(String staffNumber);
+
+    int countByStaffNumberAndIdNot(String staffNumber, Long id);
+
+    int countByIdNumber(String idNumber);
+
+    int countByIdNumberAndIdNot(String idNumber, Long id);
 }

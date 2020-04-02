@@ -42,7 +42,7 @@ public abstract class BusSiteCommon extends BaseEntity {
     @Column(name = "[index]")
     private Integer index;
     /**
-     * 上下行.
+     * 上下行 字典表(UP_DOWN_TYPE).
      */
     private Integer upDown;
     /**

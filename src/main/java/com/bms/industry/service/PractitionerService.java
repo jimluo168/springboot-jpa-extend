@@ -96,4 +96,20 @@ public class PractitionerService {
     public Practitioner findByName(String name) {
         return practitionerRepository.findByName(name);
     }
+
+    @Transactional(readOnly = true)
+    public boolean existsByStaffNumber(String staffNumber, Long id) {
+        if (id == null) {
+            return practitionerRepository.countByStaffNumber(staffNumber) > 0;
+        }
+        return practitionerRepository.countByStaffNumberAndIdNot(staffNumber, id) > 0;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByIdNumber(String idNumber, Long id) {
+        if (id == null) {
+            return practitionerRepository.countByIdNumber(idNumber) > 0;
+        }
+        return practitionerRepository.countByIdNumberAndIdNot(idNumber, id) > 0;
+    }
 }

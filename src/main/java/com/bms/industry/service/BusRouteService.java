@@ -93,4 +93,12 @@ public class BusRouteService {
     public List<BusRoute> findByName(String name) {
         return busRouteRepository.findByName(name);
     }
+
+    @Transactional(readOnly = true)
+    public boolean existsByNameAndType(String name, Integer type, Long id) {
+        if (id == null) {
+            return busRouteRepository.countByNameAndType(name, type) > 0;
+        }
+        return busRouteRepository.countByNameAndTypeAndIdNot(name, type, id) > 0;
+    }
 }

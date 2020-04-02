@@ -49,7 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("从业人员管理")
-@Api(value = "从业人员管理",tags = "从业人员管理")
+@Api(value = "从业人员管理", tags = "从业人员管理")
 public class PractitionerController {
 
     private static final Logger logger = LoggerFactory.getLogger(PractitionerController.class);
@@ -61,22 +61,35 @@ public class PractitionerController {
     @RequiresPermissions("practitioner_create")
     @PostMapping("")
     public Result<Practitioner> create(@RequestBody Practitioner practitioner) {
-        practitionerService.insert(practitioner);
-        return Result.ok(practitioner);
+        if (practitionerService.existsByStaffNumber(practitioner.getStaffNumber(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "工号已存在", true);
+        }
+
+        if (practitionerService.existsByIdNumber(practitioner.getIdNumber(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "身份证已存在", true);
+        }
+
+        return Result.ok(practitionerService.insert(practitioner));
     }
 
     @OpLog("编辑")
     @RequiresPermissions("practitioner_edit")
     @PutMapping("/{id}")
     public Result<Practitioner> edit(@PathVariable Long id, @RequestBody Practitioner practitioner) {
-        practitionerService.updateById(id, practitioner);
-        return Result.ok(practitioner);
+        if (practitionerService.existsByStaffNumber(practitioner.getStaffNumber(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "工号已存在", true);
+        }
+
+        if (practitionerService.existsByIdNumber(practitioner.getIdNumber(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "身份证已存在", true);
+        }
+        return Result.ok(practitionerService.updateById(id, practitioner));
     }
 
     @OpLog("查询")
     @RequiresPermissions("practitioner_list")
     @GetMapping("/list")
-    public Result<PageList<Practitioner>> list(PageRequest pageRequest,Practitioner practitioner) throws IllegalAccessException {
+    public Result<PageList<Practitioner>> list(PageRequest pageRequest, Practitioner practitioner) throws IllegalAccessException {
         return ok(practitionerService.page(pageRequest, BeanMapper.toMap(practitioner)));
     }
 

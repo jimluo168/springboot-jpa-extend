@@ -93,4 +93,20 @@ public class VehicleService {
     public Vehicle findByLicNo(String licNo) {
         return vehicleRepository.findByLicNo(licNo);
     }
+
+    @Transactional(readOnly = true)
+    public boolean existsByLicNo(String licNo, Long id) {
+        if (id == null) {
+            return vehicleRepository.countByLicNo(licNo) > 0;
+        }
+        return vehicleRepository.countByLicNoAndIdNot(licNo, id) > 0;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByCode(String code, Long id) {
+        if (id == null) {
+            return vehicleRepository.countByCode(code) > 0;
+        }
+        return vehicleRepository.countByCodeAndIdNot(code, id) > 0;
+    }
 }

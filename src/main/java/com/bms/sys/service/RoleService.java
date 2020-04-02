@@ -65,7 +65,7 @@ public class RoleService {
     }
 
     @Transactional(readOnly = true)
-    public boolean existsName(String name, Long id) {
+    public boolean existsByName(String name, Long id) {
         if (id == null) {
             return roleRepository.countByName(name) > 0;
         }

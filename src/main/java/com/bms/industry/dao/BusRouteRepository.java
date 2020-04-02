@@ -15,4 +15,8 @@ import java.util.List;
 @Repository
 public interface BusRouteRepository extends PagingAndSortingRepository<BusRoute, Long> {
     List<BusRoute> findByName(String name);
+
+    int countByNameAndType(String name, Integer type);
+
+    int countByNameAndTypeAndIdNot(String name, Integer type, Long id);
 }

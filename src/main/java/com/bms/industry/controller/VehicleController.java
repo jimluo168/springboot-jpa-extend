@@ -1,7 +1,6 @@
 package com.bms.industry.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -22,7 +21,6 @@ import com.bms.industry.service.VehicleService;
 import com.bms.industry.view.VehicleExcelModel;
 import com.bms.sys.service.DictService;
 import com.bms.sys.service.OrganizationService;
-import com.bms.sys.view.OrganizationExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,7 +51,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交车辆管理")
-@Api(value = "公交车辆管理",tags = "公交车辆管理")
+@Api(value = "公交车辆管理", tags = "公交车辆管理")
 public class VehicleController {
     private static final Logger logger = LoggerFactory.getLogger(VehicleController.class);
 
@@ -68,8 +66,13 @@ public class VehicleController {
     @RequiresPermissions("bus_vehicle_create")
     @PostMapping("")
     public Result<Vehicle> create(@RequestBody Vehicle vehicle) {
-        vehicleService.insert(vehicle);
-        return ok(vehicle);
+        if (vehicleService.existsByLicNo(vehicle.getLicNo(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌号已存在", true);
+        }
+        if (vehicleService.existsByCode(vehicle.getCode(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌编号已存在", true);
+        }
+        return ok(vehicleService.insert(vehicle));
     }
 
     @ApiOperation("编辑")
@@ -77,8 +80,13 @@ public class VehicleController {
     @RequiresPermissions("bus_vehicle_edit")
     @PutMapping("/{id}")
     public Result<Vehicle> edit(@PathVariable Long id, @RequestBody Vehicle vehicle) {
-        vehicleService.updateById(id, vehicle);
-        return ok(vehicle);
+        if (vehicleService.existsByLicNo(vehicle.getLicNo(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌号已存在", true);
+        }
+        if (vehicleService.existsByCode(vehicle.getCode(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌编号已存在", true);
+        }
+        return ok(vehicleService.updateById(id, vehicle));
     }
 
     @ApiOperation("查询")
