@@ -8,6 +8,8 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.OperationLog;
 import com.bms.sys.service.OpLogService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +30,14 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/sys/oplogs")
 @RequiredArgsConstructor
 @RequiresAuthentication
+@Api(value = "日志管理",tags = "日志管理")
 public class OpLogController {
 
     private final OpLogService opLogService;
 
     @RequiresPermissions("oplog_list")
     @GetMapping("/list")
+    @ApiOperation("查询")
     public Result<PageList<OperationLog>> list(PageRequest pageRequest, QueryParams params) throws IllegalAccessException {
         return ok(opLogService.page(pageRequest, BeanMapper.toMap(params)));
     }

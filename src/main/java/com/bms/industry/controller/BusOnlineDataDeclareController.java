@@ -46,7 +46,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("网上申报管理")
-@Api("网上申报管理")
+@Api(value = "网上申报管理", tags = "网上申报管理")
 public class BusOnlineDataDeclareController {
     private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareController.class);
 

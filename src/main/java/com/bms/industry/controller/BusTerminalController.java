@@ -19,6 +19,7 @@ import com.bms.entity.BusTerminal;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusTerminalService;
 import com.bms.industry.view.BusTerminalExcelModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -47,6 +48,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交场站管理")
+@Api(value = "公交场站管理",tags = "公交场站管理")
 public class BusTerminalController {
 
     private static final Logger logger = LoggerFactory.getLogger(BusTerminalController.class);

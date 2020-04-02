@@ -49,7 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交企业管理")
-@Api("公交企业管理")
+@Api(value = "公交企业管理", tags = "公交企业管理")
 public class OrganizationController {
     private static final Logger logger = LoggerFactory.getLogger(OrganizationController.class);
 

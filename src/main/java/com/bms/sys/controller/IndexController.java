@@ -42,7 +42,7 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/sys")
 @RequiredArgsConstructor
 @OpLogModule("用户管理")
-@Api("用户登录/注销")
+@Api(value = "用户登录/注销", tags = "用户登录/注销")
 public class IndexController {
 
     private final UserService userService;

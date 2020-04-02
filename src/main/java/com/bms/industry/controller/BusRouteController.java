@@ -49,7 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交线路管理")
-@Api("公交线路管理")
+@Api(value = "公交线路管理",tags = "公交线路管理")
 public class BusRouteController {
     private static final Logger logger = LoggerFactory.getLogger(BusRouteController.class);
 

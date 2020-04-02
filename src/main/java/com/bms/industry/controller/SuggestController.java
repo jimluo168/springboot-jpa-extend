@@ -12,6 +12,7 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Practitioner;
 import com.bms.entity.Suggest;
 import com.bms.industry.service.SuggestService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("投诉建议管理")
+@Api(value = "投诉建议管理",tags = "投诉建议管理")
 public class SuggestController {
     private final SuggestService suggestService;
 

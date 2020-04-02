@@ -56,7 +56,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("违规信息管理")
-@Api("违规信息管理")
+@Api(value = "违规信息管理",tags = "违规信息管理")
 public class BusViolationController {
     private static final Logger logger = LoggerFactory.getLogger(BusViolationController.class);
 

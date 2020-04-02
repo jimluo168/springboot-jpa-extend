@@ -33,7 +33,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("事件统计分析")
-@Api("事件统计分析")
+@Api(value = "事件统计分析",tags = "事件统计分析")
 public class BusViolationStatsController {
 
     private final BusViolationStatsService busViolationStatsService;

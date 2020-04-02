@@ -26,7 +26,7 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/sys/menus")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@Api("菜单管理")
+@Api(value = "菜单管理",tags = "菜单管理")
 public class MenuController {
 
     private final MenuService menuService;

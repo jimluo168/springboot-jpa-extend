@@ -10,6 +10,7 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Notice;
 import com.bms.industry.service.NoticeService;
+import io.swagger.annotations.Api;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("行政管理")
+@Api(value = "行政管理",tags = "行政管理")
 public class NoticeController {
     private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 

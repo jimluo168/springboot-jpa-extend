@@ -34,7 +34,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("统计数据表")
-@Api("统计数据表")
+@Api(value = "统计数据表",tags = "统计数据表")
 public class BusOnlineDataDeclareStatsController {
 
     private final BusOnlineDataDeclareStatsService busOnlineDataDeclareStatsService;
