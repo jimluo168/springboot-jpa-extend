@@ -67,8 +67,8 @@ public class RoleService {
     @Transactional(readOnly = true)
     public boolean existsByName(String name, Long id) {
         if (id == null) {
-            return roleRepository.countByName(name) > 0;
+            return roleRepository.countByNameAndDeletedFalse(name) > 0;
         }
-        return roleRepository.countByNameAndIdNot(name, id) > 0;
+        return roleRepository.countByNameAndIdNotAndDeletedFalse(name, id) > 0;
     }
 }
