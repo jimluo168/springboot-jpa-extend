@@ -26,7 +26,8 @@ public enum ErrorCodes {
     OSS_FILE_EMPTY(1003, "文件为空或无效"),
     OSS_CONTENT_TYPE_UNSUPPORTED(1005, "不支持的内容类型"),
     USER_STATUS_DISABLED(1004, "用户禁用"),
-    INVALID_PARAMETER(1006,"无效的参数"),
+    INVALID_PARAMETER(1006, "无效的参数"),
+    RECORD_EXISTS(1007, "记录已存在"),
 
     /**
      * sys(10000-19999).
@@ -41,7 +42,6 @@ public enum ErrorCodes {
     /**
      * industry(20000-29999).
      */
-
 
 
     private int code;
@@ -67,12 +67,24 @@ public enum ErrorCodes {
     /**
      * 更具体的错误说明.
      *
-     * @param err
-     * @param detailedErrMsg 更具体的错误说明
+     * @param err           ErrorCodes
+     * @param detailMessage 更具体的错误说明
      * @return ServiceException
      */
-    public static ServiceException build(ErrorCodes err, String detailedErrMsg) {
-        return new ServiceException(err.code, err.message + " " + detailedErrMsg);
+    public static ServiceException build(ErrorCodes err, String detailMessage) {
+        return new ServiceException(err.code, err.message + " " + detailMessage);
+    }
+
+    /**
+     * 更具体的错误说明.
+     *
+     * @param err              ErrorCodes
+     * @param detailMessage    更具体的错误说明
+     * @param useDetailMessage 只使用 detailMessage 的错误信息
+     * @return ServiceException
+     */
+    public static ServiceException build(ErrorCodes err, String detailMessage, boolean useDetailMessage) {
+        return new ServiceException(err.code, detailMessage);
     }
 }
 

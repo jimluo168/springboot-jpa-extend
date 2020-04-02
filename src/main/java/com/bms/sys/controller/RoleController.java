@@ -1,5 +1,6 @@
 package com.bms.sys.controller;
 
+import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
@@ -32,41 +33,44 @@ public class RoleController {
     @OpLog("新增")
     @RequiresPermissions("role_create")
     @PostMapping("")
-    public Result<Long> create(@RequestBody Role body) {
-        Role role = roleService.insert(body);
-        return ok(role.getId());
+    public Result<Role> create(@RequestBody Role role) {
+        boolean exists = roleService.existsName(role.getName(), null);
+        if (exists) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "角色名称已存在", true);
+        }
+        return ok(roleService.insert(role));
     }
 
     @OpLog("编辑")
     @RequiresPermissions("role_edit")
     @PutMapping("/{id}")
-    public Result<Role> edit(@PathVariable Long id, @RequestBody Role updateBody) {
-        Role role = roleService.updateById(id, updateBody);
-        return ok(role);
+    public Result<Role> edit(@PathVariable Long id, @RequestBody Role role) {
+        boolean exists = roleService.existsName(role.getName(), id);
+        if (exists) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "角色名称已存在",true);
+        }
+        return ok(roleService.updateById(id, role));
     }
 
     @OpLog("删除")
     @RequiresPermissions("role_delete")
     @DeleteMapping("/{id}")
-    public Result<Long> delete(@PathVariable Long id) {
-        Role role = roleService.deleteById(id);
-        return ok(role.getId());
+    public Result<Role> delete(@PathVariable Long id) {
+        return ok(roleService.deleteById(id));
     }
 
     @OpLog("详情")
     @RequiresPermissions("role_details")
     @GetMapping("/{id}")
     public Result<Role> details(@PathVariable Long id) {
-        Role role = roleService.findById(id);
-        return ok(role);
+        return ok(roleService.findById(id));
     }
 
     @OpLog("查询")
     @RequiresPermissions("role_list")
     @GetMapping("/list")
     public Result<PageList<Role>> list(PageRequest pageRequest, Role role) throws IllegalAccessException {
-        PageList<Role> list = roleService.page(pageRequest, BeanMapper.toMap(role));
-        return ok(list);
+        return ok(roleService.page(pageRequest, BeanMapper.toMap(role)));
     }
 
 }

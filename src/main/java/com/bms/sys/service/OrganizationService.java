@@ -95,4 +95,12 @@ public class OrganizationService {
     public Organization findByName(String name) {
         return organizationRepository.findByName(name);
     }
+
+    @Transactional(readOnly = true)
+    public boolean existsName(String name, Long id) {
+        if (id == null) {
+            return organizationRepository.countByName(name) > 0;
+        }
+        return organizationRepository.countByNameAndIdNot(name, id) > 0;
+    }
 }

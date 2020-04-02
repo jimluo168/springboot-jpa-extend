@@ -127,7 +127,7 @@ public abstract class OrganizationCommon extends BaseEntity {
      */
     @JsonIgnoreProperties({"children", "audit_list"})
     @ManyToOne
-    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id")
     private Organization parent;
     /**
      * 子公司.

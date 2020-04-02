@@ -64,4 +64,11 @@ public class RoleService {
         return role;
     }
 
+    @Transactional(readOnly = true)
+    public boolean existsName(String name, Long id) {
+        if (id == null) {
+            return roleRepository.countByName(name) > 0;
+        }
+        return roleRepository.countByNameAndIdNot(name, id) > 0;
+    }
 }

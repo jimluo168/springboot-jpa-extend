@@ -1,5 +1,6 @@
 package com.bms.sys.controller;
 
+import com.bms.ErrorCodes;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import static com.bms.common.domain.Result.ok;
@@ -33,7 +35,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("用户管理")
-@Api(value = "用户管理",tags = "用户管理")
+@Api(value = "用户管理", tags = "用户管理")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -44,13 +46,17 @@ public class UserController {
     @RequiresPermissions("user_create")
     @PostMapping("")
     public Result<User> create(@RequestBody User user) {
+        boolean exists = userService.existsAccount(user.getAccount());
+        if (exists) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "用户名已存在", true);
+        }
         return ok(userService.insert(user));
     }
 
     @OpLog("查询")
     @RequiresPermissions("user_list")
     @GetMapping("/list")
-    public Result<PageList<User>> list(PageRequest pageRequest,User user) throws IllegalAccessException {
+    public Result<PageList<User>> list(PageRequest pageRequest, User user) throws IllegalAccessException {
         return ok(userService.page(pageRequest, BeanMapper.toMap(user)));
     }
 
@@ -101,4 +107,5 @@ public class UserController {
         User user = userService.resetPasswd(id);
         return ok(user);
     }
+
 }

@@ -18,4 +18,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     User findByAccount(String account);
 
     Page<User> findByAccountOrRealNameLike(Pageable pageable, String account, String nickName);
+
+    int countByAccount(String account);
 }

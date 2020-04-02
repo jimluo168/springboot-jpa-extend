@@ -61,6 +61,10 @@ public class OrganizationController {
     @RequiresPermissions("organization_create")
     @PostMapping("")
     public Result<Organization> create(@RequestBody Organization organization) {
+        boolean exists = organizationService.existsName(organization.getName(), null);
+        if (exists) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "组织名称已存在", true);
+        }
         organizationService.insert(organization);
         return ok(organization);
     }
@@ -70,6 +74,10 @@ public class OrganizationController {
     @RequiresPermissions("organization_edit")
     @PutMapping("/{id}")
     public Result<Organization> edit(@PathVariable Long id, @RequestBody Organization organization) {
+        boolean exists = organizationService.existsName(organization.getName(), id);
+        if (exists) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "组织名称已存在", true);
+        }
         organizationService.updateById(id, organization);
         return ok(organization);
     }

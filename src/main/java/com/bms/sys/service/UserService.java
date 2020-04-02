@@ -67,7 +67,7 @@ public class UserService {
         return presentUser;
     }
 
-    public PageList<User> page(PageRequest pageRequest,  Map<String, Object> queryParams) {
+    public PageList<User> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, queryParams));
     }
 
@@ -105,5 +105,10 @@ public class UserService {
         User user = this.findById(id);
         user.setStatus(status);
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsAccount(String account) {
+        return userRepository.countByAccount(account) > 0;
     }
 }

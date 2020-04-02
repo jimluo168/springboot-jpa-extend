@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RoleRepository extends PagingAndSortingRepository<Role, Long> {
+    int countByNameAndIdNot(String name, Long id);
+
+    int countByName(String name);
 }

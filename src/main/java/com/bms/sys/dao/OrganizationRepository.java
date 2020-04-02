@@ -14,4 +14,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrganizationRepository extends PagingAndSortingRepository<Organization, Long>, JpaSpecificationExecutor<Organization> {
     Organization findByName(String name);
+
+    int countByName(String name);
+
+    int countByNameAndIdNot(String name, Long id);
 }

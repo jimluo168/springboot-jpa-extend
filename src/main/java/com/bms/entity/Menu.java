@@ -70,7 +70,7 @@ public class Menu extends BaseEntity {
 
     @JsonIgnoreProperties({"children", "role_list"})
     @ManyToOne
-    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id")
     private Menu parent;
 
     @JsonIgnoreProperties({"parent", "role_list"})
