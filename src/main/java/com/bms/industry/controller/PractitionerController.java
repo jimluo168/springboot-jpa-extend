@@ -20,6 +20,7 @@ import com.bms.industry.service.PractitionerService;
 import com.bms.industry.view.PractitionerExcelModel;
 import com.bms.sys.service.OrganizationService;
 import com.bms.sys.view.OrganizationExcelModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -48,6 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("从业人员管理")
+@Api(value = "从业人员管理",tags = "从业人员管理")
 public class PractitionerController {
 
     private static final Logger logger = LoggerFactory.getLogger(PractitionerController.class);

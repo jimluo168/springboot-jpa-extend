@@ -30,7 +30,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 //@OpLogModule("公交车队管理")
-@Api("公交车队管理")
+@Api(value = "公交车队管理",tags = "公交车队管理")
 public class BusTeamController {
     private static final Logger logger = LoggerFactory.getLogger(BusTeamController.class);
 

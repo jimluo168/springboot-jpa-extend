@@ -29,7 +29,7 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/sys/dict")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@Api("字典管理")
+@Api(value = "字典管理",tags = "字典管理")
 public class DictController {
 
     private final DictService dictService;

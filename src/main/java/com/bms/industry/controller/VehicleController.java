@@ -53,7 +53,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交车辆管理")
-@Api("公交车辆管理")
+@Api(value = "公交车辆管理",tags = "公交车辆管理")
 public class VehicleController {
     private static final Logger logger = LoggerFactory.getLogger(VehicleController.class);
 

@@ -4,6 +4,8 @@ import com.bms.Constant;
 import com.bms.ErrorCodes;
 import com.bms.common.domain.Result;
 import com.bms.common.web.annotation.RequiresAuthentication;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -39,12 +41,14 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/oss")
 @RequiredArgsConstructor
 @EnableConfigurationProperties(OSSProperties.class)
+@Api(value = "文件管理",tags = "文件管理")
 public class OSSController {
     private static final Logger logger = LoggerFactory.getLogger(OSSController.class);
     private final OSSProperties ossProperties;
 
     @RequiresAuthentication
     @PostMapping("/{dir}")
+    @ApiOperation("上传")
     public Result<FileInfo> upload(@PathVariable String dir,
                                    MultipartFile file,
                                    HttpServletRequest request) throws IOException {
@@ -103,6 +107,7 @@ public class OSSController {
         throw ErrorCodes.build(ErrorCodes.OSS_CONTENT_TYPE_UNSUPPORTED);
     }
 
+    @ApiOperation("下载")
     @GetMapping("/{dir}/{fmtday}/{filename}")
     public void get(@PathVariable String dir,
                     @PathVariable String fmtday,
@@ -123,6 +128,7 @@ public class OSSController {
         Files.copy(path, response.getOutputStream());
     }
 
+    @ApiOperation("删除")
     @RequiresAuthentication
     @DeleteMapping("/{dir}/{fmtday}/{filename}")
     public Result<Void> delete(@PathVariable String dir,

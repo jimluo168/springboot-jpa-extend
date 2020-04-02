@@ -19,6 +19,7 @@ import com.bms.entity.BusSite;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusSiteService;
 import com.bms.industry.view.BusSiteExcelModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -48,6 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交站点管理")
+@Api(value = "公交站点管理",tags = "公交站点管理")
 public class BusSiteController {
 
     private static final Logger logger = LoggerFactory.getLogger(BusSiteController.class);

@@ -12,9 +12,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 申报明细
+ * 申报统计表.
  *
- * @author zouyongcan
+ * @author luojimeng
  * @date 2020/3/30
  */
 @Data
@@ -22,13 +22,45 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "bus_online_data_declare_items")
-public class BusOnlineDataDeclareItem extends BaseEntity {
+@Table(name = "bus_online_data_declare_statis")
+public class BusOnlineDataDeclareStats extends BaseEntity {
+    /**
+     * 1=按年统计.
+     */
+    public static final int CATEGORY_YEAR = 1;
+    /**
+     * 2=按年统计.
+     */
+    public static final int CATEGORY_QUARTER = 2;
+    /**
+     * 3=按年统计.
+     */
+    public static final int CATEGORY_MONTH = 3;
+    /**
+     * 4=按年统计.
+     */
+    public static final int CATEGORY_WEEK = 4;
+
+    /**
+     * 1=汽油.
+     */
+    public static final int TYPE_GAS = 1;
+    /**
+     * 2=柴油.
+     */
+    public static final int TYPE_DIESELOIL = 2;
+    /**
+     * 3=天然气.
+     */
+    public static final int TYPE_NATURALGAS = 3;
+    /**
+     * 4=电能.
+     */
+    public static final int TYPE_ELECTRIC = 4;
 
     /**
      * 所属申报.
      */
-    @JsonIgnoreProperties("item_list")
     @ManyToOne
     @JoinColumn(name = "declare_id")
     private BusOnlineDataDeclare declare;
@@ -64,78 +96,25 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     private String vehCode;
 
     /**
-     * 汽油数量.
+     * 数量.
      */
-    private BigDecimal gasQuantity;
+    private BigDecimal quantity;
 
     /**
-     * 汽油 单价.
+     * 金额.
      */
-    private BigDecimal gasPrice;
-
-    /**
-     * 汽油 金额.
-     */
-    private BigDecimal gasBalance;
-
-    /**
-     * 柴油 数量.
-     */
-    private BigDecimal dieselOilQuantity;
-
-    /**
-     * 柴油 单价.
-     */
-    private BigDecimal dieselOilPrice;
-
-    /**
-     * 柴油 金额.
-     */
-    private BigDecimal dieselOilBalance;
-
-    /**
-     * 天然气 数量.
-     */
-    private BigDecimal naturalGasQuantity;
-
-    /**
-     * 天然气 单价.
-     */
-    private BigDecimal naturalGasPrice;
-
-    /**
-     * 天然气 金额.
-     */
-    private BigDecimal naturalGasBalance;
-
-    /**
-     * 电能 数量.
-     */
-    private BigDecimal electricQuantity;
-
-    /**
-     * 电能 单价.
-     */
-    private BigDecimal electricPrice;
-
-    /**
-     * 电能 金额.
-     */
-    private BigDecimal electricBalance;
+    private BigDecimal balance;
 
     /**
      * 类别(1:年 2:季 3:月 4:周).
      */
-    @Transient
     private Integer category;
     /**
-     * 开始日期.
+     * 类型(1:汽油 2:柴油 3:天然气 4:电能).
      */
-    @Transient
-    private Date begin;
+    private Integer type;
     /**
-     * 结束日期.
+     * 统计时间.
      */
-    @Transient
-    private Date end;
+    private Date time;
 }

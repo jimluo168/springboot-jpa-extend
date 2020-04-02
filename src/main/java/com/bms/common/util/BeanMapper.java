@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class BeanMapper {
 
-    public static Map<String, Object> toMap(Object source) throws IllegalAccessException {
+    public static Map<String, Object> toMap(Object source) {
         Map<String, Object> map = new HashMap<>();
         ReflectionUtils.doWithFields(source.getClass(), new ReflectionUtils.FieldCallback() {
             @Override

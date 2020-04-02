@@ -13,6 +13,7 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.User;
 import com.bms.sys.service.UserService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("用户管理")
+@Api(value = "用户管理",tags = "用户管理")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);

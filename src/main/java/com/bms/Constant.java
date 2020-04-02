@@ -76,15 +76,15 @@ public interface Constant {
     /**
      * 事件统计分析-司机违规排行.
      */
-    String MAPPER_BUS_VIOLATION_STATS_TYPE="bus_violation_stats_type";
+    String MAPPER_BUS_VIOLATION_STATS_TYPE = "bus_violation_stats_type";
     /**
      * 事件统计分析-公司违规排行.
      */
-    String MAPPER_BUS_VIOLATION_STATS_COMPANY ="bus_violation_stats_company";
+    String MAPPER_BUS_VIOLATION_STATS_COMPANY = "bus_violation_stats_company";
     /**
      * 事件统计分析-司机违规排行.
      */
-    String MAPPER_BUS_VIOLATION_STATS_DRIVER ="bus_violation_stats_driver";
+    String MAPPER_BUS_VIOLATION_STATS_DRIVER = "bus_violation_stats_driver";
     /**
      * 事件统计分析-全部违规行为统计(周、月、年)-周.
      */
@@ -102,20 +102,26 @@ public interface Constant {
      */
     String MAPPER_BUS_ONLINE_DATA_DECLARE_STATS = "bus_online_data_declare_stats";
     /**
+     * 燃油消耗管理-能源趋势对比.
+     */
+    String MAPPER_BUS_ONLINE_DATA_DECLARE_STATS_ENERGYCOMPARISON = "bus_online_data_declare_stats_energycomparison";
+    /**
      * 网上申报-分页查询.
      */
     String MAPPER_ONLINE_DATA_DECLARE_PAGE = "online_data_declare_page";
     /**
-     * 申报明细-统计查询
+     * 申报明细-统计查询.
      */
     String MAPPER_ONLINE_DATA_DECLARE_RETRIEVAL = "bus_online_data_declare_retrieval";
-
     /**
-     * 申报明细-总计
+     * 申报明细-总计.
      */
     String MAPPER_ONLINE_DATA_DECLARE_TOTAL = "bus_online_data_declare_total";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
+
+
+
 
     /***--------------------------基本常量定义开始--------------------------------------***/
 

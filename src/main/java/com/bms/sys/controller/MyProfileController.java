@@ -24,7 +24,7 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/sys/my")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@Api("我的个人信息")
+@Api(value = "我的个人信息",tags = "我的个人信息")
 public class MyProfileController {
 
     private final UserService userService;
