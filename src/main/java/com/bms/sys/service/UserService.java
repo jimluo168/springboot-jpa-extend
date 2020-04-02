@@ -61,6 +61,9 @@ public class UserService {
         user.setId(flakeId.next());
         user.setSalt(Long.toString(System.currentTimeMillis()));
         User presentUser = userRepository.save(user);
+        if (StringUtils.isBlank(user.getPasswd())) {
+            user.setPasswd(User.DEFAULT_PASSWD);
+        }
         String encryptPasswd = StringsUtils.sha256Hex(user.getPasswd(), user.getSalt(), Long.toString(presentUser.getCreateDate().getTime()));
         presentUser.setPasswd(encryptPasswd);
         return presentUser;
@@ -95,7 +98,7 @@ public class UserService {
 
     public User resetPasswd(Long id) {
         User user = this.findById(id);
-        String encryptPasswd = StringsUtils.sha256Hex("123456", user.getSalt(), Long.toString(user.getCreateDate().getTime()));
+        String encryptPasswd = StringsUtils.sha256Hex(User.DEFAULT_PASSWD, user.getSalt(), Long.toString(user.getCreateDate().getTime()));
         user.setPasswd(encryptPasswd);
         return user;
     }

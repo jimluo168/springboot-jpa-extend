@@ -20,7 +20,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @Entity
 @Table(name = "adm_notices")
-public class Notice extends BaseEntity {
+public class  Notice extends BaseEntity {
     /**
      * 标题.
      */
