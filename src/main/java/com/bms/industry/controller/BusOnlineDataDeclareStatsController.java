@@ -92,6 +92,7 @@ public class BusOnlineDataDeclareStatsController {
                 calendar.set(Calendar.MILLISECOND, 0);
                 calendar.add(Calendar.DATE, -7);
                 calendar.setTime(calendar.getTime());
+                params.setBegin(calendar.getTime());
                 params.setEnd(now);
                 return ok(busOnlineDataDeclareStatsService.week(params));
         }
