@@ -26,7 +26,7 @@ public enum ErrorCodes {
     OSS_FILE_EMPTY(1003, "文件为空或无效"),
     OSS_CONTENT_TYPE_UNSUPPORTED(1005, "不支持的内容类型"),
     USER_STATUS_DISABLED(1004, "用户禁用"),
-
+    INVALID_PARAMETER(1006,"无效的参数"),
 
     /**
      * sys(10000-19999).
@@ -41,6 +41,7 @@ public enum ErrorCodes {
     /**
      * industry(20000-29999).
      */
+
 
 
     private int code;

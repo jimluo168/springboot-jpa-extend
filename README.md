@@ -3670,7 +3670,7 @@ ROUTE_TYPE:int:线路类型
 ### 能源趋势对比
 
 ```yaml
-@get: /industry/onlinedatadeclares/stats/energycomparisons?begin=:begin&end=:end
+@get: /industry/onlinedatadeclares/stats/energycomparisons
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -3680,8 +3680,6 @@ params:
   organization.id:long:公司ID
   bus_route.id:long:线路ID
   category:int:类型(1:年 2:季 3:月 4:周)
-  begin:date:开始时间
-  end:date:结束时间
 
 @return:
   code:int:操作码

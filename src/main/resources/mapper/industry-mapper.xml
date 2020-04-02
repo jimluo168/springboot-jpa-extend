@@ -297,6 +297,40 @@
         ]]>
     </bus_online_data_declare_stats>
 
+    <bus_online_data_declare_stats_energycomparison type="sql" desc="能源趋势对比">
+        <![CDATA[
+            select
+                sum(quantity) as quantity,
+            <#if category == 1>
+                date_format(time,'%Y%m') as fmt_time,
+            <#else>
+                date_format(time,'%Y%m%d') as fmt_time,
+            </#if>
+                type,
+                case type
+                    when 1 then '汽油'
+                    when 2 then '柴油'
+                    when 3 then '天然气'
+                    when 4 then '电能'
+                end type_name
+            from bus_online_data_declare_statis
+            where is_delete = 0
+            and category = :category
+            <#if organization?? && organization.id!=''>
+                and org_id = ${organization.id}
+
+            </#if>
+            <#if busRoute?? && busRoute.id!=''>
+                and route_id= ${busRoute.id}
+            </#if>
+            <#if begin?? && end??>
+                and time between :begin and :end
+            </#if>
+            group by fmt_time,type
+            order by fmt_time, type asc
+        ]]>
+    </bus_online_data_declare_stats_energycomparison>
+
     <online_data_declare_page type="hql" desc="网上申报管理-分页查询">
         <![CDATA[
             from BusOnlineDataDeclare b
