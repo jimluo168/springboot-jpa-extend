@@ -66,19 +66,10 @@ public class BusOnlineDataDeclareService {
 
     public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, InputStream ins) throws IOException, IllegalAccessException {
         try {
-
-            List<Map<String, Object>> list = EasyExcel.read(ins).sheet().headRowNumber(2).doReadSync();
-            Map<String, Object> rowMap = list.get(0);
-            String orgName = rowMap.get(1).toString();
-            Organization organization = organizationService.findByName(orgName);
-            if (organization != null) {
-                declare.setOrganization(organization);
-            }
-            declare.setOrgName(orgName);
             declare.setId(flakeId.next());
             busOnlineDataDeclareRepository.save(declare);
             // 从excel第三行开始读取
-            EasyExcel.read(ins, DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, declare)).sheet().headRowNumber(2).doRead();
+            EasyExcel.read(ins, DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(this, declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().headRowNumber(2).doRead();
             return declare;
         } catch (Exception e) {
 //            logger.error("import data error", e);
@@ -140,14 +131,23 @@ public class BusOnlineDataDeclareService {
         private static final int BATCH_COUNT = 3000;
         private List<DeclareItemExcelModel> list = new ArrayList<>();
 
+        private final BusOnlineDataDeclareService busOnlineDataDeclareService;
         private final BusOnlineDataDeclareItemService declareItemService;
         private final BusTeamService busTeamService;
         private final BusRouteService busRouteService;
-        //        private final OrganizationService organizationService;
+        private final OrganizationService organizationService;
         private final BusOnlineDataDeclare declare;
 
         @Override
         public void invoke(DeclareItemExcelModel data, AnalysisContext context) {
+            if (list.size() == 0) {
+                declare.setOrgName(data.getOrgName());
+                Organization organization = organizationService.findByName(data.getOrgName());
+                if (organization != null) {
+                    declare.setOrganization(organization);
+                }
+                busOnlineDataDeclareService.updateById(declare.getId(), declare);
+            }
             data.setBusRouteService(busRouteService);
             data.setBusTeamService(busTeamService);
 //            data.setOrganizationService(organizationService);
@@ -170,9 +170,7 @@ public class BusOnlineDataDeclareService {
             list.stream().forEach(o -> {
                 BusOnlineDataDeclareItem target = new BusOnlineDataDeclareItem();
                 BeanUtils.copyProperties(o, target);
-//                target.setDeclare(declare);
                 target.setOrganization(declare.getOrganization());
-                target.setOrgName(declare.getOrgName());
                 target.setDeclare(declare);
                 batchData.add(target);
             });

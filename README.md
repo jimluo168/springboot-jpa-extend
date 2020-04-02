@@ -3907,7 +3907,6 @@ params:
   declarer:string:申报人
   start_time:date:申报时间-开始
   end_time:date:申报时间-结束
-  # file:file:申报明细的文件
   file:string:申报明细的文件路径(oss返回的路径)
 
   
