@@ -9,8 +9,10 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusOnlineDataDeclareItem;
 import com.bms.industry.service.BusOnlineDataDeclareStatsService;
 import com.bms.industry.view.BusOnlineDataDeclareStatsEnergyComparisonEchartView;
+import com.bms.industry.view.DataDeclareTotalRetrieval;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,5 +99,11 @@ public class BusOnlineDataDeclareStatsController {
         throw ErrorCodes.build(ErrorCodes.INVALID_PARAMETER, " category=" + params.getCategory() + " 不支持的类别");
     }
 
+    @ApiOperation("统计查询")
+    @RequiresPermissions("query_statis_list")
+    @GetMapping("/querystatis")
+    public Result<DataDeclareTotalRetrieval> queryStatis(DataDeclareTotalRetrieval data) throws IllegalAccessException {
+        return ok(busOnlineDataDeclareStatsService.queryStatis(BeanMapper.toMap(data)));
+    }
 
 }

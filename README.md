@@ -3690,8 +3690,58 @@ params:
       data:array<int>:能耗数量
   success:bool:是否成功
   msg:string:操作提示
+```
 
+### 26.2. 统计查询
 
+```yaml
+@get: /industry/onlinedatadeclares/stats/querystatis
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  org_name:string:公司名
+  team_id:long:车队id
+  route_id:long:线路id
+  veh_code：string:车辆编号
+  begin:date:开始日期
+  end:date:结束日期
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    list:attay<object>:查询信息
+      org_name:string:公司名
+      team_name:string:所属车队
+      oute_name:string:线路;
+      veh_code:string:车辆编号;
+      gas_quantity:float:汽油数量
+      gas_price:float:汽油单价
+      gas_balance:float:汽油金额
+      diesel_oil_quantity:float:柴油数量
+      diesel_oil_price:float:柴油单价
+      diesel_oil_balance:float:柴油金额
+      natural_gas_quantity:float:天然气数量
+      natural_gas_price:float:天然气单价
+      natural_gas_balance:float:天然气金额
+      electric_quantity:float:电能数量
+      electric_price:float:电能单价
+      electric_balance:float:电能金额
+      total_balance:float:总金额
+    total:object:总计
+      gas_quantity_total:float:汽油总数量
+      gas_balance_total:float:汽油总金额
+      diesel_oil_quantity_total:float:柴油总数量
+      diesel_oil_balance_total:float:柴油总金额
+      natural_gas_quantity_total:float:天然气总数量
+      natural_gas_balance_total:float:天然气总金额
+      electric_quantity_total:float:电能总数量
+      electric_balance_total:float:电能总金额
+      all_balance_total:float:总金额
+  success:bool:是否成功
+  msg:string:操作提示
 ```
 
 ## 26. 网上数据申报管理

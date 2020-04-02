@@ -15,6 +15,7 @@ import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusOnlineDataDeclare;
 import com.bms.entity.BusOnlineDataDeclareAudit;
 import com.bms.entity.BusOnlineDataDeclareItem;
+import com.bms.industry.controller.BusOnlineDataDeclareController;
 import com.bms.industry.dao.BusOnlineDataDeclareAuditRepository;
 import com.bms.industry.dao.BusOnlineDataDeclareRepository;
 import com.bms.industry.view.DeclareItemExcelModel;
@@ -49,16 +50,20 @@ public class BusOnlineDataDeclareService {
     private final FlakeId flakeId;
     private final BusOnlineDataDeclareAuditRepository busOnlineDataDeclareAuditRepository;
     private final HibernateDao hibernateDao;
-    private final BusOnlineDataDeclareItemService busOnlineDataDeclareItemService;
+    private final BusOnlineDataDeclareItemService declareItemService;
     private final BusTeamService busTeamService;
     private final BusRouteService busRouteService;
     private final OrganizationService organizationService;
 
+    private static final Logger logger = LoggerFactory.getLogger(BusOnlineDataDeclareService.class);
+
     public BusOnlineDataDeclare insert(BusOnlineDataDeclare declare, MultipartFile file) throws IOException, IllegalAccessException {
-        try {
             declare.setId(flakeId.next());
             busOnlineDataDeclareRepository.save(declare);
-            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(busOnlineDataDeclareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().doRead();
+
+        try {
+            // 从excel第三行开始读取
+            EasyExcel.read(file.getInputStream(), DeclareItemExcelModel.class, new BusOnlineDataDeclareService.ImportDataListener(declareItemService, busTeamService, busRouteService, organizationService, declare)).sheet().headRowNumber(2).doRead();
             return declare;
         } catch (Exception e) {
 //            logger.error("import data error", e);
@@ -149,8 +154,8 @@ public class BusOnlineDataDeclareService {
             List<BusOnlineDataDeclareItem> batchData = new ArrayList<>();
             list.stream().forEach(o -> {
                 BusOnlineDataDeclareItem target = new BusOnlineDataDeclareItem();
-                target.setId(declare.getId());
                 BeanUtils.copyProperties(o, target);
+                target.setDeclare(declare);
                 batchData.add(target);
             });
             declareItemService.saveAll(batchData);

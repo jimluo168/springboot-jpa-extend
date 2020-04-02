@@ -9,6 +9,9 @@ import com.bms.entity.BusOnlineDataDeclareItem;
 import com.bms.entity.BusOnlineDataDeclareStats;
 import com.bms.industry.view.BusOnlineDataDeclareStatsEnergyComparison;
 import com.bms.industry.view.BusOnlineDataDeclareStatsEnergyComparisonEchartView;
+import com.bms.industry.view.DataDeclareRetrieval;
+import com.bms.industry.view.DataDeclareTotal;
+import com.bms.industry.view.DataDeclareTotalRetrieval;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -18,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * 统计数据表.
@@ -159,5 +165,14 @@ public class BusOnlineDataDeclareStatsService {
         });
 
         return view;
+    }
+
+    public DataDeclareTotalRetrieval queryStatis(Map<String, Object> params){
+        List<DataDeclareRetrieval> list = hibernateDao.getList(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_RETRIEVAL, params, DataDeclareRetrieval.class));
+        DataDeclareTotal total = hibernateDao.getSingle(new DaoCmd(Constant.MAPPER_ONLINE_DATA_DECLARE_TOTAL, params, DataDeclareTotal.class));
+        DataDeclareTotalRetrieval dataDeclareTotalRetrieval = new DataDeclareTotalRetrieval();
+        dataDeclareTotalRetrieval.setList(list);
+        dataDeclareTotalRetrieval.setTotal(total);
+        return dataDeclareTotalRetrieval;
     }
 }

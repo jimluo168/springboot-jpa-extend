@@ -1,61 +1,31 @@
-package com.bms.entity;
+package com.bms.industry.view;
 
-import com.bms.common.domain.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.bms.entity.BusRoute;
+import com.bms.entity.BusTeam;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
- * 申报明细
+ * TODO(类的简要说明)
  *
  * @author zouyongcan
- * @date 2020/3/30
+ * @date 2020/3/31
  */
 @Data
-@EqualsAndHashCode(of = "id", callSuper = true)
-@DynamicInsert
-@DynamicUpdate
-@Entity
-@Table(name = "bus_online_data_declare_items")
-public class BusOnlineDataDeclareItem extends BaseEntity {
-
-    /**
-     * 所属申报.
-     */
-    @JsonIgnoreProperties("item_list")
-    @ManyToOne
-    @JoinColumn(name = "declare_id")
-    private BusOnlineDataDeclare declare;
-
-    /**
-     * 所属企业.
-     */
-    @JsonIgnoreProperties("audit_list")
-    @ManyToOne
-    @JoinColumn(name = "org_id")
-    private Organization organization;
+public class DataDeclareRetrieval {
     private String orgName;
 
     /**
      * 所属车队.
      */
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private BusTeam carTeam;
     private String teamName;
 
     /**
      * 所属路线.
      */
-    @ManyToOne
-    @JoinColumn(name = "route_id")
-    private BusRoute busRoute;
     private String routeName;
 
     /**
@@ -124,18 +94,8 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     private BigDecimal electricBalance;
 
     /**
-     * 类别(1:年 2:季 3:月 4:周).
+     * 总金额
      */
-    @Transient
-    private Integer category;
-    /**
-     * 开始日期.
-     */
-    @Transient
-    private Date begin;
-    /**
-     * 结束日期.
-     */
-    @Transient
-    private Date end;
+    private BigDecimal totalBalance;
+
 }
