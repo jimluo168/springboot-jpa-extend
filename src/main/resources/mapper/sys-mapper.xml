@@ -61,6 +61,17 @@
         ]]>
     </menu_findPermissionCodeByUserId>
 
+    <menu_findTabsByUserIdAndParentId type="sql" desc="菜单管理-查询当前菜单下我所拥有的tab页签">
+        <![CDATA[
+            select m.* from menus m
+            inner join role_menus rm on rm.menu_id = m.id
+            inner join users u on u.role_id = rm.role_id
+            where m.is_delete = 0
+            and u.id = :userId
+            and m.parent_id = :parentId
+        ]]>
+    </menu_findTabsByUserIdAndParentId>
+
     <oplog_page type="hql" desc="操作日志 分页查询">
         <![CDATA[
             from OperationLog o

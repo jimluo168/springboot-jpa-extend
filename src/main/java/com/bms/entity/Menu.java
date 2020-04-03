@@ -33,6 +33,11 @@ public class Menu extends BaseEntity {
      */
     public static final int TYPE_BTN = 2;
     /**
+     * 3=tab页.
+     */
+    public static final int TYPE_TAB = 3;
+
+    /**
      * 名称.
      */
     private String name;

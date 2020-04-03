@@ -20,13 +20,17 @@ public interface Constant {
     String MAPPER_ROLE_PAGE = "role_page";
 
     /**
-     * 用户分页查询.
+     * 用户管理-用户分页查询.
      */
     String MAPPER_USER_PAGE = "user_page";
     /**
-     * 根据用户ID查找权限编码.
+     * 菜单管理-根据用户ID查找权限编码.
      */
     String MAPPER_MENU_FIND_PERMISSION_CODE_BY_USERID = "menu_findPermissionCodeByUserId";
+    /**
+     * 菜单管理-查询当前菜单下我所拥有的tab页签.
+     */
+    String MAPPER_MENU_FIND_TABS_BY_USERID_AND_PARENT_ID = "menu_findTabsByUserIdAndParentId";
     /**
      * 操作日志分页查询.
      */
@@ -119,8 +123,6 @@ public interface Constant {
     String MAPPER_ONLINE_DATA_DECLARE_TOTAL = "bus_online_data_declare_total";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
-
-
 
 
     /***--------------------------基本常量定义开始--------------------------------------***/

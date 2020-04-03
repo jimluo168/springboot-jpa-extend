@@ -93,8 +93,8 @@ public class MenuService {
         List<Menu> rootList = new ArrayList<>();
 
         for (Menu m : list) {
-            // 忽略按钮
-            if (m.getType() == Menu.TYPE_BTN) {
+            // 忽略按钮 和 tab页
+            if (m.getType() == Menu.TYPE_BTN || m.getType() == Menu.TYPE_TAB) {
                 continue;
             }
             if (m.getParent() == null) {
@@ -163,6 +163,39 @@ public class MenuService {
                 List<Menu> leaf = this.buildMenu(children);
                 m.setChildren(leaf);
             }
+        });
+        return root;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Menu> alltabs(Long parentId) {
+        Menu parent = this.findById(parentId);
+        List<Menu> tabs = menuRepository.findByDeletedAndParentOrderByIndexAsc(DELETE_FALSE, parent);
+        if (tabs == null || tabs.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Menu> root = new ArrayList<>();
+        tabs.forEach(o -> {
+            Menu m = copyMenu(o);
+            root.add(m);
+        });
+        return root;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Menu> mytabs(Long userId, Long parentId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("parentId", parentId);
+
+        List<Menu> tabs = hibernateDao.getList(new DaoCmd(Constant.MAPPER_MENU_FIND_TABS_BY_USERID_AND_PARENT_ID, params, Menu.class));
+        if (tabs == null || tabs.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Menu> root = new ArrayList<>();
+        tabs.forEach(o -> {
+            Menu m = copyMenu(o);
+            root.add(m);
         });
         return root;
     }

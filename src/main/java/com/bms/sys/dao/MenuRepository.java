@@ -16,4 +16,6 @@ import java.util.List;
 public interface MenuRepository extends PagingAndSortingRepository<Menu, Long> {
 
     List<Menu> findByDeletedAndParentIsNullOrderByIndexAsc(int deleted);
+
+    List<Menu> findByDeletedAndParentOrderByIndexAsc(int deleted, Menu parent);
 }

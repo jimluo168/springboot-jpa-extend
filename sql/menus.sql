@@ -234,3 +234,104 @@ VALUES ('1510', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000',
 
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('1511', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '1510', '1', 'statis_data_list','统计数据表-查询');
+
+
+-- 第二个系统
+-- 综合运行监控
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`, `has_tabs`)
+VALUES ('20100', '2020-03-13 08:43:57.504000', '0', '2020-03-13 08:44:00.072000', '综合运行监控', 'monitor', '1', '200', '0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20101', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '车辆运行监控', '1', '20100', '1', 'vehicle','车辆运行监控','0');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20120', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '客流量动态', '1', '20100', '2', 'passenger_flow','客流量动态','0');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20130', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '场站动态监测', '1', '20100', '3', 'bus_terminal','场站动态监测','0');
+
+-- 应急资源管理
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`, `has_tabs`)
+VALUES ('20200', '2020-03-13 08:43:57.504000', '0', '2020-03-13 08:44:00.072000', '应急资源管理', 'emergency_resource', '1', '201', '0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20201', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '救援资源管理', '1', '20200', '1', 'rescue','救援资源管理','1');
+
+-- 人员
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20210', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '人员', '3', '20201', '1', 'rescuer','人员','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20211', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20210', '1', 'rescue_rescuer_list','人员-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20212', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20210', '2', 'rescue_rescuer_create','人员-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20213', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '20210', '3', 'rescue_rescuer_edit','人员-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20214', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20210', '4', 'rescue_rescuer_delete','人员-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20215', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '20210', '5', 'rescue_rescuer_audit','人员-审核');
+
+
+-- 车辆
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20220', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '车辆', '3', '20201', '2', 'vehicle','车辆','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20221', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20220', '1', 'rescue_vehicle_list','车辆-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20222', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20220', '2', 'rescue_vehicle_create','车辆-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20223', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '20220', '3', 'rescue_vehicle_edit','车辆-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20224', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20220', '4', 'rescue_vehicle_delete','车辆-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20225', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '20220', '5', 'rescue_vehicle_audit','车辆-审核');
+
+
+-- 物资
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20230', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '物资', '3', '20201', '3', 'material','物资','0');
+
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20231', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20230', '1', 'rescue_material_list','物资-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20232', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20230', '2', 'rescue_material_create','物资-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20233', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '20230', '3', 'rescue_material_edit','物资-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20234', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20230', '4', 'rescue_material_delete','物资-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20235', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '20230', '5', 'rescue_material_audit','物资-审核');
+
+
+-- 专家知识库
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20250', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '专家知识库', '1', '20200', '2', 'kbes','专家知识库','1');
+
+-- 知识库
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20251', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '知识库', '3', '20250', '1', 'knowledge','知识库','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20252', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20251', '1', 'kbes_knowledge_list','知识库-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20253', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20251', '2', 'kbes_knowledge_create','知识库-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20254', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '20251', '3', 'kbes_knowledge_edit','知识库-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20255', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20251', '4', 'kbes_knowledge_delete','知识库-删除');
+
+
+-- 知识库
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20260', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '专家库', '3', '20250', '1', 'expert','专家库','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20261', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20260', '1', 'kbes_expert_list','专家库-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20262', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20260', '2', 'kbes_expert_create','专家库-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20263', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '20260', '3', 'kbes_expert_edit','专家库-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20264', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20260', '4', 'kbes_expert_delete','专家库-删除');
+

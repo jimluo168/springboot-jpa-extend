@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,4 +46,20 @@ public class MenuController {
         List<Menu> list = menuService.findAll();
         return ok(list);
     }
+
+    @ApiOperation("菜单下所有的tabs页签")
+    @GetMapping("/{id}/alltabs")
+    public Result<List<Menu>> alltabs(@PathVariable Long id) {
+        List<Menu> list = menuService.alltabs(id);
+        return ok(list);
+    }
+
+    @ApiOperation("菜单下我拥有的tabs页签")
+    @GetMapping("/{id}/mytabs")
+    public Result<List<Menu>> mytabs(@PathVariable Long id) {
+        Long userId = SessionInfo.getCurrentUserId();
+        List<Menu> list = menuService.mytabs(userId,id);
+        return ok(list);
+    }
+
 }
