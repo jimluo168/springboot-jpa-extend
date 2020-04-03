@@ -93,4 +93,12 @@ public class BusTerminalService {
     public List<BusTerminal> findByName(String name) {
         return busTerminalRepository.findByName(name);
     }
+
+    @Transactional(readOnly = true)
+    public boolean existsName(String name, Long id) {
+        if (id == null) {
+            return busTerminalRepository.countByName(name) > 0;
+        }
+        return busTerminalRepository.countByNameAndIdNot(name, id) > 0;
+    }
 }

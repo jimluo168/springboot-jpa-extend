@@ -16,4 +16,8 @@ import java.util.List;
 @Repository
 public interface BusTerminalRepository extends PagingAndSortingRepository<BusTerminal, Long>, JpaSpecificationExecutor<BusTerminal> {
     List<BusTerminal> findByName(String name);
+
+    int countByName(String name);
+
+    int countByNameAndIdNot(String name, Long id);
 }

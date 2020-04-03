@@ -18,8 +18,8 @@ import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.PractitionerService;
 import com.bms.industry.view.PractitionerExcelModel;
+import com.bms.sys.service.DictService;
 import com.bms.sys.service.OrganizationService;
-import com.bms.sys.view.OrganizationExcelModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +56,7 @@ public class PractitionerController {
 
     private final PractitionerService practitionerService;
     private final OrganizationService organizationService;
+    private final DictService dictService;
 
     @OpLog("新增")
     @RequiresPermissions("practitioner_create")
@@ -114,13 +115,13 @@ public class PractitionerController {
             PageList<Practitioner> pageList = practitionerService.page(pageRequest, BeanMapper.toMap(practitioner));
             List<PractitionerExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
-                PractitionerExcelModel p = new PractitionerExcelModel(organizationService);
+                PractitionerExcelModel p = new PractitionerExcelModel(organizationService, dictService);
                 BeanUtils.copyProperties(o, p);
                 data.add(p);
             });
 
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD));
-            EasyExcel.write(response.getOutputStream(), OrganizationExcelModel.class)
+            EasyExcel.write(response.getOutputStream(), PractitionerExcelModel.class)
                     .autoCloseStream(Boolean.FALSE)
                     .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet()
@@ -139,7 +140,7 @@ public class PractitionerController {
     @PostMapping("/import")
     public Result<Void> imports(MultipartFile file, String name) throws IOException, IllegalAccessException {
         try {
-            EasyExcel.read(file.getInputStream(), PractitionerExcelModel.class, new PractitionerController.ImportDataListener(practitionerService)).sheet().doRead();
+            EasyExcel.read(file.getInputStream(), PractitionerExcelModel.class, new PractitionerController.ImportDataListener(practitionerService, organizationService, dictService)).sheet().doRead();
             return ok();
         } catch (Exception e) {
             logger.error("import data error", e);
@@ -154,9 +155,13 @@ public class PractitionerController {
         private List<PractitionerExcelModel> list = new ArrayList<PractitionerExcelModel>();
 
         private final PractitionerService practitionerService;
+        private final OrganizationService organizationService;
+        private final DictService dictService;
 
         @Override
         public void invoke(PractitionerExcelModel data, AnalysisContext context) {
+            data.setOrganizationService(organizationService);
+            data.setDictService(dictService);
             list.add(data);
             if (list.size() >= BATCH_COUNT) {
                 saveData();

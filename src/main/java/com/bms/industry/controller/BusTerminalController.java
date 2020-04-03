@@ -59,6 +59,10 @@ public class BusTerminalController {
     @RequiresPermissions("bus_terminal_create")
     @PostMapping("")
     public Result<BusTerminal> create(@RequestBody BusTerminal busTerminal) {
+        boolean exists = busTerminalService.existsName(busTerminal.getName(), null);
+        if (exists) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "场站名称已存在", true);
+        }
         busTerminalService.insert(busTerminal);
         return Result.ok(busTerminal);
     }
