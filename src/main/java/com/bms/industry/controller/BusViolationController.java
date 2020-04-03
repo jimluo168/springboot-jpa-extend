@@ -1,7 +1,6 @@
 package com.bms.industry.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -25,10 +24,10 @@ import com.bms.industry.service.VehicleService;
 import com.bms.industry.view.BusViolationExcelModel;
 import com.bms.sys.service.DictService;
 import com.bms.sys.service.OrganizationService;
-import com.bms.sys.view.OrganizationExcelModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -90,8 +89,8 @@ public class BusViolationController {
     @OpLog("查询")
     @RequiresPermissions("bus_violation_list")
     @GetMapping("/list")
-    public Result<PageList<BusViolation>> list(PageRequest pageRequest, BusViolation busViolation) throws IllegalAccessException {
-        return ok(busViolationService.page(pageRequest, BeanMapper.toMap(busViolation)));
+    public Result<PageList<BusViolation>> list(PageRequest pageRequest, QueryParams queryParams) throws IllegalAccessException {
+        return ok(busViolationService.page(pageRequest, BeanMapper.toMap(queryParams)));
     }
 
     @ApiOperation("详情")
@@ -198,6 +197,12 @@ public class BusViolationController {
             });
             busViolationService.saveAll(batchData);
         }
+    }
+
+    @Data
+    private static class QueryParams extends BusViolation {
+        private Date begin;
+        private Date end;
     }
 
 }

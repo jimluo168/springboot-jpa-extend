@@ -3,6 +3,7 @@ package com.bms.sys.view;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.bms.ErrorCodes;
 import com.bms.entity.Organization;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -84,7 +85,7 @@ public class OrganizationExcelModel {
 
     public Integer getLevel() {
         if (StringUtils.isBlank(levelText)) {
-            return -1;
+            throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR);
         }
         if (StringUtils.equals(levelText, "级别一")) {
             return 1;
@@ -95,7 +96,7 @@ public class OrganizationExcelModel {
         if (StringUtils.equals(levelText, "级别三")) {
             return 3;
         }
-        return -1;
+        throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR);
     }
 
     public String getLevelText() {
@@ -179,7 +180,7 @@ public class OrganizationExcelModel {
 
     public Integer getStatus() {
         if (StringUtils.isBlank(statusText)) {
-            return -1;
+            return Organization.STATUS_TO_BE_AUDIT;
         }
         if (StringUtils.equals(statusText, "待审核")) {
             return Organization.STATUS_TO_BE_AUDIT;
@@ -190,7 +191,7 @@ public class OrganizationExcelModel {
         if (StringUtils.equals(statusText, "未通过")) {
             return Organization.STATUS_UN_AUDIT;
         }
-        return -1;
+        return Organization.STATUS_TO_BE_AUDIT;
     }
 
     public String getStatusText() {

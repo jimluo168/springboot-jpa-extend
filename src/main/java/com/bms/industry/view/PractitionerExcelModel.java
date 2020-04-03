@@ -7,6 +7,7 @@ import com.bms.DictConstant;
 import com.bms.ErrorCodes;
 import com.bms.entity.Dictionary;
 import com.bms.entity.Organization;
+import com.bms.entity.Practitioner;
 import com.bms.sys.service.DictService;
 import com.bms.sys.service.OrganizationService;
 import lombok.Data;
@@ -88,7 +89,7 @@ public class PractitionerExcelModel {
     @ExcelProperty(value = "状态", index = 8)
     private String statusText;
 
-
+    @ExcelIgnore
     @ExcelProperty(value = "手机号码", index = 9)
     private String phone;
 
@@ -101,7 +102,7 @@ public class PractitionerExcelModel {
 
     public String getGenderText(){
         if (gender == null) {
-            return "";
+            return "未知";
         }
         if (gender.equals("M")) {
             return "男";
@@ -109,26 +110,52 @@ public class PractitionerExcelModel {
         if (gender.equals("F")) {
             return "女";
         }
-        if (gender.equals('N')) {
-            return "未知";
+        return "未知";
+    }
+
+    public String getGender(){
+        if(genderText == null){
+            return "N";
         }
-        return gender;
+        if (genderText.equals("男")) {
+            return "M";
+        }
+        if (genderText.equals("女")) {
+            return "F";
+        }
+        return "N";
     }
 
     public String getStatusText() {
         if (status == null) {
             return "";
         }
-        if (status == Organization.STATUS_TO_BE_AUDIT) {
+        if (status == Practitioner.STATUS_TO_BE_AUDIT) {
             return "待审核";
         }
-        if (status == Organization.STATUS_PASS_AUDIT) {
+        if (status == Practitioner.STATUS_PASS_AUDIT) {
             return "已通过";
         }
-        if (status == Organization.STATUS_UN_AUDIT) {
+        if (status == Practitioner.STATUS_UN_AUDIT) {
             return "未通过";
         }
         return status.toString();
+    }
+
+    public Integer getStatus() {
+        if (StringUtils.isBlank(statusText)) {
+            return Practitioner.STATUS_TO_BE_AUDIT;
+        }
+        if (StringUtils.equals(statusText, "待审核")) {
+            return Practitioner.STATUS_TO_BE_AUDIT;
+        }
+        if (StringUtils.equals(statusText, "已通过")) {
+            return Practitioner.STATUS_PASS_AUDIT;
+        }
+        if (StringUtils.equals(statusText, "未通过")) {
+            return Practitioner.STATUS_UN_AUDIT;
+        }
+        return Practitioner.STATUS_TO_BE_AUDIT;
     }
 
     public Organization getOrganization() {
