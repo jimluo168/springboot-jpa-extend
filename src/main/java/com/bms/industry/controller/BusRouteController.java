@@ -49,7 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交线路管理")
-@Api(value = "公交线路管理",tags = "公交线路管理")
+@Api(value = "公交线路管理", tags = "公交线路管理")
 public class BusRouteController {
     private static final Logger logger = LoggerFactory.getLogger(BusRouteController.class);
 
@@ -61,6 +61,9 @@ public class BusRouteController {
     @RequiresPermissions("bus_route_create")
     @PostMapping("")
     public Result<BusRoute> create(@RequestBody BusRoute busRoute) {
+        if (busRouteService.existsByNameAndType(busRoute.getName(), busRoute.getType(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "同一方向的线路名称已存在", true);
+        }
         busRouteService.insert(busRoute);
         return ok(busRoute);
     }
@@ -70,6 +73,9 @@ public class BusRouteController {
     @RequiresPermissions("bus_route_edit")
     @PutMapping("/{id}")
     public Result<BusRoute> edit(@PathVariable Long id, @RequestBody BusRoute busRoute) {
+        if (busRouteService.existsByNameAndType(busRoute.getName(), busRoute.getType(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "同一方向的线路名称已存在", true);
+        }
         busRouteService.updateById(id, busRoute);
         return ok(busRoute);
     }

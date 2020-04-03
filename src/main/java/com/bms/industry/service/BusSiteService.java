@@ -8,6 +8,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
+import com.bms.entity.BusRoute;
 import com.bms.entity.BusSite;
 import com.bms.entity.BusSiteAudit;
 import com.bms.industry.dao.BusSiteAuditRepository;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -88,5 +90,13 @@ public class BusSiteService {
             o.setId(flakeId.next());
         });
         busSiteRepository.saveAll(list);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByRouteAndNameAndUpDown(BusRoute route, String name, Integer upDown, Long id) {
+        if (id == null) {
+            return busSiteRepository.countByRouteAndNameAndUpDownAndDeleted(route, name, upDown, DELETE_FALSE) > 0;
+        }
+        return busSiteRepository.countByRouteAndNameAndUpDownAndIdNotAndDeleted(route, name, upDown, id, DELETE_FALSE) > 0;
     }
 }

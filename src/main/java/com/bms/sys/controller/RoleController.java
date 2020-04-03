@@ -34,8 +34,7 @@ public class RoleController {
     @RequiresPermissions("role_create")
     @PostMapping("")
     public Result<Role> create(@RequestBody Role role) {
-        boolean exists = roleService.existsName(role.getName(), null);
-        if (exists) {
+        if (roleService.existsByName(role.getName(), null)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "角色名称已存在", true);
         }
         return ok(roleService.insert(role));
@@ -45,9 +44,8 @@ public class RoleController {
     @RequiresPermissions("role_edit")
     @PutMapping("/{id}")
     public Result<Role> edit(@PathVariable Long id, @RequestBody Role role) {
-        boolean exists = roleService.existsName(role.getName(), id);
-        if (exists) {
-            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "角色名称已存在",true);
+        if (roleService.existsByName(role.getName(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "角色名称已存在", true);
         }
         return ok(roleService.updateById(id, role));
     }

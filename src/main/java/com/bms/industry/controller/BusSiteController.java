@@ -49,7 +49,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交站点管理")
-@Api(value = "公交站点管理",tags = "公交站点管理")
+@Api(value = "公交站点管理", tags = "公交站点管理")
 public class BusSiteController {
 
     private static final Logger logger = LoggerFactory.getLogger(BusSiteController.class);
@@ -60,16 +60,20 @@ public class BusSiteController {
     @RequiresPermissions("bus_site_create")
     @PostMapping("")
     public Result<BusSite> create(@RequestBody BusSite busSite) {
-        busSiteService.insert(busSite);
-        return Result.ok(busSite);
+        if (busSiteService.existsByRouteAndNameAndUpDown(busSite.getRoute(), busSite.getName(), busSite.getUpDown(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "同一条线路同方向的站点名称已存在", true);
+        }
+        return Result.ok(busSiteService.insert(busSite));
     }
 
     @OpLog("编辑")
     @RequiresPermissions("bus_site_edit")
     @PutMapping("/{id}")
     public Result<BusSite> edit(@PathVariable Long id, @RequestBody BusSite busSite) {
-        busSiteService.updateById(id, busSite);
-        return Result.ok(busSite);
+        if (busSiteService.existsByRouteAndNameAndUpDown(busSite.getRoute(), busSite.getName(), busSite.getUpDown(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "同一条线路同方向的站点名称已存在", true);
+        }
+        return Result.ok(busSiteService.updateById(id, busSite));
     }
 
     @OpLog("查询")

@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import static com.bms.common.domain.Result.ok;
@@ -46,8 +45,7 @@ public class UserController {
     @RequiresPermissions("user_create")
     @PostMapping("")
     public Result<User> create(@RequestBody User user) {
-        boolean exists = userService.existsAccount(user.getAccount());
-        if (exists) {
+        if (userService.existsByAccount(user.getAccount())) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "用户名已存在", true);
         }
         return ok(userService.insert(user));

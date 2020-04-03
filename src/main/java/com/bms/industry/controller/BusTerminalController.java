@@ -38,7 +38,7 @@ import java.util.List;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * 公交场站 controller
+ * 公交场站管理.
  *
  * @author zouyongcan
  * @date 2020/3/17
@@ -48,7 +48,7 @@ import static com.bms.common.domain.Result.ok;
 @RequiredArgsConstructor
 @RequiresAuthentication
 @OpLogModule("公交场站管理")
-@Api(value = "公交场站管理",tags = "公交场站管理")
+@Api(value = "公交场站管理", tags = "公交场站管理")
 public class BusTerminalController {
 
     private static final Logger logger = LoggerFactory.getLogger(BusTerminalController.class);
@@ -59,20 +59,26 @@ public class BusTerminalController {
     @RequiresPermissions("bus_terminal_create")
     @PostMapping("")
     public Result<BusTerminal> create(@RequestBody BusTerminal busTerminal) {
-        boolean exists = busTerminalService.existsName(busTerminal.getName(), null);
-        if (exists) {
+        if (busTerminalService.existsByName(busTerminal.getName(), null)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "场站名称已存在", true);
         }
-        busTerminalService.insert(busTerminal);
-        return Result.ok(busTerminal);
+        if (busTerminalService.existsByCode(busTerminal.getCode(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "场站编号已存在", true);
+        }
+        return Result.ok(busTerminalService.insert(busTerminal));
     }
 
     @OpLog("编辑")
     @RequiresPermissions("bus_terminal_edit")
     @PutMapping("/{id}")
     public Result<BusTerminal> edit(@PathVariable Long id, @RequestBody BusTerminal busTerminal) {
-        busTerminalService.updateById(id, busTerminal);
-        return Result.ok(busTerminal);
+        if (busTerminalService.existsByName(busTerminal.getName(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "场站名称已存在", true);
+        }
+        if (busTerminalService.existsByCode(busTerminal.getCode(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "场站编号已存在", true);
+        }
+        return Result.ok(busTerminalService.updateById(id, busTerminal));
     }
 
     @OpLog("查询")

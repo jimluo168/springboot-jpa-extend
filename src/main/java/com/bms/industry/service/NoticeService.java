@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
 
 /**
@@ -62,5 +63,13 @@ public class NoticeService {
         Notice notice = this.findById(id);
         notice.setDeleted(DELETE_TRUE);
         return notice;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsByTitle(String title, Long id) {
+        if (id == null) {
+            return noticeRepository.countByTitleAndDeleted(title, DELETE_FALSE) > 0;
+        }
+        return noticeRepository.countByTitleAndIdNotAndDeleted(title, id, DELETE_FALSE) > 0;
     }
 }

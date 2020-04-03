@@ -13,4 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface NoticeRepository extends PagingAndSortingRepository<Notice, Long>, JpaSpecificationExecutor<Notice> {
+    int countByTitleAndDeleted(String title, int deleted);
+
+    int countByTitleAndIdNotAndDeleted(String title, Long id, int deleted);
 }

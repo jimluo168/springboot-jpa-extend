@@ -1,5 +1,6 @@
 package com.bms.industry.controller;
 
+import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
@@ -22,7 +23,7 @@ import java.util.Date;
 import static com.bms.common.domain.Result.ok;
 
 /**
- * 行政管理
+ * 行政信息发布.
  *
  * @author zouyongcan
  * @date 2020/3/19
@@ -31,8 +32,8 @@ import static com.bms.common.domain.Result.ok;
 @RequestMapping("/industry/notices")
 @RequiredArgsConstructor
 @RequiresAuthentication
-@OpLogModule("行政管理")
-@Api(value = "行政管理",tags = "行政管理")
+@OpLogModule("行政信息发布")
+@Api(value = "行政信息发布",tags = "行政信息发布")
 public class NoticeController {
     private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
@@ -42,16 +43,20 @@ public class NoticeController {
     @RequiresPermissions("notice_create")
     @PostMapping("")
     public Result<Notice> create(@RequestBody Notice notice) {
-        noticeService.insert(notice);
-        return Result.ok(notice);
+        if (noticeService.existsByTitle(notice.getTitle(), null)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "标题已存在", true);
+        }
+        return Result.ok(noticeService.insert(notice));
     }
 
     @OpLog("编辑")
     @RequiresPermissions("notice_edit")
     @PutMapping("/{id}")
     public Result<Notice> edit(@PathVariable Long id, @RequestBody Notice notice) {
-        noticeService.updateById(id, notice);
-        return Result.ok(notice);
+        if (noticeService.existsByTitle(notice.getTitle(), id)) {
+            throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "标题已存在", true);
+        }
+        return Result.ok(noticeService.updateById(id, notice));
     }
 
     @OpLog("查询")
