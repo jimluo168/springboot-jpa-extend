@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.bms.common.dao.DaoCmd">
+    <knowledge_base_page type="hql" desc="专家知识库分页查询">
+        <![CDATA[
+            from KnowledgeBase k
+            where deleted = 0
+            <#if title?? && title!=''>
+                and k.title like '%'||:title||'%'
+            </#if>
+            <#if type??>
+                and k.type = :type
+            </#if>
+            <#if begin?? && end??>
+                and k.createDate between :begin and :end
+            </#if>
+            order by p.createDate desc
+        ]]>
+    </knowledge_base_page>
+</mapper>

@@ -118,6 +118,11 @@ public interface Constant {
      */
     String MAPPER_ONLINE_DATA_DECLARE_TOTAL = "bus_online_data_declare_total";
 
+    /**
+     * 专家知识库-分页查询.
+     */
+    String MAPPER_KNOWLEDGE_BASE_PAGE = "knowledge_base_page";
+
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 
 
