@@ -2541,6 +2541,10 @@ VIOLATION_TYPE:int:违规行为=违规类型
 VIOLATION_NATURE_TYPE:int:事件性质
 VIOLATION_SEVERITY_TYPE:int:严重程度
 ROUTE_TYPE:int:线路类型
+
+EMERGENCY_PREPLAN_TYPE:int:预案分类
+EMERGENCY_LEVEL:int:应急事件等级
+
 ```
 
 ## 19. 模版配置说明
