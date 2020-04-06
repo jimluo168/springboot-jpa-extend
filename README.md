@@ -3997,3 +3997,146 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
+## 27. 专家知识库管理
+
+### 27.1. 专家知识库管理-列表
+
+```yaml
+@get: /monitor/knowledgebases/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  organization.name:string:公司名称
+  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:知识库信息列表
+      id:long:ID
+      title:string:标题
+      author:string:作者
+      content:string:正文 存放OSS /html/yyyMMdd/xxx.html.
+      attachs:string:附件 多个以英文 , 号隔开.
+      type:int:类型
+      industry:int:行业
+      create_date:date:创建时间
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.2. 专家知识库管理-详情
+
+```yaml
+@get: /monitor/knowledgebases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:知识库id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    title:string:标题
+    author:string:作者
+    content:string:正文 存放OSS /html/yyyMMdd/xxx.html.
+    attachs:string:附件 多个以英文 , 号隔开.
+    type:int:类型
+    industry:int:行业
+    create_date:date:创建时间
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.3. 专家知识库管理-新增
+
+```yaml
+@post: /monitor/knowledgebases
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  title:string:标题
+  author:string:作者
+  content:string:正文 存放OSS /html/yyyMMdd/xxx.html.
+  attachs:string:附件 多个以英文 , 号隔开.
+  type:int:类型
+  industry:int:行业
+
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:知识库ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.4. 专家知识库管理-修改
+
+```yaml
+@put: /monitor/knowledgebases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  title:string:标题
+  author:string:作者
+  content:string:正文 存放OSS /html/yyyMMdd/xxx.html.
+  attachs:string:附件 多个以英文 , 号隔开.
+  type:int:类型
+  industry:int:行业
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    title:string:标题
+    author:string:作者
+    content:string:正文 存放OSS /html/yyyMMdd/xxx.html.
+    attachs:string:附件 多个以英文 , 号隔开.
+    type:int:类型
+    industry:int:行业
+    create_date:date:创建时间
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 26.5. 专家知识库管理-删除
+
+```yaml
+@delete: /monitor/knowledgebases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:知识库ID
+  success:bool:是否成功
+  msg:string:操作提示
+```

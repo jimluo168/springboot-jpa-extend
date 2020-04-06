@@ -50,7 +50,7 @@ public abstract class PractitionerCommon extends BaseEntity {
     /**
      * 资格证号.
      */
-    @Column(name = "cert_no", unique = true, nullable = false)
+    @Column(name = "cert_no", unique = true)
     private String certNo;
     /**
      * 身份证号.
