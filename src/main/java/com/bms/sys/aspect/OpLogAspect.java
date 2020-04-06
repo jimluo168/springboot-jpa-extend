@@ -6,6 +6,7 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.entity.OperationLog;
 import com.bms.sys.service.OpLogService;
 import com.bms.sys.service.OrganizationService;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * 操作日志AOP.
@@ -45,12 +47,14 @@ public class OpLogAspect {
         Object[] args = point.getArgs();
 
         SessionInfo info = SessionInfo.getCurrentSession();
-        if (info != null && module != null && func != null) {
+        if (info != null &&
+                ((module != null && func != null)
+                        || (func != null && StringUtils.isNotBlank(func.module())))) {
             try {
                 OperationLog log = new OperationLog();
                 BeanUtils.copyProperties(info, log);
                 log.setRealName(info.getName());
-                log.setModule(module.value());
+                log.setModule(Optional.ofNullable(func.module()).orElse(module.value()));
                 log.setFuncName(func.value());
                 log.setOrgName(info.getOrgName());
                 log.setUrl(info.getRequestUrl());

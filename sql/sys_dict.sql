@@ -57,3 +57,23 @@ INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_u
 VALUES ('10502', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'ARTICLE_TYPE_CHILD', '2', '规范标准', '2', '规范标准', 'Integer', '2', '105');
 INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
 VALUES ('10503', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'ARTICLE_TYPE_CHILD', '2', '公告', '2', '公告', 'Integer', '3', '105');
+
+-- EMERGENCY_LEVEL 应急事件等级
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('160', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_LEVEL', '160', '应急事件等级', '1', '应急事件等级', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16001', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_LEVEL_CHILD', '1', '一级', '1', '一级', 'Integer', '1', '160');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16002', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_LEVEL_CHILD', '2', '二级', '1', '一级', 'Integer', '2', '160');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16003', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_LEVEL_CHILD', '3', '三级', '1', '一级', 'Integer', '3', '160');
+
+-- EMERGENCY_PREPLAN_TYPE 预案分类
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('161', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_PREPLAN_TYPE', '160', '预案分类', '1', '预案分类', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16101', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_PREPLAN_TYPE_CHILD', '1', '分类一', '1', '分类一', 'Integer', '1', '161');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16102', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_PREPLAN_TYPE_CHILD', '2', '分类二', '1', '分类二', 'Integer', '2', '161');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16103', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_PREPLAN_TYPE_CHILD', '3', '分类三', '1', '分类三', 'Integer', '3', '161');

@@ -22,11 +22,11 @@ public @interface OpLog {
     String value() default "";
 
     /**
-     * 功能名称.
+     * 模块名称.
      *
      * @return
      */
-    String funcName() default "";
+    String module() default "";
 
     /**
      * 是否在方法之后进行记录 默认 在进入方法前就进行记录.
