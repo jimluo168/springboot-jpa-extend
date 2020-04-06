@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
 import java.util.TimeZone;
 
 /**
@@ -12,6 +14,7 @@ import java.util.TimeZone;
  * @author luojimeng
  * @date 2020/3/09
  */
+@EnableScheduling
 @EnableJpaAuditing
 @SpringBootApplication
 @ServletComponentScan(basePackages = "com.bms.common")

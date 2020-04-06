@@ -5,7 +5,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://rm-wz97llvqp9qjdkfq38o.mysql.rds.aliyuncs.com:3306/bms_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
-#    url: jdbc:mysql://rm-wz97llvqp9qjdkfq38o.mysql.rds.aliyuncs.com:3306/bms_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    #    url: jdbc:mysql://rm-wz97llvqp9qjdkfq38o.mysql.rds.aliyuncs.com:3306/bms_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: bms_dba
     password: b4Jc70FcnDcNhXOs
     type: com.alibaba.druid.pool.DruidDataSource
@@ -78,3 +78,12 @@ oss:
 swagger:
   # true:启用swagger false关闭 线上系统需要关闭
   enable: true
+
+sync:
+  # 贵阳公交数据同步接口
+  bus:
+    base: http://118.190.63.181:8888
+    # 每天凌晨2点同步
+    cron: 0 0 2 * * ?
+    username: 123
+    password: 123

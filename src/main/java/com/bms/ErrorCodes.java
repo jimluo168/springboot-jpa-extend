@@ -84,7 +84,11 @@ public enum ErrorCodes {
      * @return ServiceException
      */
     public static ServiceException build(ErrorCodes err, String detailMessage, boolean useDetailMessage) {
-        return new ServiceException(err.code, detailMessage);
+        String message = detailMessage;
+        if (!useDetailMessage) {
+            message = err.message + " " + detailMessage;
+        }
+        return new ServiceException(err.code, message);
     }
 }
 

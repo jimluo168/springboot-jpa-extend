@@ -335,3 +335,78 @@ VALUES ('20263', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000'
 INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
 VALUES ('20264', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20260', '4', 'kbes_expert_delete','专家库-删除');
 
+-- 应急预案管理
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20270', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '应急预案管理', '1', '20200', '3', 'plan','应急预案管理','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20271', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20270', '1', 'plan_list','应急预案管理-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20272', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20270', '2', 'plan_create','应急预案管理-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20273', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '编辑', '2', '20270', '3', 'plan_edit','应急预案管理-编辑');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20274', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20270', '4', 'plan_delete','应急预案管理-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20275', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '20270', '5', 'plan_details','应急预案管理-详情');
+
+-- 案例库管理
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20280', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '案例库管理', '1', '20200', '3', 'case','案例库管理','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20281', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20280', '1', 'case_list','应急预案管理-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20282', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20280', '4', 'case_delete','应急预案管理-删除');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20283', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '20280', '5', 'case_details','应急预案管理-详情');
+
+
+
+-- 应急响应管理
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `path`, `type`, `index`, `has_tabs`)
+VALUES ('20300', '2020-03-13 08:43:57.504000', '0', '2020-03-13 08:44:00.072000', '应急响应管理', 'emergency_response', '1', '203', '0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20310', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '应急响应处理', '1', '20300', '1', 'treatment','应急响应处理','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20311', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20310', '1', 'treatment_list','应急响应处理-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20312', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20310', '2', 'treatment_create','应急响应处理-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20313', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '审核', '2', '20310', '3', 'treatment_audit','应急响应处理-审核');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20314', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '跟进', '2', '20310', '4', 'treatment_follow','应急响应处理-跟进');
+
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20320', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '历史应急信息', '1', '20300', '2', 'history','历史应急信息','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20321', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20320', '1', 'history_list','历史应急信息-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20322', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '评估', '2', '20320', '2', 'history_evaluate','应急预案管理-评估');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20323', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '案例生成', '2', '20320', '3', 'history_generate','应急预案管理-案例生成');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20324', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '20320', '4', 'history_details','应急预案管理-详情');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20325', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20320', '5', 'history_delete','应急预案管理-删除');
+
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `path`,`remark`,`has_tabs`)
+VALUES ('20330', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '应急信息发布', '1', '20300', '3', 'info_release','应急信息发布','0');
+
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20331', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '查询', '2', '20330', '1', 'info_release_list','应急信息发布-查询');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20332', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '新增', '2', '20330', '2', 'info_release_create','应急信息发布-新增');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20333', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '详情', '2', '20330', '3', 'info_release_details','应急信息发布-详情');
+INSERT INTO `menus` (`id`, `create_date`, `is_delete`, `last_upd_date`, `name`, `type`, `parent_id`, `index`, `permission_code`,`remark`)
+VALUES ('20334', '2020-03-13 08:43:59.768000', '0', '2020-03-13 08:43:59.768000', '删除', '2', '20330', '4', 'info_release_delete','应急信息发布-删除');
+
+
+
+

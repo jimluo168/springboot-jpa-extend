@@ -37,7 +37,7 @@ public class User extends BaseEntity {
      */
     public static final int STATUS_DISABLE = 0;
 
-    public static final String DEFAULT_PASSWD = "guiyang123";
+    public static final String DEFAULT_PASSWD = "123456";
 
     /**
      * 账号.
