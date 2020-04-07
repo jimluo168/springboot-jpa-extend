@@ -8,7 +8,7 @@ import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
-import com.bms.entity.Expert;
+import com.bms.entity.MoExpert;
 import com.bms.monitor.service.ExpertService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -39,25 +39,25 @@ public class ExpertController {
     @OpLog("新增")
     @RequiresPermissions("kbes_expert_create")
     @PostMapping("")
-    public Result<Expert> create(@RequestBody Expert expert) {
-        expertService.insert(expert);
-        return ok(expert);
+    public Result<MoExpert> create(@RequestBody MoExpert moExpert) {
+        expertService.insert(moExpert);
+        return ok(moExpert);
     }
 
     @ApiOperation("编辑")
     @OpLog("编辑")
     @RequiresPermissions("kbes_expert_edit")
     @PutMapping("/{id}")
-    public Result<Expert> edit(@PathVariable Long id, @RequestBody Expert expert) {
-        expertService.updateById(id, expert);
-        return ok(expert);
+    public Result<MoExpert> edit(@PathVariable Long id, @RequestBody MoExpert moExpert) {
+        expertService.updateById(id, moExpert);
+        return ok(moExpert);
     }
 
     @ApiOperation("查询")
     @OpLog("查询")
     @RequiresPermissions("kbes_expert_list")
     @GetMapping("/list")
-    public Result<PageList<Expert>> list(PageRequest pageRequest, Expert queryParams) throws IllegalAccessException {
+    public Result<PageList<MoExpert>> list(PageRequest pageRequest, MoExpert queryParams) throws IllegalAccessException {
         return ok(expertService.page(pageRequest, BeanMapper.toMap(queryParams)));
     }
 
@@ -65,7 +65,7 @@ public class ExpertController {
     @OpLog("详情")
     @RequiresPermissions("kbes_expert_details")
     @GetMapping("/{id}")
-    public Result<Expert> details(@PathVariable Long id) {
+    public Result<MoExpert> details(@PathVariable Long id) {
         return Result.ok(expertService.findById(id));
     }
 
@@ -73,7 +73,7 @@ public class ExpertController {
     @OpLog("删除")
     @RequiresPermissions("kbes_expert_delete")
     @DeleteMapping("/{id}")
-    public Result<Expert> delete(@PathVariable Long id) {
+    public Result<MoExpert> delete(@PathVariable Long id) {
         return ok(expertService.deleteById(id));
     }
 }

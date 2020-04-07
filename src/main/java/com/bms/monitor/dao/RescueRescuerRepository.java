@@ -1,6 +1,5 @@
 package com.bms.monitor.dao;
 
-import com.bms.entity.KnowledgeBase;
 import com.bms.entity.MoRescueRescuer;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

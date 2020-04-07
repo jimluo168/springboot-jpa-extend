@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Entity
 @Table(name = "mo_knowledge_bases")
-public class KnowledgeBase extends BaseEntity {
+public class MoKnowledgeBase extends BaseEntity {
 
     /**
      * 标题.
