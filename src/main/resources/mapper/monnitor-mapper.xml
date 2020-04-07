@@ -17,6 +17,23 @@
         ]]>
     </knowledge_base_page>
 
+    <expert_page type="hql" desc="专家库分页查询">
+        <![CDATA[
+            from Expert e
+            where deleted = 0
+            <#if name?? && name!=''>
+                and e.name like '%'||:name||'%'
+            </#if>
+            <#if field??>
+                and e.field = :field
+            </#if>
+            <#if level??>
+                and e.level = :level
+            </#if>
+            order by e.createDate desc
+        ]]>
+    </expert_page>
+
     <mo_rescue_rescuer_page type="hql" desc="救援资源管理-人员">
         <![CDATA[
             from MoRescueRescuer o

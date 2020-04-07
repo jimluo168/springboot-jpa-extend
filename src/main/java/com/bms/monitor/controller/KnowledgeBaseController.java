@@ -40,7 +40,7 @@ public class KnowledgeBaseController {
 
     @ApiOperation("新增")
     @OpLog("新增")
-    @RequiresPermissions("knowledge_base_create")
+    @RequiresPermissions("kbes_knowledge_create")
     @PostMapping("")
     public Result<KnowledgeBase> create(@RequestBody KnowledgeBase knowledgeBase) {
         knowledgeBaseService.insert(knowledgeBase);
@@ -49,7 +49,7 @@ public class KnowledgeBaseController {
 
     @ApiOperation("编辑")
     @OpLog("编辑")
-    @RequiresPermissions("knowledge_base_edit")
+    @RequiresPermissions("kbes_knowledge_edit")
     @PutMapping("/{id}")
     public Result<KnowledgeBase> edit(@PathVariable Long id, @RequestBody KnowledgeBase knowledgeBase) {
         knowledgeBaseService.updateById(id, knowledgeBase);
@@ -58,7 +58,7 @@ public class KnowledgeBaseController {
 
     @ApiOperation("查询")
     @OpLog("查询")
-    @RequiresPermissions("knowledge_base_list")
+    @RequiresPermissions("kbes_knowledge_list")
     @GetMapping("/list")
     public Result<PageList<KnowledgeBase>> list(PageRequest pageRequest, QueryParams queryParams) throws IllegalAccessException {
         return ok(knowledgeBaseService.page(pageRequest, BeanMapper.toMap(queryParams)));
@@ -66,7 +66,7 @@ public class KnowledgeBaseController {
 
     @ApiOperation("详情")
     @OpLog("详情")
-    @RequiresPermissions("knowledge_base_details")
+    @RequiresPermissions("kbes_knowledge_details")
     @GetMapping("/{id}")
     public Result<KnowledgeBase> details(@PathVariable Long id) {
         return Result.ok(knowledgeBaseService.findById(id));
@@ -74,7 +74,7 @@ public class KnowledgeBaseController {
 
     @ApiOperation("删除")
     @OpLog("删除")
-    @RequiresPermissions("knowledge_base_delete")
+    @RequiresPermissions("kbes_knowledge_delete")
     @DeleteMapping("/{id}")
     public Result<KnowledgeBase> delete(@PathVariable Long id) {
         return ok(knowledgeBaseService.deleteById(id));

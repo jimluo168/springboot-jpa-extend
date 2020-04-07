@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "mo_knowledge_base")
+@Table(name = "mo_knowledge_bases")
 public class KnowledgeBase extends BaseEntity {
 
     /**

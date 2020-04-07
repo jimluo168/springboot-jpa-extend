@@ -127,6 +127,10 @@ public interface Constant {
      */
     String MAPPER_KNOWLEDGE_BASE_PAGE = "knowledge_base_page";
     /**
+     * 专家库-分页查询.
+     */
+    String MAPPER_EXPERT_PAGE = "expert_page";
+    /**
      * 救援资源管理-人员.
      */
     String MAPPER_MO_RESCUE_RESCUER_PAGE = "mo_rescue_rescuer_page";
