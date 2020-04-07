@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Entity
 @Table(name = "mo_experts")
-public class Expert extends BaseEntity {
+public class MoExpert extends BaseEntity {
     /**
      * 头像.
      */

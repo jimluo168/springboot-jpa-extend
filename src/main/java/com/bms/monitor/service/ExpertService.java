@@ -8,7 +8,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
-import com.bms.entity.Expert;
+import com.bms.entity.MoExpert;
 import com.bms.monitor.dao.ExpertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,35 +33,35 @@ public class ExpertService {
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
-    public Expert insert(Expert expert) {
-        expert.setId(flakeId.next());
-        expertRepository.save(expert);
-        return expert;
+    public MoExpert insert(MoExpert moExpert) {
+        moExpert.setId(flakeId.next());
+        expertRepository.save(moExpert);
+        return moExpert;
     }
 
-    public Expert updateById(Long id, Expert expert) {
-        Expert value = this.findById(id);
-        JpaUtils.copyNotNullProperties(expert, value);
+    public MoExpert updateById(Long id, MoExpert moExpert) {
+        MoExpert value = this.findById(id);
+        JpaUtils.copyNotNullProperties(moExpert, value);
         return value;
     }
 
     @Transactional(readOnly = true)
-    public PageList<Expert> page(PageRequest pageRequest, Map<String, Object> queryParams) {
+    public PageList<MoExpert> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_EXPERT_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)
-    public Expert findById(Long id) {
-        Optional<Expert> expert = expertRepository.findById(id);
+    public MoExpert findById(Long id) {
+        Optional<MoExpert> expert = expertRepository.findById(id);
         if (expert.isPresent()) {
             return expert.get();
         }
         throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
-    public Expert deleteById(Long id) {
-        Expert expert = this.findById(id);
-        expert.setDeleted(DELETE_TRUE);
-        return expert;
+    public MoExpert deleteById(Long id) {
+        MoExpert moExpert = this.findById(id);
+        moExpert.setDeleted(DELETE_TRUE);
+        return moExpert;
     }
 }

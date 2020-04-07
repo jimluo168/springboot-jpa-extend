@@ -8,7 +8,7 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
-import com.bms.entity.KnowledgeBase;
+import com.bms.entity.MoKnowledgeBase;
 import com.bms.monitor.dao.KnowledgeBaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,35 +33,35 @@ public class KnowledgeBaseService {
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
-    public KnowledgeBase insert(KnowledgeBase knowledgeBase) {
-        knowledgeBase.setId(flakeId.next());
-        knowledgeBaseRepository.save(knowledgeBase);
-        return knowledgeBase;
+    public MoKnowledgeBase insert(MoKnowledgeBase moKnowledgeBase) {
+        moKnowledgeBase.setId(flakeId.next());
+        knowledgeBaseRepository.save(moKnowledgeBase);
+        return moKnowledgeBase;
     }
 
-    public KnowledgeBase updateById(Long id, KnowledgeBase knowledgeBase) {
-        KnowledgeBase value = this.findById(id);
-        JpaUtils.copyNotNullProperties(knowledgeBase, value);
+    public MoKnowledgeBase updateById(Long id, MoKnowledgeBase moKnowledgeBase) {
+        MoKnowledgeBase value = this.findById(id);
+        JpaUtils.copyNotNullProperties(moKnowledgeBase, value);
         return value;
     }
 
     @Transactional(readOnly = true)
-    public PageList<KnowledgeBase> page(PageRequest pageRequest, Map<String, Object> queryParams) {
+    public PageList<MoKnowledgeBase> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_KNOWLEDGE_BASE_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)
-    public KnowledgeBase findById(Long id) {
-        Optional<KnowledgeBase> knowledgeBase = knowledgeBaseRepository.findById(id);
+    public MoKnowledgeBase findById(Long id) {
+        Optional<MoKnowledgeBase> knowledgeBase = knowledgeBaseRepository.findById(id);
         if (knowledgeBase.isPresent()) {
             return knowledgeBase.get();
         }
         throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
-    public KnowledgeBase deleteById(Long id) {
-        KnowledgeBase knowledgeBase = this.findById(id);
-        knowledgeBase.setDeleted(DELETE_TRUE);
-        return knowledgeBase;
+    public MoKnowledgeBase deleteById(Long id) {
+        MoKnowledgeBase moKnowledgeBase = this.findById(id);
+        moKnowledgeBase.setDeleted(DELETE_TRUE);
+        return moKnowledgeBase;
     }
 }

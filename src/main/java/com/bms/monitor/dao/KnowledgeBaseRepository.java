@@ -1,6 +1,6 @@
 package com.bms.monitor.dao;
 
-import com.bms.entity.KnowledgeBase;
+import com.bms.entity.MoKnowledgeBase;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @date 2020/4/3
  */
 @Repository
-public interface KnowledgeBaseRepository extends PagingAndSortingRepository<KnowledgeBase, Long> {
+public interface KnowledgeBaseRepository extends PagingAndSortingRepository<MoKnowledgeBase, Long> {
 }
