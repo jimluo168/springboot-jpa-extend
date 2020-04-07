@@ -19,4 +19,12 @@ public @interface RequiresPermissions {
      * @return
      */
     String[] value() default {};
+
+    /**
+     * 逻辑关系 默认 OR.
+     *
+     * @return
+     */
+    Logical logical() default Logical.OR;
+
 }

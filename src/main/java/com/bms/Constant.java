@@ -174,6 +174,10 @@ public interface Constant {
      * 救援资源管理-物资-物资来源.
      */
     String MAPPER_MO_RESCUE_MATERIAL_ORIGIN_PAGE = "mo_rescue_material_origin_page";
+    /**
+     * 应急响应处理-分页查询.
+     */
+    String MAPPER_MO_EMERGENCY_RESPONSE_PAGE = "mo_emergency_response_page";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 

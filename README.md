@@ -4345,7 +4345,7 @@ params:
 ### 29.4. 救援资源管理-车辆-新增
 
 ```yaml
-@post: /monitor/rescuerescuers
+@post: /monitor/rescuevehicles
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -4624,7 +4624,7 @@ params:
 ### 30.6. 救援资源管理-物资-新增
 
 ```yaml
-@post: /monitor/rescuerescuers
+@post: /monitor/rescuematerials
 
 @header:
   X-User-Agent:手机信息(必须)

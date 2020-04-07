@@ -194,4 +194,18 @@
             order by o.createDate desc
         ]]>
     </mo_rescue_material_origin_page>
+
+    <mo_emergency_response_page type="hql" desc="应急响应处理-分页查询">
+        <![CDATA[
+            from MoEmergencyResponse o
+            where o.deleted = 0
+            <#if statusList?? && (statusList?size>0)>
+               and o.status in (:statusList)
+            </#if>
+            <#if generateCase??>
+               and o.generateCase = :generateCase
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_emergency_response_page>
 </mapper>
