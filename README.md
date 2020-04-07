@@ -4793,6 +4793,25 @@ params:
 ```
 
 
+### 30.11. 救援资源管理-物资-报废
+
+```yaml
+@post: /monitor/rescuematerials/:id/scraps
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:救援资源管理-物资ID
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
 ## 31. 应急响应处理
 
 ### 31.1. 应急响应处理-列表

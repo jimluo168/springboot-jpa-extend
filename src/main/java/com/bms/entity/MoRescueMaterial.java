@@ -38,7 +38,7 @@ public class MoRescueMaterial extends BaseEntity {
     /**
      * 4=报废.
      */
-    public static final int STATUS_PERFORM = 4;
+    public static final int STATUS_SCRAP = 4;
 
     /**
      * 物资编号.

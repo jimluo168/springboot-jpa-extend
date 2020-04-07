@@ -94,6 +94,15 @@ public class RescueMaterialController {
         return ok();
     }
 
+    @ApiOperation("报废")
+    @OpLog("报废")
+    @RequiresPermissions("rescue_material_scrap")
+    @PostMapping("/{id}/scraps")
+    public Result<MoRescueMaterial> scrap(@PathVariable Long id) {
+        rescueMaterialService.scrap(id);
+        return ok();
+    }
+
     @ApiOperation("公司")
     @RequiresPermissions("rescue_material_list")
     @GetMapping("/orgname/list")

@@ -87,3 +87,8 @@ sync:
     cron: 0 0 2 * * ?
     username: 123
     password: 123
+  # 数据转发
+  data-forward:
+    host: 222.85.139.247
+    port: 10006
+    accesskey: test1
