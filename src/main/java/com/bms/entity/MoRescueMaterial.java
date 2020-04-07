@@ -24,13 +24,21 @@ import java.util.Date;
 @Table(name = "mo_rescue_materials")
 public class MoRescueMaterial extends BaseEntity {
     /**
-     * 1=空闲.
+     * 1=待审核.
      */
-    public static final int STATUS_FREE = 1;
+    public static final int STATUS_TO_BE_AUDIT = 1;
     /**
-     * 2=执行.
+     * 3=未通过审核.
      */
-    public static final int STATUS_PERFORM = 2;
+    public static final int STATUS_UN_AUDIT = 3;
+    /**
+     * 2=正常=审核通过.
+     */
+    public static final int STATUS_FREE = 2;
+    /**
+     * 4=报废.
+     */
+    public static final int STATUS_PERFORM = 4;
 
     /**
      * 物资编号.
@@ -113,7 +121,15 @@ public class MoRescueMaterial extends BaseEntity {
      */
     private String remark;
     /**
+     * 所属单位名称.
+     */
+    private String orgName;
+    /**
      * 状态(1:空闲 2:执行任务).
      */
-    private Integer status;
+    private Integer status = STATUS_TO_BE_AUDIT;
+    /**
+     * 理由.
+     */
+    private String reason;
 }

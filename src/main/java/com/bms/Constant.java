@@ -126,6 +126,50 @@ public interface Constant {
      * 专家知识库-分页查询.
      */
     String MAPPER_KNOWLEDGE_BASE_PAGE = "knowledge_base_page";
+    /**
+     * 救援资源管理-人员.
+     */
+    String MAPPER_MO_RESCUE_RESCUER_PAGE = "mo_rescue_rescuer_page";
+    /**
+     * 救援资源管理-人员-公司.
+     */
+    String MAPPER_MO_RESCUE_RESCUER_COMPANY_PAGE = "mo_rescue_rescuer_company_page";
+    /**
+     * 救援资源管理-人员-职位.
+     */
+    String MAPPER_MO_RESCUE_RESCUER_POSITION_PAGE = "mo_rescue_rescuer_position_page";
+    /**
+     * 救援资源管理-车辆.
+     */
+    String MAPPER_MO_RESCUE_VEHICLE_PAGE = "mo_rescue_vehicle_page";
+    /**
+     * 救援资源管理-车辆-公司.
+     */
+    String MAPPER_MO_RESCUE_VEHICLE_COMPANY_PAGEE = "mo_rescue_vehicle_company_page";
+    /**
+     * 救援资源管理-车辆-线路.
+     */
+    String MAPPER_MO_RESCUE_VEHICLE_ROUTENAME_PAGE = "mo_rescue_vehicle_routename_page";
+    /**
+     * 救援资源管理-物资.
+     */
+    String MAPPER_MO_RESCUE_MATERIAL_PAGE = "mo_rescue_material_page";
+    /**
+     * 救援资源管理-物资-公司.
+     */
+    String MAPPER_MO_RESCUE_MATERIAL_COMPANY_PAGE = "mo_rescue_material_company_page";
+    /**
+     * 救援资源管理-物资-物资编号.
+     */
+    String MAPPER_MO_RESCUE_MATERIAL_CODE_PAGE = "mo_rescue_material_code_page";
+    /**
+     * 救援资源管理-物资-物资类型.
+     */
+    String MAPPER_MO_RESCUE_MATERIAL_TYPE_PAGE = "mo_rescue_material_type_page";
+    /**
+     * 救援资源管理-物资-物资来源.
+     */
+    String MAPPER_MO_RESCUE_MATERIAL_ORIGIN_PAGE = "mo_rescue_material_origin_page";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 

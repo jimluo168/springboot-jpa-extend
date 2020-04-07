@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -22,13 +23,21 @@ import javax.persistence.Table;
 @Table(name = "mo_rescue_vehicles")
 public class MoRescueVehicle extends BaseEntity {
     /**
-     * 1=空闲.
+     * 1=待审核.
      */
-    public static final int STATUS_FREE = 1;
+    public static final int STATUS_TO_BE_AUDIT = 1;
     /**
-     * 2=执行.
+     * 3=未通过审核.
      */
-    public static final int STATUS_PERFORM = 2;
+    public static final int STATUS_UN_AUDIT = 3;
+    /**
+     * 2=空闲=审核通过.
+     */
+    public static final int STATUS_FREE = 2;
+    /**
+     * 4=执行.
+     */
+    public static final int STATUS_PERFORM = 4;
 
     /**
      * 车辆编号.
@@ -62,6 +71,13 @@ public class MoRescueVehicle extends BaseEntity {
      * 备注.
      */
     private String remark;
-    private Integer status = STATUS_FREE;
+    /**
+     * 状态(1:待审核 2:空闲 3:未通过审核 4:执行).
+     */
+    private Integer status = STATUS_TO_BE_AUDIT;
+    /**
+     * 理由.
+     */
+    private String reason;
 
 }

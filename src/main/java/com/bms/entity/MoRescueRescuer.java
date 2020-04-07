@@ -22,13 +22,21 @@ import javax.persistence.Table;
 @Table(name = "mo_rescue_rescuers")
 public class MoRescueRescuer extends BaseEntity {
     /**
-     * 1=空闲.
+     * 1=待审核.
      */
-    public static final int STATUS_FREE = 1;
+    public static final int STATUS_TO_BE_AUDIT = 1;
     /**
-     * 2=执行.
+     * 3=未通过审核.
      */
-    public static final int STATUS_PERFORM = 2;
+    public static final int STATUS_UN_AUDIT = 3;
+    /**
+     * 2=空闲=审核通过.
+     */
+    public static final int STATUS_FREE = 2;
+    /**
+     * 4=执行.
+     */
+    public static final int STATUS_PERFORM = 4;
 
     /**
      * 姓名.
@@ -69,5 +77,9 @@ public class MoRescueRescuer extends BaseEntity {
     /**
      * 状态(1:空闲 2:执行任务).
      */
-    private Integer status;
+    private Integer status = STATUS_TO_BE_AUDIT;
+    /**
+     * 理由.
+     */
+    private String reason;
 }

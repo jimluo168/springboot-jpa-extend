@@ -16,4 +16,165 @@
             order by p.createDate desc
         ]]>
     </knowledge_base_page>
+
+    <mo_rescue_rescuer_page type="hql" desc="救援资源管理-人员">
+        <![CDATA[
+            from MoRescueRescuer o
+            where o.deleted = 0
+            <#if status??>
+                and o.status = :status
+            </#if>
+            <#if orgName?? && orgName!=''>
+                and o.orgName like '%'||:orgName||'%'
+            </#if>
+            <#if name?? && name!=''>
+                and o.name like '%'||:name||'%'
+            </#if>
+            <#if position?? && position!=''>
+                and o.position like '%'||:position||'%'
+            </#if>
+            <#if phone?? && phone!=''>
+                and o.phone like '%'||:phone||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_rescuer_page>
+    <mo_rescue_rescuer_company_page type="hql" desc="救援资源管理-人员-公司">
+        <![CDATA[
+            select distinct o.orgName
+            from MoRescueRescuer o
+            where o.deleted = 0
+            <#if orgName?? && orgName!=''>
+                and o.orgName like '%'||:orgName||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_rescuer_company_page>
+    <mo_rescue_rescuer_position_page type="hql" desc="救援资源管理-人员-职位">
+        <![CDATA[
+            select distinct o.position
+            from MoRescueRescuer o
+            where o.deleted = 0
+            <#if position?? && position!=''>
+                and o.position like '%'||:position||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_rescuer_position_page>
+
+
+    <mo_rescue_vehicle_page type="hql" desc="救援资源管理-车辆">
+        <![CDATA[
+            from MoRescueVehicle o
+            where o.deleted = 0
+            <#if status??>
+                and o.status = :status
+            </#if>
+            <#if orgName?? && orgName!=''>
+                and o.orgName like '%'||:orgName||'%'
+            </#if>
+            <#if code?? && code!=''>
+                and o.code like '%'||:code||'%'
+            </#if>
+            <#if routeName?? && routeName!=''>
+                and o.routeName like '%'||:routeName||'%'
+            </#if>
+            <#if licNo?? && licNo!=''>
+                and o.licNo like '%'||:licNo||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_vehicle_page>
+    <mo_rescue_vehicle_company_page type="hql" desc="救援资源管理-车辆-公司">
+        <![CDATA[
+            select distinct o.orgName
+            from MoRescueVehicle o
+            where o.deleted = 0
+            <#if orgName?? && orgName!=''>
+                and o.orgName like '%'||:orgName||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_vehicle_company_page>
+    <mo_rescue_vehicle_routename_page type="hql" desc="救援资源管理-车辆-线路">
+        <![CDATA[
+            select distinct o.routeName
+            from MoRescueVehicle o
+            where o.deleted = 0
+            <#if routeName?? && routeName!=''>
+                and o.routeName like '%'||:routeName||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_vehicle_routename_page>
+
+    <mo_rescue_material_page type="hql" desc="救援资源管理-物资">
+        <![CDATA[
+            from MoRescueMaterial o
+            where o.deleted = 0
+            <#if status??>
+                and o.status = :status
+            </#if>
+            <#if code?? && code!=''>
+                and o.code like '%'||:code||'%'
+            </#if>
+            <#if orgName?? && orgName!=''>
+                and o.orgName like '%'||:orgName||'%'
+            </#if>
+            <#if name?? && name!=''>
+                and o.name like '%'||:name||'%'
+            </#if>
+            <#if type?? && type!=''>
+                and o.type like '%'||:type||'%'
+            </#if>
+            <#if origin?? && origin!=''>
+                and o.origin like '%'||:origin||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_material_page>
+    <mo_rescue_material_company_page type="hql" desc="救援资源管理-物资-公司">
+        <![CDATA[
+            select distinct o.orgName
+            from MoRescueMaterial o
+            where o.deleted = 0
+            <#if orgName?? && orgName!=''>
+                and o.orgName like '%'||:orgName||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_material_company_page>
+    <mo_rescue_material_code_page type="hql" desc="救援资源管理-物资-编号">
+        <![CDATA[
+            select distinct o.code
+            from MoRescueMaterial o
+            where o.deleted = 0
+            <#if code?? && code!=''>
+                and o.code like '%'||:code||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_material_code_page>
+    <mo_rescue_material_type_page type="hql" desc="救援资源管理-物资-类型">
+        <![CDATA[
+            select distinct o.type
+            from MoRescueMaterial o
+            where o.deleted = 0
+            <#if type?? && type!=''>
+                and o.type like '%'||:type||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_material_type_page>
+    <mo_rescue_material_origin_page type="hql" desc="救援资源管理-物资-来源">
+        <![CDATA[
+            select distinct o.origin
+            from MoRescueMaterial o
+            where o.deleted = 0
+            <#if origin?? && origin!=''>
+                and o.origin like '%'||:origin||'%'
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </mo_rescue_material_origin_page>
 </mapper>
