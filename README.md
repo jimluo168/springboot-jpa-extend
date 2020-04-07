@@ -2422,6 +2422,12 @@ ROUTE_TYPE:int:线路类型
 EMERGENCY_PREPLAN_TYPE:int:预案分类
 EMERGENCY_LEVEL:int:应急事件等级
 
+KNOWLEDGE_BASE_TYPE:int:知识库类型
+KNOWLEDGE_BASE_INDUSTRY:int:知识库行业
+EXPERT_INDUSTRY:int:专家所属行业
+EXPERT_LEVEL:int:专家级别
+EXPERT_FIELD:int:领域
+
 ```
 
 ## 19. 模版配置说明
