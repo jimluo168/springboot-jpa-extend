@@ -4094,6 +4094,7 @@ params:
   size:int:页码大小
   org_name:string:公司名称
   position:string:职位
+  status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
 
 @return:
   code:int:操作码
@@ -4109,6 +4110,7 @@ params:
       department:string:所属部门
       position:string:职位
       org_address:string:单位地址
+      service_area:string:服务区域
       remark:string:备注
       reason:string:审核理由
       status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
@@ -4134,6 +4136,7 @@ params:
   department:string:所属部门
   position:string:职位
   org_address:string:单位地址
+  service_area:string:服务区域
   remark:string:备注
 
 @return:
@@ -4167,6 +4170,7 @@ params:
   department:string:所属部门
   position:string:职位
   org_address:string:单位地址
+  service_area:string:服务区域
   remark:string:备注
 
 @return:
@@ -4202,6 +4206,7 @@ params:
     department:string:所属部门
     position:string:职位
     org_address:string:单位地址
+    service_area:string:服务区域
     remark:string:备注
     reason:string:审核理由
     status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)

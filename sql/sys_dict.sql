@@ -77,3 +77,54 @@ INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_u
 VALUES ('16102', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_PREPLAN_TYPE_CHILD', '2', '分类二', '1', '分类二', 'Integer', '2', '161');
 INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
 VALUES ('16103', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EMERGENCY_PREPLAN_TYPE_CHILD', '3', '分类三', '1', '分类三', 'Integer', '3', '161');
+
+-- KNOWLEDGE_BASE_TYPE:int:知识库类型
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('162', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_TYPE', '162', '知识库类型', '1', '知识库类型', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16201', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_TYPE_CHILD', '1', '专家库', '1', '专家库', 'Integer', '1', '162');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16202', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_TYPE_CHILD', '2', '知识库A', '1', '知识库A', 'Integer', '2', '162');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16203', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_TYPE_CHILD', '3', '知识库B', '1', '知识库B', 'Integer', '3', '162');
+
+-- KNOWLEDGE_BASE_INDUSTRY:int:知识库行业
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('163', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_INDUSTRY', '163', '知识库行业', '1', '知识库行业', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16301', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_INDUSTRY_CHILD', '1', '行业1', '1', '行业1', 'Integer', '1', '163');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16302', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_INDUSTRY_CHILD', '2', '行业2', '1', '行业2', 'Integer', '2', '163');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16303', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'KNOWLEDGE_BASE_INDUSTRY_CHILD', '3', '行业3', '1', '行业3', 'Integer', '3', '163');
+
+-- EXPERT_INDUSTRY:int:专家所属行业
+
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('164', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_INDUSTRY', '164', '专家所属行业', '1', '专家所属行业', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16401', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_INDUSTRY_CHILD', '1', '行业1', '1', '行业1', 'Integer', '1', '164');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16402', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_INDUSTRY_CHILD', '2', '行业2', '1', '行业2', 'Integer', '2', '164');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16403', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_INDUSTRY_CHILD', '3', '行业3', '1', '行业3', 'Integer', '3', '164');
+
+-- EXPERT_LEVEL:int:专家级别
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('165', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_LEVEL', '165', '专家级别', '1', '专家级别', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16501', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_LEVEL_CHILD', '1', '一级专家', '1', '一级专家', 'Integer', '1', '165');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16502', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_LEVEL_CHILD', '2', '高级专家', '1', '高级专家', 'Integer', '2', '165');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16503', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_LEVEL_CHILD', '3', '中级专家', '1', '中级专家', 'Integer', '3', '165');
+
+-- EXPERT_FIELD:int:领域
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`)
+VALUES ('166', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_FIELD', '166', '领域', '1', '领域', 'Integer');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16601', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_FIELD_CHILD', '1', '维修领域', '1', '维修领域', 'Integer', '1', '166');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16602', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_FIELD_CHILD', '2', '发动机引擎领域', '1', '发动机引擎领域', 'Integer', '2', '166');
+INSERT INTO `sys_dict` (`id`, `create_date`, `create_user`, `is_delete`, `last_upd_date`, `last_upd_user`, `code`, `index`, `remark`, `status`, `text`, `type`, `value`, `parent_id`)
+VALUES ('16603', '2020-03-16 08:09:45.954000', '434282783825858560', '0', '2020-03-16 08:09:45.954000', '434282783825858560', 'EXPERT_FIELD_CHILD', '3', '动力领域', '1', '动力领域', 'Integer', '3', '166');

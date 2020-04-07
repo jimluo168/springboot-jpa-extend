@@ -124,7 +124,7 @@ public class MoEmergencyResponse extends BaseEntity {
     /**
      * 状态(1:待处理 5:处理中 10:待评估 15:已评估).
      */
-    private Integer status;
+    private Integer status = STATUS_PROCESSING;
     /**
      * 是否生成案例(0:未生成 1:已生成).
      */
