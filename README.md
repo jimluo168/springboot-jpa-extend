@@ -4791,3 +4791,411 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
+
+
+## 31. 应急响应处理
+
+### 31.1. 应急响应处理-列表
+
+```yaml
+@get: /monitor/emergencyresponses/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  status_list:int:状态(1:待处理 5:处理中 10:待评估 15:已评估) 多个 带多个参数即可 如 待处理和处理中两个状态 status_list=1&status_list=5
+  generate_case:int:是否生成案例(0:未生成 1:已生成)
+  
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:应急响应处理列表信息
+      id:long:ID
+      name:string:事件名称
+      start_time:date:事发时间=开始时间
+      place:string:事件地点
+      description:string:事件描述
+      preplan_name:string:预案名称
+      preplan_code:string:预案编号
+      preplan_type:int:预案分类
+      level:int:事件等级
+      rescue_plan:string:救援方案 url /html/yyyyMMdd/xxx.html
+      attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名
+      rescue_company_name:string:救援单位名称
+      rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' }
+      rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳' }
+      remark:string:备注
+      photos:string:执行照片 多个以英文 , 号隔开 /images/yyyyMMdd/xxx.照片后缀名
+      videos:string:执行视频 多个以英文 , 号隔开 /videos/yyyyMMdd/xxx.视频后缀名
+      effect:string:执行效果 /html/yyyyMMdd/xxx.html
+      end_time:date:结束时间
+      status:int:状态(1:待处理 5:处理中 10:待评估 15:已评估)
+      generate_case:int:是否生成案例(0:未生成 1:已生成)
+      info_score:int:信息采集准确度评估
+      info_remark:string:信息采集准确度评估 补充
+      effect_score:int:信息采集准确度评估
+      effect_remark:string:信息采集准确度评估 补充
+      dispatch_score:int:信息采集准确度评估
+      dispatch_remark:string:信息采集准确度评估 补充
+      material_score:int:信息采集准确度评估
+      material_remark:string:信息采集准确度评估 补充
+      evaluate_remark:string:评估时的备注
+      group_leader_list:array<object>:组长信息
+        id:long:ID
+        name:string:姓名
+        gender:string:性别(M:男 F:女 N:未知)
+        staff_no:string:员工工号
+        phone:string:联系电话
+        org_name:string:所属单位名称
+        department:string:所属部门
+        position:string:职位
+        org_address:string:单位地址
+        service_area:string:服务区域
+        remark:string:备注
+      rescuer_list:array<object>:人员信息
+        id:long:ID
+        name:string:姓名
+        gender:string:性别(M:男 F:女 N:未知)
+        staff_no:string:员工工号
+        phone:string:联系电话
+        org_name:string:所属单位名称
+        department:string:所属部门
+        position:string:职位
+        org_address:string:单位地址
+        service_area:string:服务区域
+        remark:string:备注
+      rescue_material_list:array<object>:应急物资信息
+        id:long:ID
+        code:string:物资编号
+        name:string:物资名称
+        type:string:物资类型
+        spec:string:规格
+        unit:string:计量单位
+        quantity:int:数量
+        origin:string:物资来源
+        parameter:string:参数
+        purpose:string:用途
+        store_place:strign:存放场所 地点
+        price:float:单价
+        total_price:float:总价
+        producer:string:生产商
+        useful_life:string:使用年限
+        production_date:date:出厂日期
+        purchase_date:date:购买日期
+        maintenance_interval:string:定期保修间隔
+        principal:string:负责人
+        phone:string:联系方式
+        org_name:string:所属单位
+        remark:string:备注
+      rescue_vehicle_list:array<object>:救援车辆信息
+        id:long:ID
+        code:string:车辆编号
+        lic_no:string:车牌号
+        veh_type:string:车辆类型
+        driver:string:驾驶员
+        driver_phone:string:驾驶员电话
+        org_name:string:所属单位
+        route_name:string:线路名称
+        remark:string:备注
+
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 31.2. 应急响应处理-新增
+
+```yaml
+@post: /monitor/emergencyresponses
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:事件名称
+  start_time:date:事发时间=开始时间
+  place:string:事件地点
+  description:string:事件描述
+  preplan_name:string:预案名称
+  preplan_code:string:预案编号
+  preplan_type:int:预案分类
+  level:int:事件等级
+  rescue_plan:string:救援方案 url /html/yyyyMMdd/xxx.html
+  attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名
+  rescue_company_name:string:救援单位名称
+  rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' }
+  rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳' }
+  remark:string:备注
+  group_leader_list:array<object>:组长信息
+    id:long:ID
+  rescuer_list:array<object>:人员信息
+    id:long:ID
+  rescue_material_list:array<object>:应急物资信息
+    id:long:ID
+  rescue_vehicle_list:array<object>:救援车辆信息
+    id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+
+### 31.3. 应急响应处理-编辑
+
+```yaml
+@put: /monitor/emergencyresponses/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  name:string:事件名称
+  start_time:date:事发时间=开始时间
+  place:string:事件地点
+  description:string:事件描述
+  preplan_name:string:预案名称
+  preplan_code:string:预案编号
+  preplan_type:int:预案分类
+  level:int:事件等级
+  rescue_plan:string:救援方案 url /html/yyyyMMdd/xxx.html
+  attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名
+  rescue_company_name:string:救援单位名称
+  rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' }
+  rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳' }
+  remark:string:备注
+  group_leader_list:array<object>:组长信息
+    id:long:ID
+  rescuer_list:array<object>:人员信息
+    id:long:ID
+  rescue_material_list:array<object>:应急物资信息
+    id:long:ID
+  rescue_vehicle_list:array<object>:救援车辆信息
+    id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 31.4. 应急响应处理-详情
+
+```yaml
+@get: /monitor/emergencyresponses/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理信息
+    id:long:ID
+    name:string:事件名称
+    start_time:date:事发时间=开始时间
+    place:string:事件地点
+    description:string:事件描述
+    preplan_name:string:预案名称
+    preplan_code:string:预案编号
+    preplan_type:int:预案分类
+    level:int:事件等级
+    rescue_plan:string:救援方案 url /html/yyyyMMdd/xxx.html
+    attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名
+    rescue_company_name:string:救援单位名称
+    rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' }
+    rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳' }
+    remark:string:备注
+    photos:string:执行照片 多个以英文 , 号隔开 /images/yyyyMMdd/xxx.照片后缀名
+    videos:string:执行视频 多个以英文 , 号隔开 /videos/yyyyMMdd/xxx.视频后缀名
+    effect:string:执行效果 /html/yyyyMMdd/xxx.html
+    end_time:date:结束时间
+    status:int:状态(1:待处理 5:处理中 10:待评估 15:已评估)
+    generate_case:int:是否生成案例(0:未生成 1:已生成)
+    info_score:int:信息采集准确度评估
+    info_remark:string:信息采集准确度评估 补充
+    effect_score:int:信息采集准确度评估
+    effect_remark:string:信息采集准确度评估 补充
+    dispatch_score:int:信息采集准确度评估
+    dispatch_remark:string:信息采集准确度评估 补充
+    material_score:int:信息采集准确度评估
+    material_remark:string:信息采集准确度评估 补充
+    evaluate_remark:string:评估时的备注
+    group_leader_list:array<object>:组长信息
+      id:long:ID
+      name:string:姓名
+      gender:string:性别(M:男 F:女 N:未知)
+      staff_no:string:员工工号
+      phone:string:联系电话
+      org_name:string:所属单位名称
+      department:string:所属部门
+      position:string:职位
+      org_address:string:单位地址
+      service_area:string:服务区域
+      remark:string:备注
+    rescuer_list:array<object>:人员信息
+      id:long:ID
+      name:string:姓名
+      gender:string:性别(M:男 F:女 N:未知)
+      staff_no:string:员工工号
+      phone:string:联系电话
+      org_name:string:所属单位名称
+      department:string:所属部门
+      position:string:职位
+      org_address:string:单位地址
+      service_area:string:服务区域
+      remark:string:备注
+    rescue_material_list:array<object>:应急物资信息
+      id:long:ID
+      code:string:物资编号
+      name:string:物资名称
+      type:string:物资类型
+      spec:string:规格
+      unit:string:计量单位
+      quantity:int:数量
+      origin:string:物资来源
+      parameter:string:参数
+      purpose:string:用途
+      store_place:strign:存放场所 地点
+      price:float:单价
+      total_price:float:总价
+      producer:string:生产商
+      useful_life:string:使用年限
+      production_date:date:出厂日期
+      purchase_date:date:购买日期
+      maintenance_interval:string:定期保修间隔
+      principal:string:负责人
+      phone:string:联系方式
+      org_name:string:所属单位
+      remark:string:备注
+    rescue_vehicle_list:array<object>:救援车辆信息
+      id:long:ID
+      code:string:车辆编号
+      lic_no:string:车牌号
+      veh_type:string:车辆类型
+      driver:string:驾驶员
+      driver_phone:string:驾驶员电话
+      org_name:string:所属单位
+      route_name:string:线路名称
+      remark:string:备注
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 31.5. 应急响应处理-删除
+
+```yaml
+@delete: /monitor/emergencyresponses/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 31.6. 应急响应处理-跟进-完结事件
+
+```yaml
+@put: /monitor/emergencyresponses/follows/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  photos:string:执行照片 多个以英文 , 号隔开 /images/yyyyMMdd/xxx.照片后缀名
+  videos:string:执行视频 多个以英文 , 号隔开 /videos/yyyyMMdd/xxx.视频后缀名
+  effect:string:执行效果 /html/yyyyMMdd/xxx.html
+  end_time:date:结束时间
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 31.7. 应急响应处理-评估
+
+```yaml
+@put: /monitor/emergencyresponses/evaluates/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  info_score:int:信息采集准确度评估
+  info_remark:string:信息采集准确度评估 补充
+  effect_score:int:信息采集准确度评估
+  effect_remark:string:信息采集准确度评估 补充
+  dispatch_score:int:信息采集准确度评估
+  dispatch_remark:string:信息采集准确度评估 补充
+  material_score:int:信息采集准确度评估
+  material_remark:string:信息采集准确度评估 补充
+  evaluate_remark:string:评估时的备注
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 31.8. 应急响应处理-案例生成
+
+```yaml
+@post: /monitor/emergencyresponses/generatecases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回应急响应处理
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
