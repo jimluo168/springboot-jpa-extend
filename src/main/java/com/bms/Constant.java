@@ -133,7 +133,7 @@ public interface Constant {
     /**
      * 救援资源管理-人员-公司.
      */
-    String MAPPER_MO_RESCUE_RESCUER_COMPANY_PAGE = "mo_rescue_rescuer_company_page";
+    String MAPPER_MO_RESCUE_RESCUER_ORGNAME_PAGE = "mo_rescue_rescuer_orgname_page";
     /**
      * 救援资源管理-人员-职位.
      */
@@ -145,7 +145,7 @@ public interface Constant {
     /**
      * 救援资源管理-车辆-公司.
      */
-    String MAPPER_MO_RESCUE_VEHICLE_COMPANY_PAGEE = "mo_rescue_vehicle_company_page";
+    String MAPPER_MO_RESCUE_VEHICLE_ORGNAME_PAGEE = "mo_rescue_vehicle_orgname_page";
     /**
      * 救援资源管理-车辆-线路.
      */
@@ -157,7 +157,7 @@ public interface Constant {
     /**
      * 救援资源管理-物资-公司.
      */
-    String MAPPER_MO_RESCUE_MATERIAL_COMPANY_PAGE = "mo_rescue_material_company_page";
+    String MAPPER_MO_RESCUE_MATERIAL_ORGNAME_PAGE = "mo_rescue_material_orgname_page";
     /**
      * 救援资源管理-物资-物资编号.
      */

@@ -117,15 +117,15 @@ public class MoRescueMaterial extends BaseEntity {
      */
     private String phone;
     /**
-     * 备注.
-     */
-    private String remark;
-    /**
      * 所属单位名称.
      */
     private String orgName;
     /**
-     * 状态(1:空闲 2:执行任务).
+     * 备注.
+     */
+    private String remark;
+    /**
+     * 状态(1:待审核 2:正常=通过 3:未通过 4:报废).
      */
     private Integer status = STATUS_TO_BE_AUDIT;
     /**

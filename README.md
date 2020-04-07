@@ -995,7 +995,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 菜单管理-菜单下所有的tabs页签
+### 9.3. 菜单管理-菜单下所有的tabs页签
 
 ```yaml
 @get: /sys/menus/:id/alltabs
@@ -1019,7 +1019,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   msg:string:操作提示
 ```
 
-### 菜单管理-菜单下我拥有的tabs页签
+### 9.4. 菜单管理-菜单下我拥有的tabs页签
 
 ```yaml
 @get: /sys/menus/:id/mytabs
@@ -3726,7 +3726,7 @@ EMERGENCY_LEVEL:int:应急事件等级
 总排量参考蓝湖计算方式.
 
 ```
-### 能源趋势对比
+### 25.3. 能源趋势对比
 
 ```yaml
 @get: /industry/onlinedatadeclares/stats/energycomparisons
@@ -3751,7 +3751,7 @@ params:
   msg:string:操作提示
 ```
 
-### 26.2. 统计查询
+### 25.4. 统计查询
 
 ```yaml
 @get: /industry/onlinedatadeclares/stats/querystatis
@@ -4037,7 +4037,7 @@ params:
   msg:string:操作提示
 ```
 
-### 26.2. 专家知识库管理-详情
+### 27.2. 专家知识库管理-详情
 
 ```yaml
 @get: /monitor/knowledgebases/:id
@@ -4064,7 +4064,7 @@ params:
   msg:string:操作提示
 ```
 
-### 26.3. 专家知识库管理-新增
+### 27.3. 专家知识库管理-新增
 
 ```yaml
 @post: /monitor/knowledgebases
@@ -4090,7 +4090,7 @@ params:
   msg:string:操作提示
 ```
 
-### 26.4. 专家知识库管理-修改
+### 27.4. 专家知识库管理-修改
 
 ```yaml
 @put: /monitor/knowledgebases/:id
@@ -4125,7 +4125,7 @@ params:
   msg:string:操作提示
 ```
 
-### 26.5. 专家知识库管理-删除
+### 27.5. 专家知识库管理-删除
 
 ```yaml
 @delete: /monitor/knowledgebases/:id
@@ -4141,6 +4141,765 @@ params:
   code:int:操作码
   data:object:返回信息
     id:long:知识库ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+## 28. 救援资源管理-人员
+
+### 28.1. 救援资源管理-人员-列表-公司下拉框
+
+```yaml
+@get: /monitor/rescuerescuers/orgname/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_name:string:公司名称
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-人员列表信息
+      org_name:string:所属单位名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 28.2. 救援资源管理-人员-列表-职位下拉框
+
+```yaml
+@get: /monitor/rescuerescuers/position/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  position:string:职位
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-人员列表信息
+      position:string:职位
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 28.3. 救援资源管理-人员-列表
+
+```yaml
+@get: /monitor/rescuerescuers/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_name:string:公司名称
+  position:string:职位
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-人员列表信息
+      id:long:ID
+      name:string:姓名
+      gender:string:性别(M:男 F:女 N:未知)
+      staff_no:string:员工工号
+      phone:string:联系电话
+      org_name:string:所属单位名称
+      department:string:所属部门
+      position:string:职位
+      org_address:string:单位地址
+      remark:string:备注
+      reason:string:审核理由
+      status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 28.4. 救援资源管理-人员管理-新增
+
+```yaml
+@post: /monitor/rescuerescuers
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:姓名
+  gender:string:性别(M:男 F:女 N:未知)
+  staff_no:string:员工工号
+  phone:string:联系电话
+  org_name:string:所属单位名称
+  department:string:所属部门
+  position:string:职位
+  org_address:string:单位地址
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+
+### 28.5. 救援资源管理-人员管理-新增
+
+```yaml
+@put: /monitor/rescuerescuers/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  name:string:姓名
+  gender:string:性别(M:男 F:女 N:未知)
+  staff_no:string:员工工号
+  phone:string:联系电话
+  org_name:string:所属单位名称
+  department:string:所属部门
+  position:string:职位
+  org_address:string:单位地址
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回机构信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 28.6. 救援资源管理-人员-详情
+
+```yaml
+@get: /monitor/rescuerescuers/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-人员信息
+    id:long:ID
+    name:string:姓名
+    gender:string:性别(M:男 F:女 N:未知)
+    staff_no:string:员工工号
+    phone:string:联系电话
+    org_name:string:所属单位名称
+    department:string:所属部门
+    position:string:职位
+    org_address:string:单位地址
+    remark:string:备注
+    reason:string:审核理由
+    status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 28.7. 救援资源管理-人员-删除
+
+```yaml
+@delete: /monitor/rescuerescuers/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-人员
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 28.8. 救援资源管理-人员-审核
+
+```yaml
+@post: /monitor/rescuerescuers/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:机构ID
+  status:int:状态(1:待审核 2:空闲=通过 3:未通过 4:执行)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+## 29. 救援资源管理-车辆
+
+### 29.1. 救援资源管理-车辆-列表-公司下拉框
+
+```yaml
+@get: /monitor/rescuevehicles/orgname/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_name:string:公司名称
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-车辆列表信息
+      org_name:string:所属单位名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 29.2. 救援资源管理-车辆-列表-线路下拉框
+
+```yaml
+@get: /monitor/rescuevehicles/routename/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  route_name:string:线路名称
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-车辆列表信息
+      route_name:string:线路名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 29.3. 救援资源管理-车辆-列表
+
+```yaml
+@get: /monitor/rescuevehicles/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_name:string:公司名称
+  position:string:职位
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-车辆列表信息
+      id:long:ID
+      code:string:车辆编号
+      lic_no:string:车牌号
+      veh_type:string:车辆类型
+      driver:string:驾驶员
+      driver_phone:string:驾驶员电话
+      org_name:string:所属单位
+      route_name:string:线路名称
+      remark:string:备注
+      reason:string:审核理由
+      status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 29.4. 救援资源管理-车辆-新增
+
+```yaml
+@post: /monitor/rescuerescuers
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  code:string:车辆编号
+  lic_no:string:车牌号
+  veh_type:string:车辆类型
+  driver:string:驾驶员
+  driver_phone:string:驾驶员电话
+  org_name:string:所属单位
+  route_name:string:线路名称
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-车辆信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+
+### 29.5. 救援资源管理-车辆-编辑
+
+```yaml
+@put: /monitor/rescuevehicles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  code:string:车辆编号
+  lic_no:string:车牌号
+  veh_type:string:车辆类型
+  driver:string:驾驶员
+  driver_phone:string:驾驶员电话
+  org_name:string:所属单位
+  route_name:string:线路名称
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-车辆信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 29.6. 救援资源管理-车辆-详情
+
+```yaml
+@get: /monitor/rescuevehicles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-车辆信息
+    id:long:ID
+    code:string:车辆编号
+    lic_no:string:车牌号
+    veh_type:string:车辆类型
+    driver:string:驾驶员
+    driver_phone:string:驾驶员电话
+    org_name:string:所属单位
+    route_name:string:线路名称
+    remark:string:备注
+    reason:string:审核理由
+    status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 29.7. 救援资源管理-车辆-删除
+
+```yaml
+@delete: /monitor/rescuevehicles/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-车辆
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 29.8. 救援资源管理-车辆-审核
+
+```yaml
+@post: /monitor/rescuevehicles/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:救援资源管理-车辆ID
+  status:int:状态(1:待审核 2:空闲=通过 3:未通过 4:执行)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+## 30. 救援资源管理-物资
+
+### 30.1. 救援资源管理-物资-列表-公司下拉框
+
+```yaml
+@get: /monitor/rescuematerials/orgname/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_name:string:公司名称
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-物资列表信息
+      org_name:string:所属单位名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.2. 救援资源管理-物资-列表-物资编号下拉框
+
+```yaml
+@get: /monitor/rescuematerials/code/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  code:string:物资编号
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-物资列表信息
+      code:string:物资编号
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.3. 救援资源管理-物资-列表-物资类型下拉框
+
+```yaml
+@get: /monitor/rescuematerials/type/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  type:string:物资类型
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-物资列表信息
+      type:string:物资类型
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.4. 救援资源管理-物资-列表-物资来源下拉框
+
+```yaml
+@get: /monitor/rescuematerials/type/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  origin:string:物资来源
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-物资列表信息
+      origin:string:物资来源
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.5. 救援资源管理-物资-列表
+
+```yaml
+@get: /monitor/rescuematerials/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_name:string:公司名称
+  position:string:职位
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:救援资源管理-物资列表信息
+      id:long:ID
+      code:string:物资编号
+      name:string:物资名称
+      type:string:物资类型
+      spec:string:规格
+      unit:string:计量单位
+      quantity:int:数量
+      origin:string:物资来源
+      parameter:string:参数
+      purpose:string:用途
+      store_place:strign:存放场所 地点
+      price:float:单价
+      total_price:float:总价
+      producer:string:生产商
+      useful_life:string:使用年限
+      production_date:date:出厂日期
+      purchase_date:date:购买日期
+      maintenance_interval:string:定期保修间隔
+      principal:string:负责人
+      phone:string:联系方式
+      org_name:string:所属单位
+      remark:string:备注
+      reason:string:审核理由
+      status:int:状态(1:待审核 2:正常=通过 3:未通过 4:报废)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.6. 救援资源管理-物资-新增
+
+```yaml
+@post: /monitor/rescuerescuers
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  code:string:物资编号
+  name:string:物资名称
+  type:string:物资类型
+  spec:string:规格
+  unit:string:计量单位
+  quantity:int:数量
+  origin:string:物资来源
+  parameter:string:参数
+  purpose:string:用途
+  store_place:strign:存放场所 地点
+  price:float:单价
+  total_price:float:总价
+  producer:string:生产商
+  useful_life:string:使用年限
+  production_date:date:出厂日期
+  purchase_date:date:购买日期
+  maintenance_interval:string:定期保修间隔
+  principal:string:负责人
+  phone:string:联系方式
+  org_name:string:所属单位
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-物资信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+
+### 30.7. 救援资源管理-物资-编辑
+
+```yaml
+@put: /monitor/rescuematerials/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@payload:
+  code:string:物资编号
+  name:string:物资名称
+  type:string:物资类型
+  spec:string:规格
+  unit:string:计量单位
+  quantity:int:数量
+  origin:string:物资来源
+  parameter:string:参数
+  purpose:string:用途
+  store_place:strign:存放场所 地点
+  price:float:单价
+  total_price:float:总价
+  producer:string:生产商
+  useful_life:string:使用年限
+  production_date:date:出厂日期
+  purchase_date:date:购买日期
+  maintenance_interval:string:定期保修间隔
+  principal:string:负责人
+  phone:string:联系方式
+  org_name:string:所属单位
+  remark:string:备注
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-物资信息
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 30.8. 救援资源管理-物资-详情
+
+```yaml
+@get: /monitor/rescuematerials/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-物资信息
+    id:long:ID
+    code:string:物资编号
+    name:string:物资名称
+    type:string:物资类型
+    spec:string:规格
+    unit:string:计量单位
+    quantity:int:数量
+    origin:string:物资来源
+    parameter:string:参数
+    purpose:string:用途
+    store_place:strign:存放场所 地点
+    price:float:单价
+    total_price:float:总价
+    producer:string:生产商
+    useful_life:string:使用年限
+    production_date:date:出厂日期
+    purchase_date:date:购买日期
+    maintenance_interval:string:定期保修间隔
+    principal:string:负责人
+    phone:string:联系方式
+    org_name:string:所属单位
+    remark:string:备注
+    reason:string:审核理由
+    status:int:状态(1:待审核 2:正常=通过 3:未通过 4:报废)
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.9. 救援资源管理-物资-删除
+
+```yaml
+@delete: /monitor/rescuematerials/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:ID
+
+@return:
+  code:int:操作码
+  data:object:返回救援资源管理-物资
+    id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 30.10. 救援资源管理-物资-审核
+
+```yaml
+@post: /monitor/rescuematerials/:id/status/:status
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:救援资源管理-物资ID
+  status:int:状态(1:待审核 2:空闲=通过 3:未通过 4:执行)
+
+@payload:
+  reason:string:理由
+
+@return:
+  code:int:操作码
   success:bool:是否成功
   msg:string:操作提示
 ```

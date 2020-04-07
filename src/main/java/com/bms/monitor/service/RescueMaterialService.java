@@ -54,8 +54,8 @@ public class RescueMaterialService {
     }
 
     @Transactional(readOnly = true)
-    public PageList<MoRescueMaterial> companyPage(PageRequest pageRequest, Map<String, Object> queryParams) {
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_MO_RESCUE_MATERIAL_COMPANY_PAGE, queryParams));
+    public PageList<MoRescueMaterial> orgnamePage(PageRequest pageRequest, Map<String, Object> queryParams) {
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_MO_RESCUE_MATERIAL_ORGNAME_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)

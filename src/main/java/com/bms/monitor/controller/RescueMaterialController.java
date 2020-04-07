@@ -96,9 +96,9 @@ public class RescueMaterialController {
 
     @ApiOperation("公司")
     @RequiresPermissions("rescue_material_list")
-    @GetMapping("/company/list")
-    public Result<PageList<MoRescueMaterial>> companyPage(PageRequest pageRequest, MoRescueMaterial moRescueMaterial) throws IllegalAccessException {
-        return ok(rescueMaterialService.companyPage(pageRequest, BeanMapper.toMap(moRescueMaterial)));
+    @GetMapping("/orgname/list")
+    public Result<PageList<MoRescueMaterial>> orgnamePage(PageRequest pageRequest, MoRescueMaterial moRescueMaterial) throws IllegalAccessException {
+        return ok(rescueMaterialService.orgnamePage(pageRequest, BeanMapper.toMap(moRescueMaterial)));
     }
 
     @ApiOperation("物资编号")

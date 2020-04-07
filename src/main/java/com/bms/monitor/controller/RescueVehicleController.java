@@ -96,9 +96,9 @@ public class RescueVehicleController {
 
     @ApiOperation("公司")
     @RequiresPermissions("rescue_vehicle_list")
-    @GetMapping("/company/list")
-    public Result<PageList<MoRescueVehicle>> companyPage(PageRequest pageRequest, MoRescueVehicle moRescueVehicle) throws IllegalAccessException {
-        return ok(rescueVehicleService.companyPage(pageRequest, BeanMapper.toMap(moRescueVehicle)));
+    @GetMapping("/orgname/list")
+    public Result<PageList<MoRescueVehicle>> orgnamePage(PageRequest pageRequest, MoRescueVehicle moRescueVehicle) throws IllegalAccessException {
+        return ok(rescueVehicleService.orgnamePage(pageRequest, BeanMapper.toMap(moRescueVehicle)));
     }
 
     @ApiOperation("线路")

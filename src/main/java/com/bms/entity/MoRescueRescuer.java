@@ -75,7 +75,7 @@ public class MoRescueRescuer extends BaseEntity {
      */
     private String remark;
     /**
-     * 状态(1:空闲 2:执行任务).
+     * 状态(1:待审核 2:空闲 3:未通过 4:执行).
      */
     private Integer status = STATUS_TO_BE_AUDIT;
     /**
