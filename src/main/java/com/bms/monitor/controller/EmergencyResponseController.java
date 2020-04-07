@@ -94,7 +94,7 @@ public class EmergencyResponseController {
     }
 
     @ApiOperation("评估")
-    @OpLog("评估")
+    @OpLog(value = "评估", module = "历史应急信息")
     @RequiresPermissions("emergency_response_history_evaluate")
     @PutMapping("/evaluates/{id}")
     public Result<MoEmergencyResponse> evaluate(@PathVariable Long id, @RequestBody MoEmergencyResponse emergencyResponse) {
@@ -102,7 +102,7 @@ public class EmergencyResponseController {
     }
 
     @ApiOperation("案例生成")
-    @OpLog("案例生成")
+    @OpLog(value = "案例生成", module = "历史应急信息")
     @RequiresPermissions("emergency_response_history_generate")
     @PostMapping("/generatecases/{id}")
     public Result<MoEmergencyResponse> generateCase(@PathVariable Long id) {
