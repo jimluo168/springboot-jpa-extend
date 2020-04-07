@@ -95,7 +95,7 @@ public class Expert extends BaseEntity {
     /**
      * 所在行业
      */
-    private String industry;
+    private Integer industry;
     /**
      * 专家领域
      */

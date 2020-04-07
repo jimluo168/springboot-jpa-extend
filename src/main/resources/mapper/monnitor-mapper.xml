@@ -13,7 +13,7 @@
             <#if begin?? && end??>
                 and k.createDate between :begin and :end
             </#if>
-            order by p.createDate desc
+            order by k.createDate desc
         ]]>
     </knowledge_base_page>
 
