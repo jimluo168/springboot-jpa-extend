@@ -3853,7 +3853,7 @@ params:
   Authorization:token令牌
 
 @params:
-  id:long:站点ID
+  id:long:申报ID
 
 @return:
   code:int:操作码
@@ -4018,7 +4018,7 @@ params:
   Authorization:token令牌
 
 @params:
-  id:long:站点ID
+  id:long:知识库ID
 
 @return:
   code:int:操作码
@@ -4027,7 +4027,6 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
-
 
 ## 28. 救援资源管理-人员
 
@@ -4660,8 +4659,6 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
-
-
 
 ### 30.7. 救援资源管理-物资-编辑
 
@@ -5426,6 +5423,380 @@ params:
   code:int:操作码
   data:object:返回应急响应处理
     id:long:ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+## 33. 应急信息发布
+
+### 33.1. 应急信息发布-列表
+
+```yaml
+@get: /monitor/inforeleases/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  title:string:标题
+  type:int:类型
+  begin:date:开始时间
+  end:date:结束时间
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:知识库信息列表
+      id:long:ID
+      name:string:事件名称
+      type:int:事件分类
+      level:int:事件级别
+      content:string:发布内容
+      channel:int:发布途径
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 33.2. 应急信息发布-详情
+
+```yaml
+@get: /monitor/inforeleases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:知识库id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    name:string:事件名称
+    type:int:事件分类
+    level:int:事件级别
+    content:string:发布内容
+    channel:int:发布途径
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 33.3. 应急信息发布-新增
+
+```yaml
+@post: /monitor/inforeleases
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:事件名称
+  type:int:事件分类
+  level:int:事件级别
+  content:string:发布内容
+  channel:int:发布途径
+
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:信息ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 33.4. 应急信息发布-修改
+
+```yaml
+@put: /monitor/inforeleases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  name:string:事件名称
+  type:int:事件分类
+  level:int:事件级别
+  content:string:发布内容
+  channel:int:发布途径
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    name:string:事件名称
+    type:int:事件分类
+    level:int:事件级别
+    content:string:发布内容
+    channel:int:发布途径
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 33.5. 应急信息发布-删除
+
+```yaml
+@delete: /monitor/inforeleases/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:信息ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:信息ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+## 34. 应急预案管理
+
+### 34.1. 应急预案管理-列表
+
+```yaml
+@get: /monitor/emergencypreplans/list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  rescue_company_name:string:单位
+  preplan_type:int:预案类型
+  level:int:等级
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:知识库信息列表
+      id:long:应急预案ID
+      name:string:名称
+      code:string:编号
+      preplan_type:int:预案分类
+      level:int:事件等级
+      rescuePlan:int:救援方案 url /html/yyyyMMdd/xxx.html
+      attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名;
+      rescue_company_name:string:救援单位名称;
+      rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' };
+      rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳'  };
+      rescueDesc:string:救援详情
+      remark:string:备注
+      group_leader_list:array<object>:组长
+        id:long:ID
+        name:string:姓名
+        org_name:string:所属部门
+        phone:string:联系电话
+      rescuer_list:array<object>:人员
+        id:long:ID
+        name:string:姓名
+        org_name:string:所属部门
+        phone:string:联系电话
+      rescue_material_list:array<object>:应急物资
+        id:long:ID
+        name:string:物资名
+        type:int:物资类型
+      rescue_vehicle_list:array<object>:救援车辆
+        id:long:ID
+        lic_no:string:车牌号
+        org_name:string:所属单位
+        driver:string:驾驶员
+        driver_phone:string:驾驶员电话
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 34.2. 应急预案管理-详情
+
+```yaml
+@get: /monitor/emergencypreplans/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:知识库id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:应急预案ID
+    name:string:名称
+    code:string:编号
+    preplan_type:int:预案分类
+    level:int:事件等级
+    rescuePlan:int:救援方案 url /html/yyyyMMdd/xxx.html
+    attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名;
+    rescue_company_name:string:救援单位名称;
+    rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' };
+    rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳'  };
+    rescueDesc:string:救援详情
+    remark:string:备注
+    group_leader_list:array<object>:组长
+      id:long:ID
+      name:string:姓名
+      org_name:string:所属部门
+      phone:string:联系电话
+    rescuer_list:array<object>:人员
+      id:long:ID
+      name:string:姓名
+      org_name:string:所属部门
+      phone:string:联系电话
+    rescue_material_list:array<object>:应急物资
+      id:long:ID
+      name:string:物资名
+      type:int:物资类型
+    rescue_vehicle_list:array<object>:救援车辆
+      id:long:ID
+      lic_no:string:车牌号
+      org_name:string:所属单位
+      driver:string:驾驶员
+      driver_phone:string:驾驶员电话
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 34.3. 应急预案管理-新增
+
+```yaml
+@post: /monitor/emergencypreplans
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  name:string:名称
+  code:string:编号
+  preplan_type:int:预案分类
+  level:int:事件等级
+  rescuePlan:int:救援方案 url /html/yyyyMMdd/xxx.html
+  attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名;
+  rescue_company_name:string:救援单位名称;
+  rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' };
+  rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳'  };
+  rescueDesc:string:救援详情
+  remark:string:备注
+  group_leader_list:array<object>:组长
+    id:long:ID
+  rescuer_list:array<object>:人员
+    id:long:ID
+  rescue_material_list:array<object>:应急物资
+    id:long:ID
+  rescue_vehicle_list:array<object>:救援车辆
+    id:long:ID
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:预案ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 34.4. 应急预案管理-修改
+
+```yaml
+@put: /monitor/emergencypreplans/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:站点ID
+
+@payload:
+  name:string:名称
+  code:string:编号
+  preplan_type:int:预案分类
+  level:int:事件等级
+  rescuePlan:int:救援方案 url /html/yyyyMMdd/xxx.html
+  attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名;
+  rescue_company_name:string:救援单位名称;
+  rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' };
+  rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳'  };
+  rescueDesc:string:救援详情
+  remark:string:备注
+  group_leader_list:array<object>:组长
+    id:long:ID
+  rescuer_list:array<object>:人员
+    id:long:ID
+  rescue_material_list:array<object>:应急物资
+    id:long:ID
+  rescue_vehicle_list:array<object>:救援车辆
+    id:long:ID
+  
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:应急预案ID
+    name:string:名称
+    code:string:编号
+    preplan_type:int:预案分类
+    level:int:事件等级
+    rescuePlan:int:救援方案 url /html/yyyyMMdd/xxx.html
+    attachs:string:附件 多个以英文 , 号隔开 /docs/yyyyMMdd/xxx.文件后缀名;
+    rescue_company_name:string:救援单位名称;
+    rescue_start_point:string:救援起点 json结构 { keyword: '贵阳市人民政府',city:'贵阳' };
+    rescue_end_point:string:救援终点 json结构 { keyword: '贵阳北站',city:'贵阳'  };
+    rescueDesc:string:救援详情
+    remark:string:备注
+    group_leader_list:array<object>:组长
+      id:long:ID
+      name:string:姓名
+      org_name:string:所属部门
+      phone:string:联系电话
+    rescuer_list:array<object>:人员
+      id:long:ID
+      name:string:姓名
+      org_name:string:所属部门
+      phone:string:联系电话
+    rescue_material_list:array<object>:应急物资
+      id:long:ID
+      name:string:物资名
+      type:int:物资类型
+    rescue_vehicle_list:array<object>:救援车辆
+      id:long:ID
+      lic_no:string:车牌号
+      org_name:string:所属单位
+      driver:string:驾驶员
+      driver_phone:string:驾驶员电话
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 34.5. 应急预案管理-删除
+
+```yaml
+@delete: /monitor/emergencypreplans/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:信息ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:预案ID
   success:bool:是否成功
   msg:string:操作提示
 ```
