@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapper namespace="com.bms.common.dao.DaoCmd">
-    <knowledge_base_page type="hql" desc="专家知识库分页查询">
+    <mo_knowledge_base_page type="hql" desc="专家知识库分页查询">
         <![CDATA[
             from MoKnowledgeBase k
             where deleted = 0
@@ -15,9 +15,9 @@
             </#if>
             order by k.createDate desc
         ]]>
-    </knowledge_base_page>
+    </mo_knowledge_base_page>
 
-    <expert_page type="hql" desc="专家库分页查询">
+    <mo_expert_page type="hql" desc="专家库分页查询">
         <![CDATA[
             from MoExpert e
             where deleted = 0
@@ -32,7 +32,7 @@
             </#if>
             order by e.createDate desc
         ]]>
-    </expert_page>
+    </mo_expert_page>
 
     <mo_rescue_rescuer_page type="hql" desc="救援资源管理-人员">
         <![CDATA[
@@ -208,4 +208,38 @@
             order by o.createDate desc
         ]]>
     </mo_emergency_response_page>
+
+    <mo_info_release_page type="hql" desc="应急信息发布">
+        <![CDATA[
+            from MoInfoRelease i
+            where deleted = 0
+            <#if name?? && name!=''>
+                and i.name like '%'||:name||'%'
+            </#if>
+            <#if type??>
+                and i.field = :field
+            </#if>
+            <#if level??>
+                and i.level = :level
+            </#if>
+        ]]>
+    </mo_info_release_page>
+
+    <mo_emergency_preplan_page type="hql" desc="应急预案管理">
+        <![CDATA[
+            from MoEmergencyPrepla
+            order by i.createDate descn e
+            where deleted = 0
+            <#if rescueCompanyName?? && rescueCompanyName!=''>
+                and e.rescueCompanyName like '%'||:rescueCompanyName||'%'
+            </#if>
+            <#if preplanType??>
+                and e.preplanType = :preplanType
+            </#if>WWWw
+            <#if level??>
+                and e.level = :level
+            </#if>
+            order by i.createDate desc
+        ]]>
+    </mo_emergency_preplan_page>
 </mapper>

@@ -125,11 +125,11 @@ public interface Constant {
     /**
      * 专家知识库-分页查询.
      */
-    String MAPPER_KNOWLEDGE_BASE_PAGE = "knowledge_base_page";
+    String MAPPER_KNOWLEDGE_BASE_PAGE = "mo_knowledge_base_page";
     /**
      * 专家库-分页查询.
      */
-    String MAPPER_EXPERT_PAGE = "expert_page";
+    String MAPPER_EXPERT_PAGE = "mo_expert_page";
     /**
      * 救援资源管理-人员.
      */
@@ -178,6 +178,14 @@ public interface Constant {
      * 应急响应处理-分页查询.
      */
     String MAPPER_MO_EMERGENCY_RESPONSE_PAGE = "mo_emergency_response_page";
+    /**
+     * 应急信息发布
+     */
+    String MAPPER_MO_INFO_RELEASE_PAGE = "mo_info_release_page";
+    /**
+     * 应急预案管理
+     */
+    String MAPPER_MO_EMERGENCY_PREPLAN_PAGE = "mo_emergency_preplan_page";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 
