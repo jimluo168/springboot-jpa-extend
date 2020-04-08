@@ -63,7 +63,7 @@ public class MoRescueMaterial extends BaseEntity {
     /**
      * 数量.
      */
-    private Integer quantity;
+    private BigDecimal quantity;
     /**
      * 物资来源.
      */

@@ -4599,7 +4599,7 @@ params:
       type:string:物资类型
       spec:string:规格
       unit:string:计量单位
-      quantity:int:数量
+      quantity:float:数量
       origin:string:物资来源
       parameter:string:参数
       purpose:string:用途
@@ -4636,7 +4636,7 @@ params:
   type:string:物资类型
   spec:string:规格
   unit:string:计量单位
-  quantity:int:数量
+  quantity:float:数量
   origin:string:物资来源
   parameter:string:参数
   purpose:string:用途
@@ -4681,7 +4681,7 @@ params:
   type:string:物资类型
   spec:string:规格
   unit:string:计量单位
-  quantity:int:数量
+  quantity:float:数量
   origin:string:物资来源
   parameter:string:参数
   purpose:string:用途
@@ -4728,7 +4728,7 @@ params:
     type:string:物资类型
     spec:string:规格
     unit:string:计量单位
-    quantity:int:数量
+    quantity:float:数量
     origin:string:物资来源
     parameter:string:参数
     purpose:string:用途
@@ -4895,7 +4895,7 @@ params:
         type:string:物资类型
         spec:string:规格
         unit:string:计量单位
-        quantity:int:数量
+        quantity:float:数量
         origin:string:物资来源
         parameter:string:参数
         purpose:string:用途
@@ -5090,7 +5090,7 @@ params:
       type:string:物资类型
       spec:string:规格
       unit:string:计量单位
-      quantity:int:数量
+      quantity:float:数量
       origin:string:物资来源
       parameter:string:参数
       purpose:string:用途
