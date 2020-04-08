@@ -3898,8 +3898,8 @@ params:
 @params:
   page:int:页码
   size:int:页码大小
-  organization.name:string:公司名称
-  status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  title:string:标题
+  type:int:类型
   begin:date:开始时间
   end:date:结束时间
 
@@ -4791,8 +4791,6 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
-
-
 ### 30.11. 救援资源管理-物资-报废
 
 ```yaml
@@ -4810,11 +4808,232 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
+## 31. 专家库管理
 
+### 31.1. 专家库管理-列表
 
-## 31. 应急响应处理
+```yaml
+@get: /monitor/experts/list
 
-### 31.1. 应急响应处理-列表
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:姓名
+  field:int:专家领域
+  level:int:专家等级
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    count:int:分页总大小
+    list:array<object>:知识库信息列表
+      id:long:ID
+      photo:头像
+      name:姓名
+      gender:性别
+      nation:string:民族
+      birth:string:出生日期
+      nativePlace:string:籍贯
+      idNumber:string:身份证
+      politicalAffiliation:string:政治面貌
+      college:string:毕业学校
+      major:string:专业
+      qualifications:string:最高学历
+      mobile_phone:string:移动电话
+      office_phone:string:办工电话
+      fax:string:传真
+      email:string:电子邮箱
+      home_address:string:家庭住址
+      industry:string:所在行业
+      field:int:专家领域
+      level:int:专家级别
+      workplace:string:工作单位
+      title:string:职称
+      work_age:int:工龄
+      office_address:string:单位地址
+      major_des:string:专业描述
+      resume:string:工作简历
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 21.2. 专家库管理-详情
+
+```yaml
+@get: /monitor/experts/:id
+@params:
+  id:long:专家库id
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    photo:头像
+    name:姓名
+    gender:性别
+    nation:string:民族
+    birth:string:出生日期
+    nativePlace:string:籍贯
+    idNumber:string:身份证
+    politicalAffiliation:string:政治面貌
+    college:string:毕业学校
+    major:string:专业
+    qualifications:string:最高学历
+    mobile_phone:string:移动电话
+    office_phone:string:办工电话
+    fax:string:传真
+    email:string:电子邮箱
+    home_address:string:家庭住址
+    industry:string:所在行业
+    field:int:专家领域
+    level:int:专家级别
+    workplace:string:工作单位
+    title:string:职称
+    work_age:int:工龄
+    office_address:string:单位地址
+    major_des:string:专业描述
+    resume:string:工作简历
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 31.3. 专家库管理-新增
+
+```yaml
+@post: /monitor/experts
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@payload:
+  photo:头像
+  name:姓名
+  gender:性别
+  nation:string:民族
+  birth:string:出生日期
+  nativePlace:string:籍贯
+  idNumber:string:身份证
+  politicalAffiliation:string:政治面貌
+  college:string:毕业学校
+  major:string:专业
+  qualifications:string:最高学历
+  mobile_phone:string:移动电话
+  office_phone:string:办工电话
+  fax:string:传真
+  email:string:电子邮箱
+  home_address:string:家庭住址
+  industry:string:所在行业
+  field:int:专家领域
+  level:int:专家级别
+  workplace:string:工作单位
+  title:string:职称
+  work_age:int:工龄
+  office_address:string:单位地址
+  major_des:string:专业描述
+  resume:string:工作简历
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:专家ID
+  success:bool:是否成功
+  msg:string:操作提示
+### 31.4. 专家库管理-修改
+
+```yaml
+@put: /monitor/experts/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+@params:
+  id:long:专家ID
+
+@payload:
+  id:long:ID
+  photo:头像
+  name:姓名
+  gender:性别
+  nation:string:民族
+  birth:string:出生日期
+  nativePlace:string:籍贯
+  idNumber:string:身份证
+  politicalAffiliation:string:政治面貌
+  college:string:毕业学校
+  major:string:专业
+  qualifications:string:最高学历
+  mobile_phone:string:移动电话
+  office_phone:string:办工电话
+  fax:string:传真
+  email:string:电子邮箱
+  home_address:string:家庭住址
+  industry:string:所在行业
+  field:int:专家领域
+  level:int:专家级别
+  workplace:string:工作单位
+  title:string:职称
+  work_age:int:工龄
+  office_address:string:单位地址
+  major_des:string:专业描述
+  resume:string:工作简历
+ 
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:ID
+    photo:头像
+    name:姓名
+    gender:性别
+    nation:string:民族
+    birth:string:出生日期
+    nativePlace:string:籍贯
+    idNumber:string:身份证
+    politicalAffiliation:string:政治面貌
+    college:string:毕业学校
+    major:string:专业
+    qualifications:string:最高学历
+    mobile_phone:string:移动电话
+    office_phone:string:办工电话
+    fax:string:传真
+    email:string:电子邮箱
+    home_address:string:家庭住址
+    industry:string:所在行业
+    field:int:专家领域
+    level:int:专家级别
+    workplace:string:工作单位
+    title:string:职称
+    work_age:int:工龄
+    office_address:string:单位地址
+    major_des:string:专业描述
+    resume:string:工作简历
+  success:bool:是否成功
+  msg:string:操作提示
+### 31.5. 专家库管理-删除
+
+```yaml
+@delete: /monitor/experts/:id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  id:long:专家ID
+
+@return:
+  code:int:操作码
+  data:object:返回信息
+    id:long:专家ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+## 32. 应急响应处理
+
+### 32.1. 应急响应处理-列表
 
 ```yaml
 @get: /monitor/emergencyresponses/list?page=:page&size=:size
@@ -4921,12 +5140,11 @@ params:
         org_name:string:所属单位
         route_name:string:线路名称
         remark:string:备注
-
   success:bool:是否成功
   msg:string:操作提示
 ```
 
-### 31.2. 应急响应处理-新增
+### 32.2. 应急响应处理-新增
 
 ```yaml
 @post: /monitor/emergencyresponses
@@ -4967,9 +5185,7 @@ params:
   msg:string:操作提示
 ```
 
-
-
-### 31.3. 应急响应处理-编辑
+### 32.3. 应急响应处理-编辑
 
 ```yaml
 @put: /monitor/emergencyresponses/:id
@@ -5013,8 +5229,7 @@ params:
   msg:string:操作提示
 ```
 
-
-### 31.4. 应急响应处理-详情
+### 32.4. 应急响应处理-详情
 
 ```yaml
 @get: /monitor/emergencyresponses/:id
@@ -5120,7 +5335,7 @@ params:
   msg:string:操作提示
 ```
 
-### 31.5. 应急响应处理-删除
+### 32.5. 应急响应处理-删除
 
 ```yaml
 @delete: /monitor/emergencyresponses/:id
@@ -5139,8 +5354,7 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
-
-### 31.6. 应急响应处理-跟进-完结事件
+### 32.6. 应急响应处理-跟进-完结事件
 
 ```yaml
 @put: /monitor/emergencyresponses/follows/:id
@@ -5165,9 +5379,7 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
-
-
-### 31.7. 应急响应处理-评估
+### 32.7. 应急响应处理-评估
 
 ```yaml
 @put: /monitor/emergencyresponses/evaluates/:id
@@ -5198,8 +5410,7 @@ params:
   msg:string:操作提示
 ```
 
-
-### 31.8. 应急响应处理-案例生成
+### 32.8. 应急响应处理-案例生成
 
 ```yaml
 @post: /monitor/emergencyresponses/generatecases/:id
