@@ -423,4 +423,42 @@
         ]]>
     </bus_online_data_declare_total>
 
+    <bus_online_data_declare_stats_job_month type="sql" desc="数据申报统计定时任务-月统计">
+        <![CDATA[
+            select
+                org_id,
+                org_name,
+                team_id,
+                team_name,
+                route_id,
+                route_name,
+                sum(gas_quantity) as gas_quantity,
+                sum(gas_balance) as gas_balance,
+                sum(diesel_oil_quantity) as diesel_oil_quantity,
+                sum(diesel_oil_balance) as diesel_oil_balance,
+                sum(natural_gas_quantity) as natural_gas_quantity,
+                sum(natural_gas_balance) as natural_gas_balance,
+                sum(electric_quantity) as electric_quantity,
+                sum(electric_balance) as electric_balance
+            from bus_online_data_declare_items
+            where is_delete = 0
+            and create_date between :begin and :end
+            group by org_id,org_name,team_id,team_name,route_id,route_name
+        ]]>
+    </bus_online_data_declare_stats_job_month>
+    <bus_online_data_declare_stats_job_month_org_route type="sql" desc="查询企业和路线">
+        <![CDATA[
+            select
+                o.id as org_id,
+                o.name as org_name,
+                r.id as route_id,
+                r.name as route_name
+            from organizations o
+            left join bus_routes r on r.org_id = o.id
+            where o.is_delete = 0
+            and r.is_delete = 0
+            group by org_id,org_name,route_id,route_name
+        ]]>
+    </bus_online_data_declare_stats_job_month_org_route>
+
 </mapper>

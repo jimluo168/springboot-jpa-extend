@@ -40,6 +40,8 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "org_id")
     private Organization organization;
+    @Transient
+    private Long orgId;
     private String orgName;
 
     /**
@@ -48,6 +50,8 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private BusTeam carTeam;
+    @Transient
+    private Long teamId;
     private String teamName;
 
     /**
@@ -56,6 +60,8 @@ public class BusOnlineDataDeclareItem extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "route_id")
     private BusRoute busRoute;
+    @Transient
+    private Long routeId;
     private String routeName;
 
     /**

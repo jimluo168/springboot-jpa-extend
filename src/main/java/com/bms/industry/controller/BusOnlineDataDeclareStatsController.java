@@ -7,6 +7,7 @@ import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.entity.BusOnlineDataDeclareItem;
+import com.bms.entity.BusOnlineDataDeclareStats;
 import com.bms.industry.service.BusOnlineDataDeclareStatsService;
 import com.bms.industry.view.BusOnlineDataDeclareStatsEnergyComparisonEchartView;
 import com.bms.industry.view.DataDeclareTotalRetrieval;
@@ -60,7 +61,7 @@ public class BusOnlineDataDeclareStatsController {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         switch (params.getCategory()) {
-            case 1:
+            case BusOnlineDataDeclareStats.CATEGORY_YEAR:
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 calendar.add(Calendar.MONTH, -11);
@@ -69,7 +70,7 @@ public class BusOnlineDataDeclareStatsController {
                 params.setBegin(calendar.getTime());
                 params.setEnd(now);
                 return ok(busOnlineDataDeclareStatsService.year(params));
-            case 2:
+            case BusOnlineDataDeclareStats.CATEGORY_QUARTER:
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 calendar.add(Calendar.DATE, -90);
@@ -78,7 +79,7 @@ public class BusOnlineDataDeclareStatsController {
                 params.setBegin(calendar.getTime());
                 params.setEnd(now);
                 return ok(busOnlineDataDeclareStatsService.quarter(params));
-            case 3:
+            case BusOnlineDataDeclareStats.CATEGORY_MONTH:
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 calendar.add(Calendar.MONTH, -1);
@@ -87,7 +88,7 @@ public class BusOnlineDataDeclareStatsController {
                 params.setBegin(calendar.getTime());
                 params.setEnd(now);
                 return ok(busOnlineDataDeclareStatsService.month(params));
-            case 4:
+            case BusOnlineDataDeclareStats.CATEGORY_WEEK:
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 16, 0, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 calendar.add(Calendar.DATE, -7);

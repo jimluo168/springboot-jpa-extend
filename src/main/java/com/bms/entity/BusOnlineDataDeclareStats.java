@@ -9,7 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 申报统计表.
@@ -29,15 +31,15 @@ public class BusOnlineDataDeclareStats extends BaseEntity {
      */
     public static final int CATEGORY_YEAR = 1;
     /**
-     * 2=按年统计.
+     * 2=按季统计.
      */
     public static final int CATEGORY_QUARTER = 2;
     /**
-     * 3=按年统计.
+     * 3=按月统计.
      */
     public static final int CATEGORY_MONTH = 3;
     /**
-     * 4=按年统计.
+     * 4=按周统计.
      */
     public static final int CATEGORY_WEEK = 4;
 
@@ -57,6 +59,8 @@ public class BusOnlineDataDeclareStats extends BaseEntity {
      * 4=电能.
      */
     public static final int TYPE_ELECTRIC = 4;
+
+    public static final int[] TYPES = new int[]{TYPE_GAS, TYPE_DIESELOIL, TYPE_NATURALGAS, TYPE_ELECTRIC};
 
     /**
      * 所属申报.
