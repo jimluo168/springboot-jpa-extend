@@ -3,6 +3,7 @@ package com.bms.common.config.web.interceptor;
 import com.bms.common.config.session.ISession;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.session.SessionInfo;
+import com.bms.common.web.annotation.Logical;
 import com.bms.common.web.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,36 +55,26 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
             Set<String> codeSet = session.getAttribute(SessionInfo.CACHE_PERMISSION_KEY, HashSet.class);
             String[] codes = access.value();
+            Logical logical = access.logical();
             boolean pass = false;
             if (codeSet != null && !codeSet.isEmpty()) {
-                for (String code : codes) {
-                    if (codeSet.contains(code)) {
-                        pass = true;
-                        break;
-                    }
-                }
-                // 如果不包含上面的 就检测包含多个权限编码
-                if (!pass) {
+                if (Logical.OR == logical) {
+                    // or 有一个包含通过
                     for (String code : codes) {
-                        for (String permissions : codeSet) {
-                            if (!permissions.contains(",")) {
-                                continue;
-                            }
-                            String[] arr = permissions.split(",");
-                            for (String s : arr) {
-                                if (s.equals(code)) {
-                                    pass = true;
-                                    break;
-                                }
-                            }
-                            if (pass) {
-                                break;
-                            }
-                        }
-                        if (pass) {
+                        if (codeSet.contains(code)) {
+                            pass = true;
                             break;
                         }
                     }
+                } else if (Logical.AND == logical) {
+                    // and 有一个不包含不通过
+                    for (String code : codes) {
+                        if (!codeSet.contains(code)) {
+                            pass = false;
+                            break;
+                        }
+                    }
+
                 }
             }
             if (!pass) {

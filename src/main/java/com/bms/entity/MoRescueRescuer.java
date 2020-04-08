@@ -71,6 +71,10 @@ public class MoRescueRescuer extends BaseEntity {
      */
     private String orgAddress;
     /**
+     * 服务区域.
+     */
+    private String serviceArea;
+    /**
      * 备注.
      */
     private String remark;

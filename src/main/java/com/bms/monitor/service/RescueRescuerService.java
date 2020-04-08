@@ -40,15 +40,15 @@ public class RescueRescuerService {
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
-    public MoRescueRescuer insert(MoRescueRescuer organization) {
-        organization.setId(flakeId.next());
-        rescueRescuerRepository.save(organization);
-        return organization;
+    public MoRescueRescuer insert(MoRescueRescuer rescueRescuer) {
+        rescueRescuer.setId(flakeId.next());
+        rescueRescuerRepository.save(rescueRescuer);
+        return rescueRescuer;
     }
 
-    public MoRescueRescuer updateById(Long id, MoRescueRescuer organization) {
+    public MoRescueRescuer updateById(Long id, MoRescueRescuer rescueRescuer) {
         MoRescueRescuer value = this.findById(id);
-        JpaUtils.copyNotNullProperties(organization, value);
+        JpaUtils.copyNotNullProperties(rescueRescuer, value);
         return value;
     }
 
@@ -69,23 +69,23 @@ public class RescueRescuerService {
 
     @Transactional(readOnly = true)
     public MoRescueRescuer findById(Long id) {
-        Optional<MoRescueRescuer> organization = rescueRescuerRepository.findById(id);
-        if (organization.isPresent()) {
-            return organization.get();
+        Optional<MoRescueRescuer> rescueRescuer = rescueRescuerRepository.findById(id);
+        if (rescueRescuer.isPresent()) {
+            return rescueRescuer.get();
         }
         throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
     public MoRescueRescuer deleteById(Long id) {
-        MoRescueRescuer organization = this.findById(id);
-        organization.setDeleted(DELETE_TRUE);
-        return organization;
+        MoRescueRescuer rescueRescuer = this.findById(id);
+        rescueRescuer.setDeleted(DELETE_TRUE);
+        return rescueRescuer;
     }
 
     public void audit(Long id, int status, String reason) {
-        MoRescueRescuer organization = this.findById(id);
-        organization.setStatus(status);
-        organization.setReason(reason);
+        MoRescueRescuer rescueRescuer = this.findById(id);
+        rescueRescuer.setStatus(status);
+        rescueRescuer.setReason(reason);
     }
 
     public void saveAll(List<MoRescueRescuer> list) {

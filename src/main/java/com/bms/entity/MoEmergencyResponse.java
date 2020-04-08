@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class MoEmergencyResponse extends BaseEntity {
     /**
      * 事发时间.
      */
-    private Date time;
+    private Date startTime;
     /**
      * 事件地点.
      */
@@ -106,11 +107,11 @@ public class MoEmergencyResponse extends BaseEntity {
      */
     private String remark;
     /**
-     * 执行照片.
+     * 执行照片 多个以英文 , 号隔开 /images/yyyyMMdd/xxx.照片后缀名.
      */
     private String photos;
     /**
-     * 执行视频.
+     * 执行视频 多个以英文 , 号隔开 /videos/yyyyMMdd/xxx.视频后缀名.
      */
     private String videos;
     /**
@@ -124,11 +125,50 @@ public class MoEmergencyResponse extends BaseEntity {
     /**
      * 状态(1:待处理 5:处理中 10:待评估 15:已评估).
      */
-    private Integer status;
+    private Integer status = STATUS_PROCESSING;
+    @Transient
+    private List<Integer> statusList = new ArrayList<>();
     /**
      * 是否生成案例(0:未生成 1:已生成).
      */
-    private Integer generateCase;
+    private Integer generateCase = GENERATE_CASE_NO;
+
+    /**
+     * 信息采集准确度评估.
+     */
+    private Integer infoScore;
+    /**
+     * 信息采集准确度评估 补充.
+     */
+    private String infoRemark;
+    /**
+     * 处置方案效果评估.
+     */
+    private Integer effectScore;
+    /**
+     * 处置方案效果评估 补充.
+     */
+    private String effectRemark;
+    /**
+     * 调度指挥评估.
+     */
+    private Integer dispatchScore;
+    /**
+     * 调度指挥评估 补充.
+     */
+    private String dispatchRemark;
+    /**
+     * 物资供给评估.
+     */
+    private Integer materialScore;
+    /**
+     * 物资供给评估 补充.
+     */
+    private String materialRemark;
+    /**
+     * 评估-备注.
+     */
+    private String evaluateRemark;
 
     /**
      * 组长.

@@ -111,4 +111,9 @@ public class RescueMaterialService {
         }
         return rescueMaterialRepository.countByCodeAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
     }
+
+    public void scrap(Long id) {
+        MoRescueMaterial value = this.findById(id);
+        value.setStatus(MoRescueMaterial.STATUS_SCRAP);
+    }
 }
