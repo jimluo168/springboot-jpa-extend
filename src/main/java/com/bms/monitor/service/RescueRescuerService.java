@@ -88,18 +88,17 @@ public class RescueRescuerService {
         rescueRescuer.setReason(reason);
     }
 
-    public void saveAll(List<MoRescueRescuer> list) {
-        list.stream().forEach(o -> {
-            o.setId(flakeId.next());
-        });
-        rescueRescuerRepository.saveAll(list);
-    }
-
     @Transactional(readOnly = true)
     public boolean existsByName(String name, Long id) {
         if (id == null) {
             return rescueRescuerRepository.countByNameAndDeleted(name, DELETE_FALSE) > 0;
         }
         return rescueRescuerRepository.countByNameAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
+    }
+
+    public MoRescueRescuer status(Long id, int status) {
+        MoRescueRescuer rescueRescuer = this.findById(id);
+        rescueRescuer.setStatus(status);
+        return rescueRescuer;
     }
 }

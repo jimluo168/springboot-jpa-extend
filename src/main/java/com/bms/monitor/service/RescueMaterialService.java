@@ -97,13 +97,6 @@ public class RescueMaterialService {
         moRescueMaterial.setReason(reason);
     }
 
-    public void saveAll(List<MoRescueMaterial> list) {
-        list.stream().forEach(o -> {
-            o.setId(flakeId.next());
-        });
-        rescueMaterialRepository.saveAll(list);
-    }
-
     @Transactional(readOnly = true)
     public boolean existsByCode(String name, Long id) {
         if (id == null) {

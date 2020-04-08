@@ -84,18 +84,17 @@ public class RescueVehicleService {
         moRescueVehicle.setReason(reason);
     }
 
-    public void saveAll(List<MoRescueVehicle> list) {
-        list.stream().forEach(o -> {
-            o.setId(flakeId.next());
-        });
-        rescueVehicleRepository.saveAll(list);
-    }
-
     @Transactional(readOnly = true)
     public boolean existsByCode(String name, Long id) {
         if (id == null) {
             return rescueVehicleRepository.countByCodeAndDeleted(name, DELETE_FALSE) > 0;
         }
         return rescueVehicleRepository.countByCodeAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
+    }
+
+    public MoRescueVehicle status(Long id, int status) {
+        MoRescueVehicle rescueVehicle = this.findById(id);
+        rescueVehicle.setStatus(status);
+        return rescueVehicle;
     }
 }
