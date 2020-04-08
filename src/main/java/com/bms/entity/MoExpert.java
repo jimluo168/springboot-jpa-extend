@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * 专家库管理
@@ -45,7 +46,7 @@ public class MoExpert extends BaseEntity {
     /**
      * 出生日期
      */
-    private String birth;
+    private Date birth;
 
     /**
      * 籍贯
@@ -123,7 +124,7 @@ public class MoExpert extends BaseEntity {
     /**
      * 专业描述
      */
-    private String majorDes;
+    private String majorDesc;
     /**
      * 工作简历
      */

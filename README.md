@@ -4837,9 +4837,9 @@ params:
       gender:性别
       nation:string:民族
       birth:string:出生日期
-      nativePlace:string:籍贯
-      idNumber:string:身份证
-      politicalAffiliation:string:政治面貌
+      native_place:string:籍贯
+      id_number:string:身份证
+      political_affiliation:string:政治面貌
       college:string:毕业学校
       major:string:专业
       qualifications:string:最高学历
@@ -4877,9 +4877,9 @@ params:
     gender:性别
     nation:string:民族
     birth:string:出生日期
-    nativePlace:string:籍贯
-    idNumber:string:身份证
-    politicalAffiliation:string:政治面貌
+    native_place:string:籍贯
+    id_number:string:身份证
+    political_affiliation:string:政治面貌
     college:string:毕业学校
     major:string:专业
     qualifications:string:最高学历
@@ -4915,9 +4915,9 @@ params:
   gender:性别
   nation:string:民族
   birth:string:出生日期
-  nativePlace:string:籍贯
-  idNumber:string:身份证
-  politicalAffiliation:string:政治面貌
+  native_place:string:籍贯
+  id_number:string:身份证
+  political_affiliation:string:政治面貌
   college:string:毕业学校
   major:string:专业
   qualifications:string:最高学历
@@ -4960,9 +4960,9 @@ params:
   gender:性别
   nation:string:民族
   birth:string:出生日期
-  nativePlace:string:籍贯
-  idNumber:string:身份证
-  politicalAffiliation:string:政治面貌
+  native_place:string:籍贯
+  id_number:string:身份证
+  political_affiliation:string:政治面貌
   college:string:毕业学校
   major:string:专业
   qualifications:string:最高学历
@@ -4990,9 +4990,9 @@ params:
     gender:性别
     nation:string:民族
     birth:string:出生日期
-    nativePlace:string:籍贯
-    idNumber:string:身份证
-    politicalAffiliation:string:政治面貌
+    native_place:string:籍贯
+    id_number:string:身份证
+    political_affiliation:string:政治面貌
     college:string:毕业学校
     major:string:专业
     qualifications:string:最高学历
