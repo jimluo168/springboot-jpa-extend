@@ -205,6 +205,15 @@
             <#if generateCase??>
                and o.generateCase = :generateCase
             </#if>
+            <#if name??&&name!=''>
+               and o.name like  '%'||:name||'%'
+            </#if>
+            <#if preplanType??>
+               and o.preplanType = :preplanType
+            </#if>
+            <#if level??>
+               and o.level = :level
+            </#if>
             order by o.createDate desc
         ]]>
     </mo_emergency_response_page>

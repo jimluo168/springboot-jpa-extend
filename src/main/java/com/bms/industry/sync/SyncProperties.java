@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * TODO(类的简要说明)
+ * sync属性.
  *
  * @author luojimeng
  * @date 2020/4/6
@@ -18,6 +18,10 @@ public class SyncProperties {
      */
     private Bus bus;
 
+    /**
+     * 数据转发.
+     */
+    private DataForward dataForward;
 
     @Data
     public static class Bus {
@@ -37,5 +41,12 @@ public class SyncProperties {
          * 密码.
          */
         private String password;
+    }
+
+    @Data
+    public static class DataForward {
+        private String host;
+        private Integer port;
+        private String accessKey;
     }
 }

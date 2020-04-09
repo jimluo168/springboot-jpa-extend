@@ -90,7 +90,7 @@ public class RedisConfig {
         executor.setMaxPoolSize(20);
         executor.setQueueCapacity(100);
         executor.setKeepAliveSeconds(60);
-        executor.setThreadNamePrefix("V-Thread");
+        executor.setThreadNamePrefix("Redis-Executor");
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();
         return executor;

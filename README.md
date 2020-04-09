@@ -5045,6 +5045,9 @@ params:
   size:int:页码大小
   status_list:int:状态(1:待处理 5:处理中 10:待评估 15:已评估) 多个 带多个参数即可 如 待处理和处理中两个状态 status_list=1&status_list=5
   generate_case:int:是否生成案例(0:未生成 1:已生成)
+  name:string:事件名称
+  preplan_type:string:预案分类
+  level:int:事件等级
   
 @return:
   code:int:操作码

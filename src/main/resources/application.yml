@@ -91,4 +91,4 @@ sync:
   data-forward:
     host: 222.85.139.247
     port: 10006
-    accesskey: test1
+    access-key: test1
