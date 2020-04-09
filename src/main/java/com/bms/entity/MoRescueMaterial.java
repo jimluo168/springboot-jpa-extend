@@ -8,8 +8,11 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 救援资源管理-物资.
@@ -128,6 +131,8 @@ public class MoRescueMaterial extends BaseEntity {
      * 状态(1:待审核 2:正常=通过 3:未通过 4:报废).
      */
     private Integer status = STATUS_TO_BE_AUDIT;
+    @Transient
+    private List<Integer> statusList = new ArrayList<>();
     /**
      * 理由.
      */

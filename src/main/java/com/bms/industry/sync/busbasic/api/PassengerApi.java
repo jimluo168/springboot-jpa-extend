@@ -1,4 +1,4 @@
-package com.bms.industry.sync.busbasic;
+package com.bms.industry.sync.busbasic.api;
 
 import com.bms.common.util.JSON;
 import com.bms.industry.sync.Http;
@@ -13,26 +13,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 公司.
+ * 司机 从业人员.
  *
  * @author luojimeng
  * @date 2020/4/4
  */
 @Component
 @RequiredArgsConstructor
-public class TeamApi {
-    private static final Logger logger = LoggerFactory.getLogger(TeamApi.class);
+public class PassengerApi {
+    private static final Logger logger = LoggerFactory.getLogger(PassengerApi.class);
 
     private final SyncProperties syncProperties;
     private final Http http;
 
     public void getAll() throws IOException {
         String baseUrl = syncProperties.getBus().getBase();
-        String url = baseUrl + "/bus/carTeam/getAll";
+        String url = baseUrl + "/bus/corePassenger/getAll";
 
         String result = http.get(url, null);
         Map<String, Object> json = JSON.parseObject(result, HashMap.class);
-        logger.debug("carTeam getAll:{}", json);
+        logger.debug("corePassenger getAll:{}", json);
     }
 
 }

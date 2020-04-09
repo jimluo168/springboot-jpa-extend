@@ -9,6 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 救援资源管理-车辆.
@@ -75,6 +78,8 @@ public class MoRescueVehicle extends BaseEntity {
      * 状态(1:待审核 2:空闲 3:未通过审核 4:执行).
      */
     private Integer status = STATUS_TO_BE_AUDIT;
+    @Transient
+    private List<Integer> statusList = new ArrayList<>();
     /**
      * 理由.
      */

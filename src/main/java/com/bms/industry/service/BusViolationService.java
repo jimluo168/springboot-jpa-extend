@@ -9,7 +9,6 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusViolation;
-import com.bms.entity.VehicleAudit;
 import com.bms.industry.dao.BusViolationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

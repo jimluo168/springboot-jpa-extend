@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Data
 @MappedSuperclass
-public abstract class VehicleCommon extends BaseEntity {
+public abstract class BusVehicleCommon extends BaseEntity {
     /**
      * 1=待审核.
      */

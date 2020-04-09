@@ -1,5 +1,8 @@
 package com.bms.industry.sync;
 
+import com.bms.common.util.JSON;
+import com.bms.industry.sync.busbasic.view.BusBasicBaseView;
+import com.bms.industry.sync.busbasic.view.BusBasicResult;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +40,17 @@ public class Http {
         return get(url, params, null);
     }
 
+    public BusBasicResult getObject(String url, Map<String, Object> params) throws IOException {
+        return getObject(url, params, null);
+    }
+
     public String get(String url, Map<String, Object> params, Map<String, String> headers) throws IOException {
         return request("GET", url, params, headers);
+    }
+
+    public BusBasicResult getObject(String url, Map<String, Object> params, Map<String, String> headers) throws IOException {
+        String json = request("GET", url, params, headers);
+        return JSON.parseObject(json, BusBasicResult.class);
     }
 
     public String post(String url, Map<String, Object> params) throws IOException {

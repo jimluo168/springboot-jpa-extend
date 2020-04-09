@@ -135,6 +135,19 @@ public abstract class OrganizationCommon extends BaseEntity {
     @JsonIgnoreProperties({"parent", "audit_list"})
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Organization> children;
+    /**
+     * 同步贵阳旧系统的主键.
+     */
+    @Column(name = "o_id")
+    private String oId;
+
+    @Column(name = "o_parent_id")
+    private String oParentId;
+    /**
+     * 排序顺序.
+     */
+    @Column(name = "[index]")
+    private Integer index;
 
 
 }

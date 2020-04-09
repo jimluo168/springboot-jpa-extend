@@ -16,13 +16,11 @@ import java.nio.charset.StandardCharsets;
 public class DataForwardEncoder extends MessageToByteEncoder {
 
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf out) throws Exception {
-        if (o instanceof String) {
-            String wrapPacket = DataForwardClient.packet_head + o + DataForwardClient.packet_end;
-            String hex = Hex.encodeHexString(wrapPacket.getBytes(StandardCharsets.UTF_8), false);
-            byte[] data = hex.getBytes(StandardCharsets.UTF_8);
-            out.writeInt(data.length); // 先将消息长度写入，也就是消息头
-            out.writeBytes(data); // 消息体中包含我们要发送的数据
+    protected void encode(ChannelHandlerContext ctx, Object message, ByteBuf out) throws Exception {
+        if (message instanceof String) {
+            String wrapPacket = DataForwardClient.packet_head + message + DataForwardClient.packet_end;
+            byte[] data = wrapPacket.getBytes(StandardCharsets.UTF_8);
+            out.writeBytes(data);
         } else {
             throw new RuntimeException("不支持的类型");
         }

@@ -1,4 +1,4 @@
-package com.bms.industry.sync.busbasic;
+package com.bms.industry.sync.busbasic.api;
 
 import com.bms.common.util.JSON;
 import com.bms.industry.sync.Http;

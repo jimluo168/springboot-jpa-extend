@@ -41,6 +41,9 @@
             <#if status??>
                 and o.status = :status
             </#if>
+            <#if statusList?? && (statusList?size>0)>
+               and o.status in (:statusList)
+            </#if>
             <#if orgName?? && orgName!=''>
                 and o.orgName like '%'||:orgName||'%'
             </#if>
@@ -87,6 +90,9 @@
             <#if status??>
                 and o.status = :status
             </#if>
+            <#if statusList?? && (statusList?size>0)>
+               and o.status in (:statusList)
+            </#if>
             <#if orgName?? && orgName!=''>
                 and o.orgName like '%'||:orgName||'%'
             </#if>
@@ -131,6 +137,9 @@
             where o.deleted = 0
             <#if status??>
                 and o.status = :status
+            </#if>
+            <#if statusList?? && (statusList?size>0)>
+               and o.status in (:statusList)
             </#if>
             <#if code?? && code!=''>
                 and o.code like '%'||:code||'%'

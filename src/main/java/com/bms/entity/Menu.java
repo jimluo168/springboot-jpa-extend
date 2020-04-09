@@ -52,12 +52,12 @@ public class Menu extends BaseEntity {
     /**
      * 类型(1=菜单 2=按钮).
      */
-    private int type = TYPE_MENU;
+    private Integer type = TYPE_MENU;
     /**
      * 排序顺序.
      */
     @Column(name = "[index]")
-    private int index;
+    private Integer index;
     /**
      * 标记该菜单下是否有tabs选项卡(1:有tab页 0:无).
      */
