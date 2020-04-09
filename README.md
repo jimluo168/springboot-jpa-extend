@@ -5444,10 +5444,9 @@ params:
 @params:
   page:int:页码
   size:int:页码大小
-  title:string:标题
-  type:int:类型
-  begin:date:开始时间
-  end:date:结束时间
+  name:string:事件名称
+  type:int:事件分类
+  level:int:事件级别
 
 @return:
   code:int:操作码
