@@ -107,6 +107,7 @@ public class OrganizationService {
 
     @Transactional(readOnly = true)
     public Organization findByOId(String oId) {
-        return organizationRepository.findByOId(oId);
+        return organizationRepository.findByoId(oId);
     }
+
 }

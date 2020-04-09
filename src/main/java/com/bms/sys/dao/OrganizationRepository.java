@@ -19,5 +19,5 @@ public interface OrganizationRepository extends PagingAndSortingRepository<Organ
 
     int countByNameAndIdNotAndDeleted(String name, Long id,int deleted);
 
-    Organization findByOId(String oId);
+    Organization findByoId(String oId);
 }

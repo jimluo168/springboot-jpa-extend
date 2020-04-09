@@ -148,6 +148,4 @@ public abstract class OrganizationCommon extends BaseEntity {
      */
     @Column(name = "[index]")
     private Integer index;
-
-
 }
