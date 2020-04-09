@@ -38,7 +38,7 @@ public class DataForwardClient {
     private final SyncProperties syncProperties;
 
 
-    @PostConstruct
+//    @PostConstruct
     public void start() {
         EventLoopGroup group = new NioEventLoopGroup();
         String host = syncProperties.getDataForward().getHost();
