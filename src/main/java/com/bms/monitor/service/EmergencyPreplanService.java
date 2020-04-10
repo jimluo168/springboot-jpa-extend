@@ -88,4 +88,9 @@ public class EmergencyPreplanService {
         moEmergencyPreplan.setDeleted(DELETE_TRUE);
         return moEmergencyPreplan;
     }
+
+    @Transactional(readOnly = true)
+    public PageList<MoEmergencyPreplan> namePage(PageRequest pageRequest, Map<String, Object> queryParams){
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_MO_EMERGENCY_PREPLAN_NAME_PAGE, queryParams));
+    }
 }

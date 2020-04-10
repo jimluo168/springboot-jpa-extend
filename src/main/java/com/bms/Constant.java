@@ -186,6 +186,10 @@ public interface Constant {
      * 应急预案管理
      */
     String MAPPER_MO_EMERGENCY_PREPLAN_PAGE = "mo_emergency_preplan_page";
+    /**
+     * 应急预案管理
+     */
+    String MAPPER_MO_EMERGENCY_PREPLAN_NAME_PAGE = "mo_emergency_preplan_name_page";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 

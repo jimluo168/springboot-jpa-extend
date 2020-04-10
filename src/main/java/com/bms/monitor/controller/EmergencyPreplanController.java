@@ -76,4 +76,10 @@ public class EmergencyPreplanController {
         return ok(emergencyPreplanService.deleteById(id));
     }
 
+    @ApiOperation("预案名称")
+    @GetMapping("/name/list")
+    public Result<PageList<MoEmergencyPreplan>> namePage(PageRequest pageRequest, MoEmergencyPreplan queryParams) throws IllegalAccessException {
+        return ok(emergencyPreplanService.namePage(pageRequest, BeanMapper.toMap(queryParams)));
+    }
+
 }
