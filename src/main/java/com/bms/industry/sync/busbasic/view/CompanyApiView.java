@@ -3,9 +3,6 @@ package com.bms.industry.sync.busbasic.view;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.swing.*;
-
 /**
  * 公司.
  *
@@ -13,7 +10,7 @@ import javax.swing.*;
  * @date 2020/4/9
  */
 @Data
-public class CompanyView extends BusBasicBaseView {
+public class CompanyApiView extends AbstractApiView {
 
     @JsonProperty(value = "c_name")
     private String name;

@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
+import java.io.Serializable;
 import java.util.Date;
 
 import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
@@ -22,8 +23,7 @@ import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
  * @date 2020/4/9
  */
 @Data
-public abstract class BusBasicBaseView {
-
+public abstract class AbstractApiView implements Serializable {
     @JsonProperty(value = "id")
     private String oId;
     /**

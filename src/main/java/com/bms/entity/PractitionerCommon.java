@@ -43,7 +43,7 @@ public abstract class PractitionerCommon extends BaseEntity {
      */
     private Integer age;
     /**
-     * 架龄.
+     * 驾龄.
      */
     @Column(name = "driving_age")
     private Integer drivingAge;

@@ -26,9 +26,6 @@ import java.util.Date;
 @Entity
 @Table(name = "bus_carteams")
 public class BusTeam extends BaseEntity {
-
-    @Id
-    private Long id;
     /**
      * 旧系统的PK.
      */

@@ -109,5 +109,4 @@ public class OrganizationService {
     public Organization findByOId(String oId) {
         return organizationRepository.findByoId(oId);
     }
-
 }

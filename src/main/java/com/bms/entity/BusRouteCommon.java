@@ -2,6 +2,7 @@ package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -118,5 +119,69 @@ public abstract class BusRouteCommon extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
+    /**
+     * 旧系统 id.
+     */
+    @Column(name = "o_id")
+    private String oId;
+    /**
+     * 旧系统 公司ID.
+     */
+    @Column(name = "o_org_id")
+    private String oOrgId;
+    /**
+     * 旧系统 车队ID.
+     */
+    @Column(name = "o_team_id")
+    private String oTeamId;
+    /**
+     * 线路经纬度文件名.
+     */
+    @Column(name = "line_file")
+    private String lineFile;
+
+    @Column(name = "cross_line")
+    private Integer crossLine;
+    /**
+     * 上行撞点百分比.
+     */
+    @Column(name = "percentage")
+    private Float percentage;
+    @Column(name = "down_radius")
+    private String downRadius;
+    @Column(name = "time_interval")
+    private String timeInterval;
+    @Column(name = "up_radius")
+    private String upRadius;
+    @Column(name = "time_frame")
+    private String timeFrame;
+    @Column(name = "change_lineid")
+    private Integer changeLineid;
+    @Column(name = "up_time")
+    private String upTime;
+    @Column(name = "down_time")
+    private String downTime;
+    @Column(name = "upkilometre")
+    private String upkilometre;
+    @Column(name = "downkilometre")
+    private String downkilometre;
+    @Column(name = "down_percentage")
+    private String downPercentage;
+    @Column(name = "push_interval")
+    private String pushInterval;
+    @Column(name = "upkilometre_diaotou")
+    private String upkilometreDiaotou;
+    @Column(name = "downkilometre_diaotou")
+    private String downkilometreDiaotou;
+    @Column(name = "time_through")
+    private String timeThrough;
+    @Column(name = "km_through")
+    private String kmThrough;
+    @Column(name = "attendance_rate")
+    private String attendanceRate;
+    @Column(name = "version")
+    private Integer version;
+    @Column(name = "def_interval")
+    private Integer defInterval;
 
 }

@@ -1,7 +1,6 @@
 package com.bms.industry.sync;
 
 import com.bms.common.util.JSON;
-import com.bms.industry.sync.busbasic.view.BusBasicBaseView;
 import com.bms.industry.sync.busbasic.view.BusBasicResult;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;

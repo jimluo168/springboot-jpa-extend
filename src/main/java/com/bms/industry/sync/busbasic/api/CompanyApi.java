@@ -1,23 +1,24 @@
 package com.bms.industry.sync.busbasic.api;
 
 import com.bms.common.util.JSON;
+import com.bms.entity.BusTeam;
 import com.bms.entity.Organization;
+import com.bms.industry.service.BusTeamService;
 import com.bms.industry.sync.Http;
 import com.bms.industry.sync.SyncProperties;
 import com.bms.industry.sync.busbasic.view.BusBasicResult;
-import com.bms.industry.sync.busbasic.view.CompanyView;
+import com.bms.industry.sync.busbasic.view.CompanyApiView;
 import com.bms.sys.service.OrganizationService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 公司.
@@ -33,6 +34,7 @@ public class CompanyApi {
     private final SyncProperties syncProperties;
     private final Http http;
     private final OrganizationService organizationService;
+    private final BusTeamService busTeamService;
 
     public void getAll() throws IOException {
         String baseUrl = syncProperties.getBus().getBase();
@@ -40,18 +42,38 @@ public class CompanyApi {
 
         BusBasicResult result = http.getObject(url, null);
         logger.debug("company getAll:{}", result);
-        List<CompanyView> list = JSON.parseObject(result.getResult(), new TypeReference<List<CompanyView>>() {
+        if (result.getResult() == null) {
+            logger.info("获取公司接口结果为空");
+            return;
+        }
+        List<CompanyApiView> list = JSON.parseObject(JSON.toJSONString(result.getResult()), new TypeReference<List<CompanyApiView>>() {
         });
+        if (list == null || list.isEmpty()) {
+            logger.info("获取公司接口结果为空");
+            return;
+        }
         list.stream().forEach(o -> {
             Organization org = organizationService.findByOId(o.getOId());
             if (org != null) {
                 BeanUtils.copyProperties(o, org);
+                if (StringUtils.isNotBlank(o.getOParentId())) {
+                    Organization parent = organizationService.findByOId(o.getOParentId());
+                    org.setParent(parent);
+                }
+                List<BusTeam> busTeamList = busTeamService.findByOOrgId(o.getOId());
+                org.setCarTeamList(busTeamList);
                 organizationService.updateById(org.getId(), org);
             } else {
-                Organization target = new Organization();
-                BeanUtils.copyProperties(o, target);
-                target.setStatus(Organization.STATUS_PASS_AUDIT);
-                organizationService.insert(target);
+                org = new Organization();
+                BeanUtils.copyProperties(o, org);
+                if (StringUtils.isNotBlank(o.getOParentId())) {
+                    Organization parent = organizationService.findByOId(o.getOParentId());
+                    org.setParent(parent);
+                }
+                List<BusTeam> busTeamList = busTeamService.findByOOrgId(o.getOId());
+                org.setCarTeamList(busTeamList);
+                org.setStatus(Organization.STATUS_PASS_AUDIT);
+                organizationService.insert(org);
             }
         });
     }

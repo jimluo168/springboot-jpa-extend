@@ -15,4 +15,8 @@ import java.util.List;
 @Repository
 public interface BusTeamRepository extends PagingAndSortingRepository<BusTeam, Long> {
     List<BusTeam> findByName(String name);
+
+    BusTeam findByoId(String oId);
+
+    List<BusTeam> findByoOrgId(String oOrgId);
 }

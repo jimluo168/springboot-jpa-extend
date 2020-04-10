@@ -102,4 +102,9 @@ public class BusRouteService {
         }
         return busRouteRepository.countByNameAndTypeAndIdNotAndDeleted(name, type, id, DELETE_FALSE) > 0;
     }
+
+    @Transactional(readOnly = true)
+    public BusRoute findByOId(String oId) {
+        return busRouteRepository.findByoId(oId);
+    }
 }

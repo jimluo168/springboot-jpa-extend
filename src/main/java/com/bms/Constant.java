@@ -201,6 +201,18 @@ public interface Constant {
      */
     String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
     /**
+     * 日期格式=yyyy-MM-dd'T'HH:mm:ss.SSSZ
+     */
+    String DATE_FORMAT_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    /**
+     * 时区 GTM+8.
+     */
+    String TIME_ZONE_GMT8 = "GMT+8";
+    /**
+     * 时区 UTC.
+     */
+    String TIME_ZONE_UTC = "UTC";
+    /**
      * 导出Excel最大行数.
      */
     int EXPORT_EXCEL_MAX_LINE = 65530;

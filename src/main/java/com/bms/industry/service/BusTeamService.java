@@ -63,4 +63,14 @@ public class BusTeamService {
         }
         throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
+
+    @Transactional(readOnly = true)
+    public BusTeam findByOId(String oId) {
+        return busTeamRepository.findByoId(oId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BusTeam> findByOOrgId(String oOrgId) {
+        return busTeamRepository.findByoOrgId(oOrgId);
+    }
 }
