@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -67,6 +68,11 @@ public class MoRescueMaterial extends BaseEntity {
      * 数量.
      */
     private BigDecimal quantity;
+    /**
+     * 使用数量.
+     */
+    @Transient
+    private BigDecimal usageQuantity;
     /**
      * 物资来源.
      */

@@ -95,6 +95,11 @@ public class MoEmergencyPreplan extends BaseEntity {
             joinColumns = @JoinColumn(name = "preplan_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "material_id", referencedColumnName = "id"))
     private List<MoRescueMaterial> rescueMaterialList;
+    /**
+     * 应急资源存储json格式.
+     */
+    @Column(name = "rescue_material_json")
+    private String rescueMaterialJson;
 
     /**
      * 救援车辆.

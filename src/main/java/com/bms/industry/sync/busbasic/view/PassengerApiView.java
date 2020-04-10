@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2020/4/10
  */
 @Data
-public class PassengerApiView extends AbstractApiView {
+public class PassengerApiView extends AbstractBusApiView {
 //    "id": 1,
 //    "name": "吴涣",
 //    "ic_card": "",

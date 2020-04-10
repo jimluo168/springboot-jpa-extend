@@ -5113,6 +5113,7 @@ params:
         org_address:string:单位地址
         service_area:string:服务区域
         remark:string:备注
+      rescueMaterialJson:string:应急资源使用数量json格式 [{id:long:应急资源ID,usage_quantity:float:使用数量}]
       rescue_material_list:array<object>:应急物资信息
         id:long:ID
         code:string:物资编号
@@ -5121,6 +5122,7 @@ params:
         spec:string:规格
         unit:string:计量单位
         quantity:float:数量
+        usage_quantity:float:使用数量
         origin:string:物资来源
         parameter:string:参数
         purpose:string:用途
@@ -5180,6 +5182,7 @@ params:
     id:long:ID
   rescue_material_list:array<object>:应急物资信息
     id:long:ID
+    usage_quantity:float:使用数量
   rescue_vehicle_list:array<object>:救援车辆信息
     id:long:ID
 
@@ -5224,6 +5227,7 @@ params:
     id:long:ID
   rescue_material_list:array<object>:应急物资信息
     id:long:ID
+    usage_quantity:float:使用数量
   rescue_vehicle_list:array<object>:救援车辆信息
     id:long:ID
 
@@ -5304,6 +5308,7 @@ params:
       org_address:string:单位地址
       service_area:string:服务区域
       remark:string:备注
+    rescueMaterialJson:string:应急资源使用数量json格式 [{id:long:应急资源ID,usage_quantity:float:使用数量}]
     rescue_material_list:array<object>:应急物资信息
       id:long:ID
       code:string:物资编号
@@ -5312,6 +5317,7 @@ params:
       spec:string:规格
       unit:string:计量单位
       quantity:float:数量
+      usage_quantity:float:使用数量
       origin:string:物资来源
       parameter:string:参数
       purpose:string:用途
@@ -5614,10 +5620,12 @@ params:
         name:string:姓名
         org_name:string:所属部门
         phone:string:联系电话
+      rescueMaterialJson:string:应急资源使用数量json格式 [{id:long:应急资源ID,usage_quantity:float:使用数量}]
       rescue_material_list:array<object>:应急物资
         id:long:ID
         name:string:物资名
         type:int:物资类型
+        usage_quantity:float:使用数量
       rescue_vehicle_list:array<object>:救援车辆
         id:long:ID
         lic_no:string:车牌号
@@ -5665,10 +5673,12 @@ params:
       name:string:姓名
       org_name:string:所属部门
       phone:string:联系电话
+    rescueMaterialJson:string:应急资源使用数量json格式 [{id:long:应急资源ID,usage_quantity:float:使用数量}]
     rescue_material_list:array<object>:应急物资
       id:long:ID
       name:string:物资名
       type:int:物资类型
+      usage_quantity:float:使用数量
     rescue_vehicle_list:array<object>:救援车辆
       id:long:ID
       lic_no:string:车牌号
@@ -5706,6 +5716,7 @@ params:
     id:long:ID
   rescue_material_list:array<object>:应急物资
     id:long:ID
+    usage_quantity:float:使用数量
   rescue_vehicle_list:array<object>:救援车辆
     id:long:ID
   
@@ -5747,6 +5758,7 @@ params:
     id:long:ID
   rescue_material_list:array<object>:应急物资
     id:long:ID
+    usage_quantity:float:使用数量
   rescue_vehicle_list:array<object>:救援车辆
     id:long:ID
   
@@ -5775,10 +5787,12 @@ params:
       name:string:姓名
       org_name:string:所属部门
       phone:string:联系电话
+    rescueMaterialJson:string:应急资源使用数量json格式 [{id:long:应急资源ID,usage_quantity:float:使用数量}]
     rescue_material_list:array<object>:应急物资
       id:long:ID
       name:string:物资名
       type:int:物资类型
+      usage_quantity:float:使用数量
     rescue_vehicle_list:array<object>:救援车辆
       id:long:ID
       lic_no:string:车牌号

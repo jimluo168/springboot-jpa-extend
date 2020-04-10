@@ -110,4 +110,9 @@ public class VehicleService {
         }
         return vehicleRepository.countByCodeAndIdNotAndDeleted(code, id, DELETE_FALSE) > 0;
     }
+
+    @Transactional(readOnly = true)
+    public BusVehicle findByCode(String code) {
+        return vehicleRepository.findByCode(code);
+    }
 }

@@ -21,4 +21,6 @@ public interface VehicleRepository extends PagingAndSortingRepository<BusVehicle
     int countByCodeAndDeleted(String code, int deleted);
 
     int countByCodeAndIdNotAndDeleted(String code, Long id, int deleted);
+
+    BusVehicle findByCode(String code);
 }

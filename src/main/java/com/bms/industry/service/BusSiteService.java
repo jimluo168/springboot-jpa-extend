@@ -99,4 +99,9 @@ public class BusSiteService {
         }
         return busSiteRepository.countByRouteAndNameAndUpDownAndIdNotAndDeleted(route, name, upDown, id, DELETE_FALSE) > 0;
     }
+
+    @Transactional(readOnly = true)
+    public BusSite findByOId(Long oId) {
+        return busSiteRepository.findByoId(oId);
+    }
 }

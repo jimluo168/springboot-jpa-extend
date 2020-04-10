@@ -201,6 +201,10 @@ public interface Constant {
      */
     String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
     /**
+     * 日期格式=2019-03-26 10:57:30
+     */
+    String DATE_FORMAT_YYYY_MM_DD_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+    /**
      * 日期格式=yyyy-MM-dd'T'HH:mm:ss.SSSZ
      */
     String DATE_FORMAT_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";

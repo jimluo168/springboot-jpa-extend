@@ -1,5 +1,6 @@
 package com.bms.industry.sync.busbasic.view;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -9,30 +10,51 @@ import lombok.Data;
  * @date 2020/4/10
  */
 @Data
-public class StationApiView extends AbstractApiView {
+public class StationApiView extends AbstractBusApiView2 {
+    @JsonProperty(value = "line_id")
+    private String oRouteId;
+    @JsonProperty(value = "type")
+    private Integer type;
+    @JsonProperty(value = "site_order")
+    private Integer index;
+    @JsonProperty(value = "name")
+    private String name;
+    @JsonProperty(value = "up_down_flag")
+    private Integer upDown;
+    /**
+     * 经度.
+     */
+    @JsonProperty(value = "gps_x")
+    private Float longitude;
+    /**
+     * 纬度.
+     */
+    @JsonProperty(value = "gps_y")
+    private Float latitude;
+    /**
+     * GPS夹角.
+     */
+    @JsonProperty(value = "gps_angle")
+    private Float gpsAngle;
+    @JsonProperty(value = "report_voice_file")
+    private String reportVoiceFile;
 
-//      "id": 66533,
-//      "line_id": 1047,
-//      "type": 1,
-//      "site_order": 1,
-//      "name": "碧海商业广场",
-//      "up_down_flag": 1,
-//      "gps_x": "106.6184692978859",
-//      "gps_y": "26.633052229881287",
-//      "gps_angle": "358",
-//      "report_voice_file": "",
-//      "insert_date": "1999-01-01",
-//      "insert_id": null,
-//      "station_version": "1",
-//      "next_station": null,
-//      "up_station": null,
-//      "upStaDistance": null,
-//      "yesOrnointerval": null,
-//      "intervalValue": null,
-//      "yesOrnoZhistation": null,
-//      "radius": "70",
-//      "reportVoice2": null,
-//      "reportVoice3": null,
-//      "zhistationValue": null
-
+    @JsonProperty(value = "station_version")
+    private String version;
+    @JsonProperty(value = "next_station")
+    private String nextStation;
+    @JsonProperty(value = "up_station")
+    private String upStation;
+    @JsonProperty(value = "upStaDistance")
+    private String upStaDistance;
+    @JsonProperty(value = "yesOrnointerval")
+    private String yesOrnointerval;
+    @JsonProperty(value = "intervalValue")
+    private String intervalValue;
+    @JsonProperty(value = "yesOrnoZhistation")
+    private String yesOrnoZhistation;
+    @JsonProperty(value = "radius")
+    private Float radius;
+    @JsonProperty(value = "zhistationValue")
+    private String zhistationValue;
 }

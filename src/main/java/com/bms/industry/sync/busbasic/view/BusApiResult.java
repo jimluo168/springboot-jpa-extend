@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2020/4/9
  */
 @Data
-public class BusBasicResult implements Serializable {
+public class BusApiResult implements Serializable {
     private boolean success;
     private String message;
     private int code;

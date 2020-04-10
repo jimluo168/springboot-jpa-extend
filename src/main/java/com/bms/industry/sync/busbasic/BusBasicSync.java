@@ -47,11 +47,10 @@ public class BusBasicSync {
 
             companyApi.getAll();
             teamApi.getAll();
-            busApi.getAll();
             lineApi.getAll();
-            passengerApi.getAll();
             stationApi.getAll();
-
+            busApi.getAll();
+            passengerApi.getAll();
         } catch (IOException e) {
             logger.error("执行基础业务数据同步任务出错", e);
         }

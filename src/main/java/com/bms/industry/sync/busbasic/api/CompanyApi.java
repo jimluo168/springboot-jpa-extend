@@ -6,7 +6,7 @@ import com.bms.entity.Organization;
 import com.bms.industry.service.BusTeamService;
 import com.bms.industry.sync.Http;
 import com.bms.industry.sync.SyncProperties;
-import com.bms.industry.sync.busbasic.view.BusBasicResult;
+import com.bms.industry.sync.busbasic.view.BusApiResult;
 import com.bms.industry.sync.busbasic.view.CompanyApiView;
 import com.bms.sys.service.OrganizationService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -40,7 +40,7 @@ public class CompanyApi {
         String baseUrl = syncProperties.getBus().getBase();
         String url = baseUrl + "/bus/coreCompany/getAll";
 
-        BusBasicResult result = http.getObject(url, null);
+        BusApiResult result = http.getObject(url, null);
         logger.debug("company getAll:{}", result);
         if (result.getResult() == null) {
             logger.info("获取公司接口结果为空");

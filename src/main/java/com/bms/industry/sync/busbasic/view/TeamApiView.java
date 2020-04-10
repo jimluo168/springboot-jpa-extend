@@ -12,7 +12,7 @@ import javax.persistence.Column;
  * @date 2020/4/9
  */
 @Data
-public class TeamApiView extends AbstractApiView {
+public class TeamApiView extends AbstractBusApiView {
     @JsonProperty(value = "t_name")
     private String name;
     /**

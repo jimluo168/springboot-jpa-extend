@@ -6,8 +6,7 @@ import com.bms.entity.Organization;
 import com.bms.industry.service.BusTeamService;
 import com.bms.industry.sync.Http;
 import com.bms.industry.sync.SyncProperties;
-import com.bms.industry.sync.busbasic.view.BusBasicResult;
-import com.bms.industry.sync.busbasic.view.CompanyApiView;
+import com.bms.industry.sync.busbasic.view.BusApiResult;
 import com.bms.industry.sync.busbasic.view.TeamApiView;
 import com.bms.sys.service.OrganizationService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 公司.
@@ -43,7 +41,7 @@ public class TeamApi {
         String url = baseUrl + "/bus/carTeam/getAll";
 
 
-        BusBasicResult result = http.getObject(url, null);
+        BusApiResult result = http.getObject(url, null);
         logger.debug("carTeam getAll:{}", result);
         if (result.getResult() == null) {
             logger.info("获取车队接口结果为空");

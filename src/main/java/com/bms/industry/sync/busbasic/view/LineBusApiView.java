@@ -11,7 +11,7 @@ import lombok.Data;
  * @date 2020/4/9
  */
 @Data
-public class LineApiView extends AbstractApiView {
+public class LineBusApiView extends AbstractBusApiView {
     /**
      * 名称.
      */

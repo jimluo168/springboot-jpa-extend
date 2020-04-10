@@ -2,6 +2,7 @@ package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -104,4 +105,32 @@ public abstract class BusSiteCommon extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
+
+    /**
+     * -----------补充旧系统字段 BUS同步接口-----------
+     */
+    @Column(name = "o_id")
+    private Long oId;
+    @Column(name = "o_route_id")
+    private String oRouteId;
+    @Column(name = "type")
+    private Integer type;
+    @Column(name = "report_voice_file")
+    private String reportVoiceFile;
+    @Column(name = "version")
+    private String version;
+    @Column(name = "next_station")
+    private String nextStation;
+    @Column(name = "up_station")
+    private String upStation;
+    @Column(name = "up_sta_distance")
+    private String upStaDistance;
+    @Column(name = "yes_ornointerval")
+    private String yesOrnointerval;
+    @Column(name = "interval_value")
+    private String intervalValue;
+    @Column(name = "yes_orno_zhistation")
+    private String yesOrnoZhistation;
+    @Column(name = "zhistation_value")
+    private String zhistationValue;
 }

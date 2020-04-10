@@ -7,15 +7,18 @@ import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
+import com.bms.common.util.JSON;
 import com.bms.common.util.JpaUtils;
 import com.bms.entity.MoEmergencyResponse;
 import com.bms.entity.MoRescueRescuer;
 import com.bms.entity.MoRescueVehicle;
 import com.bms.monitor.dao.EmergencyResponseRepository;
+import com.bms.monitor.view.MoRescueMaterialJson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -42,6 +45,16 @@ public class EmergencyResponseService {
 
     public MoEmergencyResponse insert(MoEmergencyResponse emergencyResponse) {
         emergencyResponse.setId(flakeId.next());
+        if (emergencyResponse.getRescueMaterialList() != null && !emergencyResponse.getRescueMaterialList().isEmpty()) {
+            List<MoRescueMaterialJson> jsonList = new ArrayList<>();
+            emergencyResponse.getRescueMaterialList().forEach(o -> {
+                MoRescueMaterialJson json = new MoRescueMaterialJson();
+                json.setId(o.getId());
+                json.setUsageQuantity(o.getUsageQuantity());
+                jsonList.add(json);
+            });
+            emergencyResponse.setRescueMaterialJson(JSON.toJSONString(jsonList));
+        }
         emergencyResponseRepository.save(emergencyResponse);
 
         if (emergencyResponse.getStatus() == MoEmergencyResponse.STATUS_PROCESSING) {
@@ -53,6 +66,17 @@ public class EmergencyResponseService {
     public MoEmergencyResponse updateById(Long id, MoEmergencyResponse emergencyResponse) {
         MoEmergencyResponse value = this.findById(id);
         JpaUtils.copyNotNullProperties(emergencyResponse, value);
+
+        if (emergencyResponse.getRescueMaterialList() != null && !emergencyResponse.getRescueMaterialList().isEmpty()) {
+            List<MoRescueMaterialJson> jsonList = new ArrayList<>();
+            emergencyResponse.getRescueMaterialList().forEach(o -> {
+                MoRescueMaterialJson json = new MoRescueMaterialJson();
+                json.setId(o.getId());
+                json.setUsageQuantity(o.getUsageQuantity());
+                jsonList.add(json);
+            });
+            emergencyResponse.setRescueMaterialJson(JSON.toJSONString(jsonList));
+        }
 
         if (emergencyResponse.getStatus() == MoEmergencyResponse.STATUS_PROCESSING) {
             takeUp(emergencyResponse);

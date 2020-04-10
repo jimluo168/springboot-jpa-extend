@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2020/4/9
  */
 @Data
-public class CompanyApiView extends AbstractApiView {
+public class CompanyApiView extends AbstractBusApiView {
 
     @JsonProperty(value = "c_name")
     private String name;
