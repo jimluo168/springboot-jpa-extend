@@ -260,4 +260,16 @@
             order by e.createDate desc
         ]]>
     </mo_emergency_preplan_page>
+
+    <mo_emergency_preplan_name_page type="hql" desc="应急预案管理-预案名">
+        <![CDATA[
+            select distinct e.name
+            from MoEmergencyPreplan e
+            where e.deleted = 0
+            <#if name?? && name!=''>
+                and e.name like '%'||:name||'%'
+            </#if>
+            order by e.createDate desc
+        ]]>
+    </mo_emergency_preplan_name_page>
 </mapper>

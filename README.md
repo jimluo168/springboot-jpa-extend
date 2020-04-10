@@ -5591,7 +5591,7 @@ params:
   code:int:操作码
   data:object:返回信息
     count:int:分页总大小
-    list:array<object>:知识库信息列表
+    list:array<object>:应急预案列表
       id:long:应急预案ID
       name:string:名称
       code:string:编号
@@ -5805,6 +5805,29 @@ params:
   code:int:操作码
   data:object:返回信息
     id:long:预案ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+### 34.6. 应急预案管理-预案名称下拉框
+
+```yaml
+@get: /monitor/emergencypreplans/name/list?page=:page&size=:size
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  name:string:预案名称
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:应急预案列表信息
+      name:string:预案名称
   success:bool:是否成功
   msg:string:操作提示
 ```
