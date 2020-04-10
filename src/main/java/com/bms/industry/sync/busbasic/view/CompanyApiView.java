@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.swing.*;
 
 /**
  * 公司.
@@ -14,6 +15,8 @@ import javax.persistence.Column;
 @Data
 public class CompanyView extends BusBasicBaseView {
 
+    @JsonProperty(value = "c_name")
+    private String name;
     @JsonProperty(value = "c_city")
     private String city;
     /**

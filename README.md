@@ -5082,12 +5082,12 @@ params:
       generate_case:int:是否生成案例(0:未生成 1:已生成)
       info_score:int:信息采集准确度评估
       info_remark:string:信息采集准确度评估 补充
-      effect_score:int:信息采集准确度评估
-      effect_remark:string:信息采集准确度评估 补充
-      dispatch_score:int:信息采集准确度评估
-      dispatch_remark:string:信息采集准确度评估 补充
-      material_score:int:信息采集准确度评估
-      material_remark:string:信息采集准确度评估 补充
+      effect_score:int:处置方案效果评估
+      effect_remark:string:处置方案效果评估 补充
+      dispatch_score:int:调度指挥评估
+      dispatch_remark:string:调度指挥评估 补充
+      material_score:int:物资供给评估
+      material_remark:string:物资供给评估 补充
       evaluate_remark:string:评估时的备注
       group_leader_list:array<object>:组长信息
         id:long:ID
@@ -5273,12 +5273,12 @@ params:
     generate_case:int:是否生成案例(0:未生成 1:已生成)
     info_score:int:信息采集准确度评估
     info_remark:string:信息采集准确度评估 补充
-    effect_score:int:信息采集准确度评估
-    effect_remark:string:信息采集准确度评估 补充
-    dispatch_score:int:信息采集准确度评估
-    dispatch_remark:string:信息采集准确度评估 补充
-    material_score:int:信息采集准确度评估
-    material_remark:string:信息采集准确度评估 补充
+    effect_score:int:处置方案效果评估
+    effect_remark:string:处置方案效果评估 补充
+    dispatch_score:int:调度指挥评估
+    dispatch_remark:string:调度指挥评估 补充
+    material_score:int:物资供给评估
+    material_remark:string:物资供给评估 补充
     evaluate_remark:string:评估时的备注
     group_leader_list:array<object>:组长信息
       id:long:ID
@@ -5400,12 +5400,12 @@ params:
 @payload:
   info_score:int:信息采集准确度评估
   info_remark:string:信息采集准确度评估 补充
-  effect_score:int:信息采集准确度评估
-  effect_remark:string:信息采集准确度评估 补充
-  dispatch_score:int:信息采集准确度评估
-  dispatch_remark:string:信息采集准确度评估 补充
-  material_score:int:信息采集准确度评估
-  material_remark:string:信息采集准确度评估 补充
+  effect_score:int:处置方案效果评估
+  effect_remark:string:处置方案效果评估 补充
+  dispatch_score:int:调度指挥评估
+  dispatch_remark:string:调度指挥评估 补充
+  material_score:int:物资供给评估
+  material_remark:string:物资供给评估 补充
   evaluate_remark:string:评估时的备注
 
 @return:

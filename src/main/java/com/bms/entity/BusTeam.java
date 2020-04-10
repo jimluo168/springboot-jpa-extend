@@ -1,5 +1,6 @@
 package com.bms.entity;
 
+import com.bms.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicInsert;
@@ -19,12 +20,12 @@ import java.util.Date;
  * @date 2020/3/17
  */
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = true)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Table(name = "bus_carteams")
-public class BusTeam implements Serializable {
+public class BusTeam extends BaseEntity {
 
     @Id
     private Long id;
@@ -43,6 +44,11 @@ public class BusTeam implements Serializable {
      */
     @Column(name = "o_org_id")
     private String oOrgId;
+    /**
+     * 新公司ID.
+     */
+    @Column(name = "org_id")
+    private Long orgId;
     /**
      * 地址.
      */
@@ -63,16 +69,16 @@ public class BusTeam implements Serializable {
      */
     @Column(name = "num")
     private String num;
-    /**
-     * 创建时间.
-     */
-    @Column(name = "insert_date")
-    private Date createDate;
-    /**
-     * 创建人ID.
-     */
-    @Column(name = "insert_uid")
-    private Integer createUser;
+//    /**
+//     * 创建时间.
+//     */
+//    @Column(name = "insert_date")
+//    private Date createDate;
+//    /**
+//     * 创建人ID.
+//     */
+//    @Column(name = "insert_uid")
+//    private Integer createUser;
     /**
      * 状态.
      */

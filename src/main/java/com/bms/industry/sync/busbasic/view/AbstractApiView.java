@@ -1,5 +1,7 @@
 package com.bms.industry.sync.busbasic.view;
 
+import com.bms.Constant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.dao.DataAccessException;
@@ -37,5 +39,6 @@ public abstract class BusBasicBaseView {
      * 创建时间
      */
     @JsonProperty(value = "insert_date")
+    @JsonFormat(pattern = Constant.DATE_FORMAT_TIME_ZONE, timezone = Constant.TIME_ZONE_GMT8)
     private Date createDate;
 }

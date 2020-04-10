@@ -22,7 +22,6 @@ import java.util.List;
 @DynamicUpdate
 @Entity
 @Table(name = "bus_sites")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class BusSite extends BusSiteCommon {
     /**
      * 审核历史记录.
