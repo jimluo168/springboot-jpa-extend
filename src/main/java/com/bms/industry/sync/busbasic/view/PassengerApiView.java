@@ -1,5 +1,6 @@
 package com.bms.industry.sync.busbasic.view;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -10,20 +11,31 @@ import lombok.Data;
  */
 @Data
 public class PassengerApiView extends AbstractBusApiView {
-//    "id": 1,
-//    "name": "吴涣",
-//    "ic_card": "",
-//    "id_card": null,
-//    "c_id": 7200,
-//    "t_id": null,
-//    "l_id": null,
-//    "phone": "",
-//    "jobNum": "00024344",
-//    "driverYears": null,
-//    "email": null,
-//    "sex": null,
-//    "insert_date": "2016-12-30T11:59:42.000+0800",
-//    "insert_uid": null,
-//    "status": null
-
+    /**
+     * 姓名.
+     */
+    @JsonProperty(value = "name")
+    private String name;
+    @JsonProperty(value = "ic_card")
+    private String cardNumber;
+    @JsonProperty(value = "id_card")
+    private String idNumber;
+    @JsonProperty(value = "c_id")
+    private String oOrgId;
+    @JsonProperty(value = "t_id")
+    private String oTeamId;
+    @JsonProperty(value = "l_id")
+    private String oRouteId;
+    @JsonProperty(value = "phone")
+    private String phone;
+    @JsonProperty(value = "jobNum")
+    private String staffNumber;
+    @JsonProperty(value = "driverYears")
+    private Integer drivingAge;
+    @JsonProperty(value = "email")
+    private String email;
+    @JsonProperty(value = "sex")
+    private String gender;
+//    @JsonProperty(value = "status")
+//    private Integer status;
 }

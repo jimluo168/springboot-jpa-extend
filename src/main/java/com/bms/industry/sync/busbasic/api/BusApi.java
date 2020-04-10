@@ -32,16 +32,19 @@ import java.util.Map;
  */
 @Component
 @RequiredArgsConstructor
-public class BusApi {
+public class BusApi extends AbstractApi {
     private static final Logger logger = LoggerFactory.getLogger(BusApi.class);
 
     private final SyncProperties syncProperties;
     private final Http http;
+    private final LoginApi loginApi;
     private final VehicleService vehicleService;
     private final BusRouteService busRouteService;
 
 
     public void getAll() throws IOException {
+        login();
+
         String baseUrl = syncProperties.getBus().getBase();
         String url = baseUrl + "/bus/coreBus/getAll";
 
@@ -90,4 +93,13 @@ public class BusApi {
         });
     }
 
+    @Override
+    public Http getHttp() {
+        return http;
+    }
+
+    @Override
+    public LoginApi getLoginApi() {
+        return loginApi;
+    }
 }

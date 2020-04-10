@@ -28,15 +28,18 @@ import java.util.List;
  */
 @Component
 @RequiredArgsConstructor
-public class TeamApi {
+public class TeamApi extends AbstractApi {
     private static final Logger logger = LoggerFactory.getLogger(TeamApi.class);
 
     private final SyncProperties syncProperties;
     private final Http http;
+    private final LoginApi loginApi;
     private final BusTeamService busTeamService;
     private final OrganizationService organizationService;
 
     public void getAll() throws IOException {
+        login();
+
         String baseUrl = syncProperties.getBus().getBase();
         String url = baseUrl + "/bus/carTeam/getAll";
 
@@ -75,4 +78,13 @@ public class TeamApi {
         });
     }
 
+    @Override
+    public Http getHttp() {
+        return http;
+    }
+
+    @Override
+    public LoginApi getLoginApi() {
+        return loginApi;
+    }
 }

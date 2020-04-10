@@ -21,8 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author luojimeng
  * @date 2020/4/9
  */
+@SpringBootTest
+@AutoConfigureMockMvc
 @Transactional
-class CompanyApiTest extends AbstractApiTest {
+class CompanyApiTest {
 
     @Autowired
     private CompanyApi companyApi;

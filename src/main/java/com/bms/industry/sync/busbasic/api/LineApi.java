@@ -30,16 +30,19 @@ import java.util.List;
  */
 @Component
 @RequiredArgsConstructor
-public class LineApi {
+public class LineApi extends AbstractApi {
     private static final Logger logger = LoggerFactory.getLogger(LineApi.class);
 
     private final SyncProperties syncProperties;
     private final Http http;
+    private final LoginApi loginApi;
     private final BusRouteService busRouteService;
     private final OrganizationService organizationService;
     private final BusTeamService busTeamService;
 
     public void getAll() throws IOException {
+        login();
+
         String baseUrl = syncProperties.getBus().getBase();
         String url = baseUrl + "/bus/coreLine/getAll";
 
@@ -94,4 +97,13 @@ public class LineApi {
         });
     }
 
+    @Override
+    public Http getHttp() {
+        return http;
+    }
+
+    @Override
+    public LoginApi getLoginApi() {
+        return loginApi;
+    }
 }

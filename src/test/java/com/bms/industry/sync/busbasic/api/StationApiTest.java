@@ -3,6 +3,8 @@ package com.bms.industry.sync.busbasic.api;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -15,8 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author luojimeng
  * @date 2020/4/10
  */
-//@Transactional
-class StationApiTest extends AbstractApiTest {
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
+class StationApiTest {
 
     @Autowired
     private StationApi stationApi;

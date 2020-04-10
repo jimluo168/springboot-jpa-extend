@@ -3,6 +3,8 @@ package com.bms.industry.sync.busbasic.api;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -10,13 +12,15 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * TODO(类的简要说明)
+ * 车队API.
  *
  * @author luojimeng
  * @date 2020/4/9
  */
+@SpringBootTest
+@AutoConfigureMockMvc
 @Transactional
-class TeamApiTest extends AbstractApiTest {
+class TeamApiTest {
 
     @Autowired
     private TeamApi teamApi;

@@ -12,22 +12,21 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * TODO(类的简要说明)
+ * 从业人员-司机同步接口.
  *
  * @author luojimeng
  * @date 2020/4/10
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
-class BusApiTest {
+//@Transactional
+class PassengerApiTest {
 
     @Autowired
-    private BusApi busApi;
-
+    private PassengerApi passengerApi;
     @Test
     void getAll() throws IOException {
-        busApi.getAll();
+        passengerApi.getAll();
         Assertions.assertTrue(true);
     }
 }

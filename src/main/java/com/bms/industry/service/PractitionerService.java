@@ -113,4 +113,9 @@ public class PractitionerService {
         }
         return practitionerRepository.countByIdNumberAndIdNotAndDeleted(idNumber, id, DELETE_FALSE) > 0;
     }
+
+    @Transactional(readOnly = true)
+    public Practitioner findByOId(String oId) {
+        return practitionerRepository.findByoId(oId);
+    }
 }

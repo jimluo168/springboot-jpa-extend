@@ -22,4 +22,6 @@ public interface PractitionerRepository extends PagingAndSortingRepository<Pract
     int countByIdNumberAndDeleted(String idNumber, int deleted);
 
     int countByIdNumberAndIdNotAndDeleted(String idNumber, Long id, int deleted);
+
+    Practitioner findByoId(String oId);
 }

@@ -1,34 +1,36 @@
 package com.bms.industry.sync.busbasic.api;
 
 import com.bms.industry.sync.Http;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import com.bms.industry.sync.busbasic.api.LoginApi;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * API基础测试类.
+ * TODO(类的简要说明)
  *
  * @author luojimeng
- * @date 2020/4/9
+ * @date 2020/4/5
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-public abstract class AbstractApiTest {
+class LoginApiTest {
 
     @Autowired
     private Http http;
     @Autowired
     private LoginApi loginApi;
 
-    @BeforeEach
-    void setUp() throws IOException {
+    @Test
+    void login() throws IOException {
         http.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        String accessToken = loginApi.login();
-        http.setHeader("accessToken", accessToken);
 
+        String token = loginApi.login();
+        assertNotNull(token);
     }
 }

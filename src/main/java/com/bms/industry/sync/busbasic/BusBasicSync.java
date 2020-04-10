@@ -40,16 +40,16 @@ public class BusBasicSync {
         long start = System.currentTimeMillis();
 
         try {
-            http.setHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            String accessToken = loginApi.login();
-            http.setHeader("accessToken", accessToken);
-
             companyApi.getAll();
+
             teamApi.getAll();
+
             lineApi.getAll();
+
             stationApi.getAll();
+
             busApi.getAll();
+
             passengerApi.getAll();
         } catch (IOException e) {
             logger.error("执行基础业务数据同步任务出错", e);
@@ -57,4 +57,5 @@ public class BusBasicSync {
 
         logger.info("结束执行基础业务数据同步任务,总耗时{}秒", (System.currentTimeMillis() - start) / 1000.0f);
     }
+
 }

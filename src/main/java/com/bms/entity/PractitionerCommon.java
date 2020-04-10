@@ -2,6 +2,8 @@ package com.bms.entity;
 
 import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -120,4 +122,16 @@ public abstract class PractitionerCommon extends BaseEntity {
      */
     @Column(length = 500)
     private String reason;
+
+    /**
+     * -----------补充旧系统字段 BUS同步接口-----------
+     */
+    @Column(name = "o_id")
+    private String oId;
+    @Column(name = "o_org_id")
+    private String oOrgId;
+    @Column(name = "o_team_id")
+    private String oTeamId;
+    @Column(name = "o_route_id")
+    private String oRouteId;
 }
