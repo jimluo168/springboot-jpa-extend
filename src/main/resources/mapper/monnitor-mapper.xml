@@ -231,24 +231,24 @@
             <#if level??>
                 and i.level = :level
             </#if>
+            order by i.createDate desc
         ]]>
     </mo_info_release_page>
 
     <mo_emergency_preplan_page type="hql" desc="应急预案管理">
         <![CDATA[
-            from MoEmergencyPrepla
-            order by i.createDate descn e
+            from MoEmergencyPreplan e
             where deleted = 0
             <#if rescueCompanyName?? && rescueCompanyName!=''>
                 and e.rescueCompanyName like '%'||:rescueCompanyName||'%'
             </#if>
             <#if preplanType??>
                 and e.preplanType = :preplanType
-            </#if>WWWw
+            </#if>
             <#if level??>
                 and e.level = :level
             </#if>
-            order by i.createDate desc
+            order by e.createDate desc
         ]]>
     </mo_emergency_preplan_page>
 </mapper>
