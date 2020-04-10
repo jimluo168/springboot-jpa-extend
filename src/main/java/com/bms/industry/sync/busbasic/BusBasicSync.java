@@ -1,15 +1,14 @@
-package com.bms.industry.sync;
+package com.bms.industry.sync.busbasic;
 
-import com.bms.common.config.flake.FlakeIdProperties;
-import com.bms.entity.BusRoute;
-import com.bms.industry.sync.busbasic.*;
+import com.bms.industry.sync.Http;
+import com.bms.industry.sync.SyncProperties;
+import com.bms.industry.sync.busbasic.api.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -22,8 +21,8 @@ import java.io.IOException;
 @Configuration
 @EnableConfigurationProperties({SyncProperties.class})
 @RequiredArgsConstructor
-public class BusBasicApiSync {
-    private static final Logger logger = LoggerFactory.getLogger(BusBasicApiSync.class);
+public class BusBasicSync {
+    private static final Logger logger = LoggerFactory.getLogger(BusBasicSync.class);
 
     private final SyncProperties syncProperties;
     private final Http http;

@@ -23,10 +23,10 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Entity
 @Table(name = "bus_vehicle_audits")
-public class VehicleAudit extends VehicleCommon {
+public class BusVehicleAudit extends BusVehicleCommon {
 
     @JsonIgnoreProperties("audit_list")
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    private BusVehicle vehicle;
 }

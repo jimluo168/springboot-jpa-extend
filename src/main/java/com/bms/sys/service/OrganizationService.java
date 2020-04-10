@@ -104,4 +104,10 @@ public class OrganizationService {
         }
         return organizationRepository.countByNameAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
     }
+
+    @Transactional(readOnly = true)
+    public Organization findByOId(String oId) {
+        return organizationRepository.findByoId(oId);
+    }
+
 }

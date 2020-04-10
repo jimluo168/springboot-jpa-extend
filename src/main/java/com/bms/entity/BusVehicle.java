@@ -1,6 +1,5 @@
 package com.bms.entity;
 
-import com.bms.common.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +7,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,11 +27,11 @@ import java.util.List;
 @DynamicUpdate
 @Entity
 @Table(name = "bus_vehicles")
-public class Vehicle extends VehicleCommon {
+public class BusVehicle extends BusVehicleCommon {
     /**
      * 审核历史记录.
      */
     @JsonIgnoreProperties("vehicle")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vehicle")
-    private List<VehicleAudit> auditList;
+    private List<BusVehicleAudit> auditList;
 }

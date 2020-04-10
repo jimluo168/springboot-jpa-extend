@@ -52,7 +52,7 @@ public class BusViolationExcelModel {
      * 违规车辆信息.
      */
     @ExcelIgnore
-    private Vehicle vehicle;
+    private BusVehicle vehicle;
     @ExcelProperty(value = "车辆号牌", index = 0)
     private String vehicleLicNoText;
     /**
@@ -115,11 +115,11 @@ public class BusViolationExcelModel {
         return practitioner.getName();
     }
 
-    public Vehicle getVehicle() {
+    public BusVehicle getVehicle() {
         if (StringUtils.isBlank(vehicleLicNoText)) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_FORMAT_ERR, "车牌号不能为空");
         }
-        Vehicle vehicle = vehicleService.findByLicNo(vehicleLicNoText);
+        BusVehicle vehicle = vehicleService.findByLicNo(vehicleLicNoText);
         if (vehicle == null) {
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_ERR, "车牌号[" + vehicleLicNoText + "]不存在");
         }

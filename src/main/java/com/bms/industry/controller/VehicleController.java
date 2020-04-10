@@ -15,7 +15,7 @@ import com.bms.common.web.annotation.OpLog;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
-import com.bms.entity.Vehicle;
+import com.bms.entity.BusVehicle;
 import com.bms.industry.service.BusRouteService;
 import com.bms.industry.service.VehicleService;
 import com.bms.industry.view.VehicleExcelModel;
@@ -65,7 +65,7 @@ public class VehicleController {
     @OpLog("新增")
     @RequiresPermissions("bus_vehicle_create")
     @PostMapping("")
-    public Result<Vehicle> create(@RequestBody Vehicle vehicle) {
+    public Result<BusVehicle> create(@RequestBody BusVehicle vehicle) {
         if (vehicleService.existsByLicNo(vehicle.getLicNo(), null)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌号已存在", true);
         }
@@ -79,7 +79,7 @@ public class VehicleController {
     @OpLog("编辑")
     @RequiresPermissions("bus_vehicle_edit")
     @PutMapping("/{id}")
-    public Result<Vehicle> edit(@PathVariable Long id, @RequestBody Vehicle vehicle) {
+    public Result<BusVehicle> edit(@PathVariable Long id, @RequestBody BusVehicle vehicle) {
         if (vehicleService.existsByLicNo(vehicle.getLicNo(), id)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "车牌号已存在", true);
         }
@@ -93,7 +93,7 @@ public class VehicleController {
     @OpLog("查询")
     @RequiresPermissions("bus_vehicle_list")
     @GetMapping("/list")
-    public Result<PageList<Vehicle>> list(PageRequest pageRequest, Vehicle vehicle) throws IllegalAccessException {
+    public Result<PageList<BusVehicle>> list(PageRequest pageRequest, BusVehicle vehicle) throws IllegalAccessException {
         return ok(vehicleService.page(pageRequest, BeanMapper.toMap(vehicle)));
     }
 
@@ -101,7 +101,7 @@ public class VehicleController {
     @OpLog("详情")
     @RequiresPermissions("bus_vehicle_details")
     @GetMapping("/{id}")
-    public Result<Vehicle> details(@PathVariable Long id) {
+    public Result<BusVehicle> details(@PathVariable Long id) {
         return Result.ok(vehicleService.findById(id));
     }
 
@@ -109,7 +109,7 @@ public class VehicleController {
     @OpLog("删除")
     @RequiresPermissions("bus_vehicle_delete")
     @DeleteMapping("/{id}")
-    public Result<Vehicle> delete(@PathVariable Long id) {
+    public Result<BusVehicle> delete(@PathVariable Long id) {
         return ok(vehicleService.deleteById(id));
     }
 
@@ -117,7 +117,7 @@ public class VehicleController {
     @OpLog("审核")
     @RequiresPermissions("bus_vehicle_audit")
     @PostMapping("/{id}/status/{status}")
-    public Result<Vehicle> audit(@PathVariable Long id, @PathVariable int status, @RequestBody Vehicle vehicle) {
+    public Result<BusVehicle> audit(@PathVariable Long id, @PathVariable int status, @RequestBody BusVehicle vehicle) {
         vehicleService.audit(id, status, vehicle.getReason());
         return ok();
     }
@@ -126,10 +126,10 @@ public class VehicleController {
     @OpLog("导出")
     @RequiresPermissions("bus_vehicle_export")
     @GetMapping("/export")
-    public Result<Void> export(Vehicle vehicle, HttpServletResponse response) throws IOException, IllegalAccessException {
+    public Result<Void> export(BusVehicle vehicle, HttpServletResponse response) throws IOException, IllegalAccessException {
         try {
             PageRequest pageRequest = new PageRequest(1, Constant.EXPORT_EXCEL_MAX_LINE);
-            PageList<Vehicle> pageList = vehicleService.page(pageRequest, BeanMapper.toMap(vehicle));
+            PageList<BusVehicle> pageList = vehicleService.page(pageRequest, BeanMapper.toMap(vehicle));
             List<VehicleExcelModel> data = new ArrayList<>();
             pageList.getList().stream().forEach(o -> {
                 VehicleExcelModel m = new VehicleExcelModel(busRouteService, organizationService, dictService);
@@ -197,9 +197,9 @@ public class VehicleController {
         }
 
         private void saveData() {
-            List<Vehicle> batchData = new ArrayList<>();
+            List<BusVehicle> batchData = new ArrayList<>();
             list.stream().forEach(o -> {
-                Vehicle target = new Vehicle();
+                BusVehicle target = new BusVehicle();
                 BeanUtils.copyProperties(o, target);
                 batchData.add(target);
             });

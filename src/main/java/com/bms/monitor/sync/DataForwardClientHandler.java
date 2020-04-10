@@ -18,7 +18,7 @@ import java.util.List;
  * @author luojimeng
  * @date 2020/4/8
  */
-public class DataForwardClientHandler extends SimpleChannelInboundHandler<byte[]> {
+public class DataForwardClientHandler extends SimpleChannelInboundHandler<String> {
     private static final Logger logger = LoggerFactory.getLogger(DataForwardClientHandler.class);
 
     private final SyncProperties syncProperties;
@@ -28,8 +28,12 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<byte[]
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, byte[] bytes) throws Exception {
-        logger.debug("接受到消息");
+    protected void channelRead0(ChannelHandlerContext ctx, String message) throws Exception {
+        if (logger.isDebugEnabled()) {
+            logger.debug("接受到消息:{}", message);
+        }
+
+
 
     }
 

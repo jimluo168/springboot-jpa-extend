@@ -31,7 +31,8 @@ public class BusTeam implements Serializable {
     /**
      * 旧系统的PK.
      */
-    private String oid;
+    @Column(name = "o_id")
+    private String oId;
     /**
      * 名称.
      */
@@ -40,8 +41,8 @@ public class BusTeam implements Serializable {
     /**
      * 旧系统公司ID.
      */
-    @Column(name = "o_cid")
-    private String ocid;
+    @Column(name = "o_org_id")
+    private String oOrgId;
     /**
      * 地址.
      */

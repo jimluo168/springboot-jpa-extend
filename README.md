@@ -4094,6 +4094,7 @@ params:
   org_name:string:公司名称
   position:string:职位
   status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
+  status_list:array<int>:状态 支持多个 status_list=2&status_list=4
 
 @return:
   code:int:操作码
@@ -4320,6 +4321,8 @@ params:
   size:int:页码大小
   org_name:string:公司名称
   position:string:职位
+  status:int:状态(1:待审核 2:空闲 3:未通过 4:执行)
+  status_list:array<int>:状态 支持多个 status_list=2&status_list=4
 
 @return:
   code:int:操作码
@@ -4586,6 +4589,8 @@ params:
   size:int:页码大小
   org_name:string:公司名称
   position:string:职位
+  status:int:状态(1:待审核 2:正常 3:未通过 4:报废)
+  status_list:array<int>:状态 支持多个 status_list=2&status_list=4
 
 @return:
   code:int:操作码

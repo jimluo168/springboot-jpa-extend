@@ -2,6 +2,7 @@ package com.bms.common.util;
 
 import com.bms.common.config.web.WebMvcConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -29,11 +30,19 @@ public abstract class JSON {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
     }
 
-    public static <T extends Serializable> T parseObject(String json, Class<T> type) {
+    public static <T> T parseObject(String json, Class<T> type) {
         try {
             return mapper.readValue(json, type);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("parse json error,json:" + json + " class:" + type.getName(), e);
+        }
+    }
+
+    public static <T> T parseObject(String json, TypeReference<T> valueTypeRef) {
+        try {
+            return mapper.readValue(json, valueTypeRef);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("parse json error,json:" + json + " class:" + valueTypeRef.getType(), e);
         }
     }
 

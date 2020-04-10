@@ -48,7 +48,7 @@ public class BusViolation extends BaseEntity {
     @JsonIgnoreProperties({"audit_list"})
     @ManyToOne
     @JoinColumn(name = "veh_id")
-    private Vehicle vehicle;
+    private BusVehicle vehicle;
     /**
      * 车型(必填) 改为文本 20200320.
      * “车辆型号”改为“车型”，文本类型.

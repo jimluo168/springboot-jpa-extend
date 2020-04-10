@@ -9,12 +9,14 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import io.netty.handler.codec.string.StringDecoder;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * 数据转发客户端.
@@ -37,10 +39,10 @@ public class DataForwardClient {
 
     private final SyncProperties syncProperties;
 
+    private static final EventLoopGroup group = new NioEventLoopGroup();
 
 //    @PostConstruct
     public void start() {
-        EventLoopGroup group = new NioEventLoopGroup();
         String host = syncProperties.getDataForward().getHost();
         int port = syncProperties.getDataForward().getPort();
         try {
@@ -77,13 +79,14 @@ public class DataForwardClient {
                     }
                 }
             });
-
-            f.channel().closeFuture().sync();
-
         } catch (InterruptedException e) {
             logger.error("连接服务器 " + host + ":" + port + " 异常.", e);
-        } finally {
-             group.shutdownGracefully();
         }
+    }
+
+    @PreDestroy
+    public void destory() {
+        logger.info("销毁 Dataforward Client Socket");
+        group.shutdownGracefully();
     }
 }

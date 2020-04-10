@@ -8,8 +8,8 @@ import com.bms.common.dao.HibernateDao;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
-import com.bms.entity.Vehicle;
-import com.bms.entity.VehicleAudit;
+import com.bms.entity.BusVehicle;
+import com.bms.entity.BusVehicleAudit;
 import com.bms.industry.dao.VehicleAuditRepository;
 import com.bms.industry.dao.VehicleRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,51 +39,51 @@ public class VehicleService {
     private final VehicleAuditRepository vehicleAuditRepository;
     private final HibernateDao hibernateDao;
 
-    public Vehicle insert(Vehicle vehicle) {
+    public BusVehicle insert(BusVehicle vehicle) {
         vehicle.setId(flakeId.next());
         vehicleRepository.save(vehicle);
         return vehicle;
     }
 
-    public Vehicle updateById(Long id, Vehicle vehicle) {
-        Vehicle value = this.findById(id);
+    public BusVehicle updateById(Long id, BusVehicle vehicle) {
+        BusVehicle value = this.findById(id);
         JpaUtils.copyNotNullProperties(vehicle, value);
         return value;
     }
 
     @Transactional(readOnly = true)
-    public PageList<Vehicle> page(PageRequest pageRequest, Map<String, Object> queryParams) {
+    public PageList<BusVehicle> page(PageRequest pageRequest, Map<String, Object> queryParams) {
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_VEHICLE_PAGE, queryParams));
     }
 
     @Transactional(readOnly = true)
-    public Vehicle findById(Long id) {
-        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+    public BusVehicle findById(Long id) {
+        Optional<BusVehicle> vehicle = vehicleRepository.findById(id);
         if (vehicle.isPresent()) {
             return vehicle.get();
         }
         throw ErrorCodes.build(ErrorCodes.DATA_NOT_EXIST);
     }
 
-    public Vehicle deleteById(Long id) {
-        Vehicle vehicle = this.findById(id);
+    public BusVehicle deleteById(Long id) {
+        BusVehicle vehicle = this.findById(id);
         vehicle.setDeleted(DELETE_TRUE);
         return vehicle;
     }
 
     public void audit(Long id, int status, String reason) {
-        Vehicle vehicle = this.findById(id);
+        BusVehicle vehicle = this.findById(id);
         vehicle.setStatus(status);
         vehicle.setReason(reason);
 
-        VehicleAudit audit = new VehicleAudit();
+        BusVehicleAudit audit = new BusVehicleAudit();
         audit.setId(flakeId.next());
         audit.setVehicle(vehicle);
         audit.setReason(reason);
         vehicleAuditRepository.save(audit);
     }
 
-    public void saveAll(List<Vehicle> list) {
+    public void saveAll(List<BusVehicle> list) {
         list.stream().forEach(o -> {
             o.setId(flakeId.next());
         });
@@ -91,7 +91,7 @@ public class VehicleService {
     }
 
     @Transactional(readOnly = true)
-    public Vehicle findByLicNo(String licNo) {
+    public BusVehicle findByLicNo(String licNo) {
         return vehicleRepository.findByLicNo(licNo);
     }
 
