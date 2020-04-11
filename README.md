@@ -5856,6 +5856,9 @@ params:
 ```yaml
 @get: /industry/busterminals/menus/all
 
+@permission:权限编码
+  - bus_terminal_menus_all:查看
+
 @header:
   X-User-Agent:手机信息(必须)
   Authorization:token令牌
