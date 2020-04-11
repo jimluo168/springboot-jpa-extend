@@ -42,7 +42,7 @@ public class DataForwardClient {
     private static final EventLoopGroup group = new NioEventLoopGroup();
     private ChannelFuture channelFuture;
 
-    @PostConstruct
+//    @PostConstruct
     public void start() {
         String host = syncProperties.getDataForward().getHost();
         int port = syncProperties.getDataForward().getPort();
