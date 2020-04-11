@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper namespace="com.bms.common.dao.DaoCmd">
+<mapper namespace="com.bms.common.dao.DaoCmd" desc="公交行业管理系统">
 
     <practitioner_page type="hql" desc="从业人员分页查询">
         <![CDATA[

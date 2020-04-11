@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper namespace="com.bms.common.dao.DaoCmd">
+<mapper namespace="com.bms.common.dao.DaoCmd" desc="公交综合运行监测与应急响应系统">
     <mo_knowledge_base_page type="hql" desc="专家知识库分页查询">
         <![CDATA[
             from MoKnowledgeBase k

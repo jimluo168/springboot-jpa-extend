@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.bms.common.dao.DaoCmd" desc="公交统计决策分析系统">
+
+</mapper>
