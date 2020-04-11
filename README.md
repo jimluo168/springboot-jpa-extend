@@ -5865,21 +5865,30 @@ params:
   data:array<object>:左侧菜单信息
     id:long:菜单ID
     name:string:公司名称
+    level:int:级别
     index:int:顺序
     type:int:类型(1=公司 2=线路 3=场站)
     parent_id:long:父菜单ID
     children:array<object>:子菜单-子公司或场站信息
       id:long:菜单ID
       name:string:公司名称或场站名称
+      level:int:级别
       index:int:顺序
       type:int:类型(1=公司 2=线路 3=场站)
       parent_id:long:父菜单ID
-      children:array<object>:子菜单-这一层一定是场站信息
+      children:array<object>:子菜单-子公司或场站信息
         id:long:菜单ID
-        name:string:场站名称
+        name:string:公司名称或场站名称
+        level:int:级别
         index:int:顺序
         type:int:类型(1=公司 2=线路 3=场站)
         parent_id:long:父菜单ID
+        children:array<object>:子菜单-这一层一定是场站信息
+          id:long:菜单ID
+          name:string:场站名称
+          index:int:顺序
+          type:int:类型(1=公司 2=线路 3=场站)
+          parent_id:long:父菜单ID
   success:bool:是否成功
   msg:string:操作提示
 ```
