@@ -1,10 +1,7 @@
 package com.bms.monitor.sync;
 
 import com.bms.industry.sync.SyncProperties;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.util.concurrent.EventExecutorGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +27,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String message) throws Exception {
         if (logger.isDebugEnabled()) {
-            logger.debug("接受到消息:{}", message);
+            logger.debug("数据转发接收到消息:{}", message);
         }
-
 
 
     }
@@ -41,5 +37,14 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
         ctx.writeAndFlush(syncProperties.getDataForward().getAccessKey());
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
+        Channel channel = ctx.channel();
+        if (channel.isActive()) {
+            ctx.close();
+        }
     }
 }

@@ -826,6 +826,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 @return:
   code:int:操作码
   data:array<object>:菜单信息
+    id:long:菜单ID
     name:string:名称
     path:string:路径
     icon:string:图标
@@ -855,6 +856,7 @@ File->Preferences->Editor->File and Code Templates->File Header
 @return:
   code:int:操作码
   data:array<object>:菜单信息
+    id:long:菜单ID
     name:string:名称
     path:string:路径
     icon:string:图标
@@ -4863,7 +4865,7 @@ params:
   msg:string:操作提示
 ```
 
-### 21.2. 专家库管理-详情
+### 31.2. 专家库管理-详情
 
 ```yaml
 @get: /monitor/experts/:id
@@ -5014,7 +5016,7 @@ params:
     resume:string:工作简历
   success:bool:是否成功
   msg:string:操作提示
-### 31.5. 专家库管理-删除
+### 31.4. 专家库管理-删除
 
 ```yaml
 @delete: /monitor/experts/:id
@@ -5842,6 +5844,42 @@ params:
     count:int:分页总大小
     list:array<object>:应急预案列表信息
       name:string:预案名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+## 35. 场站动态检测
+
+### 35.1. 场站动态检测-场站左侧菜单
+
+```yaml
+@get: /industry/busterminals/menus/all
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:array<object>:左侧菜单信息
+    id:long:菜单ID
+    name:string:公司名称
+    index:int:顺序
+    type:int:类型(1=公司 2=线路 3=场站)
+    parent_id:long:父菜单ID
+    children:array<object>:子菜单-子公司或场站信息
+      id:long:菜单ID
+      name:string:公司名称或场站名称
+      index:int:顺序
+      type:int:类型(1=公司 2=线路 3=场站)
+      parent_id:long:父菜单ID
+      children:array<object>:子菜单-这一层一定是场站信息
+        id:long:菜单ID
+        name:string:场站名称
+        index:int:顺序
+        type:int:类型(1=公司 2=线路 3=场站)
+        parent_id:long:父菜单ID
   success:bool:是否成功
   msg:string:操作提示
 ```

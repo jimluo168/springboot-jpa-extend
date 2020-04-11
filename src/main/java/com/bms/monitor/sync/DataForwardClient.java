@@ -31,17 +31,18 @@ public class DataForwardClient {
     /**
      * 数据包头部.
      */
-    public static final String packet_head = "$$";
+    public static final String PACKET_HEAD = "$$";
     /**
      * 数据包尾部.
      */
-    public static final String packet_end = "##";
+    public static final String PACKET_END = "##";
 
     private final SyncProperties syncProperties;
 
     private static final EventLoopGroup group = new NioEventLoopGroup();
+    private ChannelFuture channelFuture;
 
-//    @PostConstruct
+    @PostConstruct
     public void start() {
         String host = syncProperties.getDataForward().getHost();
         int port = syncProperties.getDataForward().getPort();
@@ -66,9 +67,9 @@ public class DataForwardClient {
 
 
             // Start the client.
-            ChannelFuture f = b.connect(host, port).sync();
+            channelFuture = b.connect(host, port).sync();
 
-            f.addListener(new ChannelFutureListener() {
+            channelFuture.addListener(new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture channelFuture) throws Exception {
                     if (channelFuture.isSuccess()) {
@@ -87,6 +88,10 @@ public class DataForwardClient {
     @PreDestroy
     public void destory() {
         logger.info("销毁 Dataforward Client Socket");
+        if (channelFuture != null) {
+            channelFuture.channel().close();
+        }
         group.shutdownGracefully();
+
     }
 }
