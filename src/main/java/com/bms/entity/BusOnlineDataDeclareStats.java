@@ -62,12 +62,12 @@ public class BusOnlineDataDeclareStats extends BaseEntity {
 
     public static final int[] TYPES = new int[]{TYPE_GAS, TYPE_DIESELOIL, TYPE_NATURALGAS, TYPE_ELECTRIC};
 
-    /**
-     * 所属申报.
-     */
-    @ManyToOne
-    @JoinColumn(name = "declare_id")
-    private BusOnlineDataDeclare declare;
+//    /**
+//     * 所属申报.
+//     */
+//    @ManyToOne
+//    @JoinColumn(name = "declare_id")
+//    private BusOnlineDataDeclare declare;
 
     /**
      * 所属企业.

@@ -3,6 +3,7 @@ package com.bms.industry.sync.busbasic.api;
 import com.bms.common.util.JSON;
 import com.bms.industry.sync.Http;
 import com.bms.industry.sync.SyncProperties;
+import com.bms.industry.sync.busbasic.view.BusApiResult;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +35,7 @@ public class LoginApi {
         params.put("username", syncProperties.getBus().getUsername());
         params.put("password", syncProperties.getBus().getPassword());
 
-        String result = http.get(url, params);
-        Map<String, Object> json = JSON.parseObject(result, HashMap.class);
-        return json.get("result").toString();
+        BusApiResult result = http.getObject(url, params);
+        return result.getResult().toString();
     }
 }
