@@ -92,6 +92,9 @@
             <#if status??>
                 and b.status = :status
             </#if>
+            <#if ids??>
+                and b.id in :ids
+            </#if>
             order by b.createDate desc
         ]]>
     </bus_terminal_page>

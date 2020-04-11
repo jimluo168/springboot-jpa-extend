@@ -21,6 +21,7 @@ import com.bms.industry.service.BusTerminalService;
 import com.bms.industry.view.BusTerminalExcelModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -84,8 +85,10 @@ public class BusTerminalController {
     @OpLog("查询")
     @RequiresPermissions("bus_terminal_list")
     @GetMapping("/list")
-    public Result<PageList<BusTerminal>> list(PageRequest pageRequest, BusTerminal busTerminal) throws IllegalAccessException {
-        return ok(busTerminalService.page(pageRequest, BeanMapper.toMap(busTerminal)));
+    public Result<PageList<BusTerminal>> list(PageRequest pageRequest, QueryParams queryParams) throws IllegalAccessException {
+        System.out.print("!!!!!!!!!!");
+        System.out.println(queryParams.ids);
+        return ok(busTerminalService.page(pageRequest, BeanMapper.toMap(queryParams)));
     }
 
     @OpLog("详情")
@@ -187,5 +190,11 @@ public class BusTerminalController {
             });
             busTerminalService.saveAll(batchData);
         }
+    }
+
+    @Data
+    public static class QueryParams extends BusTerminal{
+        private List<Long> ids;
+
     }
 }
