@@ -1,12 +1,18 @@
 package com.bms.common.util;
 
 import com.bms.common.config.web.WebMvcConfig;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -21,8 +27,26 @@ public abstract class JSON {
 
     private static ObjectMapper mapper;
 
+    public static Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return new Jackson2ObjectMapperBuilderCustomizer() {
+            @Override
+            public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+                jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
+                jacksonObjectMapperBuilder.failOnUnknownProperties(false);
+                jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+                jacksonObjectMapperBuilder.serializerByType(Long.class,
+                        ToStringSerializer.instance).serializerByType(Long.TYPE, ToStringSerializer.instance);
+            }
+        };
+    }
+
     static {
-        mapper = new ObjectMapper();
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        Jackson2ObjectMapperBuilderCustomizer customizer = JSON.jackson2ObjectMapperBuilderCustomizer();
+        customizer.customize(builder);
+        mapper = builder.createXmlMapper(false).build();
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         mapper.setDateFormat(new SimpleDateFormat(WebMvcConfig.DATE_FMT_UTC));
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);

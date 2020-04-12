@@ -3,6 +3,7 @@ package com.bms.common.config.web;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
 import com.bms.common.config.web.interceptor.PermissionInterceptor;
+import com.bms.common.util.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,17 +87,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     @Order(1)
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        Jackson2ObjectMapperBuilderCustomizer customizer = new Jackson2ObjectMapperBuilderCustomizer() {
-            @Override
-            public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
-                jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
-                jacksonObjectMapperBuilder.failOnUnknownProperties(false);
-                jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
-                jacksonObjectMapperBuilder.serializerByType(Long.class,
-                        ToStringSerializer.instance).serializerByType(Long.TYPE, ToStringSerializer.instance);
-            }
-        };
-        return customizer;
+        return JSON.jackson2ObjectMapperBuilderCustomizer();
     }
 
     @Override
