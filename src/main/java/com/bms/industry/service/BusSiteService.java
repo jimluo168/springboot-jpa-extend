@@ -101,7 +101,7 @@ public class BusSiteService {
     }
 
     @Transactional(readOnly = true)
-    public BusSite findByOId(Long oId) {
+    public BusSite findByOId(Integer oId) {
         return busSiteRepository.findByoId(oId);
     }
 }
