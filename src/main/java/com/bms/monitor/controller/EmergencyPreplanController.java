@@ -36,7 +36,7 @@ public class EmergencyPreplanController {
 
     @ApiOperation("新增")
     @OpLog("新增")
-    @RequiresPermissions("info_release_create")
+    @RequiresPermissions("emergency_preplan_create")
     @PostMapping("")
     public Result<MoEmergencyPreplan> create(@RequestBody MoEmergencyPreplan moEmergencyPreplan) {
         emergencyPreplanService.insert(moEmergencyPreplan);
@@ -45,7 +45,7 @@ public class EmergencyPreplanController {
 
     @ApiOperation("编辑")
     @OpLog("编辑")
-    @RequiresPermissions("info_release_edit")
+    @RequiresPermissions("emergency_preplan_edit")
     @PutMapping("/{id}")
     public Result<MoEmergencyPreplan> edit(@PathVariable Long id, @RequestBody MoEmergencyPreplan moEmergencyPreplan) {
         emergencyPreplanService.updateById(id, moEmergencyPreplan);
@@ -54,7 +54,7 @@ public class EmergencyPreplanController {
 
     @ApiOperation("查询")
     @OpLog("查询")
-    @RequiresPermissions("info_release_list")
+    @RequiresPermissions("emergency_preplan_list")
     @GetMapping("/list")
     public Result<PageList<MoEmergencyPreplan>> list(PageRequest pageRequest, MoEmergencyPreplan queryParams) throws IllegalAccessException {
         return ok(emergencyPreplanService.page(pageRequest, BeanMapper.toMap(queryParams)));
@@ -62,7 +62,7 @@ public class EmergencyPreplanController {
 
     @ApiOperation("详情")
     @OpLog("详情")
-    @RequiresPermissions("info_release_details")
+    @RequiresPermissions("emergency_preplan_details")
     @GetMapping("/{id}")
     public Result<MoEmergencyPreplan> details(@PathVariable Long id) {
         return Result.ok(emergencyPreplanService.findById(id));
@@ -70,7 +70,7 @@ public class EmergencyPreplanController {
 
     @ApiOperation("删除")
     @OpLog("删除")
-    @RequiresPermissions("info_release_delete")
+    @RequiresPermissions("emergency_preplan_delete")
     @DeleteMapping("/{id}")
     public Result<MoEmergencyPreplan> delete(@PathVariable Long id) {
         return ok(emergencyPreplanService.deleteById(id));
