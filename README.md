@@ -5591,6 +5591,7 @@ params:
 @params:
   page:int:页码
   size:int:页码大小
+  name:string:预案名
   rescue_company_name:string:单位
   preplan_type:int:预案类型
   level:int:等级
