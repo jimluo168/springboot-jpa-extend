@@ -110,7 +110,7 @@ public abstract class BusSiteCommon extends BaseEntity {
      * -----------补充旧系统字段 BUS同步接口-----------
      */
     @Column(name = "o_id")
-    private Long oId;
+    private Integer oId;
     @Column(name = "o_route_id")
     private String oRouteId;
     @Column(name = "type")

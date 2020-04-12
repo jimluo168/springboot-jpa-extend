@@ -33,7 +33,7 @@ import java.util.*;
  * @author luojimeng
  * @date 2020/3/12
  */
-public class HibernateDao {
+public class HibernateDao implements IDao {
     private static final Logger logger = LoggerFactory.getLogger(HibernateDao.class);
 
     /**
@@ -67,6 +67,7 @@ public class HibernateDao {
         return (Session) entityManager.getDelegate();
     }
 
+    @Override
     public <T> T getSingle(DaoCmd cmd) {
         Query query = createQuery(cmd);
 
@@ -77,10 +78,12 @@ public class HibernateDao {
         return (T) query.getSingleResult();
     }
 
+    @Override
     public <T> List<T> getList(DaoCmd cmd) {
         return this.getList(cmd, null, null);
     }
 
+    @Override
     public <T> List<T> getList(DaoCmd cmd, Integer startFrom, Integer maxResult) {
         Query query = createQuery(cmd);
 
@@ -99,15 +102,23 @@ public class HibernateDao {
         return query.list();
     }
 
+    @Override
     public long getCount(DaoCmd cmd) {
         Query query = createCountQuery(cmd);
         return new BigInteger(query.getSingleResult().toString()).longValue();
     }
 
+    @Override
     public <T> PageList<T> findAll(PageRequest request, DaoCmd cmd) {
         List<T> list = getList(cmd, request.getOffset(), request.getSize());
         long count = getCount(cmd);
         return new PageList<T>(count, list);
+    }
+
+    @Override
+    public int executeUpdate(DaoCmd cmd) {
+        Query query = createQuery(cmd);
+        return query.executeUpdate();
     }
 
     protected <T> Query createQuery(DaoCmd cmd) {

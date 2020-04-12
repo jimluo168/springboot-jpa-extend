@@ -26,7 +26,7 @@ public class DataForwardDecoder extends ByteToMessageDecoder {
             in.skipBytes(in.readableBytes());
             return;
         }
-        if (remainder != null && remainder.length() > 0) {
+        if (remainder != null && remainder.length() > 0 && !msg.startsWith(DataForwardClient.PACKET_HEAD)) {
             msg = new StringBuilder().append(remainder).append(msg).toString();
         }
         if (msg != null && !msg.endsWith(DataForwardClient.PACKET_END)) {

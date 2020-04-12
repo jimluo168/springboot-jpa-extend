@@ -19,7 +19,7 @@ import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 @Data
 public abstract class AbstractBusApiView2 implements Serializable {
     @JsonProperty(value = "id")
-    private Long oId;
+    private Integer oId;
     /**
      * 删除状态（0=正常，1=删除）(is_delete).
      */
