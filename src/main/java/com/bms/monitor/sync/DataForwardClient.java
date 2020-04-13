@@ -1,15 +1,15 @@
 package com.bms.monitor.sync;
 
+import com.bms.industry.service.BusRouteService;
+import com.bms.industry.service.BusSiteService;
 import com.bms.industry.sync.SyncProperties;
+import com.bms.monitor.service.MoBusVehicleGpsDataService;
+import com.bms.monitor.service.MoOffSiteDataService;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
-import io.netty.handler.codec.string.StringDecoder;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +38,14 @@ public class DataForwardClient {
     public static final String PACKET_END = "##";
 
     private final SyncProperties syncProperties;
+    private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
+    private final MoOffSiteDataService moOffSiteDataService;
+    private final DataForwardService dataForwardService;
 
     private static final EventLoopGroup group = new NioEventLoopGroup();
     private ChannelFuture channelFuture;
 
-//    @PostConstruct
+    //    @PostConstruct
     public void start() {
         String host = syncProperties.getDataForward().getHost();
         int port = syncProperties.getDataForward().getPort();
@@ -61,7 +64,7 @@ public class DataForwardClient {
                             p.addLast(
                                     new DataForwardEncoder(),
                                     new DataForwardDecoder(),
-                                    new DataForwardClientHandler(syncProperties));
+                                    new DataForwardClientHandler(syncProperties, moBusVehicleGpsDataService, moOffSiteDataService, dataForwardService));
                         }
                     });
 
@@ -92,6 +95,8 @@ public class DataForwardClient {
             channelFuture.channel().close();
         }
         group.shutdownGracefully();
+
+        DataForwardClientHandler.THREAD_POOL_EXECUTOR.shutdown();
 
     }
 }

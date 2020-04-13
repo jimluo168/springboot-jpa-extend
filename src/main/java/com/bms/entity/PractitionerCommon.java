@@ -127,7 +127,7 @@ public abstract class PractitionerCommon extends BaseEntity {
      * -----------补充旧系统字段 BUS同步接口-----------
      */
     @Column(name = "o_id")
-    private Integer oId;
+    private String oId;
     @Column(name = "o_org_id")
     private String oOrgId;
     @Column(name = "o_team_id")

@@ -272,4 +272,34 @@
             order by e.createDate desc
         ]]>
     </mo_emergency_preplan_name_page>
+
+    <mo_data_forward_find_bus_route_site_by_routeid_and_siteindex type="sql" desc="根据线路编码和站点顺序查找线路名称和站点名称">
+        <![CDATA[
+            select s.name as site_name,r.name as route_name from bus_sites s
+            left join bus_routes r on r.id = s.route_id
+            where s.`index`= :siteIndex
+            and s.o_route_id = :routeOId
+        ]]>
+    </mo_data_forward_find_bus_route_site_by_routeid_and_siteindex>
+
+    <mo_data_forward_update_bus_vehicle_by_code type="sql" desc="根据车辆编号更新车辆信息">
+        <![CDATA[
+            update bus_vehicles
+                set is_move = :move,
+                is_online=:online,
+                current_site_index=:currentSiteIndex,
+                <#if currentSiteName?? && currentSiteName!=''>
+                    current_site_name= :currentSiteName,
+                </#if>
+                speed=:speed,
+                <#if currentSiteName?? && currentSiteName!=''>
+                    next_site_name= :nextSiteName,
+                </#if>
+                <#if practOId?? && practOId!=''>
+                    pract_o_id = :practOId,
+                </#if>
+                next_site_index=:nextSiteIndex
+            where code= :code
+        ]]>
+    </mo_data_forward_update_bus_vehicle_by_code>
 </mapper>

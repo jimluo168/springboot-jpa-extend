@@ -74,8 +74,8 @@ public class HibernateDao implements IDao {
         if (cmd.getResultClass() != null) {
             query.setResultTransformer(getTransformerAdapter(cmd.getResultClass()));
         }
-
-        return (T) query.getSingleResult();
+        
+        return (T) query.uniqueResult();
     }
 
     @Override
@@ -110,8 +110,11 @@ public class HibernateDao implements IDao {
 
     @Override
     public <T> PageList<T> findAll(PageRequest request, DaoCmd cmd) {
-        List<T> list = getList(cmd, request.getOffset(), request.getSize());
         long count = getCount(cmd);
+        if (count == 0) {
+            return new PageList<T>(count, Collections.emptyList());
+        }
+        List<T> list = getList(cmd, request.getOffset(), request.getSize());
         return new PageList<T>(count, list);
     }
 

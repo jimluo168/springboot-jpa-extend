@@ -190,6 +190,14 @@ public interface Constant {
      * 应急预案管理
      */
     String MAPPER_MO_EMERGENCY_PREPLAN_NAME_PAGE = "mo_emergency_preplan_name_page";
+    /**
+     * 根据线路编码和站点顺序查找线路名称和站点名称.
+     */
+    String MAPPER_MO_DATA_FORWARD_FIND_BUS_ROUTE_SITE_BY_ROUTEID_AND_SITEINDEX = "mo_data_forward_find_bus_route_site_by_routeid_and_siteindex";
+    /**
+     * 根据车辆编号更新车辆信息.
+     */
+    String MAPPER_MO_DATA_FORWARD_UPDATE_BUS_VEHICLE_BY_CODE = "mo_data_forward_update_bus_vehicle_by_code";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 

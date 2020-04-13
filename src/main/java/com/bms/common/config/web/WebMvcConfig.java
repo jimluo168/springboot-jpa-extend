@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -30,8 +31,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,7 +80,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
         ObjectMapper mapper = builder.createXmlMapper(false).build();
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        mapper.setDateFormat(new SimpleDateFormat(DATE_FMT_UTC));
+        mapper.setDateFormat(new StdDateFormat());
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
