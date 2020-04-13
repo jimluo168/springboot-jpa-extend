@@ -13,6 +13,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ import javax.annotation.PreDestroy;
  */
 @Component
 @RequiredArgsConstructor
+@ConditionalOnExpression("${sync.data-forward.enabled:true}")
 public class DataForwardClient {
     private static final Logger logger = LoggerFactory.getLogger(DataForwardClient.class);
     /**
@@ -45,7 +47,7 @@ public class DataForwardClient {
     private static final EventLoopGroup group = new NioEventLoopGroup();
     private ChannelFuture channelFuture;
 
-    //    @PostConstruct
+    @PostConstruct
     public void start() {
         String host = syncProperties.getDataForward().getHost();
         int port = syncProperties.getDataForward().getPort();

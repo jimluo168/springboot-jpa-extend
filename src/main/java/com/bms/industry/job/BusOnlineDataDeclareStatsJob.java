@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -216,7 +217,7 @@ public class BusOnlineDataDeclareStatsJob {
                 stats.setTime(end);
 
                 BusRoute route = new BusRoute();
-                route.setId(item.getId());
+                route.setId(item.getRouteId());
                 stats.setBusRoute(route);
 
                 Organization organization = new Organization();

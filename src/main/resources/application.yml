@@ -77,11 +77,12 @@ oss:
 
 swagger:
   # true:启用swagger false关闭 线上系统需要关闭
-  enable: true
+  enabled: true
 
 sync:
   # 贵阳公交数据同步接口
   bus:
+    enabled: false
     base: http://118.190.63.181:8888
     # 每天凌晨2点同步
     cron: 0 0 18 * * ?
@@ -89,6 +90,7 @@ sync:
     password: 123
   # 数据转发
   data-forward:
+    enabled: false
     host: 222.85.139.247
     port: 10006
     access-key: test1
