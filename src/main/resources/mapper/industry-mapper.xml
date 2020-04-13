@@ -29,7 +29,7 @@
 
     <vehicle_page type="hql" desc="公交车辆管理-分页查询">
         <![CDATA[
-            from Vehicle o
+            from BusVehicle o
             where o.deleted = 0
             <#if licNo?? && licNo!=''>
                 and o.licNo like '%'||:licNo||'%'
