@@ -19,6 +19,7 @@ import com.bms.entity.BusTerminal;
 import com.bms.entity.Practitioner;
 import com.bms.industry.service.BusTerminalService;
 import com.bms.industry.view.BusTerminalExcelModel;
+import com.bms.industry.view.BusTerminalMenu;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
@@ -86,8 +87,6 @@ public class BusTerminalController {
     @RequiresPermissions("bus_terminal_list")
     @GetMapping("/list")
     public Result<PageList<BusTerminal>> list(PageRequest pageRequest, QueryParams queryParams) throws IllegalAccessException {
-        System.out.print("!!!!!!!!!!");
-        System.out.println(queryParams.ids);
         return ok(busTerminalService.page(pageRequest, BeanMapper.toMap(queryParams)));
     }
 
@@ -155,6 +154,14 @@ public class BusTerminalController {
             logger.error("import data error", e);
             throw ErrorCodes.build(ErrorCodes.IMPORT_DATA_ERR);
         }
+    }
+
+
+    @OpLog("左侧菜单")
+    @RequiresPermissions("bus_terminal_list")
+    @GetMapping("/menus/all")
+    public Result<List<BusTerminalMenu>> menuAll() throws IllegalAccessException {
+        return ok(busTerminalService.busTerminalMenu());
     }
 
     @RequiredArgsConstructor

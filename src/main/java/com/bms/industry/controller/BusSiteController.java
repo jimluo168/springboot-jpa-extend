@@ -118,7 +118,6 @@ public class BusSiteController {
             pageList.getList().stream().forEach(o -> {
                 BusSiteExcelModel bs = new BusSiteExcelModel();
                 BeanUtils.copyProperties(o, bs);
-                System.out.println(o.getId().toString());
                 data.add(bs);
             });
             ResponseUtils.setHeader(response, DateFormatUtils.format(new Date(), Constant.DATE_FORMAT_YYYYMMDD));

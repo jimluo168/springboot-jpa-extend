@@ -11,18 +11,23 @@ import com.bms.common.util.JpaUtils;
 import com.bms.entity.BusRoute;
 import com.bms.entity.BusTerminal;
 import com.bms.entity.BusTerminalAudit;
+import com.bms.entity.Organization;
 import com.bms.industry.dao.BusTerminalAuditRepository;
 import com.bms.industry.dao.BusTerminalRepository;
+import com.bms.industry.view.BusTerminalMenu;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.bms.common.domain.BaseEntity.DELETE_FALSE;
 import static com.bms.common.domain.BaseEntity.DELETE_TRUE;
+import static com.bms.industry.view.BusTerminalMenu.MENU_TYPE_ORG;
 
 /**
  * 场站 service
@@ -109,5 +114,37 @@ public class BusTerminalService {
             return busTerminalRepository.countByCodeAndDeleted(code, DELETE_FALSE) > 0;
         }
         return busTerminalRepository.countByCodeAndIdNotAndDeleted(code, id, DELETE_FALSE) > 0;
+    }
+
+    @Transactional(readOnly = true)
+    public List<BusTerminalMenu> busTerminalMenu() {
+        List<BusTerminalMenu> busTerminalMenus = hibernateDao.getList(new DaoCmd(Constant.MAPPER_BUS_TERMINAL_MENU_ORG, null, BusTerminalMenu.class));
+        busTerminalMenus.forEach(b -> b.setType(MENU_TYPE_ORG));
+        List<BusTerminalMenu> terminalMenus = hibernateDao.getList(new DaoCmd(Constant.MAPPER_BUS_TERMINAL_MENU_TERMINAL, null, BusTerminalMenu.class));
+        terminalMenus.forEach(t -> t.setType(BusTerminalMenu.MENU_TYPE_TERMINAL));
+
+        // 第一级
+        List<BusTerminalMenu> topMenus = busTerminalMenus.stream().filter(b -> b.getParentId() == null).collect(Collectors.toList());
+
+        // 第二级
+        for (BusTerminalMenu top : topMenus) {
+            List<BusTerminalMenu> menus2nd = busTerminalMenus.stream().filter(b -> b.getParentId() != null && b.getParentId().longValue() == top.getId().longValue()).collect(Collectors.toList());
+            // 第三级
+            for (BusTerminalMenu m2 : menus2nd) {
+                List<BusTerminalMenu> menus3rd = busTerminalMenus.stream().filter(b -> b.getParentId() != null && b.getParentId().longValue() == m2.getId().longValue()).collect(Collectors.toList());
+                if (menus3rd.size() < 1) {
+                    menus3rd = terminalMenus.stream().filter(t -> t.getOrgId() != null && t.getOrgId().longValue() == m2.getId().longValue()).collect(Collectors.toList());
+                } else {
+                    // 第四级
+                    for (BusTerminalMenu m3 : menus3rd) {
+                        List<BusTerminalMenu> menus4th = terminalMenus.stream().filter(t -> t.getOrgId() != null && t.getOrgId().longValue() == m3.getId().longValue()).collect(Collectors.toList());
+                        m3.setChildren(menus4th);
+                    }
+                }
+                m2.setChildren(menus3rd);
+            }
+            top.setChildren(menus2nd);
+        }
+        return topMenus;
     }
 }
