@@ -248,6 +248,9 @@
         <![CDATA[
             from MoEmergencyPreplan e
             where deleted = 0
+              <#if name?? && name!=''>
+                and e.name like '%'||:name||'%'
+            </#if>
             <#if rescueCompanyName?? && rescueCompanyName!=''>
                 and e.rescueCompanyName like '%'||:rescueCompanyName||'%'
             </#if>
