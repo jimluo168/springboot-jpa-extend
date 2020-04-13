@@ -112,6 +112,11 @@ public abstract class BusVehicleCommon extends BaseEntity {
     @JoinColumn(name = "route_id")
     private BusRoute busRoute;
     /**
+     * 线路名称.
+     */
+    @Column(name = "route_name")
+    private String routeName;
+    /**
      * 座位数量.
      */
     @Column(name = "seat_num")

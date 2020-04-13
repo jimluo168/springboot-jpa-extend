@@ -68,6 +68,7 @@ public class BusApi extends AbstractApi {
                     BusRoute route = busRouteService.findByOId(o.getORouteId());
                     if (route != null) {
                         vehicle.setBusRoute(route);
+                        vehicle.setRouteName(route.getName());
                         vehicle.setOrganization(route.getOrganization());
                         vehicle.setCarTeam(route.getCarTeam());
                     }
@@ -82,6 +83,7 @@ public class BusApi extends AbstractApi {
                     BusRoute route = busRouteService.findByOId(o.getORouteId());
                     if (route != null) {
                         vehicle.setBusRoute(route);
+                        vehicle.setRouteName(route.getName());
                         vehicle.setOrganization(route.getOrganization());
                         vehicle.setCarTeam(route.getCarTeam());
                     }
