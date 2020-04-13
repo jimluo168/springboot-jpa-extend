@@ -41,12 +41,29 @@ public class SyncProperties {
          * 密码.
          */
         private String password;
+        /**
+         * 是否启用该选项 默认禁用.
+         */
+        private boolean enabled = false;
     }
 
     @Data
     public static class DataForward {
+        /**
+         * 主机.
+         */
         private String host;
+        /**
+         * 端口.
+         */
         private Integer port;
+        /**
+         * 授权码.
+         */
         private String accessKey;
+        /**
+         * 是否启用该选项 默认禁用.
+         */
+        private boolean enabled = false;
     }
 }

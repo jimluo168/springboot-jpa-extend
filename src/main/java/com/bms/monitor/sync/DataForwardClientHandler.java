@@ -1,6 +1,7 @@
 package com.bms.monitor.sync;
 
 import com.bms.Constant;
+import com.bms.common.util.GPSUtils;
 import com.bms.entity.MoBusVehicleGpsData;
 import com.bms.entity.MoOffSiteData;
 import com.bms.industry.sync.SyncProperties;
@@ -130,8 +131,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         String gpsCreateDate = data[i++] + DATE_FORMAT_BLANK + data[i++];
         gps.setGpsCreateDate(parseDate(gpsCreateDate));
 
-        gps.setLatitude(new BigDecimal(data[i++]));
-        gps.setLongitude(new BigDecimal(data[i++]));
+        gps.setLatitude(new BigDecimal(GPSUtils.fm2du(data[i++])));
+        gps.setLongitude(new BigDecimal(GPSUtils.fm2du(data[i++])));
         gps.setSpeed(parseFloat(data[i++], 0.0f));
         gps.setGpsAngle(parseFloat(data[i++], 0.0f));
         gps.setHeight(parseFloat(data[i++], 0.0f));

@@ -50,7 +50,7 @@ public class PassengerApi extends AbstractApi {
         String url = baseUrl + "/bus/corePassenger/getAll";
 
         BusApiResult result = http.getObject(url, null);
-        logger.debug("coreBus getAll:{}", result);
+        logger.debug("coreBus getAll:{}", result.getResult());
         if (result.getResult() == null) {
             logger.info("获取车辆接口结果为空");
             return;
@@ -62,6 +62,7 @@ public class PassengerApi extends AbstractApi {
             return;
         }
         list.stream().forEach(o -> {
+            o.setOId(zerofill8(o.getOId()));
             Practitioner pract = practitionerService.findByOId(o.getOId());
             if (pract != null) {
                 BeanUtils.copyProperties(o, pract);
@@ -114,6 +115,16 @@ public class PassengerApi extends AbstractApi {
                 practitionerService.insert(pract);
             }
         });
+    }
+
+    /**
+     * 转换为char(8)补0.
+     *
+     * @param oId
+     * @return
+     */
+    private String zerofill8(String oId) {
+        return String.format("%08d", Integer.parseInt(oId));
     }
 
     @Override
