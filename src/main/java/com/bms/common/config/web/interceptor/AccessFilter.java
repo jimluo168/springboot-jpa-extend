@@ -39,16 +39,18 @@ public class AccessFilter implements Filter {
         String token = httpReq.getHeader(AuthenticationInterceptor.HTTP_HEAD_AUTH);
         String xUserAgent = httpReq.getHeader("X-User-Agent");
         try {
+            String contentType = request.getContentType();
+            boolean iswrapper = contentType != null && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)
+                    && ("POST".equals(httpReq.getMethod()) || "PUT".equals(httpReq.getMethod()));
+            if (iswrapper) {
+                httpReq = new HttpRequestBodyWrapper(httpReq);
+            }
             if (logger.isDebugEnabled()) {
-                String contentType = request.getContentType();
-                if (contentType != null && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)
-                        && ("POST".equalsIgnoreCase(httpReq.getMethod()) || "PUT".equalsIgnoreCase(httpReq.getMethod()))) {
-                    httpReq = new HttpRequestBodyWrapper(httpReq);
-                    String body = IOUtils.toString(httpReq.getInputStream(), StandardCharsets.UTF_8);
-                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", IPUtils.getClinetIpByRequest(httpReq), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);
-                } else {
-                    logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", IPUtils.getClinetIpByRequest(httpReq), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, "");
+                String body = "";
+                if (iswrapper) {
+                    body = IOUtils.toString(httpReq.getInputStream(), StandardCharsets.UTF_8);
                 }
+                logger.debug("<--- request:{} {} {}?{} token:{} X-User-Agent:{} body:{}", IPUtils.getClinetIpByRequest(httpReq), httpReq.getMethod(), httpReq.getRequestURI(), httpReq.getQueryString(), token, xUserAgent, body);
             }
             chain.doFilter(httpReq, response);
         } catch (Exception ex) {

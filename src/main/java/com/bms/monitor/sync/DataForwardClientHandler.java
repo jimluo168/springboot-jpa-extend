@@ -11,7 +11,6 @@ import com.bms.monitor.service.MoOffSiteDataService;
 import io.netty.channel.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +39,9 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     public static final String CMD_C7 = "C7";
     public static final String CMD_C8 = "C8";
     public static final String CMD_DATA_SPLIT_REGEX = "\\|";
-    public static final String DATE_FORMAT_BLANK = " ";
+    public static final String DATE_FORMAT_SPACE = " ";
 
-    public static final ExecutorService THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(20, 20000,
+    public static final ExecutorService THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(100, 20000,
             0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<Runnable>(10000000));
 
@@ -128,7 +127,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         gps.setRouteOId(routeOId);
         gps.setVehCode(vehCode);
 
-        String gpsCreateDate = data[i++] + DATE_FORMAT_BLANK + data[i++];
+        String gpsCreateDate = data[i++] + DATE_FORMAT_SPACE + data[i++];
         gps.setGpsCreateDate(parseDate(gpsCreateDate));
 
         gps.setLatitude(new BigDecimal(GPSUtils.fm2du(data[i++])));
@@ -144,7 +143,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         gps.setInsideNumber(parseInt(data[i++], 0));
         gps.setStart(parseInt(data[i++], 0));
 
-        String schDate = data[i++] + DATE_FORMAT_BLANK + data[i++];
+        String schDate = data[i++] + DATE_FORMAT_SPACE + data[i++];
         gps.setSchDate(parseDate(schDate));
 
         gps.setUpDown(parseInt(data[i++], 2));
@@ -205,7 +204,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     }
 
     private static Date parseDate(String s) {
-        if (StringUtils.equals(s, DATE_FORMAT_BLANK)) {
+        if (StringUtils.equals(s, DATE_FORMAT_SPACE)) {
             return null;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constant.DATE_FORMAT_YYYY_MM_DD_HH_mm_ss);

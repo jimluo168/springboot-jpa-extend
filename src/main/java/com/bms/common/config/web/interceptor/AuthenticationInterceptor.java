@@ -93,8 +93,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             String requestMethod = request.getMethod();
             String params = "";
             String contentType = request.getContentType();
-            if (contentType != null && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)
-                    && ("POST".equalsIgnoreCase(requestMethod) || "PUT".equalsIgnoreCase(requestMethod))) {
+            boolean iswrapper = contentType != null && contentType.toLowerCase().contains(MediaType.APPLICATION_JSON_VALUE)
+                    && ("POST".equals(requestMethod) || "PUT".equals(requestMethod));
+            if (iswrapper) {
                 params = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
             } else {
                 params = request.getQueryString();
