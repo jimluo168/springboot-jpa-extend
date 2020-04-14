@@ -48,8 +48,12 @@ public class DataForwardJob {
                 MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
                 cache.setVehCode(key.replace(DataForwardClientHandler.CACHE_KEYS.substring(0, DataForwardClientHandler.CACHE_KEYS.length() - 1), ""));
                 // 转换经纬度
-                cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
-                cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
+                if (StringUtils.isNotBlank(cache.getLatitudeFen())) {
+                    cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
+                }
+                if (StringUtils.isNotBlank(cache.getLongitudeFen())) {
+                    cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
+                }
 
                 if (cache.getNextSiteIndex() > 0) {
                     cache.setCurrentSiteIndex(cache.getNextSiteIndex() - 1);

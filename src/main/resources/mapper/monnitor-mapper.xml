@@ -302,8 +302,12 @@
                     pract_o_id = :practOId,
                 </#if>
                 up_down = :upDown,
-                current_latitude = :latitude,
-                current_longitude = :longitude,
+                <#if latitude?? && latitude!=''>
+                    current_latitude = :latitude,
+                </#if>
+                <#if longitude?? && longitude!=''>
+                    current_longitude = :longitude,
+                </#if>
                 next_site_index = :nextSiteIndex
             where code= :vehCode
         ]]>
