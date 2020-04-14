@@ -10,7 +10,6 @@ import com.bms.industry.sync.SyncProperties;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import com.bms.monitor.service.MoBusVehicleGpsDataService;
 import com.bms.monitor.service.MoOffSiteDataService;
-import com.bms.monitor.view.MoDataForwardCache;
 import io.netty.channel.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -135,34 +134,9 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
             cache.setPractOId(practOId);
             cache.setSpeed(speed);
             cache.setUpDown(upDown);
+            cache.setRouteOId(routeOId);
 
             redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
-
-
-//            if (StringUtils.isNotBlank(routeOId)) {
-//                BusRouteNameAndSiteNameView view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex);
-//                if (view != null) {
-//                    nextSiteName = view.getSiteName();
-//                }
-//                if (nextSiteIndex > 0) {
-//                    currentSiteIndex = nextSiteIndex - 1;
-//                    view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex - 1);
-//                    if (view != null) {
-//                        currentSiteName = view.getSiteName();
-//                    }
-//                } else {
-//                    currentSiteName = nextSiteName;
-//                }
-//            } else {
-//                if (nextSiteIndex > 0) {
-//                    currentSiteIndex = nextSiteIndex - 1;
-//                }
-//            }
-//
-//            dataForwardService.updateBusVehicleByCode(vehCode, isMove, isOnline,
-//                    currentSiteIndex, currentSiteName, speed,
-//                    nextSiteIndex, nextSiteName, practOId,
-//                    latitude, longitude, upDown);
         }
 
         /**
