@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class DataForwardService {
     public int updateBusVehicleByCode(String code, Integer isMove, Integer isOnline,
                                       Integer currentSiteIndex, String currentSiteName, Float speed,
                                       Integer nextSiteIndex, String nextSiteName,
-                                      String practOId) {
+                                      String practOId, BigDecimal latitude, BigDecimal longitude) {
         Map<String, Object> params = new HashMap<>();
         params.put("move", isMove);
         params.put("online", isOnline);
@@ -58,6 +59,8 @@ public class DataForwardService {
         params.put("nextSiteIndex", nextSiteIndex);
         params.put("nextSiteName", nextSiteName);
         params.put("practOId", practOId);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
         params.put("code", code);
         return hibernateDao.executeUpdate(new DaoCmd(Constant.MAPPER_MO_DATA_FORWARD_UPDATE_BUS_VEHICLE_BY_CODE, params));
     }

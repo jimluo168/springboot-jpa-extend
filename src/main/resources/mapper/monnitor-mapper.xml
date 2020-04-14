@@ -289,19 +289,21 @@
         <![CDATA[
             update bus_vehicles
                 set is_move = :move,
-                is_online=:online,
-                current_site_index=:currentSiteIndex,
+                is_online = :online,
+                current_site_index = :currentSiteIndex,
                 <#if currentSiteName?? && currentSiteName!=''>
-                    current_site_name= :currentSiteName,
+                    current_site_name = :currentSiteName,
                 </#if>
                 speed=:speed,
                 <#if currentSiteName?? && currentSiteName!=''>
-                    next_site_name= :nextSiteName,
+                    next_site_name = :nextSiteName,
                 </#if>
                 <#if practOId?? && practOId!=''>
                     pract_o_id = :practOId,
                 </#if>
-                next_site_index=:nextSiteIndex
+                current_latitude = :latitude,
+                current_longitude = :longitude,
+                next_site_index = :nextSiteIndex
             where code= :code
         ]]>
     </mo_data_forward_update_bus_vehicle_by_code>

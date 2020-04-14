@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -186,4 +187,25 @@ public abstract class BusVehicleCommon extends BaseEntity {
     private String currentLineid;
     @Column(name = "frame_number")
     private String frameNumber;
+    @Column(name = "is_move")
+    private Integer move;
+    @Column(name = "pract_o_id")
+    private String practOId;
+    @Column(name = "is_online")
+    private Integer online;
+    @Column(name = "current_site_index")
+    private Integer currentSiteIndex;
+    @Column(name = "current_site_name")
+    private String currentSiteName;
+    @Column(name = "speed")
+    private Float speed;
+    @Column(name = "next_site_index")
+    private Integer nextSiteIndex;
+    @Column(name = "next_site_name")
+    private String nextSiteName;
+    @Column(name = "current_latitude")
+    private BigDecimal currentLatitude;
+    @Column(name = "current_longitude")
+    private BigDecimal currentLongitude;
+
 }

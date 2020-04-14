@@ -41,9 +41,9 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     public static final String CMD_DATA_SPLIT_REGEX = "\\|";
     public static final String DATE_FORMAT_SPACE = " ";
 
-    public static final ExecutorService THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(100, 20000,
+    public static final ExecutorService THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(1000, 200000,
             0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(10000000));
+            new LinkedBlockingQueue<Runnable>(20000000));
 
     private final SyncProperties syncProperties;
     private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
@@ -83,13 +83,23 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         int i = 2;
         String routeOId = data[i++];
         String vehCode = data[i++];
+        // 是否运行 0:静止 1:运动
+        Integer isMove = parseInt(data[11], 0);
+        Integer isOnline = parseInt(data[23], 0);
+        Float speed = parseFloat(data[8], 0.0f);
+        BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(data[6]));
+        BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(data[7]));
+
         if (StringUtils.isNotBlank(vehCode)) {
+            /**
+             * 更新车辆信息.
+             */
             Integer nextSiteIndex = parseInt(data[12], 0);
             String nextSiteName = StringUtils.EMPTY;
             Integer currentSiteIndex = 0;
             String currentSiteName = StringUtils.EMPTY;
-            Float speed = parseFloat(data[8], 0.0f);
             String practOId = data[22];
+
 
             if (StringUtils.isNotBlank(routeOId)) {
                 BusRouteNameAndSiteNameView view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex);
@@ -111,15 +121,20 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
                 }
             }
 
-            dataForwardService.updateBusVehicleByCode(vehCode, parseInt(data[11], 0), parseInt(data[23], 0),
+            dataForwardService.updateBusVehicleByCode(vehCode, isMove, isOnline,
                     currentSiteIndex, currentSiteName, speed,
-                    nextSiteIndex, nextSiteName, practOId);
+                    nextSiteIndex, nextSiteName, practOId,
+                    latitude, longitude);
         }
 
         /**
          * 当线路为空时说明车辆停止在总站 无需处理.
          */
         if (StringUtils.isBlank(routeOId)) {
+            return;
+        }
+        if (speed < 1.0f) {
+            // 车辆为静止的时候不用保存.
             return;
         }
 
@@ -130,12 +145,16 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         String gpsCreateDate = data[i++] + DATE_FORMAT_SPACE + data[i++];
         gps.setGpsCreateDate(parseDate(gpsCreateDate));
 
-        gps.setLatitude(new BigDecimal(GPSUtils.fm2du(data[i++])));
-        gps.setLongitude(new BigDecimal(GPSUtils.fm2du(data[i++])));
-        gps.setSpeed(parseFloat(data[i++], 0.0f));
+        gps.setLatitude(latitude); //new BigDecimal(GPSUtils.fm2du(data[i++])));
+        gps.setLongitude(longitude); //new BigDecimal(GPSUtils.fm2du(data[i++])));
+        i++;
+        i++;
+        gps.setSpeed(speed); //parseFloat(data[i++], 0.0f));
+        i++;
         gps.setGpsAngle(parseFloat(data[i++], 0.0f));
         gps.setHeight(parseFloat(data[i++], 0.0f));
-        gps.setMove(parseInt(data[i++], 0));
+        gps.setMove(isMove); //parseInt(data[i++], 0));
+        i++;
         gps.setNextSiteIndex(parseInt(data[i++], 0));
         gps.setEngineTemperature(parseFloat(data[i++], 0.0f));
         gps.setCarriageTemperature(parseFloat(data[i++], 0.0f));
@@ -182,9 +201,11 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         MoOffSiteData offsite = new MoOffSiteData();
         offsite.setRouteOId(routeOId);
         offsite.setVehCode(vehCode);
-        String arrivalDate = data[i++] + " " + data[i++];
+
+        String arrivalDate = data[i++] + DATE_FORMAT_SPACE + data[i++];
         offsite.setArrivalDate(parseDate(arrivalDate));
-        String offsiteDate = data[i++] + " " + data[i++];
+
+        String offsiteDate = data[i++] + DATE_FORMAT_SPACE + data[i++];
         offsite.setOffsiteDate(parseDate(offsiteDate));
         offsite.setMove(Integer.parseInt(data[i++]));
         offsite.setSiteIndex(Integer.parseInt(data[i++]));
@@ -209,7 +230,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constant.DATE_FORMAT_YYYY_MM_DD_HH_mm_ss);
         LocalDateTime localDateTime = LocalDateTime.parse(s, formatter);
-        Instant instant = localDateTime.atZone(ZoneId.of("GMT+8")).toInstant();
+        Instant instant = localDateTime.atZone(ZoneId.of(Constant.TIME_ZONE_GMT8)).toInstant();
         return Date.from(instant);
     }
 
