@@ -11,12 +11,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
-      min-idle: 5
-      max-active: 20
+      min-idle: 10
+      max-active: 200
       max-wait: 60000
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
-      validation-query: SELECT 1 FROM DUAL
+      validation-query: SELECT 1
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
@@ -26,6 +26,7 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       use-global-data-source-stat: true
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+      async-init: true
   jpa:
     hibernate:
       ddl-auto: none
@@ -90,7 +91,7 @@ sync:
     password: 123
   # 数据转发
   data-forward:
-    enabled: false
+    enabled: true
     host: 222.85.139.247
     port: 10006
     access-key: test1

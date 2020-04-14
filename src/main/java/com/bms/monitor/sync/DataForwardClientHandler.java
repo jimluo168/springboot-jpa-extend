@@ -1,13 +1,16 @@
 package com.bms.monitor.sync;
 
 import com.bms.Constant;
+import com.bms.common.config.redis.RedisClient;
 import com.bms.common.util.GPSUtils;
+import com.bms.common.util.JSON;
 import com.bms.entity.MoBusVehicleGpsData;
 import com.bms.entity.MoOffSiteData;
 import com.bms.industry.sync.SyncProperties;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import com.bms.monitor.service.MoBusVehicleGpsDataService;
 import com.bms.monitor.service.MoOffSiteDataService;
+import com.bms.monitor.view.MoDataForwardCache;
 import io.netty.channel.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -20,10 +23,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 客户端消息处理类.
@@ -35,30 +35,46 @@ import java.util.concurrent.TimeUnit;
 public class DataForwardClientHandler extends SimpleChannelInboundHandler<String> {
     private static final Logger logger = LoggerFactory.getLogger(DataForwardClientHandler.class);
 
+    /**
+     * 命令的定义(C2 C7 C8).
+     * C2:定位数据.
+     * C7:离开站点数据.
+     * C8:到达站点数据.
+     */
     public static final String CMD_C2 = "C2";
     public static final String CMD_C7 = "C7";
     public static final String CMD_C8 = "C8";
+
     public static final String CMD_DATA_SPLIT_REGEX = "\\|";
     public static final String DATE_FORMAT_SPACE = " ";
+    /**
+     * 缓存定位信息 %s:车辆编号.
+     */
+    public static final String CACHE_KEYS = "cache:vehicle:*";
+    public static final String CACHE_KEY = "cache:vehicle:%s";
+    public static final int CACHE_KEY_EXP_SECONDS = 24 * 60 * 60;
 
-    public static final ExecutorService THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(1000, 200000,
-            0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(20000000));
+    /**
+     * 线程池定义 处理转发过来的数据.
+     */
+    public static final ThreadPoolExecutor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(400, 400 * 2,
+            10L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(400 * 2 * 10),
+            Executors.defaultThreadFactory(), new ThreadPoolExecutor.DiscardOldestPolicy()/*new ThreadPoolExecutor.AbortPolicy()*/);
 
     private final SyncProperties syncProperties;
     private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
     private final MoOffSiteDataService moOffSiteDataService;
     private final DataForwardService dataForwardService;
+    private final RedisClient redisClient;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String message) throws Exception {
         if (logger.isDebugEnabled()) {
             logger.debug("数据转发接收到消息:{}", message);
         }
-
-        THREAD_POOL_EXECUTOR.execute(() -> {
-            String[] cmdArr = message.split(DataForwardClient.PACKET_END);
-            try {
+        try {
+            THREAD_POOL_EXECUTOR.execute(() -> {
+                String[] cmdArr = message.split(DataForwardClient.PACKET_END);
                 for (String s : cmdArr) {
                     String[] dataArr = s.split(CMD_DATA_SPLIT_REGEX, -1);
                     switch (dataArr[1]) {
@@ -73,10 +89,14 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
                             break;
                     }
                 }
-            } catch (Exception e) {
-                logger.error("parse cmd data error, cmddata:" + message, e);
-            }
-        });
+
+            });
+        } catch (Exception e) {
+            logger.error("execute processing data forwarding thread error,threadPool completed task count:" + THREAD_POOL_EXECUTOR.getCompletedTaskCount() +
+                    " active count:" + THREAD_POOL_EXECUTOR.getActiveCount() +
+                    " queue size:" + THREAD_POOL_EXECUTOR.getQueue().size() +
+                    " cmddata:" + message, e);
+        }
     }
 
     private void cmdC2(String[] data) {
@@ -100,32 +120,49 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
             Integer currentSiteIndex = 0;
             String currentSiteName = StringUtils.EMPTY;
             String practOId = data[22];
-
-
-            if (StringUtils.isNotBlank(routeOId)) {
-                BusRouteNameAndSiteNameView view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex);
-                if (view != null) {
-                    nextSiteName = view.getSiteName();
-                }
-                if (nextSiteIndex > 0) {
-                    currentSiteIndex = nextSiteIndex - 1;
-                    view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex - 1);
-                    if (view != null) {
-                        currentSiteName = view.getSiteName();
-                    }
-                } else {
-                    currentSiteName = nextSiteName;
-                }
-            } else {
-                if (nextSiteIndex > 0) {
-                    currentSiteIndex = nextSiteIndex - 1;
-                }
+            if (nextSiteIndex > 0) {
+                currentSiteIndex = nextSiteIndex - 1;
             }
+            // 存放缓存
+            String key = "cache:vehicle:" + vehCode;
+            MoDataForwardCache cache = new MoDataForwardCache();
+            cache.setCurrentSiteIndex(currentSiteIndex);
+            cache.setLatitude(latitude);
+            cache.setLongitude(longitude);
+            cache.setMove(isMove);
+            cache.setNextSiteIndex(nextSiteIndex);
+            cache.setOnline(isOnline);
+            cache.setPractOId(practOId);
+            cache.setSpeed(speed);
+            cache.setUpDown(upDown);
 
-            dataForwardService.updateBusVehicleByCode(vehCode, isMove, isOnline,
-                    currentSiteIndex, currentSiteName, speed,
-                    nextSiteIndex, nextSiteName, practOId,
-                    latitude, longitude, upDown);
+            redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+
+
+//            if (StringUtils.isNotBlank(routeOId)) {
+//                BusRouteNameAndSiteNameView view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex);
+//                if (view != null) {
+//                    nextSiteName = view.getSiteName();
+//                }
+//                if (nextSiteIndex > 0) {
+//                    currentSiteIndex = nextSiteIndex - 1;
+//                    view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(routeOId, nextSiteIndex - 1);
+//                    if (view != null) {
+//                        currentSiteName = view.getSiteName();
+//                    }
+//                } else {
+//                    currentSiteName = nextSiteName;
+//                }
+//            } else {
+//                if (nextSiteIndex > 0) {
+//                    currentSiteIndex = nextSiteIndex - 1;
+//                }
+//            }
+//
+//            dataForwardService.updateBusVehicleByCode(vehCode, isMove, isOnline,
+//                    currentSiteIndex, currentSiteName, speed,
+//                    nextSiteIndex, nextSiteName, practOId,
+//                    latitude, longitude, upDown);
         }
 
         /**

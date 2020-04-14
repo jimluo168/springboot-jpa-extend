@@ -1,5 +1,6 @@
 package com.bms.monitor.sync;
 
+import com.bms.common.config.redis.RedisClient;
 import com.bms.industry.service.BusRouteService;
 import com.bms.industry.service.BusSiteService;
 import com.bms.industry.sync.SyncProperties;
@@ -43,8 +44,9 @@ public class DataForwardClient {
     private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
     private final MoOffSiteDataService moOffSiteDataService;
     private final DataForwardService dataForwardService;
+    private final RedisClient redisClient;
 
-    private static final EventLoopGroup group = new NioEventLoopGroup();
+    private EventLoopGroup group;
     private ChannelFuture channelFuture;
 
     @PostConstruct
@@ -52,6 +54,7 @@ public class DataForwardClient {
         String host = syncProperties.getDataForward().getHost();
         int port = syncProperties.getDataForward().getPort();
         try {
+            group = new NioEventLoopGroup();
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
@@ -66,7 +69,8 @@ public class DataForwardClient {
                             p.addLast(
                                     new DataForwardEncoder(),
                                     new DataForwardDecoder(),
-                                    new DataForwardClientHandler(syncProperties, moBusVehicleGpsDataService, moOffSiteDataService, dataForwardService));
+                                    new DataForwardClientHandler(syncProperties, moBusVehicleGpsDataService,
+                                            moOffSiteDataService, dataForwardService, redisClient));
                         }
                     });
 
@@ -96,9 +100,9 @@ public class DataForwardClient {
         if (channelFuture != null) {
             channelFuture.channel().close();
         }
-        group.shutdownGracefully();
-
+        if (group != null) {
+            group.shutdownGracefully();
+        }
         DataForwardClientHandler.THREAD_POOL_EXECUTOR.shutdown();
-
     }
 }
