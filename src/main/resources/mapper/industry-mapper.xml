@@ -464,4 +464,33 @@
         ]]>
     </bus_online_data_declare_stats_job_month_org_route>
 
+    <bus_terminal_menu_org type="sql" desc="场站左侧菜单-企业">
+        <![CDATA[
+            select
+                o.id as id,
+                o.name as name,
+                o.level as level,
+                o.parent_id as parentId
+            from organizations o
+            where o.is_delete = 0
+            <#if parentId??>
+                and o.parent_id = :parentId
+            </#if>
+            order by o.create_date asc
+        ]]>
+    </bus_terminal_menu_org>
+    <bus_terminal_menu_terminal type="sql" desc="场站左侧菜单-场站">
+        <![CDATA[
+            select
+                b.id as id,
+                b.name as name,
+                b.org_id as orgId
+            from bus_terminals b
+            where b.is_delete = 0
+            <#if orgId??>
+                and b.org_id = :orgId
+            </#if>
+            order by b.create_date asc
+        ]]>
+    </bus_terminal_menu_terminal>
 </mapper>

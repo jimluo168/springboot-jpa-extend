@@ -199,6 +199,10 @@ public interface Constant {
      */
     String MAPPER_MO_DATA_FORWARD_UPDATE_BUS_VEHICLE_BY_CODE = "mo_data_forward_update_bus_vehicle_by_code";
 
+    String MAPPER_BUS_TERMINAL_MENU_ORG = "bus_terminal_menu_org";
+
+    String MAPPER_BUS_TERMINAL_MENU_TERMINAL = "bus_terminal_menu_terminal";
+
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 
 
