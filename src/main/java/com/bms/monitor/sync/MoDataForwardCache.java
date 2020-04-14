@@ -26,8 +26,15 @@ public class MoDataForwardCache {
     private Integer nextSiteIndex;
     private Float speed;
     private String practOId;
+    @JsonProperty(access = WRITE_ONLY)
     private BigDecimal latitude;
+    @JsonProperty(access = WRITE_ONLY)
     private BigDecimal longitude;
+    /**
+     * 存放经纬度 单位：分.
+     */
+    private String latitudeFen;
+    private String longitudeFen;
     private Integer upDown;
     /**
      * 当前站点名称.

@@ -102,42 +102,60 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         int i = 2;
         String routeOId = data[i++];
         String vehCode = data[i++];
+
+        String latitudeFen = data[6];
+        String longitudeFen = data[7];
+
+
+        if (StringUtils.isBlank(vehCode)) {
+            return;
+        }
+        /**
+         * 判断 同一辆车位置相同 不处理.
+         */
+        String key = "cache:vehicle:" + vehCode;
+        String json = redisClient.get(key);
+        if (StringUtils.isNotBlank(json)) {
+            MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
+            if (StringUtils.equals(cache.getLatitudeFen(), latitudeFen)
+                    && StringUtils.equals(cache.getLongitudeFen(), longitudeFen)) {
+                return;
+            }
+        }
+
         // 是否运行 0:静止 1:运动
         Integer isMove = parseInt(data[11], 0);
         Integer isOnline = parseInt(data[23], 0);
         Float speed = parseFloat(data[8], 0.0f);
-        BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(data[6]));
-        BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(data[7]));
+
+        BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(latitudeFen));
+        BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(latitudeFen));
         Integer upDown = parseInt(data[20], 2);
 
-        if (StringUtils.isNotBlank(vehCode)) {
-            /**
-             * 更新车辆信息.
-             */
-            Integer nextSiteIndex = parseInt(data[12], 0);
-            String nextSiteName = StringUtils.EMPTY;
-            Integer currentSiteIndex = 0;
-            String currentSiteName = StringUtils.EMPTY;
-            String practOId = data[22];
-            if (nextSiteIndex > 0) {
-                currentSiteIndex = nextSiteIndex - 1;
-            }
-            // 存放缓存
-            String key = "cache:vehicle:" + vehCode;
-            MoDataForwardCache cache = new MoDataForwardCache();
-            cache.setCurrentSiteIndex(currentSiteIndex);
-            cache.setLatitude(latitude);
-            cache.setLongitude(longitude);
-            cache.setMove(isMove);
-            cache.setNextSiteIndex(nextSiteIndex);
-            cache.setOnline(isOnline);
-            cache.setPractOId(practOId);
-            cache.setSpeed(speed);
-            cache.setUpDown(upDown);
-            cache.setRouteOId(routeOId);
-
-            redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+        /**
+         * 将车辆信息存入缓存.
+         */
+        Integer nextSiteIndex = parseInt(data[12], 0);
+        String nextSiteName = StringUtils.EMPTY;
+        Integer currentSiteIndex = 0;
+        String currentSiteName = StringUtils.EMPTY;
+        String practOId = data[22];
+        if (nextSiteIndex > 0) {
+            currentSiteIndex = nextSiteIndex - 1;
         }
+        // 存放缓存
+        MoDataForwardCache cache = new MoDataForwardCache();
+        cache.setCurrentSiteIndex(currentSiteIndex);
+        cache.setLatitudeFen(latitudeFen);
+        cache.setLongitudeFen(longitudeFen);
+        cache.setMove(isMove);
+        cache.setNextSiteIndex(nextSiteIndex);
+        cache.setOnline(isOnline);
+        cache.setPractOId(practOId);
+        cache.setSpeed(speed);
+        cache.setUpDown(upDown);
+        cache.setRouteOId(routeOId);
+        redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
 
         /**
          * 当线路为空时说明车辆停止在总站 无需处理.
@@ -194,7 +212,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     }
 
     private void cmdC7(String[] data) {
-
+        // 处理C7
     }
 
 
