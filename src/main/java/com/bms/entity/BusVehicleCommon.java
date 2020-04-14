@@ -207,5 +207,10 @@ public abstract class BusVehicleCommon extends BaseEntity {
     private BigDecimal currentLatitude;
     @Column(name = "current_longitude")
     private BigDecimal currentLongitude;
+    /**
+     * 运行方向 上下行 0:下行 1:上行.
+     */
+    @Column(name = "up_down")
+    private Integer upDown;
 
 }

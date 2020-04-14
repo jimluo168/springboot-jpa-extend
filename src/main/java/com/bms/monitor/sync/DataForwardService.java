@@ -49,7 +49,7 @@ public class DataForwardService {
     public int updateBusVehicleByCode(String code, Integer isMove, Integer isOnline,
                                       Integer currentSiteIndex, String currentSiteName, Float speed,
                                       Integer nextSiteIndex, String nextSiteName,
-                                      String practOId, BigDecimal latitude, BigDecimal longitude) {
+                                      String practOId, BigDecimal latitude, BigDecimal longitude,Integer upDown) {
         Map<String, Object> params = new HashMap<>();
         params.put("move", isMove);
         params.put("online", isOnline);
@@ -61,6 +61,7 @@ public class DataForwardService {
         params.put("practOId", practOId);
         params.put("latitude", latitude);
         params.put("longitude", longitude);
+        params.put("upDown",upDown);
         params.put("code", code);
         return hibernateDao.executeUpdate(new DaoCmd(Constant.MAPPER_MO_DATA_FORWARD_UPDATE_BUS_VEHICLE_BY_CODE, params));
     }

@@ -89,6 +89,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         Float speed = parseFloat(data[8], 0.0f);
         BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(data[6]));
         BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(data[7]));
+        Integer upDown = parseInt(data[20], 2);
 
         if (StringUtils.isNotBlank(vehCode)) {
             /**
@@ -124,7 +125,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
             dataForwardService.updateBusVehicleByCode(vehCode, isMove, isOnline,
                     currentSiteIndex, currentSiteName, speed,
                     nextSiteIndex, nextSiteName, practOId,
-                    latitude, longitude);
+                    latitude, longitude, upDown);
         }
 
         /**
@@ -165,7 +166,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         String schDate = data[i++] + DATE_FORMAT_SPACE + data[i++];
         gps.setSchDate(parseDate(schDate));
 
-        gps.setUpDown(parseInt(data[i++], 2));
+        gps.setUpDown(upDown);
         gps.setVehAlarm(Integer.parseInt(data[i++]));
         gps.setPractOId(data[i++]);
         gps.setOnline(Integer.parseInt(data[i++]));

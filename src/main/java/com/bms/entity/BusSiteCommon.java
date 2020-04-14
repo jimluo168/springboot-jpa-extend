@@ -45,6 +45,7 @@ public abstract class BusSiteCommon extends BaseEntity {
     /**
      * 上下行 字典表(UP_DOWN_TYPE).
      */
+    @Column(name = "up_down")
     private Integer upDown;
     /**
      * 站点名称.
