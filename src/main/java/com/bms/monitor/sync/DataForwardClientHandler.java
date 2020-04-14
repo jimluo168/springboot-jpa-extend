@@ -113,7 +113,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         /**
          * 判断 同一辆车位置相同 不处理.
          */
-        String key = "cache:vehicle:" + vehCode;
+        String key = String.format(CACHE_KEY, vehCode);
         String json = redisClient.get(key);
         if (StringUtils.isNotBlank(json)) {
             MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
