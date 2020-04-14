@@ -167,6 +167,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         gps.setSchDate(parseDate(schDate));
 
         gps.setUpDown(upDown);
+        i++;
         gps.setVehAlarm(Integer.parseInt(data[i++]));
         gps.setPractOId(data[i++]);
         gps.setOnline(Integer.parseInt(data[i++]));
@@ -176,7 +177,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         gps.setCrossLine(Integer.parseInt(data[i++]));
         gps.setOffLine(Integer.parseInt(data[i++]));
         gps.setPractName(data[i++]);
-        gps.setWork(Integer.parseInt(data[i++]));
+        gps.setWork(parseInt(data[i++], 0));
 
         moBusVehicleGpsDataService.insert(gps);
     }
