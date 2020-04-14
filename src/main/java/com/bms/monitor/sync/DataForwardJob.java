@@ -1,6 +1,7 @@
 package com.bms.monitor.sync;
 
 import com.bms.common.config.redis.RedisClient;
+import com.bms.common.util.GPSUtils;
 import com.bms.common.util.JSON;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -45,6 +47,9 @@ public class DataForwardJob {
                 String json = redisClient.get(key);
                 MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
                 cache.setVehCode(key.replace(DataForwardClientHandler.CACHE_KEYS.substring(0, DataForwardClientHandler.CACHE_KEYS.length() - 1), ""));
+                // 转换经纬度
+                cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
+                cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
 
                 if (cache.getNextSiteIndex() > 0) {
                     cache.setCurrentSiteIndex(cache.getNextSiteIndex() - 1);
