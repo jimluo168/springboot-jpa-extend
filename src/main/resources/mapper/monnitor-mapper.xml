@@ -308,6 +308,9 @@
                 <#if longitude?? && longitude!=''>
                     current_longitude = :longitude,
                 </#if>
+                <#if gpsAngle?? && gpsAngle!=''>
+                    gps_angle = :gpsAngle,
+                </#if>
                 next_site_index = :nextSiteIndex
             where code= :vehCode
         ]]>

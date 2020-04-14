@@ -84,7 +84,7 @@ public class BusTerminalController {
     }
 
     @OpLog("查询")
-    @RequiresPermissions("bus_terminal_list")
+    @RequiresPermissions({"bus_terminal_list", "monitor_bus_terminal_list"})
     @GetMapping("/list")
     public Result<PageList<BusTerminal>> list(PageRequest pageRequest, QueryParams queryParams) throws IllegalAccessException {
         return ok(busTerminalService.page(pageRequest, BeanMapper.toMap(queryParams)));
@@ -158,7 +158,7 @@ public class BusTerminalController {
 
 
     @OpLog("左侧菜单")
-    @RequiresPermissions("bus_terminal_list")
+    @RequiresPermissions("monitor_bus_terminal_list")
     @GetMapping("/menus/all")
     public Result<List<BusTerminalMenu>> menuAll() throws IllegalAccessException {
         return ok(busTerminalService.busTerminalMenu());
@@ -200,7 +200,7 @@ public class BusTerminalController {
     }
 
     @Data
-    public static class QueryParams extends BusTerminal{
+    public static class QueryParams extends BusTerminal {
         private List<Long> ids;
 
     }

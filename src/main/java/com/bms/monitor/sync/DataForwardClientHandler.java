@@ -119,6 +119,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
             MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
             if (StringUtils.equals(cache.getLatitudeFen(), latitudeFen)
                     && StringUtils.equals(cache.getLongitudeFen(), longitudeFen)) {
+                cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_FALSE);
+                redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
                 return;
             }
         }
@@ -143,7 +145,11 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         if (nextSiteIndex > 0) {
             currentSiteIndex = nextSiteIndex - 1;
         }
-        // 存放缓存
+        Float gpsAngle = parseFloat(data[9], 0.0f);
+
+        /**
+         * 存放缓存.
+         */
         MoDataForwardCache cache = new MoDataForwardCache();
         cache.setCurrentSiteIndex(currentSiteIndex);
         cache.setLatitudeFen(latitudeFen);
@@ -155,6 +161,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         cache.setSpeed(speed);
         cache.setUpDown(upDown);
         cache.setRouteOId(routeOId);
+        cache.setGpsAngle(gpsAngle);
+        cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_TRUE);
         redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
 
         /**
@@ -181,7 +189,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         i++;
         gps.setSpeed(speed); //parseFloat(data[i++], 0.0f));
         i++;
-        gps.setGpsAngle(parseFloat(data[i++], 0.0f));
+        gps.setGpsAngle(gpsAngle);
+        i++;
         gps.setHeight(parseFloat(data[i++], 0.0f));
         gps.setMove(isMove); //parseInt(data[i++], 0));
         i++;

@@ -16,6 +16,14 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 @Data
 public class MoDataForwardCache {
     /**
+     * 0:数据无更新.
+     */
+    public static final int UPDATE_STATUS_FALSE = 0;
+    /**
+     * 1:数据已更新.
+     */
+    public static final int UPDATE_STATUS_TRUE = 1;
+    /**
      * 车辆编号.
      */
     @JsonProperty(access = WRITE_ONLY)
@@ -47,4 +55,12 @@ public class MoDataForwardCache {
      * 旧系统 线路ID.
      */
     private String routeOId;
+    /**
+     * <8>方位角:是 GPS 数据除以 2 后的数据，数据接收端使用时要将该数据乘以 2.
+     */
+    private Float gpsAngle;
+    /**
+     * 数据更新状态 是否更新 0:无更新 1:已更新.
+     */
+    private Integer updateStatus = UPDATE_STATUS_FALSE;
 }

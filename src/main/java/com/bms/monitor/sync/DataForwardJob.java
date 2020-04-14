@@ -46,6 +46,10 @@ public class DataForwardJob {
             keySet.stream().forEach(key -> {
                 String json = redisClient.get(key);
                 MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
+                // 如果数据没有更新 无需处理
+                if (cache.getUpdateStatus() != null && cache.getUpdateStatus() == MoDataForwardCache.UPDATE_STATUS_FALSE) {
+                    return;
+                }
                 cache.setVehCode(key.replace(DataForwardClientHandler.CACHE_KEYS.substring(0, DataForwardClientHandler.CACHE_KEYS.length() - 1), ""));
                 // 转换经纬度
                 if (StringUtils.isNotBlank(cache.getLatitudeFen())) {

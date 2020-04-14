@@ -212,5 +212,9 @@ public abstract class BusVehicleCommon extends BaseEntity {
      */
     @Column(name = "up_down")
     private Integer upDown;
+    /**
+     * <8>方位角:是 GPS 数据除以 2 后的数据，数据接收端使用时要将该数据乘以 2.
+     */
+    private Float gpsAngle;
 
 }
