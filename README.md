@@ -5896,3 +5896,219 @@ params:
   success:bool:是否成功
   msg:string:操作提示
 ```
+
+
+## 36. 车辆运行监测
+
+### 36.1. 车辆运行监测-车辆-左侧菜单
+
+```yaml
+@get: /monitor/vehilces/menus/all
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:array<object>:左侧菜单信息
+    id:long:菜单ID
+    name:string:公司名称
+    level:int:级别
+    index:int:顺序
+    type:int:类型(1=公司 2=线路 3=场站)
+    parent_id:long:父菜单ID
+    children:array<object>:子菜单-子公司或线路信息
+      id:long:菜单ID
+      name:string:公司名称或场站名称
+      level:int:级别
+      index:int:顺序
+      type:int:类型(1=公司 2=线路 3=场站)
+      parent_id:long:父菜单ID
+      children:array<object>:子菜单-子公司或线路信息
+        id:long:菜单ID
+        name:string:公司名称或场站名称
+        level:int:级别
+        index:int:顺序
+        type:int:类型(1=公司 2=线路 3=场站)
+        parent_id:long:父菜单ID
+        children:array<object>:子菜单-这一层一定是线路信息
+          id:long:菜单ID
+          name:string:线路名称
+          index:int:顺序
+          type:int:类型(1=公司 2=线路 3=场站)
+          parent_id:long:父菜单ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 36.2. 车辆运行监测-车辆-列表
+
+```yaml
+@get: /monitor/vehilces/list?page=:page&size=:size&route_id_list=:route_id_list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小 最大支持4000 超出请自行分页
+  route_id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:车辆信息
+      veh_code:string:车辆编码
+      o_route_id:string:旧系统 线路ID
+      route_id:long:新系统线路ID
+      route_name:string:线路名称
+      pract_name:string:从业人员姓名=司机姓名
+      phone:string:电话
+      staff_number:string:工号
+      move:int:车辆运行状态 0:静止 1:运动
+      online:int:是否在线:车辆是否已连接服务器 0:在线 1:不在线
+      current_site_index:int:当前站点顺序
+      current_site_name:string:当前站点名称
+      speed:float:瞬时速度:速度，单位 km/h
+      latitude:float:当前纬度
+      longitude:float:当前经度
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 36.3. 车辆运行监测-车辆-定位
+
+```yaml
+@get: /monitor/vehilces/:veh_code/gps
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@return:
+  code:int:操作码
+  data:object:GPS位置信息
+    latitude:float:当前纬度
+    longitude:float:当前经度
+    gps_angle:float:方位角:是 GPS 数据除以 2 后的数据，数据接收端使用时要将该数据乘以 2
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 36.4. 车辆运行监测-车辆-历史轨迹
+
+```yaml
+@get: /monitor/vehilces/:veh_code/tracks?page=:page&size=:size&begin=:begin&end=:end
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  begin:date:开始时间
+  end:date:结束时间
+  page:int:页码
+  size:int:页码大小 最大支持4000 超出请自行分页处理
+
+@return:
+  code:int:操作码
+  data:object:历史轨迹信息
+    count:int:分页总大小
+    list:array<object>:车辆信息
+      id:long:轨迹ID
+      route_o_id:string:旧系统 线路ID
+      veh_code:string:车辆编号
+      gps_create_date:date:GPS定位时间
+      latitude:float:当前纬度
+      longitude:float:当前经度
+      speed:float:瞬时速度:速度，单位 km/h
+      pract_o_id:string:旧系统 从业人员ID
+      move:int:车辆运行状态 0:静止 1:运动
+      pract_name:string:从业人员姓名=司机姓名
+      phone:string:电话
+      staff_number:string:工号
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 36.5. 车辆运行监测-线路-左边列表
+
+```yaml
+@get: /monitor/vehilces/routes/list?page=:page&size=:size&id_list=:id_list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小 最大支持4000 超出请自行分页
+  id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:线路信息
+      id:long:线路ID
+      o_id:string:旧系统 线路ID
+      name:string:线路名称
+      up_down:int:上下行标志 1上行 0下行
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 36.6. 车辆运行监测-线路-站点列表
+
+```yaml
+@get: /monitor/vehilces/sites/list?page=:page&size=:size&route_id_list=:route_id_list
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小 最大支持4000 超出请自行分页
+  route_id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:站点信息
+      id:long:站点ID
+      o_id:string:旧系统 站点ID
+      name:string:站点名称
+      up_down:int:上下行标志 1上行 0下行
+      route_id:long:线路ID
+      o_route_id:string:旧系统 线路ID
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+## 37. 数据转发
+
+### 37.1. Redis缓存信息
+
+参考 `com.bms.monitor.sync.MoDataForwardCache`
+
+```yaml:
+@key:string:cache:vehicle:{code}
+@params:
+  code:string:车辆编码
+
+@value:object:json信息
+	move:int:车辆移动
+	online:int:连接服务器
+	current_site_index:int:当前站点
+	speed:float:速度
+	latitude:double:纬度
+	longitude:double:经度
+	up_down:int:上下行
+```
