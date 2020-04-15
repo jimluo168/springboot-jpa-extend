@@ -124,7 +124,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         Float speed = parseFloat(data[8], 0.0f);
 
         BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(latitudeFen));
-        BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(latitudeFen));
+        BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(longitudeFen));
         Integer upDown = parseInt(data[20], 2);
 
         /**
@@ -250,11 +250,11 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         /**
          * 用缓存.
          */
-        MoBusSiteCache cache = dataForwardService.getMoBusSiteCacheByRouteOIdAndSiteIndex(offsite.getRouteOId(), offsite.getSiteIndex());
-        if (cache != null) {
-            offsite.setRouteName(cache.getRouteName());
-            offsite.setSiteName(cache.getSiteName());
-            offsite.setUpDown(cache.getUpDown());
+        MoBusSiteCache siteCache = dataForwardService.getMoBusSiteCacheByRouteOIdAndSiteIndex(offsite.getRouteOId(), offsite.getSiteIndex());
+        if (siteCache != null) {
+            offsite.setRouteName(siteCache.getRouteName());
+            offsite.setSiteName(siteCache.getSiteName());
+            offsite.setUpDown(siteCache.getUpDown());
         }
         MoBusVehicleCache vehicleCache = dataForwardService.getMoBusVehicleCacheByVehCode(vehCode);
         if (vehicleCache != null) {
