@@ -4,6 +4,7 @@ import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.util.BeanMapper;
 import com.bms.common.util.GPSUtils;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static com.bms.common.domain.Result.ok;
 
@@ -60,14 +62,14 @@ public class MoBusVehicleController {
 
     @ApiOperation("车辆-定位")
     @GetMapping("/{vehCode}/gps")
-    public Result<MoDataForwardCache> gps(@PathVariable String vehCode) {
+    public Result<Map<String, Object>> gps(@PathVariable String vehCode) {
         MoDataForwardCache cache = dataForwardService.getMoDataForwardCacheByVehCode(vehCode);
         if (cache == null) {
             throw ErrorCodes.build(ErrorCodes.GPS_NO_LOCATION_DATA_ERR);
         }
         cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
         cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
-        return ok(cache);
+        return ok(BeanMapper.toMap(cache));
     }
 
 
