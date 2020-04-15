@@ -6038,7 +6038,7 @@ params:
 ### 36.5. 车辆运行监测-线路-左边列表
 
 ```yaml
-@get: /monitor/vehilces/routes/list?page=:page&size=:size&id_list=:id_list
+@get: /monitor/vehilces/routes/list?page=:page&size=:size&route_id_list=:route_id_list
 
 @header:
   X-User-Agent:手机信息(必须)
@@ -6047,7 +6047,7 @@ params:
 @params:
   page:int:页码
   size:int:页码大小 最大支持4000 超出请自行分页
-  id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
+  route_id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
 
 @return:
   code:int:操作码
@@ -6076,6 +6076,7 @@ params:
   page:int:页码
   size:int:页码大小 最大支持4000 超出请自行分页
   route_id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
+  up_down:int:上下行标志 1上行 0下行
 
 @return:
   code:int:操作码
@@ -6087,7 +6088,9 @@ params:
       name:string:站点名称
       up_down:int:上下行标志 1上行 0下行
       route_id:long:线路ID
+      route_name:string:线路名称
       o_route_id:string:旧系统 线路ID
+      index:int:站点序号
   success:bool:是否成功
   msg:string:操作提示
 ```
