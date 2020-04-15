@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 import java.util.concurrent.*;
 
 /**
@@ -107,13 +108,13 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         /**
          * 判断 同一辆车位置相同 不处理.
          */
-        MoDataForwardCache cache = dataForwardService.getMoDataForwardCacheByVehCode(vehCode);
-        if (cache != null) {
-            if (StringUtils.equals(cache.getLatitudeFen(), latitudeFen)
-                    && StringUtils.equals(cache.getLongitudeFen(), longitudeFen)) {
-                cache.setLastUpdDate(System.currentTimeMillis());
-                cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_FALSE);
-                dataForwardService.setMoDataForwardCacheByVehCode(vehCode, cache);
+        MoDataForwardCache dataForwardCache = dataForwardService.getMoDataForwardCacheByVehCode(vehCode);
+        if (dataForwardCache != null) {
+            if (StringUtils.equals(dataForwardCache.getLatitudeFen(), latitudeFen)
+                    && StringUtils.equals(dataForwardCache.getLongitudeFen(), longitudeFen)) {
+                dataForwardCache.setLastUpdDate(System.currentTimeMillis());
+                dataForwardCache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_FALSE);
+                dataForwardService.setMoDataForwardCacheByVehCode(vehCode, dataForwardCache);
                 return;
             }
         }
@@ -122,6 +123,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         Integer isMove = parseInt(data[11], 0);
         Integer isOnline = parseInt(data[23], 0);
         Float speed = parseFloat(data[8], 0.0f);
+        Integer mileage = parseInt(data[15], 0);
 
         BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(latitudeFen));
         BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(longitudeFen));
@@ -144,7 +146,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         /**
          * 存放缓存.
          */
-        cache = new MoDataForwardCache();
+        MoDataForwardCache cache = new MoDataForwardCache();
         cache.setCurrentSiteIndex(currentSiteIndex);
         cache.setLatitudeFen(latitudeFen);
         cache.setLongitudeFen(longitudeFen);
@@ -153,20 +155,26 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         cache.setOnline(isOnline);
         cache.setPractOId(practOId);
         cache.setSpeed(speed);
+        cache.setMileage(mileage);
         cache.setUpDown(upDown);
         cache.setRouteOId(routeOId);
         cache.setGpsAngle(gpsAngle);
         cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_TRUE);
         dataForwardService.setMoDataForwardCacheByVehCode(vehCode, cache);
 
+        if (dataForwardCache != null) {
+            int cacheMileage = Optional.ofNullable(dataForwardCache.getMileage()).orElse(0);
+            int distance = mileage - cacheMileage;
+            if (Math.abs(distance) < 15) {
+                return;
+            }
+        }
+
+
         /**
          * 当线路为空时说明车辆停止在总站 无需处理.
          */
         if (StringUtils.isBlank(routeOId)) {
-            return;
-        }
-        if (speed < 1.0f) {
-            // 车辆为静止的时候不用保存.
             return;
         }
 
@@ -191,7 +199,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         gps.setNextSiteIndex(parseInt(data[i++], 0));
         gps.setEngineTemperature(parseFloat(data[i++], 0.0f));
         gps.setCarriageTemperature(parseFloat(data[i++], 0.0f));
-        gps.setMileage(parseInt(data[i++], 0));
+        gps.setMileage(mileage);
+        i++;
         gps.setInsideNumber(parseInt(data[i++], 0));
         gps.setStart(parseInt(data[i++], 0));
 

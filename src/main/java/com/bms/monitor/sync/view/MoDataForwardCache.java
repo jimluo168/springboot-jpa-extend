@@ -50,6 +50,10 @@ public class MoDataForwardCache implements Serializable {
     private Integer currentSiteIndex;
     private Integer nextSiteIndex;
     private Float speed;
+    /**
+     * <14>行使里程:记录当天的累计行驶里程，单位是米。每天在规定时间清零;.
+     */
+    private Integer mileage;
     private String practOId;
     @JsonProperty(access = WRITE_ONLY)
     private BigDecimal latitude;
