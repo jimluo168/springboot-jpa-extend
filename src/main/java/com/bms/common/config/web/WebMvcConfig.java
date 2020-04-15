@@ -80,7 +80,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
         ObjectMapper mapper = builder.createXmlMapper(false).build();
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        mapper.setDateFormat(new StdDateFormat());
+        mapper.setDateFormat(StdDateFormat.instance);
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);

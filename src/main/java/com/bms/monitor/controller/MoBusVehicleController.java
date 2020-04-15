@@ -4,6 +4,7 @@ import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.domain.Result;
+import com.bms.common.util.GPSUtils;
 import com.bms.common.web.annotation.OpLogModule;
 import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.bms.common.domain.Result.ok;
@@ -63,6 +65,8 @@ public class MoBusVehicleController {
         if (cache == null) {
             throw ErrorCodes.build(ErrorCodes.GPS_NO_LOCATION_DATA_ERR);
         }
+        cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
+        cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
         return ok(cache);
     }
 
