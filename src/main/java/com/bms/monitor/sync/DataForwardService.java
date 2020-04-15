@@ -103,7 +103,7 @@ public class DataForwardService {
     }
 
     public MoBusVehicleCache getMoBusVehicleCacheByVehCode(String vehCode) {
-        String key = String.format(MoBusSiteCache.CACHE_BUSSITE_KEY, vehCode);
+        String key = String.format(MoBusVehicleCache.CACHE_BUSVEHICLE_KEY, vehCode);
         String json = redisClient.get(key);
         if (StringUtils.isNotBlank(json)) {
             return JSON.parseObject(json, MoBusVehicleCache.class);
