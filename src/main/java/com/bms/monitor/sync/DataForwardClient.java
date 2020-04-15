@@ -88,7 +88,7 @@ public class DataForwardClient {
                     }
                 }
             });
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             logger.error("连接服务器 " + host + ":" + port + " 异常.", e);
         }
     }
