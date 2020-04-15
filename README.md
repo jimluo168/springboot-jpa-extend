@@ -6047,15 +6047,15 @@ params:
   begin:date:开始时间
   end:date:结束时间
   page:int:页码
-  size:int:页码大小 最大支持4000 超出请自行分页处理
+  size:int:页码大小 最大支持8000 超出请自行分页处理
 
 @return:
   code:int:操作码
   data:object:历史轨迹信息
     count:int:分页总大小
-    list:array<object>:轨迹信息数组
-      latitude:float:当前纬度
-      longitude:float:当前经度
+    list:array<float[2]>:轨迹信息数组
+      - 0:float:纬度
+      - 1:float:经度
   success:bool:是否成功
   msg:string:操作提示
 ```
