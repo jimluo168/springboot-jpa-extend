@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -42,6 +43,12 @@ public class MoBusVehicleService {
     public PageList<MoBusVehicleHistoryTrackView> pageVehicleTrackListByVehCode(String vehCode, PageRequest pageRequest, MoBusVehicleHistoryTrackView view) {
         view.setVehCode(vehCode);
         return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_MO_BUS_VEHICLE_HISTORY_TRACK_LIST_BY_VEHCODE, BeanMapper.toMap(view), MoBusVehicleHistoryTrackView.class));
+    }
+
+    @Transactional(readOnly = true)
+    public PageList<List<BigDecimal[]>> pageVehicleTrackPointByVehCode(String vehCode, PageRequest pageRequest, MoBusVehicleHistoryTrackView view) {
+        view.setVehCode(vehCode);
+        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_MO_BUS_VEHICLE_HISTORY_TRACK_POINT_BY_VEHCODE, BeanMapper.toMap(view)));
     }
 
     @Transactional(readOnly = true)

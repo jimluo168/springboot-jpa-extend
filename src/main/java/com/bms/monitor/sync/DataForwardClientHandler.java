@@ -5,6 +5,7 @@ import com.bms.common.util.GPSUtils;
 import com.bms.entity.MoBusVehicleGpsData;
 import com.bms.entity.MoOffSiteData;
 import com.bms.industry.sync.SyncProperties;
+import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import com.bms.monitor.service.MoBusVehicleGpsDataService;
 import com.bms.monitor.service.MoOffSiteDataService;

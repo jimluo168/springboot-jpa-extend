@@ -6034,6 +6034,32 @@ params:
   msg:string:操作提示
 ```
 
+### 36.4. 车辆运行监测-车辆-历史轨迹-画轨迹专用
+
+```yaml
+@get: /monitor/vehilces/:veh_code/tracks/points?page=:page&size=:size&begin=:begin&end=:end
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  begin:date:开始时间
+  end:date:结束时间
+  page:int:页码
+  size:int:页码大小 最大支持4000 超出请自行分页处理
+
+@return:
+  code:int:操作码
+  data:object:历史轨迹信息
+    count:int:分页总大小
+    list:array<object>:轨迹信息数组
+      latitude:float:当前纬度
+      longitude:float:当前经度
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
 
 ### 36.5. 车辆运行监测-线路-左边列表
 
@@ -6097,12 +6123,12 @@ params:
 
 ## 37. 数据转发
 
-### 37.1. Redis缓存信息
+### 37.1. Redis缓存-数据转发C2部分信息
 
-参考 `com.bms.monitor.sync.MoDataForwardCache`
+参考 `com.bms.monitor.sync.view.MoDataForwardCache`
 
 ```yaml:
-@key:string:cache:vehicle:{code}
+@key:string:cache:dataforwardc2:{code}
 @params:
   code:string:车辆编码
 
@@ -6114,4 +6140,39 @@ params:
 	latitude:double:纬度
 	longitude:double:经度
 	up_down:int:上下行
+```
+
+### Redis缓存-站点部分信息
+
+参考 `com.bms.monitor.sync.view.MoBusSiteCache`
+
+```yaml
+@key:string:cache:bussite:{o_route_id}:{site_index}
+@params:
+  o_route_id:string:旧系统 线路ID
+  site_index:int:站点顺序
+
+@value:object:站点信息
+  site_id:long:站点ID
+  site_name:string:站点名称
+  site_index:int:站点顺序
+  up_down:int:上下行标志 1上行 0下行
+  route_id:long:线路ID
+  route_name:string:线路名称
+
+```
+
+### Redis缓存-车辆部分信息
+
+
+参考 `com.bms.monitor.sync.view.MoBusVehicleCache`
+
+```yaml
+@key:string:cache:busvehicle:{veh_code}
+@params:
+  veh_code:string:车辆编号
+
+@value:object:站点信息
+  veh_id:long:车辆ID
+  seat_num:int:座位数
 ```

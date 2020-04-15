@@ -360,10 +360,21 @@
                 p.staff_number
             from mo_bus_vehicle_gps_datas g
             left join practitioners p on p.o_id = g.pract_o_id
-            where g.veh_code=:vehCode
+            where g.veh_code = :vehCode
             and gps_create_date between :begin and :end
         ]]>
     </mo_bus_vehicle_history_track_list_by_vehcode>
+
+    <mo_bus_vehicle_history_track_point_by_vehcode type="sql" desc="车辆运行监测-车辆-历史轨迹点">
+        <![CDATA[
+            select
+                g.latitude,
+                g.longitude
+            from mo_bus_vehicle_gps_datas g
+            where g.veh_code = :vehCode
+            and gps_create_date between :begin and :end
+        ]]>
+    </mo_bus_vehicle_history_track_point_by_vehcode>
 
     <mo_bus_vehicle_route_list_by_route_id_list type="sql" desc="车辆运行监测-线路-左边列表">
         <![CDATA[

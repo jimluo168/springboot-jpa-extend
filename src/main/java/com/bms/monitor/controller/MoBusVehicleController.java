@@ -11,7 +11,7 @@ import com.bms.common.web.annotation.RequiresAuthentication;
 import com.bms.common.web.annotation.RequiresPermissions;
 import com.bms.monitor.service.MoBusVehicleService;
 import com.bms.monitor.sync.DataForwardService;
-import com.bms.monitor.sync.MoDataForwardCache;
+import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -67,8 +67,8 @@ public class MoBusVehicleController {
         if (cache == null) {
             throw ErrorCodes.build(ErrorCodes.GPS_NO_LOCATION_DATA_ERR);
         }
-        cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
-        cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
+        cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())).setScale(6, BigDecimal.ROUND_HALF_UP));
+        cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())).setScale(6, BigDecimal.ROUND_HALF_UP));
         return ok(BeanMapper.toMap(cache));
     }
 
@@ -80,6 +80,15 @@ public class MoBusVehicleController {
             throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "begin end参数不能缺少");
         }
         return ok(moBusVehicleService.pageVehicleTrackListByVehCode(vehCode, pageRequest, view));
+    }
+
+    @ApiOperation("车辆-历史轨迹-轨迹点")
+    @GetMapping("/{vehCode}/tracks/points")
+    public Result<PageList<List<BigDecimal[]>>> trackPoint(@PathVariable String vehCode, PageRequest pageRequest, MoBusVehicleHistoryTrackView view) {
+        if (view.getBegin() == null || view.getEnd() == null) {
+            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "begin end参数不能缺少");
+        }
+        return ok(moBusVehicleService.pageVehicleTrackPointByVehCode(vehCode, pageRequest, view));
     }
 
     @ApiOperation("车辆-线路-列表")

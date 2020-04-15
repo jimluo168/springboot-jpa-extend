@@ -3,6 +3,7 @@ package com.bms.monitor.sync;
 import com.bms.common.config.redis.RedisClient;
 import com.bms.common.util.GPSUtils;
 import com.bms.common.util.JSON;
+import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -63,7 +64,7 @@ public class DataForwardJob {
                 if (cache.getUpdateStatus() != null && cache.getUpdateStatus() == MoDataForwardCache.UPDATE_STATUS_FALSE) {
                     return;
                 }
-                cache.setVehCode(key.replace(DataForwardService.CACHE_KEYS.substring(0, DataForwardService.CACHE_KEYS.length() - 1), ""));
+                cache.setVehCode(key.replace(MoDataForwardCache.CACHE_VEHICLE_KEYS.substring(0, MoDataForwardCache.CACHE_VEHICLE_KEYS.length() - 1), ""));
                 // 转换经纬度
                 if (StringUtils.isNotBlank(cache.getLatitudeFen())) {
                     cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
@@ -97,4 +98,23 @@ public class DataForwardJob {
             logger.info("定时刷新车辆信息任务结束执行... 总耗时:{}ms", System.currentTimeMillis() - start);
         }
     }
+
+
+    /**
+     * 刷新站点信息到缓存.
+     */
+    @Async
+//    @Scheduled
+    public void refreshBusSiteInfo2Cache() {
+        logger.info("刷新站点信息到缓存任务开始执行");
+        long start = System.currentTimeMillis();
+        try {
+
+
+        } finally {
+            logger.info("刷新站点信息到缓存任务结束执行... 总耗时:{}ms", System.currentTimeMillis() - start);
+        }
+
+    }
+
 }

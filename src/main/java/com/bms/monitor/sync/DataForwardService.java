@@ -7,6 +7,7 @@ import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.util.BeanMapper;
 import com.bms.common.util.JSON;
+import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -29,13 +30,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class DataForwardService {
     private static final Logger logger = LoggerFactory.getLogger(DataForwardService.class);
-
-    /**
-     * 缓存定位信息 %s:车辆编号.
-     */
-    public static final String CACHE_KEYS = "cache:vehicle:*";
-    public static final String CACHE_KEY = "cache:vehicle:%s";
-    public static final int CACHE_KEY_EXP_SECONDS = 24 * 60 * 60;
 
     private final RedisClient redisClient;
     private final FlakeId flakeId;
@@ -62,7 +56,7 @@ public class DataForwardService {
     }
 
     public MoDataForwardCache getMoDataForwardCacheByVehCode(String vehCode) {
-        String key = String.format(CACHE_KEY, vehCode);
+        String key = String.format(MoDataForwardCache.CACHE_VEHICLE_KEY, vehCode);
         String json = redisClient.get(key);
         if (StringUtils.isNotBlank(json)) {
             return JSON.parseObject(json, MoDataForwardCache.class);
@@ -71,12 +65,12 @@ public class DataForwardService {
     }
 
     public void setMoDataForwardCacheByVehCode(String vehCode, MoDataForwardCache cache) {
-        String key = String.format(CACHE_KEY, vehCode);
-        redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+        String key = String.format(MoDataForwardCache.CACHE_VEHICLE_KEY, vehCode);
+        redisClient.setex(key, MoDataForwardCache.CACHE_VEHICLE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
     }
 
     public Set<String> findCacheKeys() {
-        return redisClient.keys(DataForwardService.CACHE_KEYS);
+        return redisClient.keys(MoDataForwardCache.CACHE_VEHICLE_KEYS);
     }
 
 }

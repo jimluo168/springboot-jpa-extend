@@ -1,8 +1,9 @@
-package com.bms.monitor.sync;
+package com.bms.monitor.sync.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
@@ -14,7 +15,14 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
  * @date 2020/4/14
  */
 @Data
-public class MoDataForwardCache {
+public class MoDataForwardCache implements Serializable {
+    /**
+     * 缓存定位信息 %s:车辆编号.
+     */
+    public static final String CACHE_VEHICLE_KEYS = "cache:dataforwardc2:*";
+    public static final String CACHE_VEHICLE_KEY = "cache:dataforwardc2:%s";
+    public static final int CACHE_VEHICLE_KEY_EXP_SECONDS = 24 * 60 * 60;
+
     /**
      * 0:数据无更新.
      */
