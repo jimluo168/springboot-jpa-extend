@@ -420,13 +420,13 @@
                 s.id as site_id,
                 s.name as site_name,
                 r.id as route_id,
-                r.o_id as route_o_id,
+                s.o_route_id as route_o_id,
                 r.name as route_name,
                 s.up_down,
                 s.`index` as site_index
             from bus_sites s
             left join bus_routes r on r.id = s.route_id
-            where r.o_id is not null
+            where s.is_delete = 0
             and s.status = 2
             order by s.`index` asc
         ]]>
