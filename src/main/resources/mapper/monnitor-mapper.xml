@@ -308,7 +308,7 @@
                 <#if longitude??>
                     current_longitude = :longitude,
                 </#if>
-                <#if gpsAngle?? && gpsAngle!=''>
+                <#if gpsAngle??>
                     gps_angle = :gpsAngle,
                 </#if>
                 next_site_index = :nextSiteIndex
