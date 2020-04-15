@@ -8,7 +8,6 @@ import com.bms.industry.sync.SyncProperties;
 import com.bms.monitor.sync.view.MoBusSiteCache;
 import com.bms.monitor.sync.view.MoBusVehicleCache;
 import com.bms.monitor.sync.view.MoDataForwardCache;
-import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import com.bms.monitor.service.MoBusVehicleGpsDataService;
 import com.bms.monitor.service.MoOffSiteDataService;
 import io.netty.channel.*;
@@ -125,8 +124,8 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         Float speed = parseFloat(data[8], 0.0f);
         Integer mileage = parseInt(data[15], 0);
 
-        BigDecimal latitude = new BigDecimal(GPSUtils.fm2du(latitudeFen));
-        BigDecimal longitude = new BigDecimal(GPSUtils.fm2du(longitudeFen));
+        BigDecimal latitude = new BigDecimal(GPSUtils.fen2du(latitudeFen));
+        BigDecimal longitude = new BigDecimal(GPSUtils.fen2du(longitudeFen));
         Integer upDown = parseInt(data[20], 2);
 
         /**

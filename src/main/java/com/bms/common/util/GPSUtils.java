@@ -18,11 +18,8 @@ public class GPSUtils {
      *
      * @return
      */
-    public static double fm2du(String fm) {
-        String[] splits = fm.split("\\.");
-        int f = Integer.parseInt(splits[0]);
-        int m = Integer.parseInt(splits[1]);
-        return (f + m / 60d) / 60d;
+    public static double fen2du(String fen) {
+        return Double.parseDouble(fen) / 60d;
     }
 
     /**
@@ -35,8 +32,8 @@ public class GPSUtils {
      * @return 米
      */
     public static double getDistance(String latitudeFenFrom, String longitudeFenFrom, String latitudeFenTo, String longitudeFenTo) {
-        GlobalCoordinates from = new GlobalCoordinates(fm2du(latitudeFenFrom), fm2du(longitudeFenFrom));
-        GlobalCoordinates to = new GlobalCoordinates(fm2du(latitudeFenTo), fm2du(longitudeFenTo));
+        GlobalCoordinates from = new GlobalCoordinates(fen2du(latitudeFenFrom), fen2du(longitudeFenFrom));
+        GlobalCoordinates to = new GlobalCoordinates(fen2du(latitudeFenTo), fen2du(longitudeFenTo));
         GeodeticCurve geo = new GeodeticCalculator().calculateGeodeticCurve(Ellipsoid.Sphere, from, to);
         return geo.getEllipsoidalDistance();
     }

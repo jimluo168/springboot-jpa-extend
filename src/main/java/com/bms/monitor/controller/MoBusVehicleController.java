@@ -67,8 +67,8 @@ public class MoBusVehicleController {
         if (cache == null) {
             throw ErrorCodes.build(ErrorCodes.GPS_NO_LOCATION_DATA_ERR);
         }
-        cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())).setScale(6, BigDecimal.ROUND_HALF_UP));
-        cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())).setScale(6, BigDecimal.ROUND_HALF_UP));
+        cache.setLatitude(new BigDecimal(GPSUtils.fen2du(cache.getLatitudeFen())).setScale(6, BigDecimal.ROUND_HALF_UP));
+        cache.setLongitude(new BigDecimal(GPSUtils.fen2du(cache.getLongitudeFen())).setScale(6, BigDecimal.ROUND_HALF_UP));
         return ok(BeanMapper.toMap(cache));
     }
 

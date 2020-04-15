@@ -78,10 +78,10 @@ public class DataForwardJob {
                 cache.setVehCode(key.replace(MoDataForwardCache.CACHE_VEHICLE_KEYS.substring(0, MoDataForwardCache.CACHE_VEHICLE_KEYS.length() - 1), ""));
                 // 转换经纬度
                 if (StringUtils.isNotBlank(cache.getLatitudeFen())) {
-                    cache.setLatitude(new BigDecimal(GPSUtils.fm2du(cache.getLatitudeFen())));
+                    cache.setLatitude(new BigDecimal(GPSUtils.fen2du(cache.getLatitudeFen())));
                 }
                 if (StringUtils.isNotBlank(cache.getLongitudeFen())) {
-                    cache.setLongitude(new BigDecimal(GPSUtils.fm2du(cache.getLongitudeFen())));
+                    cache.setLongitude(new BigDecimal(GPSUtils.fen2du(cache.getLongitudeFen())));
                 }
 
                 if (cache.getNextSiteIndex() > 0) {
