@@ -112,7 +112,7 @@ public class DataForwardService {
     }
 
     public void setMoBusVehicleCacheByVehCode(String vehCode, MoBusVehicleCache cache) {
-        String key = String.format(MoDataForwardCache.CACHE_VEHICLE_KEY, vehCode);
+        String key = String.format(MoBusVehicleCache.CACHE_BUSVEHICLE_KEY, vehCode);
         redisClient.setex(key, MoBusVehicleCache.CACHE_BUSVEHICLE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
     }
 }

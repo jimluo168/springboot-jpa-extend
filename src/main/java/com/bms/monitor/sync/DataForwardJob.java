@@ -47,17 +47,17 @@ public class DataForwardJob {
     }
 
     /**
-     * 定时刷新车辆信息.
+     * 定时更新车辆位置信息.
      */
     @Async
     @Scheduled(cron = "0 0/5 * * * ?")
     public void updateBusVehicleInfo() {
-        logger.info("定时刷新车辆信息任务开始执行");
+        logger.info("定时更新车辆位置信息任务开始执行");
         long start = System.currentTimeMillis();
         try {
             Set<String> keySet = dataForwardService.findCacheKeys();
             if (keySet == null || keySet.isEmpty()) {
-                logger.info("定时刷新车辆信息缓存不存在");
+                logger.info("车辆信息缓存不存在");
                 return;
             }
             keySet.stream().forEach(key -> {
@@ -106,7 +106,7 @@ public class DataForwardJob {
             });
 
         } finally {
-            logger.info("定时刷新车辆信息任务结束执行... 总耗时:{}ms", System.currentTimeMillis() - start);
+            logger.info("定时更新车辆位置信息任务结束执行... 总耗时:{}ms", System.currentTimeMillis() - start);
         }
     }
 
