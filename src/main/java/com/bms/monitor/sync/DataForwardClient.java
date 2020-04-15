@@ -44,7 +44,6 @@ public class DataForwardClient {
     private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
     private final MoOffSiteDataService moOffSiteDataService;
     private final DataForwardService dataForwardService;
-    private final RedisClient redisClient;
 
     private EventLoopGroup group;
     private ChannelFuture channelFuture;
@@ -70,7 +69,7 @@ public class DataForwardClient {
                                     new DataForwardEncoder(),
                                     new DataForwardDecoder(),
                                     new DataForwardClientHandler(syncProperties, moBusVehicleGpsDataService,
-                                            moOffSiteDataService, dataForwardService, redisClient));
+                                            moOffSiteDataService, dataForwardService));
                         }
                     });
 

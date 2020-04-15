@@ -315,4 +315,82 @@
             where code= :vehCode
         ]]>
     </mo_data_forward_update_bus_vehicle_by_code>
+
+    <mo_bus_vehicle_list_by_route_id_list type="sql" desc="车辆运行监测-车辆-列表">
+        <![CDATA[
+            select
+                v.code as veh_code,
+                v.o_route_id,
+                v.route_name,
+                v.route_id,
+                p.name as pract_name,
+                p.phone,
+                p.staff_number,
+                v.is_move as move,
+                v.is_online as online,
+                v.current_site_index,
+                v.current_site_name,
+                v.speed,
+                v.current_latitude,
+                v.current_longitude
+            from bus_vehicles v
+            left join practitioners p on p.o_id = v.pract_o_id
+            where v.route_id in (:routeIdList)
+        ]]>
+    </mo_bus_vehicle_list_by_route_id_list>
+
+    <mo_bus_vehicle_history_track_list_by_vehcode type="sql" desc="车辆运行监测-车辆-历史轨迹">
+        <![CDATA[
+            select
+                g.id,
+                g.route_o_id,
+                g.veh_code,
+                g.gps_create_date,
+                g.latitude,
+                g.longitude,
+                g.speed,
+                g.pract_o_id,
+                g.is_move as move,
+                p.name as pract_name,
+                p.phone,
+                p.staff_number
+            from mo_bus_vehicle_gps_datas g
+            left join practitioners p on p.o_id = g.pract_o_id
+            where g.veh_code=:vehCode
+            and gps_create_date between :begin and :end
+        ]]>
+    </mo_bus_vehicle_history_track_list_by_vehcode>
+
+    <mo_bus_vehicle_route_list_by_route_id_list type="sql" desc="车辆运行监测-线路-左边列表">
+        <![CDATA[
+            select
+                distinct r.id, r.name,r.o_id, s.up_down
+            from bus_routes r
+            left join bus_sites s on s.route_id = r.id
+            where r.id in (:routeIdList)
+        ]]>
+    </mo_bus_vehicle_route_list_by_route_id_list>
+
+    <mo_bus_vehicle_site_list_by_route_id_list type="sql" desc="车辆运行监测-线路-左边列表">
+        <![CDATA[
+            select
+                s.id,
+                s.o_id,
+                s.up_down,
+                s.`index`,
+                s.name,
+                s.o_route_id,
+                s.route_id,
+                r.name as route_name
+            from bus_sites s
+            left join bus_routes r on r.id = s.route_id
+            where
+            s.route_id in (:routeIdList)
+            <#if upDown??>
+                and s.up_down=:upDown
+            </#if>
+            order by s.`index` asc
+        ]]>
+    </mo_bus_vehicle_site_list_by_route_id_list>
+
 </mapper>

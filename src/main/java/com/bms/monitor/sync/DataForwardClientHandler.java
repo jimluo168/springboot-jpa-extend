@@ -1,9 +1,7 @@
 package com.bms.monitor.sync;
 
 import com.bms.Constant;
-import com.bms.common.config.redis.RedisClient;
 import com.bms.common.util.GPSUtils;
-import com.bms.common.util.JSON;
 import com.bms.entity.MoBusVehicleGpsData;
 import com.bms.entity.MoOffSiteData;
 import com.bms.industry.sync.SyncProperties;
@@ -46,12 +44,6 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
 
     public static final String CMD_DATA_SPLIT_REGEX = "\\|";
     public static final String DATE_FORMAT_SPACE = " ";
-    /**
-     * 缓存定位信息 %s:车辆编号.
-     */
-    public static final String CACHE_KEYS = "cache:vehicle:*";
-    public static final String CACHE_KEY = "cache:vehicle:%s";
-    public static final int CACHE_KEY_EXP_SECONDS = 24 * 60 * 60;
 
     /**
      * 线程池定义 处理转发过来的数据.
@@ -64,7 +56,6 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
     private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
     private final MoOffSiteDataService moOffSiteDataService;
     private final DataForwardService dataForwardService;
-    private final RedisClient redisClient;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String message) throws Exception {
@@ -113,14 +104,13 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         /**
          * 判断 同一辆车位置相同 不处理.
          */
-        String key = String.format(CACHE_KEY, vehCode);
-        String json = redisClient.get(key);
-        if (StringUtils.isNotBlank(json)) {
-            MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
+
+        MoDataForwardCache cache = dataForwardService.getMoDataForwardCacheByVehCode(vehCode);
+        if (cache != null) {
             if (StringUtils.equals(cache.getLatitudeFen(), latitudeFen)
                     && StringUtils.equals(cache.getLongitudeFen(), longitudeFen)) {
                 cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_FALSE);
-                redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+                dataForwardService.setMoDataForwardCacheByVehCode(vehCode, cache);
                 return;
             }
         }
@@ -145,12 +135,13 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         if (nextSiteIndex > 0) {
             currentSiteIndex = nextSiteIndex - 1;
         }
+
         Float gpsAngle = parseFloat(data[9], 0.0f);
 
         /**
          * 存放缓存.
          */
-        MoDataForwardCache cache = new MoDataForwardCache();
+        cache = new MoDataForwardCache();
         cache.setCurrentSiteIndex(currentSiteIndex);
         cache.setLatitudeFen(latitudeFen);
         cache.setLongitudeFen(longitudeFen);
@@ -163,7 +154,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         cache.setRouteOId(routeOId);
         cache.setGpsAngle(gpsAngle);
         cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_TRUE);
-        redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+        dataForwardService.setMoDataForwardCacheByVehCode(vehCode, cache);
 
         /**
          * 当线路为空时说明车辆停止在总站 无需处理.
@@ -264,6 +255,21 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         moOffSiteDataService.insert(offsite);
     }
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+        ctx.writeAndFlush(syncProperties.getDataForward().getAccessKey());
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
+        Channel channel = ctx.channel();
+        if (channel.isActive()) {
+            ctx.close();
+        }
+    }
+
     private static Date parseDate(String s) {
         if (StringUtils.equals(s, DATE_FORMAT_SPACE)) {
             return null;
@@ -286,20 +292,5 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
             return defaultValue;
         }
         return Float.parseFloat(s);
-    }
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
-        ctx.writeAndFlush(syncProperties.getDataForward().getAccessKey());
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
-        Channel channel = ctx.channel();
-        if (channel.isActive()) {
-            ctx.close();
-        }
     }
 }

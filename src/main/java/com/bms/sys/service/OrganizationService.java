@@ -109,4 +109,14 @@ public class OrganizationService {
     public Organization findByOId(String oId) {
         return organizationRepository.findByoId(oId);
     }
+
+    @Transactional(readOnly = true)
+    public List<Organization> findByParentIsNullOrderByIndexAsc() {
+        return organizationRepository.findByParentIsNullAndDeletedOrderByIndexAsc(DELETE_FALSE);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Organization> findByParentIdInOrderByIndexAsc(List<Long> parentIdList) {
+        return organizationRepository.findByParentIdInAndDeletedOrderByIndexAsc(parentIdList, DELETE_FALSE);
+    }
 }

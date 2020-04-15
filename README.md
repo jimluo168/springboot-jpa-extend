@@ -6108,7 +6108,7 @@ params:
 
 @value:object:json信息
 	move:int:车辆移动
-	online:int:连接服务器
+	online:int:连接服务器 0:在线 1:不在线
 	current_site_index:int:当前站点
 	speed:float:速度
 	latitude:double:纬度

@@ -1,29 +1,31 @@
-package com.bms.industry.view;
+package com.bms.monitor.view;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * TODO(类的简要说明)
+ * 车辆运行检测-左侧树结构.
  *
  * @author zouyongcan
  * @date 2020/4/13
  */
 @Data
-public class BusTerminalMenu {
+public class MoBusVehicleTreeView implements Serializable {
     /**
-     * 类型(公司)
+     * 1:类型(公司)
      */
     public static final Integer MENU_TYPE_ORG = 1;
     /**
-     * 类型(线路)
+     * 2:类型(线路)
      */
     public static final Integer MENU_TYPE_ROUTE = 2;
     /**
-     * 类型(场站)
+     * 3:类型(场站)
      */
     public static final Integer MENU_TYPE_TERMINAL = 3;
+
     /**
      * 菜单ID
      */
@@ -32,10 +34,6 @@ public class BusTerminalMenu {
      * 公司名称
      */
     private String name;
-    /**
-     * 公司id
-     */
-    private Long orgId;
     /**
      * 级别
      */
@@ -55,5 +53,5 @@ public class BusTerminalMenu {
     /**
      * 子菜单-子公司或场站信息
      */
-    private List<BusTerminalMenu> children;
+    private List<MoBusVehicleTreeView> children;
 }

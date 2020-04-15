@@ -202,6 +202,22 @@ public interface Constant {
     String MAPPER_BUS_TERMINAL_MENU_ORG = "bus_terminal_menu_org";
 
     String MAPPER_BUS_TERMINAL_MENU_TERMINAL = "bus_terminal_menu_terminal";
+    /**
+     * 车辆运行监测-车辆-车辆列表.
+     */
+    String MAPPER_MO_BUS_VEHICLE_LIST_BY_ROUTE_ID_LIST = "mo_bus_vehicle_list_by_route_id_list";
+    /**
+     * 车辆运行监测-车辆-历史轨迹.
+     */
+    String MAPPER_MO_BUS_VEHICLE_HISTORY_TRACK_LIST_BY_VEHCODE = "mo_bus_vehicle_history_track_list_by_vehcode";
+    /**
+     * 车辆运行监测-线路-左边列表.
+     */
+    String MAPPER_MO_BUS_VEHICLE_ROUTE_LIST_BY_ROUTE_ID_LIST = "mo_bus_vehicle_route_list_by_route_id_list";
+    /**
+     * 车辆运行监测-线路-站点列表.
+     */
+    String MAPPER_MO_BUS_VEHICLE_SITE_LIST_BY_ROUTE_ID_LIST = "mo_bus_vehicle_site_list_by_route_id_list";
 
     /***--------------------------MAPPER SQL常量定义结束--------------------------------***/
 

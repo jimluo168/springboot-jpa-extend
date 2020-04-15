@@ -129,6 +129,8 @@ public abstract class OrganizationCommon extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Organization parent;
+    @Column(name = "parent_id", insertable = false, updatable = false)
+    private Long parentId;
     /**
      * 子公司.
      */

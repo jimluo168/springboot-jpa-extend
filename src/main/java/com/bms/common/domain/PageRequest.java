@@ -10,18 +10,26 @@ import java.util.Objects;
  * @date 2020/3/12
  */
 public class PageRequest implements Serializable {
+    /**
+     * 最大支持页码大小 4000条记录.
+     */
+    public static final int MAX_PAGE_SIZE = 4000;
 
     private final int page;
     private final int size;
 
     public PageRequest(int page, int size) {
         if (page < 0) {
-            throw new IllegalArgumentException("Page index must not be less than zero!");
+            throw new IllegalArgumentException("page index must not be less than zero!");
         }
 
         if (size < 1) {
-            throw new IllegalArgumentException("Page size must not be less than one!");
+            throw new IllegalArgumentException("page size must not be less than one!");
         }
+//
+//        if (size > MAX_PAGE_SIZE) {
+//            throw new IllegalArgumentException("page size must not be greater than" + MAX_PAGE_SIZE);
+//        }
 
         this.page = page;
         this.size = size;

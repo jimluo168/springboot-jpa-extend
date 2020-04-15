@@ -107,4 +107,9 @@ public class BusRouteService {
     public BusRoute findByOId(String oId) {
         return busRouteRepository.findByoId(oId);
     }
+
+    @Transactional(readOnly = true)
+    public List<BusRoute> findByOrgIdList(List<Long> orgIdList) {
+        return busRouteRepository.findByOrgIdInAndDeleted(orgIdList, DELETE_FALSE);
+    }
 }

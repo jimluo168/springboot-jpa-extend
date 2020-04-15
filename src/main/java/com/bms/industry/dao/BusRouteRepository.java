@@ -21,4 +21,6 @@ public interface BusRouteRepository extends PagingAndSortingRepository<BusRoute,
     int countByNameAndTypeAndIdNotAndDeleted(String name, Integer type, Long id, int deleted);
 
     BusRoute findByoId(String oId);
+
+    List<BusRoute> findByOrgIdInAndDeleted(List<Long> orgIdList, int deleted);
 }

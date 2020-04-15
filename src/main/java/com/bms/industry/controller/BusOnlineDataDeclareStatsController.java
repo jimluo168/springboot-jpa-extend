@@ -13,7 +13,6 @@ import com.bms.industry.view.BusOnlineDataDeclareStatsEnergyComparisonEchartView
 import com.bms.industry.view.DataDeclareTotalRetrieval;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,7 +97,7 @@ public class BusOnlineDataDeclareStatsController {
                 return ok(busOnlineDataDeclareStatsService.week(params));
         }
 
-        throw ErrorCodes.build(ErrorCodes.INVALID_PARAMETER, " category=" + params.getCategory() + " 不支持的类别");
+        throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, " category=" + params.getCategory() + " 不支持的类别");
     }
 
     @ApiOperation("统计查询")

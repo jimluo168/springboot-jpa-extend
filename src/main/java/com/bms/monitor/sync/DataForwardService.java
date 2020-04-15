@@ -2,11 +2,14 @@ package com.bms.monitor.sync;
 
 import com.bms.Constant;
 import com.bms.common.config.flake.FlakeId;
+import com.bms.common.config.redis.RedisClient;
 import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.util.BeanMapper;
+import com.bms.common.util.JSON;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 数据转发业务类.
@@ -22,11 +26,18 @@ import java.util.Map;
  * @date 2020/4/13
  */
 @Service
-@Transactional(rollbackFor = RuntimeException.class)
 @RequiredArgsConstructor
 public class DataForwardService {
     private static final Logger logger = LoggerFactory.getLogger(DataForwardService.class);
 
+    /**
+     * 缓存定位信息 %s:车辆编号.
+     */
+    public static final String CACHE_KEYS = "cache:vehicle:*";
+    public static final String CACHE_KEY = "cache:vehicle:%s";
+    public static final int CACHE_KEY_EXP_SECONDS = 24 * 60 * 60;
+
+    private final RedisClient redisClient;
     private final FlakeId flakeId;
     private final HibernateDao hibernateDao;
 
@@ -45,7 +56,27 @@ public class DataForwardService {
      * @param isMove   是否运行
      * @param isOnline 是否在线
      */
+    @Transactional(rollbackFor = RuntimeException.class)
     public int updateBusVehicleByCode(MoDataForwardCache cache) {
         return hibernateDao.executeUpdate(new DaoCmd(Constant.MAPPER_MO_DATA_FORWARD_UPDATE_BUS_VEHICLE_BY_CODE, BeanMapper.toMap(cache)));
     }
+
+    public MoDataForwardCache getMoDataForwardCacheByVehCode(String vehCode) {
+        String key = String.format(CACHE_KEY, vehCode);
+        String json = redisClient.get(key);
+        if (StringUtils.isNotBlank(json)) {
+            return JSON.parseObject(json, MoDataForwardCache.class);
+        }
+        return null;
+    }
+
+    public void setMoDataForwardCacheByVehCode(String vehCode, MoDataForwardCache cache) {
+        String key = String.format(CACHE_KEY, vehCode);
+        redisClient.setex(key, CACHE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+    }
+
+    public Set<String> findCacheKeys() {
+        return redisClient.keys(DataForwardService.CACHE_KEYS);
+    }
+
 }

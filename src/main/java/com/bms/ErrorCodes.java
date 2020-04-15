@@ -26,7 +26,7 @@ public enum ErrorCodes {
     OSS_FILE_EMPTY(1003, "文件为空或无效"),
     OSS_CONTENT_TYPE_UNSUPPORTED(1005, "不支持的内容类型"),
     USER_STATUS_DISABLED(1004, "用户禁用"),
-    INVALID_PARAMETER(1006, "无效的参数"),
+    ILLEGAL_ARGUMENT(1006, "无效的参数"),
     RECORD_EXISTS(1007, "记录已存在"),
 
     /**
@@ -36,13 +36,26 @@ public enum ErrorCodes {
     ACCOUNT_NOT_EXIST(10001, "账号不存在"),
     EXPORT_DATA_ERR(10002, "导出数据出错"),
     IMPORT_DATA_ERR(10003, "导入数据出错"),
-    IMPORT_DATA_FORMAT_ERR(10004, "数据格式不正确");
+    IMPORT_DATA_FORMAT_ERR(10004, "数据格式不正确"),
 
 
     /**
      * industry(20000-29999).
      */
 
+
+    /**
+     * monitor(30000-39999).
+     */
+    GPS_NO_LOCATION_DATA_ERR(30000, "GPS定位无法获取"),
+
+
+    /**
+     * statis(40000-49999).
+     */
+
+
+    ;
 
     private int code;
     private String message;

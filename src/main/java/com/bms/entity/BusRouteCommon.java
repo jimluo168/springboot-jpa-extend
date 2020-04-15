@@ -109,6 +109,11 @@ public abstract class BusRouteCommon extends BaseEntity {
     @JoinColumn(name = "org_id")
     private Organization organization;
     /**
+     * 所属企业.
+     */
+    @Column(name = "org_id", insertable = false, updatable = false)
+    private Long orgId;
+    /**
      * 所属车队.
      */
     @ManyToOne
