@@ -46,4 +46,19 @@ public class MoOffSiteData implements Serializable {
      * 座位数量.
      */
     private Integer seatNum;
+    /**
+     * 公司ID.
+     */
+    @Column(name = "org_id")
+    private Long orgId;
+    /**
+     * 车队ID.
+     */
+    @Column(name = "team_id")
+    private Long teamId;
+    /**
+     * 线路ID.
+     */
+    @Column(name = "route_id")
+    private Long routeId;
 }

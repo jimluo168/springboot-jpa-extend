@@ -259,6 +259,9 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         MoBusVehicleCache vehicleCache = dataForwardService.getMoBusVehicleCacheByVehCode(vehCode);
         if (vehicleCache != null) {
             offsite.setSeatNum(vehicleCache.getSeatNum());
+            offsite.setOrgId(vehicleCache.getOrgId());
+            offsite.setTeamId(vehicleCache.getTeamId());
+            offsite.setRouteId(vehicleCache.getRouteId());
         }
 
         moOffSiteDataService.insert(offsite);

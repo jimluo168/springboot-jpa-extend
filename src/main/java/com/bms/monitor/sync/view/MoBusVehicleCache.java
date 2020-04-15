@@ -35,4 +35,16 @@ public class MoBusVehicleCache implements Serializable {
      * 座位数.
      */
     private Integer seatNum;
+    /**
+     * 公司ID.
+     */
+    private Long orgId;
+    /**
+     * 车队ID.
+     */
+    private Long teamId;
+    /**
+     * 线路ID.
+     */
+    private Long routeId;
 }

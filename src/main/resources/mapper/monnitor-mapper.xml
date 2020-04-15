@@ -437,7 +437,10 @@
             select
                 id as veh_id,
                 code as veh_code,
-                seat_num
+                seat_num,
+                org_id,
+                team_id,
+                route_id
             from bus_vehicles
             where code is not null
             and status = 2
