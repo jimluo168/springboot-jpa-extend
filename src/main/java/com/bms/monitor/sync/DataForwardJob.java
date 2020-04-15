@@ -84,7 +84,7 @@ public class DataForwardJob {
                     cache.setLongitude(new BigDecimal(GPSUtils.fen2du(cache.getLongitudeFen())));
                 }
 
-                if (cache.getNextSiteIndex() > 0) {
+                if (cache.getNextSiteIndex() > 1) {
                     cache.setCurrentSiteIndex(cache.getNextSiteIndex() - 1);
                 }
                 if (StringUtils.isNotBlank(cache.getRouteOId())) {
@@ -92,7 +92,7 @@ public class DataForwardJob {
                     if (view != null) {
                         cache.setCurrentSiteName(view.getSiteName());
                     }
-                    if (cache.getNextSiteIndex() > 0) {
+                    if (cache.getNextSiteIndex() > 1) {
                         view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(cache.getRouteOId(), cache.getCurrentSiteIndex());
                         if (view != null) {
                             cache.setCurrentSiteName(view.getSiteName());

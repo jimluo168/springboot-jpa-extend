@@ -18,7 +18,7 @@ class GPSUtilsTest {
 
     @Test
     void getEllipsoidalDistance() {
-        double m1 = GPSUtils.getDistance(27.080278, 107.628889, 27.080270, 107.628889);
+        double m1 = GPSUtils.getDistance(26.596263, 106.658968, 26.599362, 106.667395);
         System.out.println(m1);
     }
 }
