@@ -302,10 +302,10 @@
                     pract_o_id = :practOId,
                 </#if>
                 up_down = :upDown,
-                <#if latitude?? && latitude!=''>
+                <#if latitude??>
                     current_latitude = :latitude,
                 </#if>
-                <#if longitude?? && longitude!=''>
+                <#if longitude??>
                     current_longitude = :longitude,
                 </#if>
                 <#if gpsAngle?? && gpsAngle!=''>

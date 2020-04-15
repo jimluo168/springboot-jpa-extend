@@ -104,11 +104,11 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         /**
          * 判断 同一辆车位置相同 不处理.
          */
-
         MoDataForwardCache cache = dataForwardService.getMoDataForwardCacheByVehCode(vehCode);
         if (cache != null) {
             if (StringUtils.equals(cache.getLatitudeFen(), latitudeFen)
                     && StringUtils.equals(cache.getLongitudeFen(), longitudeFen)) {
+                cache.setLastUpdDate(System.currentTimeMillis());
                 cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_FALSE);
                 dataForwardService.setMoDataForwardCacheByVehCode(vehCode, cache);
                 return;

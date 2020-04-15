@@ -24,12 +24,21 @@ public class MoDataForwardCache {
      */
     public static final int UPDATE_STATUS_TRUE = 1;
     /**
+     * 0:在线.
+     */
+    public static final int ONLINE_ON = 0;
+    /**
+     * 1:断开.
+     */
+    public static final int ONLINE_OFF = 1;
+
+    /**
      * 车辆编号.
      */
     @JsonProperty(access = WRITE_ONLY)
     private String vehCode;
     private Integer move;
-    private Integer online;
+    private Integer online = ONLINE_ON;
     private Integer currentSiteIndex;
     private Integer nextSiteIndex;
     private Float speed;
@@ -63,4 +72,8 @@ public class MoDataForwardCache {
      * 数据更新状态 是否更新 0:无更新 1:已更新.
      */
     private Integer updateStatus = UPDATE_STATUS_FALSE;
+    /**
+     * 最后更新时间.
+     */
+    private Long lastUpdDate = System.currentTimeMillis();
 }

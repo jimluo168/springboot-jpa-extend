@@ -30,10 +30,15 @@ public class DataForwardJob {
     private final RedisClient redisClient;
 
     /**
+     * 超时连接.
+     */
+    public static final int ONLINE_TIME_OUT = 5 * 60 * 1000;
+
+    /**
      * 定时刷新车辆信息.
      */
     @Async
-    @Scheduled(cron = "0 0/5 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void updateBusVehicleInfo() {
         logger.info("定时刷新车辆信息任务开始执行");
         long start = System.currentTimeMillis();
@@ -46,6 +51,14 @@ public class DataForwardJob {
             keySet.stream().forEach(key -> {
                 String json = redisClient.get(key);
                 MoDataForwardCache cache = JSON.parseObject(json, MoDataForwardCache.class);
+                if (cache == null) {
+                    return;
+                }
+                // 如果数据5分钟内没有接收到数据 代表与服务器断开了
+                if (cache.getLastUpdDate() != null && (System.currentTimeMillis() - cache.getLastUpdDate()) > ONLINE_TIME_OUT) {
+                    cache.setOnline(MoDataForwardCache.ONLINE_OFF);
+                    cache.setUpdateStatus(MoDataForwardCache.UPDATE_STATUS_TRUE);
+                }
                 // 如果数据没有更新 无需处理
                 if (cache.getUpdateStatus() != null && cache.getUpdateStatus() == MoDataForwardCache.UPDATE_STATUS_FALSE) {
                     return;
