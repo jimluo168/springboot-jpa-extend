@@ -20,7 +20,7 @@ public class MoBusSiteCache implements Serializable {
      * 缓存KEY cache:bussite:{route_o_id}:{site_index}.
      */
     public static final String CACHE_BUSSITE_KEYS = "cache:bussite:*";
-    public static final String CACHE_BUSSITE_KEY = "cache:bussite:%s:%s";
+    public static final String CACHE_BUSSITE_KEY = "cache:bussite:%s";
     public static final int CACHE_BUSSITE_KEY_EXP_SECONDS = 26 * 60 * 60;
 
     /**

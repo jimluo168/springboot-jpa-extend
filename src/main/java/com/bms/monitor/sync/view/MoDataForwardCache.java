@@ -19,8 +19,8 @@ public class MoDataForwardCache implements Serializable {
     /**
      * 缓存定位信息 %s:车辆编号.
      */
-    public static final String CACHE_VEHICLE_KEYS = "cache:dataforwardc2:*";
-    public static final String CACHE_VEHICLE_KEY = "cache:dataforwardc2:%s";
+    public static final String CACHE_VEHICLE_KEYS = "cache:dataforward:c2:*";
+    public static final String CACHE_VEHICLE_KEY = "cache:dataforward:c2:%s";
     public static final int CACHE_VEHICLE_KEY_EXP_SECONDS = 24 * 60 * 60;
 
     /**
