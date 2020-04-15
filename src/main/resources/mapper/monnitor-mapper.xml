@@ -335,7 +335,11 @@
                 v.current_longitude
             from bus_vehicles v
             left join practitioners p on p.o_id = v.pract_o_id
-            where v.route_id in (:routeIdList)
+            where v.is_delete = 0
+            and v.code is not null
+            <#if routeIdList?? && (routeIdList?size>0)>
+                and v.route_id in (:routeIdList)
+            </#if>
         ]]>
     </mo_bus_vehicle_list_by_route_id_list>
 
@@ -367,7 +371,10 @@
                 distinct r.id, r.name,r.o_id, s.up_down
             from bus_routes r
             left join bus_sites s on s.route_id = r.id
-            where r.id in (:routeIdList)
+            where r.is_delete = 0
+            <#if routeIdList?? && (routeIdList?size>0)>
+                and r.id in (:routeIdList)
+            </#if>
         ]]>
     </mo_bus_vehicle_route_list_by_route_id_list>
 
@@ -384,8 +391,10 @@
                 r.name as route_name
             from bus_sites s
             left join bus_routes r on r.id = s.route_id
-            where
-            s.route_id in (:routeIdList)
+            where s.is_delete = 0
+            <#if routeIdList?? && (routeIdList?size>0)>
+                and s.route_id in (:routeIdList)
+            </#if>
             <#if upDown??>
                 and s.up_down=:upDown
             </#if>

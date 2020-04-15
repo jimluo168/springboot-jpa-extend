@@ -50,9 +50,9 @@ public class MoBusVehicleController {
     @ApiOperation("车辆-列表")
     @GetMapping("/list")
     public Result<PageList<MoBusVehicleView>> vehicleList(PageRequest pageRequest, MoBusVehicleView view) {
-        if (view.getRouteIdList() == null || view.getRouteIdList().isEmpty()) {
-            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "route_id_list不能为空", true);
-        }
+//        if (view.getRouteIdList() == null || view.getRouteIdList().isEmpty()) {
+//            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "route_id_list不能为空", true);
+//        }
         return ok(moBusVehicleService.pageVehicleListByRouteIdList(pageRequest, view));
     }
 
@@ -79,18 +79,18 @@ public class MoBusVehicleController {
     @ApiOperation("车辆-线路-列表")
     @GetMapping("/routes/list")
     public Result<PageList<MoBusRouteView>> routeList(PageRequest pageRequest, MoBusRouteView view) {
-        if (view.getRouteIdList() == null || view.getRouteIdList().isEmpty()) {
-            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "route_id_list不能为空", true);
-        }
+//        if (view.getRouteIdList() == null || view.getRouteIdList().isEmpty()) {
+//            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "route_id_list不能为空", true);
+//        }
         return ok(moBusVehicleService.pageRouteListByRouteIdList(pageRequest, view));
     }
 
     @ApiOperation("车辆-线路-站点列表")
     @GetMapping("/sites/list")
     public Result<PageList<MoBusSiteView>> siteList(PageRequest pageRequest, MoBusSiteView view) {
-        if (view.getRouteIdList() == null || view.getRouteIdList().isEmpty()) {
-            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "route_id_list不能为空", true);
-        }
+//        if (view.getRouteIdList() == null || view.getRouteIdList().isEmpty()) {
+//            throw ErrorCodes.build(ErrorCodes.ILLEGAL_ARGUMENT, "route_id_list不能为空", true);
+//        }
         return ok(moBusVehicleService.pageSiteListByRouteIdList(pageRequest, view));
     }
 }

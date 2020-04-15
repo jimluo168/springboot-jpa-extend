@@ -50,7 +50,7 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
      */
     public static final ThreadPoolExecutor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(400, 400 * 2,
             10L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(400 * 2 * 10),
-            Executors.defaultThreadFactory(), new ThreadPoolExecutor.DiscardOldestPolicy()/*new ThreadPoolExecutor.AbortPolicy()*/);
+            Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy()/*new ThreadPoolExecutor.DiscardOldestPolicy()*/);
 
     private final SyncProperties syncProperties;
     private final MoBusVehicleGpsDataService moBusVehicleGpsDataService;
@@ -244,6 +244,9 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         offsite.setGetoffNumber(parseInt(data[i++], 0));
         offsite.setInsideNumber(parseInt(data[i++], 0));
 
+        /**
+         * TODO 改用缓存.
+         */
         if (StringUtils.isNotBlank(offsite.getRouteOId())) {
             BusRouteNameAndSiteNameView view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(offsite.getRouteOId(), offsite.getSiteIndex());
             if (view != null) {

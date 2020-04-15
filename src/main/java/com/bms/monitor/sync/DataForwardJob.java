@@ -38,7 +38,7 @@ public class DataForwardJob {
      * 定时刷新车辆信息.
      */
     @Async
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void updateBusVehicleInfo() {
         logger.info("定时刷新车辆信息任务开始执行");
         long start = System.currentTimeMillis();
