@@ -38,4 +38,12 @@ public class MoOffSiteData implements Serializable {
     private Integer insideNumber;
     private String routeName;
     private String siteName;
+    /**
+     * 线路方向 上下行 0:下行 1:上行.
+     */
+    private Integer upDown;
+    /**
+     * 座位数量.
+     */
+    private Integer seatNum;
 }

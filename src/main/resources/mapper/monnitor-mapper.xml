@@ -413,4 +413,35 @@
         ]]>
     </mo_bus_vehicle_site_list_by_route_id_list>
 
+    <mo_bus_site_and_bus_route_cache_info type="sql" desc="公交站点和公交线路信息-用于缓存数据">
+        <![CDATA[
+            select
+                s.o_id as site_o_id,
+                s.id as site_id,
+                s.name as site_name,
+                r.id as route_id,
+                r.o_id as route_o_id,
+                r.name as route_name,
+                s.up_down,
+                s.`index` as site_index
+            from bus_sites s
+            left join bus_routes r on r.id = s.route_id
+            where r.o_id is not null
+            and s.status = 2
+            order by s.`index` asc
+        ]]>
+    </mo_bus_site_and_bus_route_cache_info>
+
+    <mo_bus_vehicle_cache_info type="sql" desc="车辆信息-缓存信息专用">
+        <![CDATA[
+            select
+                id as veh_id,
+                code as veh_code,
+                seat_num
+            from bus_vehicles
+            where code is not null
+            and status = 2
+        ]]>
+    </mo_bus_vehicle_cache_info>
+
 </mapper>

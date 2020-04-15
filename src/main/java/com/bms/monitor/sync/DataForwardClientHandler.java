@@ -5,6 +5,8 @@ import com.bms.common.util.GPSUtils;
 import com.bms.entity.MoBusVehicleGpsData;
 import com.bms.entity.MoOffSiteData;
 import com.bms.industry.sync.SyncProperties;
+import com.bms.monitor.sync.view.MoBusSiteCache;
+import com.bms.monitor.sync.view.MoBusVehicleCache;
 import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import com.bms.monitor.service.MoBusVehicleGpsDataService;
@@ -246,14 +248,17 @@ public class DataForwardClientHandler extends SimpleChannelInboundHandler<String
         offsite.setInsideNumber(parseInt(data[i++], 0));
 
         /**
-         * TODO 改用缓存.
+         * 用缓存.
          */
-        if (StringUtils.isNotBlank(offsite.getRouteOId())) {
-            BusRouteNameAndSiteNameView view = dataForwardService.findBusRouteNameAndSiteNameByRouteOIdAndSiteIndex(offsite.getRouteOId(), offsite.getSiteIndex());
-            if (view != null) {
-                offsite.setRouteName(view.getRouteName());
-                offsite.setSiteName(view.getSiteName());
-            }
+        MoBusSiteCache cache = dataForwardService.getMoBusSiteCacheByRouteOIdAndSiteIndex(offsite.getRouteOId(), offsite.getSiteIndex());
+        if (cache != null) {
+            offsite.setRouteName(cache.getRouteName());
+            offsite.setSiteName(cache.getSiteName());
+            offsite.setUpDown(cache.getUpDown());
+        }
+        MoBusVehicleCache vehicleCache = dataForwardService.getMoBusVehicleCacheByVehCode(vehCode);
+        if (vehicleCache != null) {
+            offsite.setSeatNum(vehicleCache.getSeatNum());
         }
 
         moOffSiteDataService.insert(offsite);

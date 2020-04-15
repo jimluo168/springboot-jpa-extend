@@ -7,6 +7,8 @@ import com.bms.common.dao.DaoCmd;
 import com.bms.common.dao.HibernateDao;
 import com.bms.common.util.BeanMapper;
 import com.bms.common.util.JSON;
+import com.bms.monitor.sync.view.MoBusSiteCache;
+import com.bms.monitor.sync.view.MoBusVehicleCache;
 import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,4 +76,43 @@ public class DataForwardService {
         return redisClient.keys(MoDataForwardCache.CACHE_VEHICLE_KEYS);
     }
 
+    @Transactional(readOnly = true)
+    public List<MoBusSiteCache> findAllBusSiteCache() {
+        return hibernateDao.getList(new DaoCmd("mo_bus_site_and_bus_route_cache_info", null, MoBusSiteCache.class));
+    }
+
+
+    public MoBusSiteCache getMoBusSiteCacheByRouteOIdAndSiteIndex(String routeOId, Integer siteIndex) {
+        String key = String.format(MoBusSiteCache.CACHE_BUSSITE_KEY, routeOId, siteIndex.toString());
+        String json = redisClient.get(key);
+        if (StringUtils.isNotBlank(json)) {
+            return JSON.parseObject(json, MoBusSiteCache.class);
+        }
+        return null;
+    }
+
+    public void setMoBusSiteCacheByRouteOIdAndSiteIndex(String routeOId, Integer siteIndex, MoBusSiteCache cache) {
+        String key = String.format(MoBusSiteCache.CACHE_BUSSITE_KEY, routeOId, siteIndex.toString());
+        redisClient.setex(key, MoBusSiteCache.CACHE_BUSSITE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<MoBusVehicleCache> findAllBusVehicleCache() {
+        return hibernateDao.getList(new DaoCmd("mo_bus_vehicle_cache_info", null, MoBusVehicleCache.class));
+    }
+
+    public MoBusVehicleCache getMoBusVehicleCacheByVehCode(String vehCode) {
+        String key = String.format(MoBusSiteCache.CACHE_BUSSITE_KEY, vehCode);
+        String json = redisClient.get(key);
+        if (StringUtils.isNotBlank(json)) {
+            return JSON.parseObject(json, MoBusVehicleCache.class);
+        }
+        return null;
+    }
+
+    public void setMoBusVehicleCacheByVehCode(String vehCode, MoBusVehicleCache cache) {
+        String key = String.format(MoDataForwardCache.CACHE_VEHICLE_KEY, vehCode);
+        redisClient.setex(key, MoBusVehicleCache.CACHE_BUSVEHICLE_KEY_EXP_SECONDS, JSON.toJSONString(cache));
+    }
 }

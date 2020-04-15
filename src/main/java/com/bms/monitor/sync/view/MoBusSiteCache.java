@@ -1,8 +1,11 @@
 package com.bms.monitor.sync.view;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 /**
  * Redis缓存-站点部分信息.
@@ -12,6 +15,14 @@ import java.io.Serializable;
  */
 @Data
 public class MoBusSiteCache implements Serializable {
+
+    /**
+     * 缓存KEY cache:bussite:{route_o_id}:{site_index}.
+     */
+    public static final String CACHE_BUSSITE_KEYS = "cache:bussite:*";
+    public static final String CACHE_BUSSITE_KEY = "cache:bussite:%s:%s";
+    public static final int CACHE_BUSSITE_KEY_EXP_SECONDS = 26 * 60 * 60;
+
     /**
      * 站点ID.
      */
@@ -36,4 +47,10 @@ public class MoBusSiteCache implements Serializable {
      * 线路名称.
      */
     private String routeName;
+    /**
+     * 旧系统 线路ID.
+     */
+    @JsonProperty(access = WRITE_ONLY)
+    private String routeOId;
+
 }

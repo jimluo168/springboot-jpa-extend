@@ -85,8 +85,8 @@ sync:
   bus:
     enabled: false
     base: http://118.190.63.181:8888
-    # 每天凌晨2点同步
-    cron: 0 0 18 * * ?
+    # 每天凌晨24点同步
+    cron: 0 0 16 * * ?
     username: 123
     password: 123
   # 数据转发
@@ -95,3 +95,12 @@ sync:
     host: 222.85.139.247
     port: 10006
     access-key: test1
+
+# 定时任务
+job:
+  bussite:
+    # 每天凌晨3点进行缓存
+    cron: 0 0 19 * * ?
+  busvehicle:
+    # 每天凌晨3点进行缓存
+    cron: 0 0 19 * * ?

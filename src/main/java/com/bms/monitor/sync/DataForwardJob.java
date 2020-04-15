@@ -3,6 +3,8 @@ package com.bms.monitor.sync;
 import com.bms.common.config.redis.RedisClient;
 import com.bms.common.util.GPSUtils;
 import com.bms.common.util.JSON;
+import com.bms.monitor.sync.view.MoBusSiteCache;
+import com.bms.monitor.sync.view.MoBusVehicleCache;
 import com.bms.monitor.sync.view.MoDataForwardCache;
 import com.bms.monitor.view.BusRouteNameAndSiteNameView;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,6 +38,13 @@ public class DataForwardJob {
      * 超时连接.
      */
     public static final int ONLINE_TIME_OUT = 5 * 60 * 1000;
+
+
+    @PostConstruct
+    public void init() {
+        refreshMoBusSiteCache();
+        refreshMoBusVehicleCache();
+    }
 
     /**
      * 定时刷新车辆信息.
@@ -104,17 +115,37 @@ public class DataForwardJob {
      * 刷新站点信息到缓存.
      */
     @Async
-//    @Scheduled
-    public void refreshBusSiteInfo2Cache() {
+    @Scheduled(cron = "${job.bussite.cron}")
+    public void refreshMoBusSiteCache() {
         logger.info("刷新站点信息到缓存任务开始执行");
         long start = System.currentTimeMillis();
         try {
-
-
+            List<MoBusSiteCache> list = dataForwardService.findAllBusSiteCache();
+            list.stream().forEach(site -> {
+                dataForwardService.setMoBusSiteCacheByRouteOIdAndSiteIndex(site.getRouteOId(), site.getSiteIndex(), site);
+            });
         } finally {
             logger.info("刷新站点信息到缓存任务结束执行... 总耗时:{}ms", System.currentTimeMillis() - start);
         }
+    }
 
+
+    /**
+     * 刷新车辆信息到缓存.
+     */
+    @Async
+    @Scheduled(cron = "${job.busvehicle.cron}")
+    public void refreshMoBusVehicleCache() {
+        logger.info("刷新车辆信息到缓存任务开始执行");
+        long start = System.currentTimeMillis();
+        try {
+            List<MoBusVehicleCache> list = dataForwardService.findAllBusVehicleCache();
+            list.stream().forEach(vehicle -> {
+                dataForwardService.setMoBusVehicleCacheByVehCode(vehicle.getVehCode(), vehicle);
+            });
+        } finally {
+            logger.info("刷新车辆信息到缓存任务结束执行... 总耗时:{}ms", System.currentTimeMillis() - start);
+        }
     }
 
 }
