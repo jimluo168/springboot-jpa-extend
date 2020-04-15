@@ -6001,7 +6001,7 @@ params:
 ### 36.4. 车辆运行监测-车辆-历史轨迹
 
 ```yaml
-@get: /monitor/vehilces/:veh_code/tracks?page=:page&size=:size&begin=:begin&end=:end
+@get: /monitor/vehilces/:veh_code/tracks/list?page=:page&size=:size&begin=:begin&end=:end
 
 @header:
   X-User-Agent:手机信息(必须)
