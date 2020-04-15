@@ -368,8 +368,8 @@
     <mo_bus_vehicle_history_track_point_by_vehcode type="sql" desc="车辆运行监测-车辆-历史轨迹点">
         <![CDATA[
             select
-                g.latitude,
-                g.longitude
+                g.longitude,
+                g.latitude
             from mo_bus_vehicle_gps_datas g
             where g.veh_code = :vehCode
             and gps_create_date between :begin and :end
