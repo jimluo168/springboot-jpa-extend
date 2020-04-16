@@ -285,6 +285,7 @@
             left join bus_routes r on r.id = s.route_id
             where s.`index`= :siteIndex
                 and s.o_route_id = :routeOId
+            order by s.last_upd_date desc
             limit 0,1
         ]]>
     </mo_data_forward_find_bus_route_site_by_routeid_and_siteindex>
