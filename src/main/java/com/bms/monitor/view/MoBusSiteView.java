@@ -52,4 +52,8 @@ public class MoBusSiteView implements Serializable {
      * 线路ID 支持多个线路 用于接收前端传入的参数.
      */
     private List<Long> routeIdList = new ArrayList<>();
+    /**
+     * 方向 上下行标志 1上行 0下行 支持多个方向选择.
+     */
+    private List<Integer> upDownList = new ArrayList<>();
 }

@@ -406,8 +406,8 @@
             <#if routeIdList?? && (routeIdList?size>0)>
                 and s.route_id in (:routeIdList)
             </#if>
-            <#if upDown??>
-                and s.up_down=:upDown
+            <#if upDownList?? && (upDownList?size>0)>
+                and s.up_down in (:upDownList)
             </#if>
             order by s.`index` asc
         ]]>
