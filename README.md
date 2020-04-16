@@ -1444,6 +1444,7 @@ File->Preferences->Editor->File and Code Templates->File Header
   code:string:编号
   type:string:类型
   status:int:状态(1:待审核 2:通过审核 3:未通过审核)
+  ids:list<string>:场站id集合
 
 @return:
   code:int:操作码
