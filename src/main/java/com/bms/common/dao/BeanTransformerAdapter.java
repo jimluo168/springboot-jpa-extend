@@ -1,5 +1,9 @@
 package com.bms.common.dao;
 
+import com.bms.common.util.DateUtil;
+import com.fasterxml.jackson.databind.BeanProperty;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.transform.BasicTransformerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +14,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.beans.PropertyDescriptor;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * Hibernate类型转换应变器.
@@ -213,16 +215,21 @@ public class BeanTransformerAdapter extends BasicTransformerAdapter {
                 try {
                     Object value = tuple[i];
                     try {
+                        if (value instanceof String && pd.getPropertyType().getName().equals(Date.class.getName())) {
+                            value = DateUtil.parseDate((String) value);
+                        }
                         bw.setPropertyValue(pd.getName(), value);
                     } catch (TypeMismatchException e) {
                         if (value == null && primitivesDefaultedForNullValue) {
-                            LOGGER.debug("Intercepted TypeMismatchException for column " + column +
+                            LOGGER.error("Intercepted TypeMismatchException for column " + column +
                                     " and column '" + column + "' with value " + value +
                                     " when setting property '" + pd.getName() + "' of type " + pd.getPropertyType() +
                                     " on object: " + mappedObject);
                         } else {
                             throw e;
                         }
+                    } catch (ParseException e) {
+                        LOGGER.error("parse date error.", e);
                     }
                     if (populatedProperties != null) {
                         populatedProperties.add(pd.getName());

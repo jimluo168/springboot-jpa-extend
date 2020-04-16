@@ -1,7 +1,11 @@
 package com.bms.common.util;
 
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 时间工具类.
@@ -10,6 +14,11 @@ import java.util.Date;
  * @date 2020/3/26
  */
 public abstract class DateUtil {
+    public static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public final static String DATE_FORMAT_STR_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    public final static String DATE_FORMAT_STR_PLAIN = "yyyy-MM-dd";
+    public final static String TIME_FORMAT_STR_PLAIN = "HH:mm:ss";
+
     /**
      * UTC 转换 GMT+8时间.
      *
@@ -28,5 +37,9 @@ public abstract class DateUtil {
         calendar.setTime(gmt8Date);
         calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) - 8);
         return calendar.getTime();
+    }
+
+    public static Date parseDate(String str) throws ParseException {
+        return DateUtils.parseDate(str, Locale.US, DATE_FORMAT_STR_ISO8601, DATE_FORMAT_UTC, DATE_FORMAT_STR_PLAIN);
     }
 }

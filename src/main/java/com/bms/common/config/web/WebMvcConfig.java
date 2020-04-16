@@ -3,6 +3,7 @@ package com.bms.common.config.web;
 import com.bms.common.config.session.ISessionManager;
 import com.bms.common.config.web.interceptor.AuthenticationInterceptor;
 import com.bms.common.config.web.interceptor.PermissionInterceptor;
+import com.bms.common.util.DateUtil;
 import com.bms.common.util.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -50,10 +51,6 @@ import java.util.TimeZone;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(WebMvcConfig.class);
-
-    public static final String DATE_FMT_DEFAULT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-    public static final String DATE_FMT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-
 
     private final ISessionManager sessionManager;
 
@@ -124,9 +121,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     return null;
                 }
                 try {
-                    return DateUtils.parseDate(source, DATE_FMT_UTC);
+                    return DateUtil.parseDate(source);
                 } catch (ParseException e) {
-                    logger.error("Parse Date error,source:" + source + " date format:" + DATE_FMT_UTC, e);
+                    logger.error("Parse Date error,source:" + source, e);
                 }
                 return null;
             }
