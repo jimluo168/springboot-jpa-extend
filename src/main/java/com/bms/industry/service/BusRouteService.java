@@ -96,11 +96,11 @@ public class BusRouteService {
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByNameAndType(String name, Integer type, Long id) {
+    public boolean existsByName(String name, Long id) {
         if (id == null) {
-            return busRouteRepository.countByNameAndTypeAndDeleted(name, type, DELETE_FALSE) > 0;
+            return busRouteRepository.countByNameAndDeleted(name, DELETE_FALSE) > 0;
         }
-        return busRouteRepository.countByNameAndTypeAndIdNotAndDeleted(name, type, id, DELETE_FALSE) > 0;
+        return busRouteRepository.countByNameAndIdNotAndDeleted(name, id, DELETE_FALSE) > 0;
     }
 
     @Transactional(readOnly = true)

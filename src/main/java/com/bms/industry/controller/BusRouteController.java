@@ -61,7 +61,7 @@ public class BusRouteController {
     @RequiresPermissions("bus_route_create")
     @PostMapping("")
     public Result<BusRoute> create(@RequestBody BusRoute busRoute) {
-        if (busRouteService.existsByNameAndType(busRoute.getName(), busRoute.getType(), null)) {
+        if (busRouteService.existsByName(busRoute.getName(), null)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "同一方向的线路名称已存在", true);
         }
         busRouteService.insert(busRoute);
@@ -73,7 +73,7 @@ public class BusRouteController {
     @RequiresPermissions("bus_route_edit")
     @PutMapping("/{id}")
     public Result<BusRoute> edit(@PathVariable Long id, @RequestBody BusRoute busRoute) {
-        if (busRouteService.existsByNameAndType(busRoute.getName(), busRoute.getType(), id)) {
+        if (busRouteService.existsByName(busRoute.getName(), id)) {
             throw ErrorCodes.build(ErrorCodes.RECORD_EXISTS, "同一方向的线路名称已存在", true);
         }
         busRouteService.updateById(id, busRoute);

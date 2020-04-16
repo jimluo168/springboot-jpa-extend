@@ -447,4 +447,85 @@
         ]]>
     </mo_bus_vehicle_cache_info>
 
+    <mo_passenger_stats_page_list type="sql" desc="客流量动态-列表">
+        <![CDATA[
+            select
+                sum(geton_number) as geton_number,
+                sum(getoff_number) as getoff_number,
+                sum(inside_number) as inside_number,
+                seat_num,
+                route_o_id,
+                site_index,
+                up_down,
+                site_name
+            from mo_off_site_datas
+            where site_name is not null
+            <#if orgId??>
+                and org_id = :orgId
+            </#if>
+            <#if teamId??>
+                and team_id = :teamId
+            </#if>
+            <#if routeId??>
+                and route_id = :routeId
+            </#if>
+            <#if begin?? && end??>
+                and arrival_date between :begin and :end
+            </#if>
+            group by route_o_id,site_index,up_down,site_name,seat_num
+        ]]>
+    </mo_passenger_stats_page_list>
+
+    <mo_passenger_stats_page_top type="sql" desc="客流量动态-客流量排名">
+        <![CDATA[
+            select
+                sum(geton_number) as geton_number,
+                sum(getoff_number) as getoff_number,
+                up_down,
+                site_name
+            from mo_off_site_datas
+            where site_name is not null
+            <#if orgId??>
+                and org_id = :orgId
+            </#if>
+            <#if teamId??>
+                and team_id = :teamId
+            </#if>
+            <#if routeId??>
+                and route_id = :routeId
+            </#if>
+            <#if begin?? && end??>
+                and arrival_date between :begin and :end
+            </#if>
+            group by up_down,site_name
+            order by geton_number,getoff_number desc
+        ]]>
+    </mo_passenger_stats_page_top>
+
+    <mo_passenger_stats_all type="sql" desc="客流量动态-线路总客流量">
+        <![CDATA[
+            select
+                sum(geton_number) as geton_number,
+                sum(getoff_number) as getoff_number,
+                up_down,
+                date_format(arrival_date,'%Y-%m-%d %H:%i') as fmt_time
+            from mo_off_site_datas
+            where up_down is not null
+            <#if orgId??>
+                and org_id = :orgId
+            </#if>
+            <#if teamId??>
+                and team_id = :teamId
+            </#if>
+            <#if routeId??>
+                and route_id = :routeId
+            </#if>
+            <#if begin?? && end??>
+                and arrival_date between :begin and :end
+            </#if>
+            group by up_down, fmt_time
+            order by arrival_date asc
+        ]]>
+    </mo_passenger_stats_all>
+
 </mapper>
