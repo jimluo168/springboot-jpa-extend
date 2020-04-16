@@ -278,10 +278,14 @@
 
     <mo_data_forward_find_bus_route_site_by_routeid_and_siteindex type="sql" desc="根据线路编码和站点顺序查找线路名称和站点名称">
         <![CDATA[
-            select s.name as site_name,r.name as route_name from bus_sites s
+            select
+                s.name as site_name,
+                r.name as route_name
+            from bus_sites s
             left join bus_routes r on r.id = s.route_id
             where s.`index`= :siteIndex
-            and s.o_route_id = :routeOId
+                and s.o_route_id = :routeOId
+            limit 0,1
         ]]>
     </mo_data_forward_find_bus_route_site_by_routeid_and_siteindex>
 

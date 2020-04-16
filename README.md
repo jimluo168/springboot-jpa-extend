@@ -6104,7 +6104,6 @@ params:
   route_id_list:array<long>:线路ID 支持多个线路ID 最大支持100个线路查找
   up_down_list:array<int>:上下行标志 1上行 0下行 支持多个方向选择
 
-
 @return:
   code:int:操作码
   data:object:分页信息
