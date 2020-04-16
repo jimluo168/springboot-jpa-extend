@@ -7,6 +7,7 @@ import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
 import com.bms.common.util.BeanMapper;
 import com.bms.entity.BusRoute;
+import com.bms.entity.MoOffSiteData;
 import com.bms.entity.Organization;
 import com.bms.industry.service.BusRouteService;
 import com.bms.monitor.view.*;
@@ -34,6 +35,16 @@ public class MoPassengerStatsService {
 
     @Transactional(readOnly = true)
     public PageList<MoPassengerListView> pageList(PageRequest pageRequest, MoPassengerListView view) {
+        if (view.getBegin() == null && view.getEnd() == null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("order", "asc");
+            MoOffSiteData o = hibernateDao.getSingle(new DaoCmd("mo_passenger_stats_get_arrival_date_orderby_asc_or_desc", params, MoOffSiteData.class));
+            view.setBegin(o.getArrivalDate());
+
+            params.put("order", "desc");
+            o = hibernateDao.getSingle(new DaoCmd("mo_passenger_stats_get_arrival_date_orderby_asc_or_desc", params, MoOffSiteData.class));
+            view.setEnd(o.getArrivalDate());
+        }
         return hibernateDao.findAll(pageRequest, new DaoCmd("mo_passenger_stats_page_list", BeanMapper.toMap(view), MoPassengerListView.class));
     }
 

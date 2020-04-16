@@ -3,6 +3,7 @@ package com.bms.common.dao;
 import com.bms.ErrorCodes;
 import com.bms.common.domain.PageList;
 import com.bms.common.domain.PageRequest;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -74,7 +75,7 @@ public class HibernateDao implements IDao {
         if (cmd.getResultClass() != null) {
             query.setResultTransformer(getTransformerAdapter(cmd.getResultClass()));
         }
-        
+
         return (T) query.uniqueResult();
     }
 
@@ -241,6 +242,10 @@ public class HibernateDao implements IDao {
         }
         FREEMARKER.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         FREEMARKER.setDefaultEncoding(StandardCharsets.UTF_8.name());
+        FREEMARKER.setDateFormat("yyyy-MM-dd");
+        FREEMARKER.setDateTimeFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+        FREEMARKER.setTimeFormat("HH:mm:ss");
+
 
         if (queryFileKeyMap == null) {
             queryFileKeyMap = new HashMap<>();

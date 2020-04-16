@@ -6211,6 +6211,8 @@ params:
       site_index:int:站点顺序
       up_down:int:上下行标志 1上行 0下行
       site_name:string:站点名称
+      begin:date:开始时间
+      end:date:结束时间
   success:bool:是否成功
   msg:string:操作提示
 ```

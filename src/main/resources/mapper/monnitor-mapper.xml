@@ -462,7 +462,9 @@
                 route_o_id,
                 site_index,
                 up_down,
-                site_name
+                site_name,
+                '${begin}' as begin,
+                '${end}' as end
             from mo_off_site_datas
             where site_name is not null
             <#if orgId??>
@@ -532,5 +534,14 @@
             order by arrival_date asc
         ]]>
     </mo_passenger_stats_all>
+
+    <mo_passenger_stats_get_arrival_date_orderby_asc_or_desc type="sql" desc="客流量动态-获取最新的到站时间 根据asc desc">
+        <![CDATA[
+            select arrival_date from mo_off_site_datas
+            where arrival_date is not null
+            order by arrival_date ${order}
+            limit 0,1
+        ]]>
+    </mo_passenger_stats_get_arrival_date_orderby_asc_or_desc>
 
 </mapper>
