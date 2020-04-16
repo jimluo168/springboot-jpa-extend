@@ -6034,7 +6034,7 @@ params:
   msg:string:操作提示
 ```
 
-### 36.4. 车辆运行监测-车辆-历史轨迹-画轨迹专用
+### 36.5. 车辆运行监测-车辆-历史轨迹-画轨迹专用
 
 ```yaml
 @get: /monitor/vehilces/:veh_code/tracks/points?page=:page&size=:size&begin=:begin&end=:end
@@ -6061,7 +6061,7 @@ params:
 ```
 
 
-### 36.5. 车辆运行监测-线路-左边列表
+### 36.6. 车辆运行监测-线路-左边列表
 
 ```yaml
 @get: /monitor/vehilces/routes/list?page=:page&size=:size&route_id_list=:route_id_list
@@ -6089,7 +6089,7 @@ params:
 ```
 
 
-### 36.6. 车辆运行监测-线路-站点列表
+### 36.7. 车辆运行监测-线路-站点列表
 
 ```yaml
 @get: /monitor/vehilces/sites/list?page=:page&size=:size&route_id_list=:route_id_list
@@ -6142,7 +6142,7 @@ params:
 	up_down:int:上下行
 ```
 
-### Redis缓存-站点部分信息
+### 37.2. Redis缓存-站点部分信息
 
 参考 `com.bms.monitor.sync.view.MoBusSiteCache`
 
@@ -6162,7 +6162,7 @@ params:
 
 ```
 
-### Redis缓存-车辆部分信息
+### 37.3. Redis缓存-车辆部分信息
 
 
 参考 `com.bms.monitor.sync.view.MoBusVehicleCache`
@@ -6175,4 +6175,99 @@ params:
 @value:object:站点信息
   veh_id:long:车辆ID
   seat_num:int:座位数
+```
+
+
+
+## 38. 客流量动态
+
+### 38.1. 客流量动态-列表
+```yaml
+@get: /monitor/passengers/list?page=:page&size=:size&org_id=:org_id&team_id=:team_id&route_id=:route_id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_id:long:公司ID
+  team_id:long:车队ID
+  route_id:long:线路ID
+  begin:date:开始日期
+  end:date:结束日期
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:客流信息
+      geton_number:int:上车人数
+      getoff_number:int:下车人数
+      inside_number:int:车厢总人数
+      seat_num:int:车座位数量
+      route_o_id:string:线路编号
+      site_index:int:站点顺序
+      up_down:int:上下行标志 1上行 0下行
+      site_name:string:站点名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+### 38.2. 客流量动态-站点客流量排名
+```yaml
+@get: /monitor/passengers/tops?page=:page&size=:size?org_id=:org_id&team_id=:team_id&route_id=:route_id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  page:int:页码
+  size:int:页码大小
+  org_id:long:公司ID
+  team_id:long:车队ID
+  route_id:long:线路ID
+  begin:date:开始日期
+  end:date:结束日期
+
+@return:
+  code:int:操作码
+  data:object:分页信息
+    count:int:分页总大小
+    list:array<object>:客流信息
+      geton_number:int:上车人数
+      getoff_number:int:下车人数
+      up_down:int:上下行标志 1上行 0下行
+      site_name:string:站点名称
+  success:bool:是否成功
+  msg:string:操作提示
+```
+
+
+### 38.3. 客流量动态-线路总客流量
+```yaml
+@get: /monitor/passengers/all?org_id=:org_id&team_id=:team_id&route_id=:route_id
+
+@header:
+  X-User-Agent:手机信息(必须)
+  Authorization:token令牌
+
+@params:
+  org_id:long:公司ID
+  team_id:long:车队ID
+  route_id:long:线路ID
+  begin:date:开始日期
+  end:date:结束日期
+
+@return:
+  code:int:操作码
+  data:array<object>:客流信息
+    geton_number:int:上车人数
+    getoff_number:int:下车人数
+    up_down:int:上下行标志 1上行 0下行
+    fmt_time:date:时间点
+  success:bool:是否成功
+  msg:string:操作提示
 ```
