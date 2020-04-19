@@ -1,8 +1,10 @@
 # SpringBoot JPA Demo
 
 SpringBoot 2.2.5.RELEASE
+
 Spring Data JPA
-并且扩展了Spring Data JPA复杂SQL查询，模仿MyBatis的Mapper
+
+并且扩展了Spring Data JPA复杂SQL查询，模仿MyBatis的Mapper，解决Spring Data JPA复杂条件的SQL的难题.
 
 
 ## 1. 开发环境
@@ -36,11 +38,11 @@ Spring Data JPA
 
 |模块名称|英文|Java包命名|
 |---|---|---|
-|公共模块|common|com.bms.common|
-|系统管理模块|sys|com.bms.sys|
-|公交行业管理系统|industry|com.bms.industry|
-|公交综合运行监测与应急响应系统|monitor|com.bms.monitor|
-|公交统计决策分析系统|statis|com.bms.statis|
+|公共模块|core|com.springboot.jpa.demo.core|
+|系统管理模块|sys|com.springboot.jpa.demo.sys|
+|模块1|module1|com.springboot.jpa.demo.module1|
+|模块2|module2|com.springboot.jpa.demo.module2|
+|模块3|module3|com.springboot.jpa.demo.module3|
 
 ## 3. 错误码规范
 

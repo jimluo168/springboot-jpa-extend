@@ -82,5 +82,6 @@ swagger:
   # true:启用swagger false关闭 线上系统需要关闭
   enabled: true
 
+# 自定义Mapper 模仿Mybatis的Mapper 增强Spring Data JPA对于复杂SQL的处理
 mapper:
   base-packages: com.springboot.jpa.demo
