@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.springboot.jpa.demo.sys.dao.MenuMapper" desc="系统管理-菜单管理">
+
+
+    <findPermissionCodeByUserId type="sql" desc="查找用户拥有的权限编码">
+        <![CDATA[
+            SELECT distinct permission_code FROM menus m
+            inner join role_menus rm on rm.menu_id  = m.id
+            inner join roles r on r.id = rm.role_id
+            inner join users u on r.id = u.role_id
+            where u.id = :userId and m.type =2
+        ]]>
+    </findPermissionCodeByUserId>
+
+    <findByUserIdAndParentIdAndType type="sql" desc="菜单管理-查询当前菜单下我所拥有的tab页签">
+        <![CDATA[
+            select m.* from menus m
+            inner join role_menus rm on rm.menu_id = m.id
+            inner join users u on u.role_id = rm.role_id
+            where m.is_delete = 0
+            and m.type = :type
+            and u.id = :userId
+            and m.parent_id = :parentId
+        ]]>
+    </findByUserIdAndParentIdAndType>
+</mapper>

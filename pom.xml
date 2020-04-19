@@ -8,11 +8,11 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.bms</groupId>
-    <artifactId>IndustryManagement-Backend</artifactId>
+    <groupId>com.springboot.jpa.demo</groupId>
+    <artifactId>springboot-jpa-extend</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>IndustryManagement-Backend</name>
-    <description>IndustryManagement Backend Project</description>
+    <name>springboot jpa demo</name>
+    <description>SpringBoot+Spring Data JPA+模仿mybatis Mapper</description>
 
     <properties>
         <java.version>1.8</java.version>

@@ -4,10 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-wz97llvqp9qjdkfq38o.mysql.rds.aliyuncs.com:3306/bms_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
-    #    url: jdbc:mysql://rm-wz97llvqp9qjdkfq38o.mysql.rds.aliyuncs.com:3306/bms_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: bms_dba
-    password: b4Jc70FcnDcNhXOs
+    url: jdbc:mysql://localhost:33306/springboot_jpa_demo_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: springboot_jpa_demo_dba
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
@@ -72,41 +71,16 @@ flake:
   worker: 1
 
 session:
-  # 有效期 30天
-  expiry-time: 2592000
+  # 有效期 秒
+  expiry-time: 7200
 
 oss:
-  # 存储仓库 目录
-  repo: /home/zouyongcan/Desktop/bms-repo
+  # OSS文件存储仓库 目录
+  repo: ./oss-repo
 
 swagger:
   # true:启用swagger false关闭 线上系统需要关闭
   enabled: true
 
-sync:
-  # 贵阳公交数据同步接口
-  bus:
-    enabled: false
-    base: http://118.190.63.181:8888
-    # 每天凌晨24点同步
-    cron: 0 0 16 * * ?
-    username: 123
-    password: 123
-  # 数据转发
-  data-forward:
-    enabled: false
-    host: 222.85.139.247
-    port: 10006
-    access-key: test1
-
-# 定时任务
-job:
-  bussite:
-    # 每天凌晨3点进行缓存
-    cron: 0 0 19 * * ?
-  busvehicle:
-    # 每天凌晨3点进行缓存
-    cron: 0 0 19 * * ?
-
 mapper:
-  base-packages: com.bms
+  base-packages: com.springboot.jpa.demo

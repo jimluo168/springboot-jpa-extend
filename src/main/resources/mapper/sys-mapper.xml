@@ -1,55 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper namespace="com.bms.common.dao.DaoCmd" desc="系统管理">
-    <organization_page type="hql">
-        <![CDATA[
-            from Organization o
-            where o.deleted = 0
-            <#if name?? && name!=''>
-                and o.name like '%'||:name||'%'
-            </#if>
-            <#if level??>
-                and o.level = :level
-            </#if>
-            <#if status??>
-                and o.status = :status
-            </#if>
-            order by o.createDate desc
-        ]]>
-    </organization_page>
+<mapper namespace="com.springboot.jpa.demo.core.dao.DaoCmd" desc="系统管理">
 
-    <role_page type="hql">
-        <![CDATA[
-            from Role r
-            where deleted = 0
-            <#if name?? && name!=''>
-                and r.name like '%'||:name||'%'
-            </#if>
-            <#if remark?? && remark!=''>
-                and r.remark like '%'||:remark||'%'
-            </#if>
-            order by r.createDate desc
-        ]]>
-    </role_page>
-
-    <user_page type="hql">
-        <![CDATA[
-            from User u
-            where deleted = 0
-            <#if account?? && account!=''>
-                and u.account like '%'||:account||'%'
-            </#if>
-            <#if realName?? && realName!=''>
-                and u.realName like '%'||:realName||'%'
-            </#if>
-            <#if organization?? && organization.name!=''>
-                and u.organization.name like '%${organization.name}%'
-            </#if>
-            <#if status??>
-                and u.status = :status
-            </#if>
-            order by u.createDate desc
-        ]]>
-    </user_page>
 
     <menu_findPermissionCodeByUserId type="sql" desc="查找用户拥有的权限编码">
         <![CDATA[

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.springboot.jpa.demo.sys.dao.RoleMapper" desc="系统管理-角色管理">
+
+    <findAll type="hql" desc="分页查询">
+        <![CDATA[
+            from Role r
+            where r.deleted = 0
+            <#if name?? && name!=''>
+                and r.name like '%'||:name||'%'
+            </#if>
+            <#if remark?? && remark!=''>
+                and r.remark like '%'||:remark||'%'
+            </#if>
+            order by r.createDate desc
+        ]]>
+    </findAll>
+</mapper>

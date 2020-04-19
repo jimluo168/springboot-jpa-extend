@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.springboot.jpa.demo.sys.dao.DictMapper" desc="系统管理-字典管理">
+
+    <findAll type="hql" desc="根据字典编码查找字典信息">
+        <![CDATA[
+            from Dictionary o
+            where o.deleted = 0
+            <#if code?? && code!=''>
+                and o.code = :code
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </findAll>
+</mapper>

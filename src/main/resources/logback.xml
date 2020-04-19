@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.bms" level="INFO"/>
+    <logger name="com.springboot.jpa.demo" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

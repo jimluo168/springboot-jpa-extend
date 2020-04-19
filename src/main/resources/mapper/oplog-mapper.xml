@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.springboot.jpa.demo.sys.dao.OpLogMapper" desc="系统管理-操作日志">
+
+    <findAll type="hql" desc="分页查询">
+        <![CDATA[
+            from OperationLog o
+            where o.deleted = 0
+            <#if account?? && account!=''>
+                and o.account like '%'||:account||'%'
+            </#if>
+            <#if realName?? && realName!=''>
+                and o.realName like '%'||:realName||'%'
+            </#if>
+            <#if module?? && module!=''>
+                and o.module like '%'||:module||'%'
+            </#if>
+            <#if funcName?? && funcName!=''>
+                and o.funcName like '%'||:funcName||'%'
+            </#if>
+            <#if params?? && params!=''>
+                and o.params like '%'||:params||'%'
+            </#if>
+            <#if ip?? && ip!=''>
+                and o.ip like '%'||:ip||'%'
+            </#if>
+            <#if begin?? && end??>
+                and o.createDate between :begin and :end
+            </#if>
+            order by o.createDate desc
+        ]]>
+    </findAll>
+</mapper>
