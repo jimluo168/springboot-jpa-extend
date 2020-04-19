@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-//@Transactional
+@Transactional
 class UserServiceTest {
 
     @Autowired

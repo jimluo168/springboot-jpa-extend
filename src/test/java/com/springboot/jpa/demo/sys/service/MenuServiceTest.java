@@ -18,7 +18,7 @@ import java.util.List;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-//@Transactional
+@Transactional
 class MenuServiceTest {
 
     @Autowired
