@@ -11,6 +11,7 @@ import com.bms.common.domain.PageRequest;
 import com.bms.common.util.JpaUtils;
 import com.bms.common.util.StringsUtils;
 import com.bms.entity.User;
+import com.bms.sys.dao.UserMapper;
 import com.bms.sys.dao.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +35,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final FlakeId flakeId;
-    private final HibernateDao hibernateDao;
+    //    private final HibernateDao hibernateDao;
+    private final UserMapper userMapper;
 
     public SessionInfo loginValidate(String account, String passwd) {
         User user = userRepository.findByAccount(account);
@@ -69,8 +71,9 @@ public class UserService {
         return presentUser;
     }
 
-    public PageList<User> page(PageRequest pageRequest, Map<String, Object> queryParams) {
-        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, queryParams));
+    public PageList<User> page(PageRequest pageRequest, User user) {
+//        return hibernateDao.findAll(pageRequest, new DaoCmd(Constant.MAPPER_USER_PAGE, queryParams));
+        return userMapper.findAll(pageRequest, user);
     }
 
     public User updateById(Long id, User updateBody) {

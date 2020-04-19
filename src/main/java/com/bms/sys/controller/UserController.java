@@ -55,7 +55,7 @@ public class UserController {
     @RequiresPermissions("user_list")
     @GetMapping("/list")
     public Result<PageList<User>> list(PageRequest pageRequest, User user) throws IllegalAccessException {
-        return ok(userService.page(pageRequest, BeanMapper.toMap(user)));
+        return ok(userService.page(pageRequest, user));
     }
 
     @OpLog("详情")
